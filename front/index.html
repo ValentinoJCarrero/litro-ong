@@ -13,7 +13,7 @@
 
     <script>
         document.getElementById('boton').onclick = () => {
-            fetch('http://localhost:3000/devs/')
+            fetch('https://litro-ong.onrender.com/devs')
                 .then(response => {
                     if(response.ok) {
                         return response.text();
