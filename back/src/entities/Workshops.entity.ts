@@ -1,5 +1,3 @@
-/**Talleres	Pk	ID_Talleres	uuid		Nombre			Profesor/a			Imagen			date			descripcion		Clave	horarios	Tipo */
-
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
