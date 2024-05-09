@@ -1,14 +1,37 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ButtonPrimary from '../components/Buttons/ButtonPrimary.astro';
+import ButtonSecondary from '../components/Buttons/ButtonSecondary.astro';
+import ButtonCTA from '../components/Buttons/ButtonCTA.astro';
+const handleClick = () =>{
+	console.log("hola soy boton secundario");
+}
 ---
 
 <Layout title="Inicio - Un Litro Alta Gracia.">
 	<main>
-		<ButtonPrimary title="boton reutilizable"/>
+		<ButtonPrimary title="boton primario" />
+		<ButtonSecondary title="boton secundario" idEvent="btn"/>
+		<ButtonCTA title="boton CTA"/>
 	</main>
 </Layout>
-
+<script>
+	function handleClick() {
+	  console.log('¡click here...!')
+	}
+  
+	const button = document.getElementById('btn')
+  
+	button?.addEventListener('click', handleClick)
+</script><script>
+	function handleClick() {
+	  console.log('¡click here...!')
+	}
+  
+	const button = document.getElementById('button')
+  
+	button?.addEventListener('click', handleClick)
+</script>
 <style>
 	main {
 		
