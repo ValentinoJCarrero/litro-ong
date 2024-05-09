@@ -1,10 +1,10 @@
 ---
-const {title} = Astro.props;
+const {title, idEvent} = Astro.props;
 
 ---
-<div id="divBoton">
-        <button class="bg-primary text-textPrimary px-10 py-2 rounded-full text-lg shadow-lg hover:scale-105 focus:shadow-none font-medium">{title}</button>
-</div>
+
+<button  class="bg-primary text-textPrimary px-10 py-2 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium" id={idEvent}>{title}</button>
+
 
 <style>
         button:focus{

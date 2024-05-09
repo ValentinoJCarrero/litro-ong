@@ -1,0 +1,14 @@
+---
+const {title, idEvent} = Astro.props;
+
+
+---
+
+<button class="bg-secondary text-textSecondary px-10 py-2 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium" id={idEvent}>{title}</button>
+
+
+<style>
+        button:focus{
+                filter: brightness(95%)
+        }
+</style>
