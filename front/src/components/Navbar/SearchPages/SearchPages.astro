@@ -1,0 +1,46 @@
+---
+
+// remote last slash from pathname
+const { pathname } = Astro.url
+console.log(pathname);
+const normalizedPathName =
+	pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
+
+const pages = [
+	{ name: "QUIENES SOMOS", href: "/aboutMe" },
+	{ name: "TALLERES", href: "/workshops",  },
+	{ name: "DONDE AYUDAMOS", href: "/communityKitchens",active: normalizedPathName.startsWith("/communityKitchens") },
+    { name: "EVENTOS", href: "/events" },
+    { name: "NOTICIAS", href: "/news" },
+	
+].map((page) => ({
+	...page,
+	active: page.active ?? normalizedPathName === page.href,
+}))
+---
+
+<div class="h-full">
+	<div class="flex h-full w-full items-center justify-between ">
+		{
+			pages.map(({ name, href, active }, key) => (
+				<>
+					<a
+						href={href}
+						class:list={[
+							"text-lg px-3 font-medium text-textPrimary border-t-8 border-transparent hover:scale-105",
+							{ " bg-nalLink h-full border-t-8 border-textPrimary flex items-center": active },
+                        { "text-textPrimary": !active },
+						]}
+						id={`nav-link-${key}`}
+					>
+						<span class="z-10">{name}</span>
+					</a>
+					
+				</>
+			))
+		}
+		
+	</div>
+
+
+
