@@ -7,16 +7,15 @@ import dbConfig from './config/dbConfig';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
+    /* ConfigModule.forRoot({
       isGlobal: true,
       load: [dbConfig],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-
-      useFactory: (configService: ConfigService) =>
+    useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
-    }),
+    }), */
   ],
   controllers: [AppController],
   providers: [AppService],
