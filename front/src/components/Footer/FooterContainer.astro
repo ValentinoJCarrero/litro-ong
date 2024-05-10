@@ -1,7 +1,82 @@
 ---
+import Rrss from "../Rrss/Rrss.astro"
 import InputNewslatter from "./InputNewslatter/InputNewslatter.tsx"
+
+const pagesHomeFooter = [
+	{ name: "Quienes Somos", href: "/aboutMe" },
+	{ name: "Talleres", href: "/workshops",  },
+	{ name: "Donde Ayudamos", href: "/communityKitchens" },
+    { name: "Eventos", href: "/events" },
+    { name: "Noticias", href: "/news" },
+]
+const pagesLinksFooter = [
+	{ name: "Quiero ser Socio", href: "/" },
+	{ name: "Quiero ser Voluntario", href: "/",  },
+	{ name: "Quiero ser Sponsor", href: "/" },
+]
+const pagesLoginFooter = [
+	{ name: "Ingresar", href: "/" },
+	{ name: "Registrarse", href: "/",  },
+]
+
 ---
-<div class="h-[30rem] bg-backgroundGrey w-full absolute bottom-0">
-    <h1>Footer</h1>
-    <InputNewslatter/>
+<div class="h-[30rem] bg-backgroundGrey w-full relative bottom-0 text-textTertiary">
+    <div class="flex flex-row w-full h-full p-10">
+        <div class="w-1/2 flex flex-col p-10">
+            <div class="h-4/5 flex flex-row">
+                <div class="w-1/3 h-full">
+                    <h5 class="text-xl font-semibold">Inicio</h5>
+                    <ul class="flex flex-col justify-between">
+                        {
+                            pagesHomeFooter.map(({ name, href,}, key) => (
+                                <li class="my-3">
+                                    <a href={href} id={`footer-link-${key}`} >{name}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div class="w-1/3 h-full">
+                    <h5 class="text-xl font-semibold">Links</h5>
+                    <ul class="flex flex-col justify-between">
+                        {
+                            pagesLinksFooter.map(({ name, href,}, key) => (
+                                <li class="my-3">
+                                    <a href={href} id={`footer-link-${key}`} >{name}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+                <div class="w-1/3 h-full">
+                    <h5 class="text-xl font-semibold">¿No Ingresaste?</h5>
+                    <ul class="flex flex-col justify-between">
+                        {
+                            pagesLoginFooter.map(({ name, href,}, key) => (
+                                <li class="my-3">
+                                    <a href={href} id={`footer-link-${key}`} >{name}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="h-1/5 flex  items-end">
+                <Rrss/>
+            </div>
+        </div>
+        <div class="p-10 flex flex-col justify-between">
+        <div class="w-1/2">
+            <h4 class="text-2xl font-semibold mb-10">Subscribite al Newslatter</h4>
+            <InputNewslatter/>
+        </div>
+        <div  >
+            <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5>
+            <p>Esta Pagina esta Realizado por Simon G. Flores - Miguel Tapia - Lucas Di Fulvio - 
+                Valentino Joel Carrero - Nicolas Addamo - Julian Magallanes
+                <br>Version N° 1.01.01
+            </p>
+        </div>
+        </div>
+    </div>
 </div>
