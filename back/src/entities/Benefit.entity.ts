@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity({ name: 'Benefits' })
-export class Benefits {
+export class Benefit {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
