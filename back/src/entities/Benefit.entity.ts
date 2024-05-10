@@ -1,10 +1,8 @@
-/**Talleres	Pk	ID_Talleres	uuid		Nombre			Profesor/a			Imagen			date			descripcion		Clave	horarios	Tipo */
-
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity({ name: 'Workshops' })
-export class Workshops {
+@Entity({ name: 'Benefits' })
+export class Benefit {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
@@ -12,17 +10,14 @@ export class Workshops {
   name: string;
 
   @Column({ type: 'varchar', nullable: false })
-  teacher: string;
+  logo: string;
 
   @Column({ type: 'varchar', nullable: false })
-  image: string;
+  address: string;
 
   @Column({ type: 'varchar', nullable: false })
-  date: string;
+  validity: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  horarios: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  description: string;
+  @Column({ type: 'varchar', nullable: true })
+  description?: string;
 }

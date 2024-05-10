@@ -1,14 +1,42 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ButtonPrimary from '../components/Buttons/ButtonPrimary.astro';
+import ButtonSecondary from '../components/Buttons/ButtonSecondary.astro';
+import ButtonCTA from '../components/Buttons/ButtonCTA.astro';
+import Card from '../components/Cards/Card.astro';
+import imageCard from  "../assets/image55.jpeg"
+import { Image } from 'astro:assets';
+
 ---
 
 <Layout title="Inicio - Un Litro Alta Gracia.">
-	<main>
-		<ButtonPrimary title="boton reutilizable"/>
+	<main class="flex flex-col">
+		<ButtonPrimary title="boton primario" />
+		<ButtonSecondary title="boton secundario" idEvent="btn"/>
+		<ButtonCTA title="boton CTA" idEvent="buttonLarge"/>
+		<Card title='Titulo de Card' subtitle='Subtitulo de card' href='' calendar='Fecha' location='Ubicacion'>
+		<Image src={imageCard} alt='Titulo de Card' class="rounded-3xl"/>
+		</Card>
+		<ButtonCTA title="boton CTA" idEvent="buttonLarge"/>
 	</main>
 </Layout>
-
+<script>
+	function handleClick() {
+	  console.log('¡click here...!')
+	}
+  
+	const button = document.getElementById('btn')
+  
+	button?.addEventListener('click', handleClick)
+</script><script>
+	function handleClick() {
+	  console.log('¡click here...!')
+	}
+  
+	const button = document.getElementById('button')
+  
+	button?.addEventListener('click', handleClick)
+</script>
 <style>
 	main {
 		

@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity({ name: 'Benefits' })
-export class Benefits {
+@Entity({ name: 'Sponsors' })
+export class Sponsor {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
@@ -11,13 +11,4 @@ export class Benefits {
 
   @Column({ type: 'varchar', nullable: false })
   logo: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  address: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  validity: string;
-
-  @Column({ type: 'varchar', nullable: true })
-  description?: string;
 }
