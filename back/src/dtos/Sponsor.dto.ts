@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CollaboratingCompany {
+export class SponsorDto {
   @IsNotEmpty()
   @IsString()
   name: string;

@@ -1,17 +1,17 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class WorkshopsDto {
+export class EventDto {
   @IsNotEmpty()
   @IsString()
-  name: string;
+  title: string;
 
   @IsNotEmpty()
   @IsString()
-  teacher: string;
+  subtitle: string;
 
   @IsNotEmpty()
   @IsString()
-  image: string;
+  address: string;
 
   @IsNotEmpty()
   @IsString()
@@ -19,9 +19,18 @@ export class WorkshopsDto {
 
   @IsNotEmpty()
   @IsString()
-  horarios: string;
+  description: string;
 
   @IsNotEmpty()
   @IsString()
-  description: string;
+  image: string;
+
+  @IsNotEmpty()
+  @IsString()
+  timeStart: string;
+
+  @IsNotEmpty()
+  @IsString()
+  timeEnd: string;
+  // volunteers:
 }

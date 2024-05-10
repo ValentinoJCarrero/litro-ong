@@ -1,26 +1,35 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity({ name: 'Workshops' })
-export class Workshops {
+@Entity({ name: 'Events' })
+export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @Column({ type: 'varchar', nullable: false })
-  name: string;
+  title: string;
 
   @Column({ type: 'varchar', nullable: false })
-  teacher: string;
+  subtitle: string;
 
   @Column({ type: 'varchar', nullable: false })
-  image: string;
+  address: string;
 
   @Column({ type: 'varchar', nullable: false })
   date: string;
 
   @Column({ type: 'varchar', nullable: false })
-  horarios: string;
+  description: string;
 
   @Column({ type: 'varchar', nullable: false })
-  description: string;
+  image: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  timeStart: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  timeEnd: string;
+
+  //@Column()
+  //volunteers?: string;
 }

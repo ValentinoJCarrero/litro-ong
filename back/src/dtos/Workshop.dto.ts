@@ -1,22 +1,27 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class BenefitsDto {
+export class WorkshopDto {
   @IsNotEmpty()
   @IsString()
   name: string;
 
   @IsNotEmpty()
   @IsString()
-  logo: string;
+  teacher: string;
 
   @IsNotEmpty()
   @IsString()
-  address: string;
+  image: string;
 
   @IsNotEmpty()
   @IsString()
-  validity: string;
+  date: string;
 
+  @IsNotEmpty()
   @IsString()
-  description?: string;
+  horarios: string;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
 }
