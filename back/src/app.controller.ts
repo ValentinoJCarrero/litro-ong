@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('callback')
   callback(@Res() res) {
     res.redirect('https://litro-ong.vercel.app');
   }
