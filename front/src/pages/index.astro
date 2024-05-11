@@ -11,9 +11,6 @@ import { Image } from "astro:assets";
 import CarruselFromHome from "../components/fromHome/CarruselFromHome/CarruselFromHome.astro";
 import SectionInformation from "../components/fromHome/SectionInformation/SectionInformation.astro";
 
-import CartitaPrueba from "../components/CartitaPrueba.astro";
-import { getCollection } from "astro:content";
-const posts = await getCollection("tips");
 
 
 ---
@@ -22,20 +19,7 @@ const posts = await getCollection("tips");
   <main>
     <CarruselFromHome />
 	<SectionInformation />
-	<section>
-
-		{
-			posts.map((post:any) => (
-				<CartitaPrueba
-					image={post.data.image}
-					title={post.data.title}
-					question={post.data.question}
-					description={post.data.description}
-				/>
-				
-			))
-		}
-</sect>
+	
   </main>
 </Layout>
 
