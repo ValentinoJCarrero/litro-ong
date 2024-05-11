@@ -18,5 +18,5 @@ export class BenefitDto {
   validity: string;
 
   @IsString()
-  description?: string;
+  description: string;
 }
