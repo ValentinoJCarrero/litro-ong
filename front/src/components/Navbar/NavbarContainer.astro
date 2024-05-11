@@ -15,6 +15,10 @@ import ButtonTextPrimary from "../Buttons/ButtonTextPrimary.astro";
     <SearchPages/>
     <div>
         <ButtonSecondary title="Dona"/>
-        <ButtonTextPrimary  title="INGRESAR"/>
+        <ButtonTextPrimary  title="INGRESAR" idEvent="buttonLogin"/>
+        <script>
+            const boton = document.getElementById('buttonLogin');
+            boton?.addEventListener ('click', () => {window.location.href = 'https://litro-ong.onrender.com/login'});
+        </script>
     </div>
 </div>
