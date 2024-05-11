@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { NewsModule } from './modules/news/news.module';
+import { SponsorModule } from './modules/sponsor/sponsor.module';
+import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
 
 @Module({
@@ -17,9 +20,11 @@ import dbConfig from './config/dbConfig';
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
+    NewsModule,
+    SponsorModule,
+    BenefitModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-``;
