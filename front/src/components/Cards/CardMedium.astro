@@ -17,7 +17,7 @@ const { href, title, subtitle, calendar, location} = Astro.props;
 
 <div class="h-[30rem] w-[25rem] list-none rounded-3xl  shadow-3xl hover:shadow-4xl"> 
 <!-- <div class="h-96 w-80 rounded-3xl shadow-3xl hover:shadow-4xl"> -->
-	<a href={href}>
+	<!-- <a href={href}> -->
 	<slot />
 	<Image src={rectangle} alt="fondo card" class="relative bottom-80 z-0"/>
 	<div class=" relative bottom-[32rem] z-20 ">
@@ -43,5 +43,5 @@ const { href, title, subtitle, calendar, location} = Astro.props;
 			<h6 class="font-semibold m-4">Clickea para ver mas</h6>
 		</div>
 	</div>
-	</a>
+	<!-- </a> -->
 </div>
