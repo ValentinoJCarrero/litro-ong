@@ -2,24 +2,31 @@
 import CardMedium from "../../../components/Cards/CardMedium.astro";
 import imageCard from "../../../assets/image55.jpeg";
 import { getCollection } from "astro:content";
+import ButtonCTAPlus from "../../Buttons/ButtonCTAPlus.astro";
+import more from "../../../assets/more.svg";
 const noticias = await getCollection("notices");
 
 ---
 
 
+<section class=" flex flex-col gap-2 items-center justify-center m-2">
 
-<section class=" flex flex-row gap-10 items-center justify-center m-2">
-    {
-    noticias.map((noticia: any) => (
-      <CardMedium
-      title={noticia.data.title}
-        subtitle={noticia.data.subtitle}
-        href={noticia.data.href}
-        calendar={noticia.data.calendar}
-        location={noticia.data.location}
-      >
-        <img src={noticia.data.imagen} alt="image" class=" h-80 w-full object-cover rounded-3xl"/>
-        </CardMedium>
-    ))
-  }
+  <div class=" flex flex-row gap-10 items-center justify-center m-2">
+      {
+      noticias.map((noticia: any) => (
+        <CardMedium
+        title={noticia.data.title}
+          subtitle={noticia.data.subtitle}
+          href={noticia.data.href}
+          calendar={noticia.data.calendar}
+          location={noticia.data.location}
+        >
+          <img src={noticia.data.imagen} alt="image" class=" h-80 w-full object-cover rounded-3xl"/>
+          </CardMedium>
+      ))
+    }
+  </div>
+  <ButtonCTAPlus>
+    <img src={more.src} alt="click"  />
+  </ButtonCTAPlus>
 </section>
