@@ -10,19 +10,18 @@ const { title, description, question, image } = Astro.props;
 ---
 
 <article class="bg-red-500 mb-2">
-  <div class="bg-blue-200 p-6 m-8   flex flex-row">
-  <div class="w-1/2 m-2">
-    <h3 class="text-2xl">{question}</h3>
-
-    <h3 class="text-3xl font-bold mt-0.5   text-gray-900">
-      {title}
-    </h3>
-    <p class="text-lg">
-      {description}
-    </p>
-  </div>
-  <div>
-    <img src={image} alt={title} class="h-96" />
-  </div>
+  <div class="bg-blue-200 p-6 m-8 flex flex-row">
+    <div class="w-1/2 m-2 flex flex-col gap-5">
+      <h3 class=" text-base text-textTertiary font-semibold">{question}</h3>
+      <h3 class="text-3xl font-bold  text-textTertiary">
+        {title}
+      </h3>
+      <p class=" text-base font-normal text-textParagraph">
+        {description}
+      </p>
+    </div>
+    <div>
+      <img src={image} alt={title} class="h-96" />
+    </div>
   </div>
 </article>
