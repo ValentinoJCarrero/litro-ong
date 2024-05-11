@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import calendarIcon from  "../../assets/calendarIcon.svg"
+import locationIcon from  "../../assets/locationIcon.svg"
+import cursorIcon from  "../../assets/cursorIcon.svg"
+import rectangle from  "../../assets/rectangleCard.svg"
+interface Props {
+	title: string;
+	subtitle: string;
+	href: string;
+	calendar:string
+	location:string
+}
+
+const { href, title, subtitle, calendar, location} = Astro.props;
+---
+
+<div class="h-[30rem] w-[25rem] list-none rounded-3xl  shadow-3xl hover:shadow-4xl"> 
+<!-- <div class="h-96 w-80 rounded-3xl shadow-3xl hover:shadow-4xl"> -->
+	<a href={href}>
+	<slot />
+	<Image src={rectangle} alt="fondo card" class="relative bottom-80 z-0"/>
+	<div class=" relative bottom-[32rem] z-20 ">
+		<div class="m-9 ">
+			<h6 class="font-semibold">
+				{title}
+			</h6>
+			<p  class="mb-3">
+				{subtitle}
+			</p>
+		
+			<div class="flex">
+				<Image src={calendarIcon} alt="icono calendario"/>
+				<p class="font-semibold m-1">{calendar}</p>
+			</div>
+			<div class="flex">
+				<Image src={locationIcon} alt="icono ubicacion"/>
+				<p class="font-semibold m-1">{location}</p>
+			</div>
+		</div>
+		<div  class="flex justify-end relative bottom-8  m-4 ">
+			<Image src={cursorIcon} alt="icono cursor"/>
+			<h6 class="font-semibold m-4">Clickea para ver mas</h6>
+		</div>
+	</div>
+	</a>
+</div>
