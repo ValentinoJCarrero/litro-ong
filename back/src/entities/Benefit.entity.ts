@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity({ name: 'Benefits' })
+@Unique(['name'])
 export class Benefit {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
@@ -19,5 +20,5 @@ export class Benefit {
   validity: string;
 
   @Column({ type: 'varchar', nullable: true })
-  description?: string;
+  description: string;
 }
