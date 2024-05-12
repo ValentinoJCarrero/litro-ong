@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage} from "formik";
-import PostNews from "../../helpers/postNews.astro";
+/*import PostNews from "../../helpers/postNews.astro";*/
 
 
 
@@ -47,7 +47,7 @@ const FormNewsFormik = () => (
     initialValues={initialValues}
     validate={validate}
     onSubmit={(values, { setSubmitting }) => {
-      PostNews(JSON.stringify(values, null, 2))
+      /*PostNews(JSON.stringify(values, null, 2))*/
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         setSubmitting(false);
