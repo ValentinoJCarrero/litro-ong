@@ -5,27 +5,8 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../components/Buttons/ButtonPrimarySmall.astro";
 import DasboardLayouts from "../../layouts/DasboardLayouts.astro";
 import vectorIcon from "../../assets/vectorIcon.svg"
-const news = [
-    {UrlImage:"https://img.freepik.com/foto-gratis/cerrar-reportero-tomando-entrevista_23-2149183577.jpg?t=st=1715433851~exp=1715437451~hmac=b50a781ec26a44db62f965d1d3c6ce80dc2bb10608db32149f4068e580e386d9&w=1380",
-    title:"Subitulo de noticia",
-    subtitle:"Titulo de noticia",
-    date: "Mayo 09, 2024, Jueves",
-    location:"Alta Gracia, Córdoba",
-    href:"/dashboardAdmin/createNews"},
-    {UrlImage:"https://img.freepik.com/foto-gratis/cerrar-reportero-tomando-entrevista_23-2149183577.jpg?t=st=1715433851~exp=1715437451~hmac=b50a781ec26a44db62f965d1d3c6ce80dc2bb10608db32149f4068e580e386d9&w=1380",
-    title:"Subitulo de noticia",
-    subtitle:"Titulo de noticia",
-    date: "Mayo 09, 2024, Jueves",
-    location:"Alta Gracia, Córdoba",
-    href:"/dashboardAdmin/volunteers"},
-    {UrlImage:"https://img.freepik.com/foto-gratis/cerrar-reportero-tomando-entrevista_23-2149183577.jpg?t=st=1715433851~exp=1715437451~hmac=b50a781ec26a44db62f965d1d3c6ce80dc2bb10608db32149f4068e580e386d9&w=1380",
-    title:"Subitulo de noticia",
-    subtitle:"Titulo de noticia",
-    date: "Mayo 09, 2024, Jueves",
-    location:"Alta Gracia, Córdoba",
-    href:"/dashboardAdmin/volunteers"},
-    
-]
+import { getNews } from "../../helpers/getNews.astro";
+const news: { UrlImage: string; title: string; subtitle: string; date: string; location: string; href: string }[] = await getNews();
 ---
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
     <div class="flex flex-row h-screen bg-secondary">
