@@ -29,8 +29,8 @@ export class NewsDto {
   /**
    * @example https://url-imagen-principaaal.com/imagen.jpg
    */
-  @IsNotEmpty({ message: 'La imagen principal es requerida' })
-  @IsUrl()
+  //@IsNotEmpty({ message: 'La imagen principal es requerida' })
+  //@IsUrl()
   primaryImage: string;
 
   /**
