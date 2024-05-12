@@ -13,7 +13,7 @@ async function bootstrap() {
   );
   setupSwagger(app);
 
-  // app.use(auth(auth0Config));
+  app.use(auth(auth0Config));
 
   await app.listen(3000);
 }
