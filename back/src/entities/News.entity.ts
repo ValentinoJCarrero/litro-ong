@@ -7,18 +7,24 @@ export class News {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', length: 40, nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', length: 30, nullable: false })
   subtitle: string;
 
   @Column({ type: 'varchar', nullable: false })
+  primaryImage: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  secondaryImage: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  tertiaryImage: string;
+
+  @Column({ type: 'text', nullable: false })
   description: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  image: string;
-
-  @Column({ type: 'varchar', nullable: false })
-  date: string;
+  @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
+  date: Date;
 }

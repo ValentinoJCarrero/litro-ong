@@ -16,6 +16,7 @@ const config = {
   synchronize: true,
   logging: true,
   dropSchema: true,
+  timezone: 'America/Argentina/Cordoba',
 };
 
 export default registerAs(`dbConfig`, () => config);
