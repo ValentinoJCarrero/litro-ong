@@ -10,10 +10,10 @@ import { Image } from "astro:assets";
 
 import CarruselFromHome from "../components/fromHome/CarruselFromHome/CarruselFromHome.astro";
 import SectionInformation from "../components/fromHome/SectionInformation/SectionInformation.astro";
+import SectionTalleresDisponibles from "../components/fromHome/SectionTalleresDisponibles/SectionTalleresDisponibles.astro";
+import SectionUltimasNoticias from "../components/fromHome/SectionUltimasNoticias/SectionUltimasNoticias.astro";
+import SectionSponsors from "../components/fromHome/SectionSponsors/SectionSponsors.astro";
 
-import CartitaPrueba from "../components/CartitaPrueba.astro";
-import { getCollection } from "astro:content";
-const posts = await getCollection("tips");
 
 
 ---
@@ -22,61 +22,9 @@ const posts = await getCollection("tips");
   <main>
     <CarruselFromHome />
 	<SectionInformation />
-	<section>
-
-		{
-			posts.map((post:any) => (
-				<CartitaPrueba
-					image={post.data.image}
-					title={post.data.title}
-					question={post.data.question}
-					description={post.data.description}
-				/>
-				
-			))
-		}
-</sect>
+	<SectionTalleresDisponibles />
+	<SectionUltimasNoticias />
+	<SectionSponsors />
+	
   </main>
 </Layout>
-
-<!-- <style>
-	main {
-		/* height: 100vh; */
-		/* margin: auto; */
-	}
-</style> -->
-
-<!-- <main> -->
-<!-- <h1>HOLA</h1> -->
-<!-- <Carousel/> -->
-<!-- <ButtonPrimary title="boton primario" />
-	<ButtonSecondary title="boton secundario" idEvent="btn"/>
-	<ButtonCTA title="boton CTA" idEvent="buttonLarge"/>
-	<Card title='Titulo de Card' subtitle='Subtitulo de card' href='' calendar='Fecha' location='Ubicacion'>
-	<Image src={imageCard} alt='Titulo de Card' class="rounded-3xl"/>
-	</Card>
-	<ButtonCTA title="boton CTA" idEvent="buttonLarge"/> -->
-<!-- </main> -->
-<!-- <script>
-	function handleClick() {
-	  console.log('¡click here...!')
-	}
-  
-	const button = document.getElementById('btn')
-  
-	button?.addEventListener('click', handleClick)
-</script><script>
-	function handleClick() {
-	  console.log('¡click here...!')
-	}
-  
-	const button = document.getElementById('button')
-  
-	button?.addEventListener('click', handleClick)
-</script> -->
-<!-- <style>
-	main {
-		
-	}
-
-</style> -->

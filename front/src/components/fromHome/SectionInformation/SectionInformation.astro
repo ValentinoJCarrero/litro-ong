@@ -1,21 +1,18 @@
-<!-- ---
-
+---
+import CartitaPrueba from "../../../components/CartitaPrueba.astro";
+import { getCollection } from "astro:content";
+const posts = await getCollection("tips");
 ---
 
-<div>
-    <h1>
-        hola section
-    </h1>
-    <div>
-       {
-        tips.map((tip:any) => (
-            <div>
-                title={tip.data.title}
-						time={tip.data.pubDate}
-						tags={tip.data.tags}
-						slug={tip.slug}
-            </div>
-        ))
-       }
-    </div>
-</div> -->
+<section>
+  {
+    posts.map((post: any) => (
+      <CartitaPrueba
+        image={post.data.image}
+        title={post.data.title}
+        question={post.data.question}
+        description={post.data.description}
+      />
+    ))
+  }
+</section>

@@ -1,0 +1,23 @@
+---
+import CardSponsor from "../../Cards/CardSponsor.astro";
+import { getCollection } from "astro:content";
+
+const sponsorsList = await getCollection("sponsors");
+---
+
+<div>
+  <h3 class=" m-10  text-textTertiary text-2xl font-semibold tracking-widest">NUESTROS SPONSORS</h3>
+  <div class="gap-5 h-48 flex flex-row items-center justify-center my-20">
+    {
+      sponsorsList.map((sponsorUnit: any) => (
+        <CardSponsor>
+          <img
+            src={sponsorUnit.data.logo}
+            alt={sponsorUnit.data.name}
+            class="rounded-xl"
+          />
+        </CardSponsor>
+      ))
+    }
+  </div>
+</div>
