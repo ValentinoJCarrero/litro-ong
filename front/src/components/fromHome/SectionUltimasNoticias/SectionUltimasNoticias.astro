@@ -5,7 +5,8 @@ import { getCollection } from "astro:content";
 import ButtonCTAPlus from "../../Buttons/ButtonCTAPlus.astro";
 import more from "../../../assets/more.svg";
 const noticias = await getCollection("notices");
-
+import becerra from "../../../assets/BECERRAd.png"
+import { Image } from "astro:assets";
 ---
 
 <section class="my-20">
@@ -22,13 +23,13 @@ const noticias = await getCollection("notices");
           calendar={noticia.data.calendar}
           location={noticia.data.location}
           >
-          <img src={noticia.data.imagen} alt="image" class=" h-80 w-full object-cover rounded-3xl"/>
+          <Image src={becerra} alt="image" class=" h-80 w-full object-cover rounded-3xl"/>
           </CardMedium>
       ))
     }
   </div>
   <ButtonCTAPlus>
-    <img src={more.src} alt="click"  />
+    <Image src={more} alt="click"  />
   </ButtonCTAPlus>
 </div>
 </section>

@@ -30,16 +30,16 @@ const { href, title, subtitle, calendar, location} = Astro.props;
 			</p>
 		
 			<div class="flex">
-				<Image src={calendarIcon} alt="icono calendario"/>
+				<Image src={calendarIcon} alt={title} loading="lazy"/>
 				<p class="font-semibold m-1">{calendar}</p>
 			</div>
 			<div class="flex">
-				<Image src={locationIcon} alt="icono ubicacion"/>
+				<Image src={locationIcon} alt={title} loading="lazy"/>
 				<p class="font-semibold m-1">{location}</p>
 			</div>
 		</div>
 		<div  class="flex justify-end relative bottom-8  m-4 ">
-			<Image src={cursorIcon} alt="icono cursor"/>
+			<Image src={cursorIcon} alt={title} loading="lazy" decoding="async"/>
 			<h6 class="font-semibold m-4">Clickea para ver mas</h6>
 		</div>
 	</div>
