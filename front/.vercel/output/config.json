@@ -1,0 +1,66 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/dasboardAdmin",
+			"headers": {
+				"Location": "/"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/aboutMe\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/communityKitchens\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/dashboardAdmin\\/newsCreate\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/dashboardAdmin\\/volunteers\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/dashboardAdmin\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/events\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/news\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/workshops\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/dasboardAdmin\\/?$",
+			"dest": "_render"
+		}
+	]
+}

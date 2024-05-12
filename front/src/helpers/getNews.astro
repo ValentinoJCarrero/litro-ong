@@ -1,5 +1,5 @@
 ---
-async function getNews(): Promise<any> {
+export async function getNews(): Promise<any> {
     const response = await fetch('http://localhost:3000/news', {
       method: 'GET',
       headers: {
@@ -7,11 +7,10 @@ async function getNews(): Promise<any> {
       }
     });
   
-    const data = await response.json();
+    /*const data = await response.json();*/
+    const data = [{}]
+    console.log(data);
     return data;
   } 
   
-  export {
-    getNews
-  }
 ---
