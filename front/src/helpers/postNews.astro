@@ -1,0 +1,18 @@
+---
+async function postNews(newsResponse:any): Promise<any> {
+  const response = await fetch('http://localhost:3000/news', {
+    method: 'POST',
+    body: JSON.stringify(newsResponse), 
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  const data = await response.json();
+  return data;
+} 
+
+export {
+  postNews
+}
+---
