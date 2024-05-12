@@ -1,0 +1,36 @@
+---
+import ButtonCTA from './Buttons/ButtonCTA.astro';
+import ButtonCTASmall from './Buttons/ButtonCTASmall.astro';
+import ButtonCTAMedium from './Buttons/ButtonCTAMedium.astro';
+import click from '../assets/click.svg';
+
+
+export interface Props {
+  title: string;
+  description: string;
+  question: string;
+  image: string;
+}
+
+const { title, description, question, image } = Astro.props;
+---
+
+<article class=" mb-2">
+  <div class="bg-secondary p-6 flex flex-row items-center justify-around">
+    <div class="w-1/2 m-2 flex flex-col gap-5">
+      <h3 class="  text-textTertiary text-2xl font-semibold tracking-widest">{question}</h3>
+      <h3 class="text-4xl font-bold  text-textTertiary">
+        {title}
+      </h3>
+      <p class=" text-base font-normal text-textParagraph">
+        {description}
+      </p>
+      <ButtonCTAMedium title=`Conocer más` >
+        <img src={click.src} alt="click" class=" " />
+      </ButtonCTAMedium> 
+    </div>
+    <div>
+      <img src={image} alt={title} class="h-96 rounded-2xl" />
+    </div>
+  </div>
+</article>

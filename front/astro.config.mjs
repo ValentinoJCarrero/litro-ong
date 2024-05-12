@@ -5,6 +5,9 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    '/dasboardAdmin': '/'
+    },
   integrations: [tailwind(), react({
     experimentalReactChildren: true,
   })]
