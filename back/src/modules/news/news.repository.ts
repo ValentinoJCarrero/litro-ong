@@ -14,8 +14,8 @@ export class NewsRepository {
     return this.newsRepository.find();
   }
 
-  getOneNews(id: string): Promise<News> {
-    return this.newsRepository.findOne({ where: { id: id } });
+  getOneNews(title: string): Promise<News> {
+    return this.newsRepository.findOne({ where: { title: title } });
   }
 
   createNews(news: NewsDto): Promise<News> {
