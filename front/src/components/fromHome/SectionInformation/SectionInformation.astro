@@ -2,14 +2,14 @@
 import CartitaPrueba from "../../../components/CartitaPrueba.astro";
 import { getCollection } from "astro:content";
 const posts = await getCollection("tips");
-import becerra from "../../../assets/BECERRAd.png"
+import imgEjemplo from "../../../assets/pibePortada.jpg"
 ---
 
 <section>
   {
     posts.map((post: any) => (
       <CartitaPrueba
-        image={becerra}
+        image={imgEjemplo}
         title={post.data.title}
         question={post.data.question}
         description={post.data.description}
