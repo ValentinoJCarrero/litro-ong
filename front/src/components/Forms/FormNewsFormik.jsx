@@ -1,14 +1,14 @@
 import { Formik, Form, Field, ErrorMessage} from "formik";
-/*import PostNews from "../../helpers/postNews.astro";*/
+import {postNews} from "../../helpers/postNews";
 
 
 
 const initialValues = {
   title: "",
   subtitle: "",
-  primaryImage: null,
+ /* primaryImage: null,
   secundaryImage:null,
-  tertiaryImage: null,
+  tertiaryImage: null,*/
   description:""
 };
 
@@ -27,7 +27,7 @@ const validate = (values) => {
     errors.subtitle = "El subtitulo es requerido";
   } else if (values.subtitle.length < 10 ) {
     errors.subtitle = "El subtitulo debe tener minimo 10 caracteres";
-  }else if (values.subtitle.length > 40 ) {
+  }else if (values.subtitle.length > 30 ) {
     errors.subtitle = "El subtitulo debe tener maximo 30 caracteres";
   }
 
@@ -42,34 +42,39 @@ const validate = (values) => {
   return errors;
 };
 
-const FormNewsFormik = () => (
-  <Formik
-    initialValues={initialValues}
-    validate={validate}
-    onSubmit={(values, { setSubmitting }) => {
-      /*PostNews(JSON.stringify(values, null, 2))*/
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }, 400);
+
+  const FormNewsFormik = () => (
+    <Formik
+      initialValues={initialValues}
+      validate={validate}
+      onSubmit={(values, { setSubmitting }) => {
+        postNews(values, null, 2)
+        .then((data) => {
+          alert(JSON.stringify(data, null, 2));
+          setSubmitting(false);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setSubmitting(false);
+        });
     }}
   >
     <Form className="text-sm text-textParagraph h-full">
         <div className="flex flex-col">
             <label htmlFor="title" className="font-medium my-2 ">Titulo</label>
             <Field type="text" name="title" placeholder="Titulo de la noticia" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
-            <ErrorMessage name="title" component="p" />
+            <ErrorMessage name="title" component="span" className="text-warning" />
 
         </div>
         <div className="flex flex-col">
             <label htmlFor="title" className="font-medium my-2 ">Subtitulo</label>
             <Field type="text" name="subtitle" placeholder="Subtitulo de la noticia" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
-            <ErrorMessage name="subtitle" />
+            <ErrorMessage name="subtitle" component="span" className="text-warning" />
             
         </div>
-        <div className="flex flex-col">
+        {/*<div className="flex flex-col">
             <label htmlFor="image" className="font-medium my-2 ">Foto Principal</label>
-            <Field type="file" name="primaryImage" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" />
+            <Field type="file"  name="primaryImage" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" />
             <ErrorMessage name="primaryImage" />
         </div>
         <div className="flex flex-col">
@@ -81,11 +86,11 @@ const FormNewsFormik = () => (
             <label htmlFor="image" className="font-medium my-2 ">Foto secundaria 2</label>
             <Field type="file" name="tertiaryImage" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" />
             <ErrorMessage name="tertiaryImage" />
-        </div>
+</div>*/}
         <div className="flex flex-col h-1/3">
-            <label htmlFor="description" className="font-medium my-2 " >Descripcion</label>
+            <label htmlFor="description" className="font-medium my-2 ">Descripcion</label>
             <Field as="textarea" name="description" placeholder="Describe la noticia" className="h-full rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
-            <ErrorMessage name="description" />
+            <ErrorMessage name="description" component="span" className="text-warning"/>
         </div>
         <div className="my-3 w-full flex justify-end">
             <a href="/dashboardAdmin" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
