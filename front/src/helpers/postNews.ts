@@ -1,5 +1,5 @@
 export async function postNews(newsResponse:any): Promise<any> {
-  try{const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/news`, {
+  try{const response = await fetch(`https://litro-ong.onrender.com/news`, {
     
     method: 'POST',
     body: JSON.stringify(newsResponse), 
