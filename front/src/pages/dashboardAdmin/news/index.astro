@@ -1,14 +1,14 @@
 ---
 import { Image } from "astro:assets";
-import AsideMenuDasboard from "../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
-import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
-import ButtonPrimarySmall from "../../components/Buttons/ButtonPrimarySmall.astro";
-import DasboardLayouts from "../../layouts/DasboardLayouts.astro";
-import vectorIcon from "../../assets/vectorIcon.svg"
-import {getNews} from "../../helpers/getNews";
-import iconNews from "../../assets/logoOG.png"
-import ButtonWarningSmall from "../../components/Buttons/ButtonWarningSmall.astro"
-import { deleteNews } from "../../helpers/deleteNews";
+import AsideMenuDasboard from "../../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
+import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
+import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
+import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
+import vectorIcon from "../../../assets/vectorIcon.svg"
+import {getNews} from "../../../helpers/getNews";
+import iconNews from "../../../assets/logoOG.png"
+import ButtonWarningSmall from "../../../components/Buttons/ButtonWarningSmall.astro"
+
 const news: { UrlImage: string; title: string; subtitle: string; date: string; location: string; href: string, id:number}[] = await getNews();
 console.log(news);
 
@@ -61,7 +61,7 @@ console.log(news);
                 }
                 
                 <div class="w-full flex justify-center">
-                    <a href="/dashboardAdmin/newsCreate"><ButtonCTASmall title="Agregar Noticia"/></a>
+                    <a href="/dashboardAdmin/news/newsCreate"><ButtonCTASmall title="Agregar Noticia"/></a>
                 </div>
             </div>
             <div class="w-full flex justify-center mt-6">
@@ -73,7 +73,7 @@ console.log(news);
 
 <script>
 
-import { deleteNews } from "../../helpers/deleteNews";
+import { deleteNews } from "../../../helpers/deleteNews";
     document.addEventListener('DOMContentLoaded', () => {
         const buttons = document.querySelectorAll('button[id^="delete-"]');
         buttons.forEach(button => {

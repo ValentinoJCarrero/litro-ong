@@ -93,7 +93,7 @@ const validate = (values) => {
             <ErrorMessage name="description" component="span" className="text-warning"/>
         </div>
         <div className="my-3 w-full flex justify-end">
-            <a href="/dashboardAdmin" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
+            <a href="/dashboardAdmin/news" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
                 Anterior
             </a>
             <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Agregar</button>

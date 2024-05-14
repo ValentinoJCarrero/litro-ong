@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/montserrat';
 
 interface Props {
 	title: string;
@@ -22,12 +23,12 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style is:global>
-	@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+	/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');*/
 
 	:root {}
 html {
   box-sizing: border-box;
-  font-family: "Montserrat";
+  /*font-family: "Montserrat";*/
   
 }
 
@@ -38,7 +39,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  
+  font-family: 'Montserrat Variable', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
