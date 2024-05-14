@@ -11,7 +11,7 @@ const pages = [
 	{ name: "TALLERES", href: "/workshops",  },
 	{ name: "DONDE AYUDAMOS", href: "/communityKitchens",active: normalizedPathName.startsWith("/communityKitchens") },
     { name: "EVENTOS", href: "/events" },
-    { name: "NOTICIAS", href: "/dashboardAdmin" },
+    { name: "NOTICIAS", href: "/dashboardAdmin/news" },
 	
 ].map((page) => ({
 	...page,
@@ -27,7 +27,7 @@ const pages = [
 					<a
 						href={href}
 						class:list={[
-							"text-lg px-3 font-medium text-textPrimary hover:scale-105",
+							"text-lg mx-3 font-medium text-textPrimary hover:scale-105 transition-all",
 							{ " bg-nalLink h-full border-t-8 border-textPrimary flex items-center": active },
                         { "text-textPrimary": !active },
 						]}
