@@ -3,13 +3,15 @@ import ButtonCTA from './Buttons/ButtonCTA.astro';
 import ButtonCTASmall from './Buttons/ButtonCTASmall.astro';
 import ButtonCTAMedium from './Buttons/ButtonCTAMedium.astro';
 import click from '../assets/click.svg';
+import type { ImageFunction } from 'astro:content';
+import { Image } from 'astro:assets';
 
 
 export interface Props {
   title: string;
   description: string;
   question: string;
-  image: string;
+  image: ImageMetadata;
 }
 
 const { title, description, question, image } = Astro.props;
@@ -30,7 +32,7 @@ const { title, description, question, image } = Astro.props;
       </ButtonCTAMedium> 
     </div>
     <div>
-      <img src={image} alt={title} class="h-96 rounded-2xl" />
+      <Image src={image} alt={title} class="h-96 rounded-2xl" />
     </div>
   </div>
 </article>

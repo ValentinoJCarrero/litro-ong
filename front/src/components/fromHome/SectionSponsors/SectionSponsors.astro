@@ -1,7 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import CardSponsor from "../../Cards/CardSponsor.astro";
 import { getCollection } from "astro:content";
-
+import becerra from "../../../assets/BECERRAd.png"
 const sponsorsList = await getCollection("sponsors");
 ---
 
@@ -11,8 +12,8 @@ const sponsorsList = await getCollection("sponsors");
     {
       sponsorsList.map((sponsorUnit: any) => (
         <CardSponsor>
-          <img
-            src={sponsorUnit.data.logo}
+          <Image
+            src={becerra}
             alt={sponsorUnit.data.name}
             class="rounded-xl"
           />

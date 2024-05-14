@@ -5,8 +5,11 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../components/Buttons/ButtonPrimarySmall.astro";
 import DasboardLayouts from "../../layouts/DasboardLayouts.astro";
 import vectorIcon from "../../assets/vectorIcon.svg"
-/*import { getNews } from "../../helpers/getNews.astro";
-const news: { UrlImage: string; title: string; subtitle: string; date: string; location: string; href: string }[] = await getNews();*/
+import {getNews} from "../../helpers/getNews";
+import iconNews from "../../assets/logoOG.png"
+import ButtonCTA from "../../components/Buttons/ButtonCTA.astro";
+const news: { UrlImage: string; title: string; subtitle: string; date: string; location: string; href: string }[] = await getNews();
+console.log(news);
 ---
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
     <div class="flex flex-row h-screen bg-secondary">
@@ -14,31 +17,38 @@ const news: { UrlImage: string; title: string; subtitle: string; date: string; l
             <AsideMenuDasboard><h3 class="text-3xl font-medium text-tertiary">Menu de Control</h3></AsideMenuDasboard>
         </div>
         <div class="2-m h-full  w-full px-14 py-10 flex flex-col ">
-            <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 h-full flex flex-col justify-between">
-                <h4 class="text-2xl font-medium text-tertiary mb-10 w-full text-end">Seccion Noticias</h4>
-                <ul>
-                    {/*
-                        news.map(({UrlImage, title, subtitle,date,location,href}, key)=>
-                        <>
-                        <a class="flex flex-row justify-between p-10 items-center text-sm" id={`card${key}`} href={href}>
-                        <div class="flex">
-                            <img src={UrlImage} alt={title} class="w-20 h-20 rounded-full object-cover mr-4"/>
-                            <div >
-                                <h6 class="text-tertiary text-base font-semibold">{title}</h6>
-                                <p>{subtitle}</p>
-                                <p>{date}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>{location}</p>
-                        </div>
-                            <Image src={vectorIcon} alt="icono de vector">
-                    </a>
-                    </hr>
-                    </>
-                    )
-                */}
-                </ul>
+            <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 h-5/6 flex flex-col justify-between">
+                <h4 class="text-2xl font-medium text-tertiary mb-10 w-full text-end ">Seccion Noticias</h4>
+                {!news &&
+                    <p class="text-tertiary w-full text-center text-3xl">No hay noticias disponibles.</p>
+                }
+                {news &&
+                    <ul class="overflow-auto max-h-[calc(100vh-120px)]">
+                        {news.map(({UrlImage, title, subtitle, date, location}, index) =>
+                            <li class="flex flex-row flex-nowrap justify-between pr-10 items-center">
+                                <a class="flex flex-row justify-between p-10 items-center text-sm w-full" id={`card${index}`} href={`/dashboardAdmin/${title}`}>
+                                    <div class="flex">
+                                        <Image src={iconNews} alt={title} class="w-20 h-20 rounded-full object-cover mr-4"/>
+                                        <div>
+                                            <h6 class="text-tertiary text-base font-semibold">{title}</h6>
+                                            <p>{subtitle}</p>
+                                            <p>{date}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p>{location}</p>
+                                    </div>
+                                    <Image src={vectorIcon} alt="icono de vector"/>
+                                </a>
+                                    {/*<ButtonCTA title="Eliminar" idEvent="ButtonDelete"/> */}
+                                    
+                            </li>
+                                <hr/>
+                        )}
+                    </ul>
+                    
+                }
+                
                 <div class="w-full flex justify-center">
                     <a href="/dashboardAdmin/newsCreate"><ButtonCTASmall title="Agregar Noticia"/></a>
                 </div>
