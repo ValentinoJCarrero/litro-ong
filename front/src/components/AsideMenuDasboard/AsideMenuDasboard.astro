@@ -9,7 +9,7 @@ const normalizedPathName =
 	pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
 
 const pages = [
-	{ name: "NOTICIAS", href: "/dashboardAdmin",hrefActive:"/dashboardAdmin/newsCreate" , active: false},
+	{ name: "NOTICIAS", href: "/dashboardAdmin/news",hrefActive:"/dashboardAdmin/news/newsCreate" , active: false},
 	{ name: "SECCION VOLUNTARIOS", href: "/dashboardAdmin/volunteers",  },
 	{ name: "SECCION SPONSOR", href: "/dashboardAdmin/sponsor",active: normalizedPathName.startsWith("/dashboardAdmin/sponsor") },
     { name: "SECCION MERENDEROS", href: "/" },
