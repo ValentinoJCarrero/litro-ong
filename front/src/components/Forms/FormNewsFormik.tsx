@@ -1,6 +1,14 @@
-import { Formik, Form, Field, ErrorMessage} from "formik";
+import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import {postNews} from "../../helpers/postNews";
 
+interface IFormValues {
+  title: string;
+  subtitle: string;
+  description: string;
+  /*  primaryImage: File | null;
+  secundaryImage: File | null;
+  tertiaryImage: File | null;*/
+}
 
 
 const initialValues = {
@@ -12,8 +20,8 @@ const initialValues = {
   description:""
 };
 
-const validate = (values) => {
-  const errors = {};
+const validate = (values:IFormValues) => {
+  const errors: Record<string, string> = {};
 
   if (!values.title) {
     errors.title = "El Titulo es requerido";
@@ -47,8 +55,8 @@ const validate = (values) => {
     <Formik
       initialValues={initialValues}
       validate={validate}
-      onSubmit={(values, { setSubmitting }) => {
-        postNews(values, null, 2)
+      onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
+        postNews(values)
         .then((data) => {
           alert(JSON.stringify(data, null, 2));
           setSubmitting(false);
