@@ -14,7 +14,7 @@ import { NewsService } from './news.service';
 import { NewsDto } from 'src/dtos/News.dto';
 import { News } from 'src/entities/News.entity';
 import { ImagesController } from '../storage/images.controller';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Noticias')
 @Controller('news')
@@ -53,6 +53,7 @@ export class NewsController {
     description:
       'Esta ruta crea una nueva noticia con los datos enviados por body',
   })
+ 
   @UseInterceptors(FileInterceptor('primaryImage')) 
   async createNews(  @Body() news: NewsDto, @Body() file: Express.Multer.File) {
     console.log("ENTRASTE AL POST")
