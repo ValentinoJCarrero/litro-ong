@@ -31,10 +31,10 @@ const pages = [
     <div class="p-10 w-full text-center">
         <slot />
     </div>
-    <div class="flex flex-col w-full items-start justify-between p-10">
+    <div class="flex flex-col w-full items-start justify-between px-10">
             {
                 pages.map(({ name, href, active, hrefActive}, key) => ( 
-                // pages.map(({ name, href, active}, key) => (
+
                     <>
                         <a
                             href={href}

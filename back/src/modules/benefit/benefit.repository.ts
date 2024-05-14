@@ -18,7 +18,7 @@ export class BenefitRepository {
     return this.benefitRepository.findOne({ where: { id: id } });
   }
 
-  createBenefit(benefit: BenefitDto): Promise<Benefit> {
+  createBenefit(benefit: BenefitDto) {
     return this.benefitRepository.save(benefit);
   }
 

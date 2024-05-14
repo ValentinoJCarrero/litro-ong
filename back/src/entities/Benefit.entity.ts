@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity({ name: 'Benefits' })
-@Unique(['name'])
+@Unique(['name', 'benefits'])
 export class Benefit {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
@@ -17,8 +17,11 @@ export class Benefit {
   address: string;
 
   @Column({ type: 'varchar', nullable: false })
-  validity: string;
+  benefits: string;
+
+  @Column({ type: 'date', nullable: true })
+  benefitEndDate?: Date;
 
   @Column({ type: 'varchar', nullable: true })
-  description: string;
+  description?: string;
 }

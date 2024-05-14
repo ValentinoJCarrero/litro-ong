@@ -1,5 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import {postNews} from "../../helpers/postNews";
+import  warningIcon from "../../assets/IconWarrning.svg"
+import CustomField from './CustomField';
 
 interface IFormValues {
   title: string;
@@ -67,16 +69,27 @@ const validate = (values:IFormValues) => {
         });
     }}
   >
+    {({ errors, touched }) => (
     <Form className="text-sm text-textParagraph h-full">
-        <div className="flex flex-col">
+       <div className="flex flex-col">
             <label htmlFor="title" className="font-medium my-2 ">Titulo</label>
-            <Field type="text" name="title" placeholder="Titulo de la noticia" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
+            <div className="flex w-full">
+              <Field type="text" name="title" placeholder="Titulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.title && touched.title ? 'block' : 'hidden'}`}/>
+              </div>
+            </div>
             <ErrorMessage name="title" component="span" className="text-warning" />
 
-        </div>
+    </div>
         <div className="flex flex-col">
             <label htmlFor="title" className="font-medium my-2 ">Subtitulo</label>
-            <Field type="text" name="subtitle" placeholder="Subtitulo de la noticia" className="rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
+            <div className="flex w-full">
+              <Field type="text" name="subtitle" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.subtitle && touched.subtitle ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.subtitle && touched.subtitle ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.subtitle && touched.subtitle ? 'block' : 'hidden'}`}/>
+            </div>
+            </div>
             <ErrorMessage name="subtitle" component="span" className="text-warning" />
             
         </div>
@@ -97,7 +110,12 @@ const validate = (values:IFormValues) => {
 </div>*/}
         <div className="flex flex-col h-1/3">
             <label htmlFor="description" className="font-medium my-2 ">Descripcion</label>
-            <Field as="textarea" name="description" placeholder="Describe la noticia" className="h-full rounded-md boder-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"/>
+            <div className="flex w-full">
+              <Field as="textarea" name="description" placeholder="Describe la noticia"  className={`w-full resize-none h-40 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.description && touched.description ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.description && touched.description ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.description && touched.description? 'block' : 'hidden'}`}/>
+            </div>
+            </div>
             <ErrorMessage name="description" component="span" className="text-warning"/>
         </div>
         <div className="my-3 w-full flex justify-end">
@@ -107,6 +125,7 @@ const validate = (values:IFormValues) => {
             <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Agregar</button>
         </div>
     </Form>
+    )}
   </Formik>
 );
 export default FormNewsFormik
