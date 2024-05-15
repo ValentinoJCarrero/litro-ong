@@ -6,7 +6,8 @@ export class SponsorDto {
   @MinLength(10, { message: 'El nombre debe tener al menos 10 caracteres' })
   name: string;
 
-  @IsNotEmpty()
-  @IsString()
+  //validado en el controller
   logo: string;
+
+
 }

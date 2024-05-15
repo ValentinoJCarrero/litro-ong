@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-
+import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, isNotEmpty, isString } from 'class-validator';
 export class NewsDto {
   /**
    * @example 'Logro histórico: Récord de donaciones!'
@@ -19,27 +18,28 @@ export class NewsDto {
   @MaxLength(30, { message: 'El subtiúlo debe tener menos de 30 caracteres' })
   subtitle: string;
 
-  ///**
-  // * @example https://url-imagen-principaaal.com/imagen.jpg
-  // */
-  //@IsNotEmpty({ message: 'La imagen principal es requerida' })
-  //@IsUrl()
-  //primaryImage: string;
 
-  ///**
-  // * @example https://url-imagen-secundaria.com/imagen.jpg
-  // */
-  //@IsOptional()
-  //@IsUrl()
-  //secondaryImage?: string;
-
-  ///**
-  // * @example https://url-imagen-terciaria.com/imagen.jpg
-  // */
-  //@IsOptional()
-  //@IsUrl()
-  //tertiaryImage?: string;
-
+/**
+* @example https://url-imagen-principaaal.com/imagen.jpg
+// */
+// @IsNotEmpty({ message: 'La imagen principal es requerida' })
+// @IsUrl({}, { message: 'La imagen principal debe ser una URL' })
+primaryImage: string;
+  
+  /**
+   * @example https://url-imagen-secundaria.com/imagen.jpg
+  */
+ @IsOptional()
+ @IsUrl()
+ secondaryImage?: string;
+ 
+ /**
+  * @example https://url-imagen-terciaria.com/imagen.jpg
+ */
+@IsOptional()
+@IsUrl()
+  tertiaryImage?: string;
+  
   /**
    * @example 'Este mes logramos una cifra récord en donaciones, gracias al apoyo incondicional de nuestra comunidad. ¡Gracias a todos por hacerlo posible!'
    */
