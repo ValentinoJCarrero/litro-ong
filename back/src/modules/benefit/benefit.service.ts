@@ -27,7 +27,7 @@ export class BenefitService {
     return benefitById;
   }
 
-  async createBenefit(benefit: BenefitDto): Promise<Benefit> {
+  async createBenefit(benefit: BenefitDto) {
     try {
       return await this.benefitRepository.createBenefit(benefit);
     } catch (error) {

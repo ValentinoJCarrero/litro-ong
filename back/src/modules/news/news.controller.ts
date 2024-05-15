@@ -7,7 +7,7 @@ import {
   ParseUUIDPipe,
   Post,
   UploadedFiles,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NewsService } from './news.service';
@@ -28,14 +28,13 @@ export class NewsController {
     private readonly imagesController: ImagesController,
   ) {}
 
-
   @Get()
   @ApiOperation({
     summary: 'Obtener todas las noticias',
     description: 'Esta ruta devuelve todas las noticias registradas',
   })
   getAllNews(): Promise<News[]> {
-    console.log("ENTRASTE AL GET")
+    console.log('ENTRASTE AL GET');
     return this.newsService.getAllNews();
   }
 
@@ -50,32 +49,34 @@ export class NewsController {
   }
 
   @Post('')
-@ApiOperation({
-  summary: 'Crear una nueva noticia (solo para administradores)',
-  description: 'Esta ruta crea una nueva noticia con los datos enviados por body',
-})
-@UseInterceptors(FilesInterceptor('files', 3)) 
-async createNews(@Body() news: NewsDto, @UploadedFiles() files: Express.Multer.File[]) {
-  console.log("ENTRASTE AL POST")
-  
-  if (files.length < 1) {
-    throw new BadRequestException('Debe cargarse al menos una imagen');
+  @ApiOperation({
+    summary: 'Crear una nueva noticia (solo para administradores)',
+    description:
+      'Esta ruta crea una nueva noticia con los datos enviados por body',
+  })
+  @UseInterceptors(FilesInterceptor('files', 3))
+  async createNews(
+    @Body() news: NewsDto,
+    @UploadedFiles() files: Express.Multer.File[],
+  ) {
+    if (files.length < 1) {
+      throw new BadRequestException('Debe cargarse al menos una imagen');
+    }
+
+    const uploadedImages = await Promise.all(
+      files.map((file) => this.imagesController.uploadImage(file)),
+    );
+    [news.primaryImage, news.secondaryImage, news.tertiaryImage] =
+      uploadedImages.map((image) => image.url);
+
+    // Validación manual del DTO
+    const errors = await validate(news);
+    if (errors.length > 0) {
+      throw new BadRequestException('La validación falló');
+    }
+
+    return this.newsService.createNews(news);
   }
-
-  const uploadedImages = await Promise.all(files.map(file => this.imagesController.uploadImage(file)));
-  [news.primaryImage, news.secondaryImage, news.tertiaryImage] = uploadedImages.map(image => image.url);
-
-  // Validación manual del DTO
-  const errors = await validate(news);
-  if (errors.length > 0) {
-    throw new BadRequestException('La validación falló');
-  }
-
-  return this.newsService.createNews(news);
-}
-
-
-
 
   @Delete(':id')
   @ApiOperation({

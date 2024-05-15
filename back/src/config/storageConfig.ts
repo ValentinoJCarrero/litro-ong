@@ -1,12 +1,5 @@
-
 import { config as dotenvconfig } from 'dotenv';
 dotenvconfig({ path: '.env' });
-console.log(process.env.FB_API_KEY)
-console.log(process.env.FB_AUTH)
-console.log(process.env.FB_PROJID)
-console.log(process.env.FB_BUCKET)
-console.log(process.env.FB_SENDER)
-console.log(process.env.FB_APPID)
 export const firebaseConfig = {
   apiKey: process.env.FB_API_KEY,
   authDomain: process.env.FB_AUTH,
