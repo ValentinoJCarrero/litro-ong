@@ -16,10 +16,6 @@ export class SponsorDto {
   @MaxLength(35, { message: 'La dirección debe tener menos de 35 caracteres' })
   name: string;
 
-  /**
-   * @example 'https://www.becerra/logo.com'
-   */
-  @IsNotEmpty()
-  @IsUrl()
+  //validado en el controller
   logo: string;
 }

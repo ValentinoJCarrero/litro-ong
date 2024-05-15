@@ -31,7 +31,7 @@ export class BenefitService {
     try {
       return await this.benefitRepository.createBenefit(benefit);
     } catch (error) {
-      if (error.message.includes('unicidad')) {
+      if ((error as any).message?.includes('unicidad')) {
         throw new ConflictException('Ya existe un beneficio con ese nombre');
       }
       throw error;
