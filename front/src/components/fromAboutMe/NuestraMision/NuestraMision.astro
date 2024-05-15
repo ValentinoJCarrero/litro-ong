@@ -1,9 +1,55 @@
 ---
-
+import bombilla from "../../../assets/bombilla.svg";
+import libro from "../../../assets/libro.svg";
+import estrella from "../../../assets/estrella.svg";
+import comunidad from "../../../assets/comunidad.svg";
+import manosUnidas from "../../../assets/manosUnidas.svg";
 ---
 
-<div>
-    <h4 class="text-textTertiary text-2xl font-semibold tracking-widest">NUESTRA MISION</h3>
-    <h3 class="text-4xl font-bold  text-textTertiary">Un mundo con más oportunidades es posible</h3>
-    <p class=" text-base font-normal text-textParagraph">EN DESARROLLO</p>
+<div class=" flex flex-col gap-11 ">
+  <div class=" flex flex-col w-2/3 gap-8 ml-52">
+    <h4 class="text-textTertiary text-2xl font-semibold tracking-widest">
+      NUESTRA MISION
+    </h4>
+    <h3 class="text-4xl font-bold text-textTertiary w-1/2">
+      Un mundo con más oportunidades es posible.
+    </h3>
+  </div>
+  <div class="flex flex-row  items-center justify-center gap-36">
+    <div
+      class="text-base font-normal text-textParagraph  w-1/2 flex flex-col ml-24 gap-8"
+    >
+      <div class="flex flex-row items-center gap-7">
+        <img src={bombilla.src} alt="bombilla" />
+        <p>
+          <b>Escuchamos todo tipo de ideas:</b> Estamos activamente buscando actividades
+          para ayudar a niños y familias.
+        </p>
+      </div>
+      <div class="flex flex-row items-center gap-7">
+        <img src={libro.src} alt="libro" />
+        <p>
+          <b>Calidad en Educación:</b> Implementamos diferentes tipos de talleres
+          para ayudar familias a progresar.
+        </p>
+      </div>
+      <div class="flex flex-row items-center gap-6">
+        <img src={estrella.src} alt="estrella" />
+        <p>
+          <b>Destacamos toda acción:</b> Encontrarás un grupo unido, diverso y con
+          ganas de progresar y que aceptará siempre el momento donde deseas participar
+          y ser parte de esta gran comunidad.
+        </p>
+      </div>
+      <div class="flex flex-row items-center gap-7">
+        <img src={comunidad.src} alt="comunidad" />
+        <p>
+          <b>Unidad social:</b> Siempre buscamos unir a personas de diferentes contextos,
+          promovemos el entendimiento mutuo y el respeto, lo que genera un sentido
+          de comunidad.
+        </p>
+      </div>
+    </div>
+    <img src={manosUnidas.src} alt="manosUnidas" class=" h-80" />
+</div>
 </div>
