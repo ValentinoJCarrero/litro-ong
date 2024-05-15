@@ -17,10 +17,10 @@ export class ImagesController {
 
 //!ELIMINAR DESDE aca PARA CUANDO SE DEPLOYE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       // Connect to Firebase emulators if running locally
-      if (typeof window !== 'undefined') {
-    if (window.location.hostname === 'localhost') {
-      connectAuthEmulator(auth, 'http://127.0.0.1:9099');
-      connectStorageEmulator(storage, '127.0.0.1', 9199);
+    if (typeof window !== 'undefined') {
+      if (window.location.hostname === 'localhost') {
+        connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+        connectStorageEmulator(storage, '127.0.0.1', 9199);
       }
     }
 //!HASTA ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

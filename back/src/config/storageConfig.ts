@@ -1,9 +1,17 @@
 
+import { config as dotenvconfig } from 'dotenv';
+dotenvconfig({ path: '.env' });
+console.log(process.env.FB_API_KEY)
+console.log(process.env.FB_AUTH)
+console.log(process.env.FB_PROJID)
+console.log(process.env.FB_BUCKET)
+console.log(process.env.FB_SENDER)
+console.log(process.env.FB_APPID)
 export const firebaseConfig = {
-  apiKey: "AIzaSyCtYyOaqxS2wTeNqLjy4-UWXBrlgI6BjdI",
-  authDomain: "imgstorage-d91df.firebaseapp.com",
-  projectId: "imgstorage-d91df",
-  storageBucket: "imgstorage-d91df.appspot.com",
-  messagingSenderId: "73864970760",
-  appId: "1:73864970760:web:1ee6cc3185c1fc381cc7bd"
+  apiKey: process.env.FB_API_KEY,
+  authDomain: process.env.FB_AUTH,
+  projectId: process.env.FB_PROJID,
+  storageBucket: process.env.FB_BUCKET,
+  messagingSenderId: process.env.FB_SENDER,
+  appId: process.env.FB_APPID,
 };

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,8 +7,7 @@ import { NewsModule } from './modules/news/news.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
-import { ImagesController } from './modules/storage/images.controller';
-
+import { ImagesController } from './functions/storage/images.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,4 +26,6 @@ import { ImagesController } from './modules/storage/images.controller';
   controllers: [AppController, ImagesController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule  {
+
+}
