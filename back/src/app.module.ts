@@ -7,7 +7,7 @@ import { NewsModule } from './modules/news/news.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
-
+import { ImagesController } from './functions/storage/images.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,7 +23,7 @@ import dbConfig from './config/dbConfig';
     SponsorModule,
     BenefitModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ImagesController],
   providers: [AppService],
 })
 export class AppModule {}

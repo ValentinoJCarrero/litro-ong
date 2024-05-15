@@ -33,7 +33,7 @@ export class SponsorService {
     try {
       return await this.sponsorRepository.createSponsor(sponsor);
     } catch (error) {
-      if (error.message.includes('unicidad')) {
+      if ((error as any).message?.includes('unicidad')) {
         throw new ConflictException('Ya existe un patrocinador con ese nombre');
       }
       throw error;
