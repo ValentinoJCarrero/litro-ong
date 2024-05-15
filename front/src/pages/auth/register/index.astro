@@ -1,7 +1,7 @@
 ---
 import AsideMenuRegister from "../../../components/AsideMenuDasboard/AsideMenuRegister.astro";
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
-import FormNewsFormik from "../../../components/Forms/FormRegisterFormik.tsx"
+import FormRegisterFormik from "../../../components/Forms/FormRegisterFormik.tsx"
 ---
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
     <div class="flex flex-row h-screen bg-secondary">
@@ -11,7 +11,7 @@ import FormNewsFormik from "../../../components/Forms/FormRegisterFormik.tsx"
         <div class="2-m h-full  w-full px-14 py-10 flex flex-col ">
             <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 h-full">
                 <h4 class="text-2xl font-medium text-textTertiary mb-10 w-full text-start">Información de Contacto</h4>
-                <FormNewsFormik client:load/>
+                    <FormRegisterFormik client:load/>
             </div>
         </div>
     </div>

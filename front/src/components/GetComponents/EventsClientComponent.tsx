@@ -51,7 +51,7 @@ const NewsComponent = () => {
             {isLoading ? (
         <SpinnersPrimary />
       ) :!news.length ? (
-                <p className="text-tertiary w-full text-center text-3xl">No hay noticias disponibles por ahora.</p>
+                <p className="text-tertiary w-full text-center text-3xl">No hay eventos disponibles por ahora.</p>
             ) : (
                 <ul className="overflow-auto h-80 w-full">
                     {news.map(({ UrlImage, title, subtitle, date, location, id }) => (
