@@ -11,9 +11,9 @@ import { Sponsor } from 'src/entities/Sponsor';
 export class SponsorService {
   constructor(private readonly sponsorRepository: SponsorRepository) {}
 
-  async getAllSponsors(): Promise<Sponsor[]> {
+  async getAllSponsors(limit: number, page: number): Promise<Sponsor[]> {
     const allSponsors: Sponsor[] | null =
-      await this.sponsorRepository.getAllSponsors();
+      await this.sponsorRepository.getAllSponsors(limit, page);
     if (allSponsors.length === 0) {
       throw new NotFoundException('No se encontraron patrocinadores');
     }

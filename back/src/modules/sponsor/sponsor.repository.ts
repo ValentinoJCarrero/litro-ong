@@ -9,8 +9,11 @@ export class SponsorRepository {
   constructor(
     @InjectRepository(Sponsor) private sponsorRepository: Repository<Sponsor>,
   ) {}
-  getAllSponsors(): Promise<Sponsor[]> {
-    return this.sponsorRepository.find();
+  getAllSponsors(limit: number, page: number): Promise<Sponsor[]> {
+    return this.sponsorRepository.find({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
   getOneSponsor(id: string): Promise<Sponsor> {
     return this.sponsorRepository.findOne({ where: { id: id } });
