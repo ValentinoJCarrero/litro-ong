@@ -1,0 +1,51 @@
+---
+import illustrationExplore from "../../../assets/illustrationExplore.svg";
+import laptop from "../../../assets/laptop.svg";
+import estrella from "../../../assets/estrella.svg";
+import comunidad from "../../../assets/comunidad.svg";
+import libro from "../../../assets/libro.svg";
+import bombilla from "../../../assets/bombilla.svg";
+---
+
+<div class="flex flex-col items-center gap-10 my-24">
+  <h3 class="text-3xl flex font-bold w-3/4 px-32">¿Cómo podrías ayudarnos?</h3>
+  <div>
+    <div class="flex flex-row items-center justify-center gap-10">
+      <div
+        class="text-base font-normal text-textParagraph w-3/5 flex flex-col ml-24 gap-10"
+      >
+        <div class="flex flex-row items-center gap-6">
+          <img src={bombilla.src} alt="estrella" />
+          <p>
+            <b>Interacción Directa con Beneficiarios:</b>  Los voluntarios pueden trabajar directamente con las personas a las que sirve la organización, ofreciendo apoyo emocional, educación, o ayuda con tareas cotidianas.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-6">
+          <img src={libro.src} alt="estrella" />
+          <p>
+            <b>Organización de Eventos y Campañas:</b> Participa en la planificación y ejecución de eventos para recaudar fondos o en campañas de concienciación, impulsando la misión de la organización.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-6">
+          <img src={comunidad.src} alt="estrella" />
+          <p>
+            <b>Apoyo Logístico y Administrativo:</b>  Contribuye a la gestión de datos, archivo de documentos y otras tareas administrativas que mantienen a la ONG funcionando sin problemas.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-6">
+          <img src={laptop.src} alt="estrella" />
+          <p>
+            <b>Comunicación y Redes Sociales:</b> Ayuda a difundir el mensaje de la organización a través de la escritura, la comunicación visual, o las redes sociales, ampliando el alcance de la ONG.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-7">
+          <img src={estrella.src} alt="comunidad" />
+          <p>
+            <b>Desarrollo de Proyectos Especiales:</b> SÚnete a proyectos específicos, como construcción de infraestructuras, iniciativas ambientales, o actividades de rescate y ayuda humanitaria.
+          </p>
+        </div>
+      </div>
+      <img src={illustrationExplore.src} alt="" />
+    </div>
+  </div>
+</div>
