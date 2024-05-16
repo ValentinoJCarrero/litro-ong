@@ -17,7 +17,6 @@ const config = {
   logging: true,
   dropSchema: true,
   ssl: true,
-
   timezone: 'America/Argentina/Cordoba',
 };
 
