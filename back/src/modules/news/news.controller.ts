@@ -1,11 +1,14 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -33,9 +36,11 @@ export class NewsController {
     summary: 'Obtener todas las noticias',
     description: 'Esta ruta devuelve todas las noticias registradas',
   })
-  getAllNews(): Promise<News[]> {
-    console.log('ENTRASTE AL GET');
-    return this.newsService.getAllNews();
+  getAllNews(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+  ): Promise<News[]> {
+    return this.newsService.getAllNews(limit, page);
   }
 
   @Get(':title')
