@@ -9,6 +9,7 @@ import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
 import { ImagesController } from './functions/storage/images.controller';
 import { EventModule } from './modules/event/event.module';
+import { MailerController } from './functions/Mailer/mailer.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +26,7 @@ import { EventModule } from './modules/event/event.module';
     BenefitModule,
     EventModule,
   ],
-  controllers: [AppController, ImagesController],
+  controllers: [AppController, ImagesController,MailerController],
   providers: [AppService],
 })
 export class AppModule {}

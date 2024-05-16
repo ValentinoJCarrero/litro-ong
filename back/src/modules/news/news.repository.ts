@@ -10,8 +10,11 @@ export class NewsRepository {
     @InjectRepository(News) private newsRepository: Repository<News>,
   ) {}
 
-  getAllNews(): Promise<News[]> {
-    return this.newsRepository.find();
+  getAllNews(limit: number, page: number): Promise<News[]> {
+    return this.newsRepository.find({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
   getOneNews(title: string): Promise<News> {

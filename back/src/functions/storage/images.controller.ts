@@ -2,7 +2,7 @@ import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { initializeApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator, signInAnonymously } from 'firebase/auth';
+import { getAuth, connectAuthEmulator} from 'firebase/auth';
 import { connectStorageEmulator, getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { firebaseConfig } from '../../config/storageConfig';
 
@@ -15,16 +15,13 @@ export class ImagesController {
     const auth = getAuth();
     const storage = getStorage();
 
-//!ELIMINAR DESDE aca PARA CUANDO SE DEPLOYE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      // Connect to Firebase emulators if running locally
     if (typeof window !== 'undefined') {
       if (window.location.hostname === 'localhost') {
         connectAuthEmulator(auth, 'http://127.0.0.1:9099');
         connectStorageEmulator(storage, '127.0.0.1', 9199);
       }
     }
-//!HASTA ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    this.storageRef = ref(storage);
+     this.storageRef = ref(storage);
   }
 
   @Post('upload')

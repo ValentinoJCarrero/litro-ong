@@ -36,6 +36,7 @@
     "node-mailjet": "^6.0.5",
     "pg": "^8.11.5",
     "reflect-metadata": "^0.2.0",
+    "resend": "^3.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
     "uuid": "^9.0.1",
