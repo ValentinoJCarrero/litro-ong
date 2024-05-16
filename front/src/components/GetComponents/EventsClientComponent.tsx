@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getNews } from "../../helpers/getNews";
 import iconNews from "../../assets/logoOG.png";
-import vectorIcon from "../../assets/vectorIcon.svg";
 import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
-import { deleteNews } from "../../helpers/deleteNews";
 import SpinnersPrimary from '../Spinners/SpinnersPrimary';
-interface NewsItem {
-    UrlImage: string;
+import { getEvents } from '../../helpers/Events/getEvents';
+import { deleteEvents } from '../../helpers/Events/deleteEvents';
+interface EventItem {
+    primaryImage: string;
     title: string;
     subtitle: string;
     date: string;
@@ -17,16 +16,16 @@ interface NewsItem {
   }
 
 
-const NewsComponent = () => {
-    const [news, setNews] = useState<NewsItem[]>([]);
+const EventsComponent = () => {
+    const [events, setEvents] = useState<EventItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchNews = async () => {
-            const newsData = await getNews();
-            setNews(newsData);
+            const newsData = await getEvents();
+            setEvents(newsData);
             setIsLoading(false);
         };
         fetchNews();
@@ -37,10 +36,10 @@ const NewsComponent = () => {
         setDeletingId(id);
         setIsDeleting(true);
 
-        await deleteNews(id);
+        await deleteEvents(id);
 
         setTimeout(() => {
-            setNews(news.filter(item => item.id !== id));
+            setEvents(events.filter(item => item.id !== id));
             setIsDeleting(false);
             setDeletingId(null);
         }, 1000);
@@ -50,11 +49,11 @@ const NewsComponent = () => {
         <div className="flex items-center justify-center h-full">
             {isLoading ? (
         <SpinnersPrimary />
-      ) :!news.length ? (
+      ) :!events.length ? (
                 <p className="text-tertiary w-full text-center text-3xl">No hay eventos disponibles por ahora.</p>
             ) : (
                 <ul className="overflow-auto h-80 w-full">
-                    {news.map(({ UrlImage, title, subtitle, date, location, id }) => (
+                    {events.map(({primaryImage, title, subtitle, date, location, id }) => (
                         <li key={id} className="flex flex-row flex-nowrap justify-between pr-10 items-center">
                             <a className="flex flex-row justify-between p-10 items-center text-sm w-full" id={`card${id}`} href={`/dashboardAdmin/${title}`}>
                                 <div className="flex">
@@ -68,7 +67,7 @@ const NewsComponent = () => {
                                 <div>
                                     <p>{location}</p>
                                 </div>
-                                <img src={vectorIcon.src} alt="icono de vector" />
+                                <img src={primaryImage} alt="icono de vector" />
                             </a>
                             <div className="w-40 flex justify-center">
                                 {isDeleting && deletingId === id ? (
@@ -89,4 +88,4 @@ const NewsComponent = () => {
     );
 };
 
-export default NewsComponent;
+export default EventsComponent;
