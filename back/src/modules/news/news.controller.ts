@@ -40,7 +40,7 @@ export class NewsController {
 
   @Get(':title')
   @ApiOperation({
-    summary: 'Obtener una noticia por ID',
+    summary: 'Obtener una noticia por titulo',
     description:
       'Esta ruta devuelve una noticia registrada por un id de tipo uuid enviado por parámetro',
   })
@@ -48,7 +48,7 @@ export class NewsController {
     return this.newsService.getOneNews(title);
   }
 
-  @Post('')
+  @Post()
   @ApiOperation({
     summary: 'Crear una nueva noticia (solo para administradores)',
     description:

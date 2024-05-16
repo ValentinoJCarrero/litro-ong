@@ -8,7 +8,7 @@ import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
 import { ImagesController } from './functions/storage/images.controller';
-import { MailerModule } from './functions/mailer/mailer.module';
+import { EventModule } from './modules/event/event.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,7 +22,8 @@ import { MailerModule } from './functions/mailer/mailer.module';
     }),
     NewsModule,
     SponsorModule,
-    BenefitModule
+    BenefitModule,
+    EventModule,
   ],
   controllers: [AppController, ImagesController],
   providers: [AppService],

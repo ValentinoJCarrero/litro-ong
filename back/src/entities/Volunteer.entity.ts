@@ -1,16 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  OneToOne,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Event } from './Event.entity';
+import { User } from './User.entity';
 
 @Entity({ name: 'Volunteers' })
 export class Volunteer {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  // @Column()
-  // userId: User
+  @OneToOne(() => User, (user) => user.volunteerData)
+  user: User;
 
   @Column({ type: 'varchar', nullable: false })
-  availableDays: string;
+  availableDays: string[];
 
   @Column({ type: 'varchar', nullable: false })
   startHours: string;
@@ -21,6 +29,6 @@ export class Volunteer {
   @Column({ type: 'varchar', nullable: false })
   volunteerSince: Date;
 
-  // @Column({ type: 'varchar', nullable: false })
-  // eventId: event[];
+  @ManyToMany(() => Event, (event) => event.volunteer)
+  events: Event[];
 }
