@@ -42,13 +42,6 @@ export class EventService {
     }
     return futureEvents;
   }
-  getFilterEvent(filteredBy: Partial<Event>): Promise<Event[]> {
-    const filters = {};
-    Object.keys(filteredBy).forEach((key) => {
-      filters[key] = filteredBy[key];
-    });
-    return this.eventRepository.getFilterEvent(filters);
-  }
 
   async getOneEvent(title: string): Promise<Event> {
     const eventById: Event | null =

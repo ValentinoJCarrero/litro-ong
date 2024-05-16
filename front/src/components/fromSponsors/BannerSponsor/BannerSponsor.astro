@@ -1,0 +1,14 @@
+---
+import serSponsorPage from '../../../assets/serSponsorOficialCopy.jpeg'
+import { Image } from 'astro:assets';
+---
+
+<div class="relative my-3 flex justify-end">
+  <div class="absolute inset-0" style={{ backgroundImage: `linear-gradient(to right, rgba(255, 255, 255,0.99) 50%, transparent 100%)` }}></div>
+  <div class="absolute inset-0 top-24 left-36 w-3/5">
+    <div>
+      <h1 class="text-5xl font-bold mb-3 leading-tight">Ser sponsor es contribuir a un mañana mejor para toda la comunidad</h1>
+    </div>
+  </div>
+  <Image src={serSponsorPage} alt="La imagen" class=" object-cover h-96" loading="lazy" decoding="async"/>
+</div>

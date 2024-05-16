@@ -52,15 +52,6 @@ export class EventController {
   getPastEvents(): Promise<Event[]> {
     return this.eventService.getPastEvents();
   }
-  //paginado
-  @Get('/filtered')
-  @ApiOperation({
-    summary: 'Filtrar eventos',
-    description: 'Esta ruta filtra los eventos registrados,',
-  })
-  getFilterEvent(@Param() filteredBy: Partial<Event>): Promise<Event[]> {
-    return this.eventService.getFilterEvent(filteredBy);
-  }
 
   @Get(':title')
   @ApiOperation({

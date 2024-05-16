@@ -11,10 +11,10 @@ const normalizedPathName =
 const pages = [
 	{ name: "NOTICIAS", href: "/dashboardAdmin/news",hrefActive:"/dashboardAdmin/news/newsCreate" , active: false},
 	{ name: "SECCION VOLUNTARIOS", href: "/dashboardAdmin/volunteers",  },
-	{ name: "SECCION SPONSOR", href: "/dashboardAdmin/sponsor",active: normalizedPathName.startsWith("/dashboardAdmin/sponsor") },
+	{ name: "SECCION SPONSOR", href: "/dashboardAdmin/sponsor",hrefActive:"/dashboardAdmin/sponsor/sponsorCreate",active: normalizedPathName.startsWith("/dashboardAdmin/sponsor") },
     { name: "SECCION MERENDEROS", href: "/" },
     { name: "SECCION TALLERES DE OFICIO", href: "/dashboardAdmin/workshops" },
-    { name: "SECCION EVENTOS", href: "/dashboardAdmin/events" },
+    { name: "SECCION EVENTOS", href: "/dashboardAdmin/events",hrefActive:"/dashboardAdmin/events/eventsCreate" },
     { name: "PROPUESTAS RECIBIDAS", href: "/dashboardAdmin/proposals" },
 	
 ].map((page) => ({
@@ -24,14 +24,13 @@ const pages = [
 }))
 ---
 <div class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col">
-    <div>
     <div class=" bg-tertiary py-5 px-10 rounded-t-2xl">
         <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
     </div>
-    <div class="p-10 w-full text-center">
+    <div class="pt-10 w-full text-center">
         <slot />
     </div>
-    <div class="flex flex-col w-full items-start justify-between px-10">
+    <div class="flex flex-col h-fiuw-full items-start justify-between px-10">
             {
                 pages.map(({ name, href, active, hrefActive}, key) => ( 
 
@@ -52,8 +51,7 @@ const pages = [
                 ))
             }
     </div>
-    </div>
-    <div class="p-10 flex justify-center">
+    <div class="pb-10 flex justify-center">
         <ButtonCTA title="Cerrar Sesion" idEvent="Logout"/>
     </div>
 </div>

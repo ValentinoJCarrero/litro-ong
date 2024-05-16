@@ -1,0 +1,37 @@
+---
+import illustrationSponsor from "../../../assets/illustrationSponsor.svg";
+import laptop from "../../../assets/laptop.svg";
+import estrella from "../../../assets/estrella.svg";
+import comunidad from "../../../assets/comunidad.svg";
+---
+
+<div class="flex flex-col items-center gap-4 my-24">
+  <h3 class="text-3xl flex font-bold w-3/4 px-32">Beneficios para Socios en nuestra ONG</h3>
+  <div>
+    <div class="flex flex-row items-center justify-center gap-20">
+      <div
+        class="text-base font-normal text-textParagraph w-1/2 flex flex-col ml-24 gap-8"
+        >
+        <div class="flex flex-row items-center gap-7">
+          <img src={estrella.src} alt="comunidad" />
+          <p>
+            <b>Visibilidad y Reconocimiento: </b> Como sponsor, tu empresa o negocio recibirá visibilidad a través de nuestros eventos, materiales promocionales y plataformas digitales. Esto te permitirá asociar tu marca con valores positivos y responsabilidad social, aumentando tu reputación en la comunidad.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-6">
+          <img src={laptop.src} alt="estrella" />
+          <p>
+            <b>Acceso a Reuniones y Eventos Exclusivos:</b> Podrás participar en reuniones y eventos especiales, junto con nuestros socios, para conocer de cerca el impacto de tu apoyo y compartir ideas sobre futuros proyectos. Creemos que juntos podemos hacer mucho más y valoramos la oportunidad de trabajar codo a codo con nuestros patrocinadores y socios.
+          </p>
+        </div>
+        <div class="flex flex-row items-center gap-6">
+          <img src={comunidad.src} alt="estrella" />
+          <p>
+            <b>Contacto para Más Información:</b> Si estás interesado en convertirte en sponsor de nuestra ONG, envíanos un correo electrónico a elLitroONG@mailejemplo.com. Estaremos encantados de brindarte más detalles y discutir cómo podemos trabajar juntos para hacer una diferencia.
+          </p>
+        </div>
+      </div>
+      <img src={illustrationSponsor.src} alt="" />
+    </div>
+  </div>
+</div>
