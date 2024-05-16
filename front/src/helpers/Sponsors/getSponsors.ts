@@ -1,6 +1,6 @@
 
-export async function getNews(): Promise<any> {
-    try{const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/news`, {
+export async function getSponsors(): Promise<any> {
+    try{const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/sponsor`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -12,6 +12,6 @@ export async function getNews(): Promise<any> {
     console.log(data);
     return data;}
     catch{
-      console.log("Error al traer las noticia");
+      console.log("Error al crear el sponsor")
     }
   } 

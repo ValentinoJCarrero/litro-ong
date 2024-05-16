@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class SponsorDto {
   /**
@@ -10,6 +10,9 @@ export class SponsorDto {
   @MaxLength(35, { message: 'La dirección debe tener menos de 35 caracteres' })
   name: string;
 
+  @IsNotEmpty({ message: 'El email es requerido' })
+  @IsEmail()
+  email: string;
   //validado en el controller
   logo: string;
 }

@@ -1,0 +1,29 @@
+---
+import ButtonTextPrimary from "../../../components/Buttons/ButtonTextPrimary.astro";
+---
+<div>
+<ButtonTextPrimary  title="Ingresar" idEvent="buttonLogin"/>
+<a href=""><ButtonTextPrimary  title="Cerrar sesion" idEvent="buttonLogout"/></a>
+</div>
+
+<script>
+          
+const { signIn, signOut } = await import("auth-astro/client")
+const buttonLogin = document.querySelector<HTMLButtonElement>("#buttonLogin");
+if (buttonLogin) {
+buttonLogin.onclick = () => signIn("google");
+} else {
+console.error("No se encontró ningún elemento con el ID 'buttonLogin'");
+}
+
+const buttonLogout = document.querySelector<HTMLButtonElement>("#buttonLogout");
+if (buttonLogout) {
+buttonLogout.onclick = () => signOut();
+Astro.cookies.set("authjs.callback-url","")
+Astro.cookies.delete("authjs.csrf-token");
+Astro.cookies.delete("authjs.callback-url");
+} else {
+console.error("No se encontró ningún elemento con el ID 'buttonLogout'");
+}
+
+</script>

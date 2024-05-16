@@ -51,7 +51,7 @@ export class SponsorController {
     description:
       'Esta ruta crea un nuevo patrocinador con los datos enviados por body',
   })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('files'))
   async reateSponsor(
     @Body() sponsor: SponsorDto,
     @UploadedFile() file: Express.Multer.File,
