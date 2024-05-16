@@ -2,10 +2,12 @@ import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { initializeApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator} from 'firebase/auth';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { connectStorageEmulator, getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { firebaseConfig } from '../../config/storageConfig';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Imagenes')
 @Controller('images')
 export class ImagesController {
   private storageRef;
@@ -21,7 +23,8 @@ export class ImagesController {
         connectStorageEmulator(storage, '127.0.0.1', 9199);
       }
     }
-     this.storageRef = ref(storage);
+//!HASTA ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    this.storageRef = ref(storage);
   }
 
   @Post('upload')
