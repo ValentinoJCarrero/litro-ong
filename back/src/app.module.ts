@@ -9,6 +9,10 @@ import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
 import { ImagesController } from './functions/storage/images.controller';
 import { EventModule } from './modules/event/event.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,10 +24,12 @@ import { EventModule } from './modules/event/event.module';
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
-    NewsModule,
-    SponsorModule,
-    BenefitModule,
-    EventModule,
+    JwtModule.register({
+      global: true,
+      signOptions: { expiresIn: '1h' },
+      secret: process.env.JWT_SECRET
+    }),
+    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule
   ],
   controllers: [AppController, ImagesController],
   providers: [AppService],
