@@ -7,14 +7,16 @@ import type { ImageFunction } from 'astro:content';
 import { Image } from 'astro:assets';
 
 
+
 export interface Props {
   title: string;
   description: string;
   question: string;
   image: ImageMetadata;
+  link: string;
 }
 
-const { title, description, question, image } = Astro.props;
+const { title, description, question, image, link } = Astro.props;
 ---
 
 <article class=" mb-2">
@@ -27,9 +29,11 @@ const { title, description, question, image } = Astro.props;
       <p class=" text-base font-normal text-textParagraph">
         {description}
       </p>
-      <ButtonCTAMedium title=`Conocer más` >
-        <img src={click.src} alt="click" class=" " />
-      </ButtonCTAMedium> 
+      <a href={link}>
+        <ButtonCTAMedium title=`Conocer más` >
+          <img src={click.src} alt="click" class=" " />
+        </ButtonCTAMedium> 
+      </a>
     </div>
     <div>
       <Image src={image} alt={title} class="h-96 w-96 rounded-2xl object-cover " />
