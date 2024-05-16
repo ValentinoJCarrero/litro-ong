@@ -11,5 +11,8 @@ export class Sponsor {
   name: string;
 
   @Column({ type: 'varchar', nullable: false })
+  email: string;
+
+  @Column({ type: 'varchar', nullable: false })
   logo: string;
 }
