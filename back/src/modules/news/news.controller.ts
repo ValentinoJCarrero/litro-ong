@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  DefaultValuePipe,
   Delete,
   Get,
   Query,
@@ -9,11 +8,9 @@ import {
   ParseIntPipe,
   ParseUUIDPipe,
   Post,
-  Query,
   UploadedFiles,
   UseInterceptors,
   DefaultValuePipe,
-  ParseIntPipe,
   BadRequestException,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
