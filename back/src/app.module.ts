@@ -31,7 +31,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule
   ],
-  controllers: [AppController, ImagesController],
+  controllers: [AppController, ImagesController,MailerController],
   providers: [AppService],
 })
 export class AppModule {}

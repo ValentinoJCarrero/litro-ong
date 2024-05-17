@@ -4,9 +4,7 @@ import {
   IsString,
   IsUrl,
   MaxLength,
-  MinLength,
-  isNotEmpty,
-  isString,
+  MinLength
 } from 'class-validator';
 export class NewsDto {
   /**

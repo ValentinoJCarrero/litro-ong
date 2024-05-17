@@ -79,7 +79,7 @@ export class EventDto {
   /**
    * @example 'https://example.com/image.jpg'
    * */
-  @IsNotEmpty({ message: 'La imagen es requerida' })
+  // @IsNotEmpty({ message: 'La imagen es requerida' })
   image: string;
 
   @IsOptional()
