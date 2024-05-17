@@ -12,8 +12,9 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { VolunteerModule } from './modules/volunteer/volunteer.module';
-import { MailerModule } from './functions/Mailer/mailer.module';
 import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
+import { StorageModule } from './modules/storage/storage.module';
+import { MailerModule } from './modules/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -37,7 +38,6 @@ import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
     EventModule,
     UsersModule,
     AuthModule,
-    VolunteerModule,
     MailerModule,
     MercadoPagoModule,
   ],
