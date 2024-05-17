@@ -1,0 +1,28 @@
+---
+import CardMedium from '../Cards/CardMedium.astro';
+import { getCollection } from "astro:content";
+const noticias = await getCollection("notices");
+import Becerra from "./../../assets/BECERRAd.png"
+import { Image } from "astro:assets";
+
+---
+<section>
+  <div class=" flex flex-col gap-12 items-center justify-center">
+    <div class=" flex flex-row gap-10 items-center justify-center m-2">
+      {
+        noticias.map((noticia: any) => (
+            <CardMedium
+            title={noticia.data.title}
+            subtitle={noticia.data.subtitle}
+            href={noticia.data.href}
+            calendar={noticia.data.calendar}
+            location={noticia.data.location}
+            >
+            <Image src={Becerra} alt="image" class=" h-80 w-full object-cover rounded-3xl"/>
+            </CardMedium>
+        ))
+      }
+    </div>
+
+  </div>
+</section>

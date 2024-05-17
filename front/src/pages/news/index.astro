@@ -1,8 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DescriptionNews from '../../components/fromNews/DescriptionNews.astro';
+import NewsContainer from '../../components/fromNews/NewsContainer.astro'
+import GetNewsClientComponent from '../../components/GetComponents/GetNewsClientComponent';
+
 ---
 <Layout title="Noticias - Un Litro Alta Gracia.">
 <main>
-<h1>hola soy el noticias</h1>
+<h1 class="text-center mt-20 mb-10 text-5xl font-bold mb-6">Noticias</h1>
+<DescriptionNews/>
+<GetNewsClientComponent/>
 </main>
 </Layout>
