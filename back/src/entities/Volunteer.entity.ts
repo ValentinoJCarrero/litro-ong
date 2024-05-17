@@ -26,7 +26,7 @@ export class Volunteer {
   @Column({ type: 'varchar', nullable: false })
   endHours: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
   volunteerSince: Date;
 
   @ManyToMany(() => Event, (event) => event.volunteer)

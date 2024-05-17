@@ -12,6 +12,7 @@ import { EventModule } from './modules/event/event.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { VolunteerModule } from './modules/volunteer/volunteer.module';
 
 @Module({
   imports: [
@@ -27,9 +28,15 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
-      secret: process.env.JWT_SECRET
+      secret: process.env.JWT_SECRET,
     }),
-    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule
+    NewsModule,
+    SponsorModule,
+    BenefitModule,
+    EventModule,
+    UsersModule,
+    AuthModule,
+    VolunteerModule,
   ],
   controllers: [AppController, ImagesController],
   providers: [AppService],

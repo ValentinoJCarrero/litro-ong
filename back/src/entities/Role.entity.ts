@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { User } from './User.entity';
 
 @Entity({ name: 'Roles' })
 export class Role {
@@ -8,4 +9,7 @@ export class Role {
 
   @Column({ type: 'varchar', nullable: false })
   role: string;
+
+  @ManyToMany(() => User, (user) => user.role)
+  usuarios: User[];
 }

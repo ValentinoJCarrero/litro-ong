@@ -42,7 +42,7 @@ export class EventController {
   getFutureEvents(): Promise<Event[]> {
     return this.eventService.getFutureEvents();
   }
-  //paginado
+
   @Get('/past')
   @ApiOperation({
     summary: 'Obtener todos los eventos pasados',
