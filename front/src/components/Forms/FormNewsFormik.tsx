@@ -84,7 +84,7 @@ const FormNewsFormik = () => (
     {({ errors, touched, setFieldValue }) => (
       <Form className="text-sm text-textParagraph ">
         <div className="flex flex-col">
-          <label htmlFor="title" className="font-medium my-2">Títul o</label>
+          <label htmlFor="title" className="font-medium my-2">Título</label>
           <div className="flex w-full">
             <Field type="text" name="title" placeholder="Título de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium' : ''}`} />
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
