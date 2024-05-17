@@ -12,6 +12,7 @@ import { EventModule } from './modules/event/event.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MailerController } from './functions/Mailer/mailer.controller';
 
 @Module({
   imports: [
