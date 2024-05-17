@@ -11,22 +11,22 @@ import {
   UseInterceptors,
   DefaultValuePipe,
   ParseIntPipe,
+  BadRequestException,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NewsService } from './news.service';
 import { NewsDto } from 'src/dtos/News.dto';
 import { News } from 'src/entities/News.entity';
-import { ImagesController } from '../../functions/storage/images.controller';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
-import { BadRequestException } from '@nestjs/common/exceptions';
+import { ImagesService } from 'src/functions/storage/images.service'; // Asegúrate de la ruta correcta
 
 @ApiTags('Noticias')
 @Controller('news')
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly imagesController: ImagesController,
+    private readonly imagesService: ImagesService, // Usa ImagesService en lugar de ImagesController
   ) {}
 
   @Get()
@@ -67,8 +67,10 @@ export class NewsController {
     }
 
     const uploadedImages = await Promise.all(
-      files.map((file) => this.imagesController.uploadImage(file)),
+      files.map((file) => this.imagesService.uploadImage(file)), // Usa ImagesService para subir imágenes
     );
+
+    // Extrae las URLs de las imágenes subidas
     [news.primaryImage, news.secondaryImage, news.tertiaryImage] =
       uploadedImages.map((image) => image.url);
 

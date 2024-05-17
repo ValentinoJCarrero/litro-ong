@@ -19,13 +19,13 @@ import { EventService } from './event.service';
 import { EventDto } from 'src/dtos/Event.dto';
 import { Event } from 'src/entities/Event.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ImagesController } from 'src/functions/storage/images.controller';
+import { ImagesService } from 'src/functions/storage/images.service';
 
 @ApiTags('Eventos')
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService,
-              private readonly ImagesController: ImagesController
+              private readonly ImagesController: ImagesService
   ) {}
 
   @Get()

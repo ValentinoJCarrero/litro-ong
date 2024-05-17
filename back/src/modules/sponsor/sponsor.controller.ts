@@ -20,14 +20,14 @@ import { Sponsor } from 'src/entities/Sponsor';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
-import { ImagesController } from 'src/functions/storage/images.controller';
+import { ImagesService } from 'src/functions/storage/images.service';
 
 @ApiTags('Patrocinadores')
 @Controller('sponsor')
 export class SponsorController {
   constructor(
     private readonly sponsorService: SponsorService,
-    private readonly ImagesController: ImagesController,
+    private readonly ImagesController: ImagesService,
   ) {}
 
   @Get()
