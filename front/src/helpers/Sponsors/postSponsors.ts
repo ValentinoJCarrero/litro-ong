@@ -9,7 +9,7 @@ export async function postSponsors(newsResponse:any): Promise<any> {
     if (newsResponse.logo) formData.append('files', newsResponse.logo);
 
 console.log(formData);
-    const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/sponsor`, {
+    const response = await fetch(`https://litro-ong.onrender.com/sponsor`, {
       method: 'POST',
       body: formData 
     });

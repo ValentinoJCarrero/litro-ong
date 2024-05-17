@@ -7,12 +7,10 @@ import { NewsModule } from './modules/news/news.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
-import { ImagesController } from './functions/storage/images.controller';
 import { EventModule } from './modules/event/event.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { MailerController } from './functions/Mailer/mailer.controller';
 import { MailerModule } from './functions/Mailer/mailer.module';
 
 @Module({

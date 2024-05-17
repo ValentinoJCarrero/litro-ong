@@ -1,6 +1,6 @@
 
 export async function getSponsors(): Promise<any> {
-    try{const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/sponsor`, {
+    try{const response = await fetch(`https://litro-ong.onrender.com/sponsor`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
