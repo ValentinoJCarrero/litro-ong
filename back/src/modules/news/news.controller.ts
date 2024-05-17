@@ -19,14 +19,14 @@ import { NewsDto } from 'src/dtos/News.dto';
 import { News } from 'src/entities/News.entity';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
-import { ImagesService } from 'src/functions/storage/images.service'; // Asegúrate de la ruta correcta
+import { StorageService } from '../storage/storage.service';
 
 @ApiTags('Noticias')
 @Controller('news')
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly imagesService: ImagesService, // Usa ImagesService en lugar de ImagesController
+    private readonly storageService: StorageService
   ) {}
 
   @Get()
@@ -67,7 +67,7 @@ export class NewsController {
     }
 
     const uploadedImages = await Promise.all(
-      files.map((file) => this.imagesService.uploadImage(file)), // Usa ImagesService para subir imágenes
+      files.map((file) => this.storageService.uploadImage(file)), // Usa ImagesService para subir imágenes
     );
 
     // Extrae las URLs de las imágenes subidas
