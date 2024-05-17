@@ -1,10 +1,45 @@
 ---
-import ButtonTextPrimary from "../../../components/Buttons/ButtonTextPrimary.astro";
+import { Image } from "astro:assets";
+import ButtonPrimary from "../../../components/Buttons/ButtonPrimary.astro";
+import FormLoginFormik from "../../../components/Forms/FormLoginFormik.tsx"
+import logoIcon from "../../../assets/Logo.svg"
+import iconGoogle from "../../../assets/Google__G__logo.webp"
+import '@fontsource-variable/montserrat';
+import { getSession } from 'auth-astro/server';
+
+
+const session = await getSession(Astro.request);
+if(session)
+console.log(session.user);
+
+
 ---
-<div>
-<ButtonTextPrimary  title="Ingresar" idEvent="buttonLogin"/>
-<a href=""><ButtonTextPrimary  title="Cerrar sesion" idEvent="buttonLogout"/></a>
-</div>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Login - Un litro Alta Gracia</title>
+	</head>
+	<body>
+		<div class="flex flex-row h-screen">
+            <div class="bg-primary w-1/2 flex flex-col items-center justify-center ">
+                <a href="/" class="w-4/6"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" class="w-full"/></a>
+                <a href="/auth/register" class="w-full text-textPrimary text-2xl font-medium my-6 text-center">¿No tienes usuario?</a>
+            </div>
+            <div class="bg-textPrimary w-1/2 flex flex-col items-center justify-center ">
+                <FormLoginFormik/>
+                <a href="/" id="buttonLogin" class="bg-secondary flex flex-row items-center justify-center text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap m-6">
+                    <img src={iconGoogle.src} alt="icono de google" class="w-6 mx-2"/>
+                     Continuar con Google
+                  </a>
+            </div>
+        </div>
+	</body>
+</html>
 
 <script>
           
@@ -19,11 +54,63 @@ console.error("No se encontró ningún elemento con el ID 'buttonLogin'");
 const buttonLogout = document.querySelector<HTMLButtonElement>("#buttonLogout");
 if (buttonLogout) {
 buttonLogout.onclick = () => signOut();
-Astro.cookies.set("authjs.callback-url","")
-Astro.cookies.delete("authjs.csrf-token");
-Astro.cookies.delete("authjs.callback-url");
 } else {
 console.error("No se encontró ningún elemento con el ID 'buttonLogout'");
 }
 
 </script>
+<style is:global>
+
+	:root {}
+html {
+  box-sizing: border-box;
+
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat Variable', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+	
+</style>

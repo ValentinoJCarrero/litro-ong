@@ -7,12 +7,13 @@ import { NewsModule } from './modules/news/news.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
-import { ImagesController } from './functions/storage/images.controller';
 import { EventModule } from './modules/event/event.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { VolunteerModule } from './modules/volunteer/volunteer.module';
+import { MailerModule } from './functions/Mailer/mailer.module';
+import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 
 @Module({
   imports: [
@@ -36,9 +37,8 @@ import { VolunteerModule } from './modules/volunteer/volunteer.module';
     EventModule,
     UsersModule,
     AuthModule,
-    VolunteerModule,
   ],
-  controllers: [AppController, ImagesController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

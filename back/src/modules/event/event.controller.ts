@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   DefaultValuePipe,
@@ -10,16 +11,22 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EventService } from './event.service';
 import { EventDto } from 'src/dtos/Event.dto';
 import { Event } from 'src/entities/Event.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ImagesService } from 'src/functions/storage/images.service';
 
 @ApiTags('Eventos')
 @Controller('event')
 export class EventController {
-  constructor(private readonly eventService: EventService) {}
+  constructor(private readonly eventService: EventService,
+              private readonly ImagesController: ImagesService
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -82,8 +89,16 @@ export class EventController {
     description:
       'Esta ruta crea un nuevo evento con los datos enviados por body, de tipo EventDto',
   })
-  createEvent(@Body() event: EventDto): Promise<Event> {
-    return this.eventService.createEvent(event);
+  @UseInterceptors(FileInterceptor('image'))
+  async createEvent(@Body() event: EventDto, @UploadedFile() image: Express.Multer.File): Promise<Event> {
+    
+    const uploadedImage = await this.ImagesController.uploadImage(image);
+    event.image = uploadedImage.url
+    console.log(event.image)
+    if (!event.image) {
+        throw new BadRequestException('La validación falló');
+    }
+    return this.eventService.createEvent(event); 
   }
 
   @Delete(':id')

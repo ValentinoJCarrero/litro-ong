@@ -1,5 +1,5 @@
 export async function deleteSponsors(id:any): Promise<any> {
-    fetch(`${import.meta.env.PUBLIC_API_URL}/sponsor/${id}`, {
+    fetch(`https://litro-ong.onrender.com/sponsor/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
