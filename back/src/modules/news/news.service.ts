@@ -11,8 +11,11 @@ import { News } from 'src/entities/News.entity';
 export class NewsService {
   constructor(private readonly newsRepository: NewsRepository) {}
 
-  async getAllNews(): Promise<News[]> {
-    const allNews: News[] | null = await this.newsRepository.getAllNews();
+  async getAllNews(limit: number, page: number): Promise<News[]> {
+    const allNews: News[] | null = await this.newsRepository.getAllNews(
+      limit,
+      page,
+    );
     if (allNews.length === 0) {
       throw new NotFoundException('No se encontraron noticias');
     }

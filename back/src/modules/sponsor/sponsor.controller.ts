@@ -2,11 +2,14 @@ import {
   BadRequestException,
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -14,16 +17,17 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SponsorService } from './sponsor.service';
 import { SponsorDto } from 'src/dtos/Sponsor.dto';
 import { Sponsor } from 'src/entities/Sponsor';
-import { ImagesController } from 'src/functions/storage/images.controller';
+
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
+import { ImagesService } from 'src/functions/storage/images.service';
 
 @ApiTags('Patrocinadores')
 @Controller('sponsor')
 export class SponsorController {
   constructor(
     private readonly sponsorService: SponsorService,
-    private readonly ImagesController: ImagesController,
+    private readonly ImagesController: ImagesService,
   ) {}
 
   @Get()
@@ -31,8 +35,11 @@ export class SponsorController {
     summary: 'Obtener todos los patrocinadores',
     description: 'Esta ruta devuelve todos los patrocinadores registrados',
   })
-  getAllSponsors(): Promise<Sponsor[]> {
-    return this.sponsorService.getAllSponsors();
+  getAllSponsors(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+  ): Promise<Sponsor[]> {
+    return this.sponsorService.getAllSponsors(Number(limit), Number(page));
   }
 
   @Get(':id')
@@ -51,7 +58,7 @@ export class SponsorController {
     description:
       'Esta ruta crea un nuevo patrocinador con los datos enviados por body',
   })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('files'))
   async reateSponsor(
     @Body() sponsor: SponsorDto,
     @UploadedFile() file: Express.Multer.File,

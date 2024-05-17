@@ -1,5 +1,5 @@
 export async function deleteNews(id:any): Promise<any> {
-    fetch(`${import.meta.env.PUBLIC_API_URL}/news/${id}`, {
+    fetch(`https://litro-ong.onrender.com/news/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

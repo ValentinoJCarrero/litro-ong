@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity({ name: 'News' })
-@Unique(['title'])
+@Unique(['title', 'date'])
 export class News {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();

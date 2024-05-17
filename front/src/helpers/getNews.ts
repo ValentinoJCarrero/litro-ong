@@ -12,6 +12,6 @@ export async function getNews(): Promise<any> {
     console.log(data);
     return data;}
     catch{
-      console.log("holis");
+      console.log("Error al traer las noticia");
     }
   } 
