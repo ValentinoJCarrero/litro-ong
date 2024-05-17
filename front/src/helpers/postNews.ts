@@ -12,7 +12,7 @@ export async function postNews(newsResponse: any): Promise<any> {
     if (newsResponse.secondaryImage) formData.append('files', newsResponse.secondaryImage);
     if (newsResponse.tertiaryImage) formData.append('files', newsResponse.tertiaryImage);
 console.log(formData);
-    const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/news`, {
+    const response = await fetch(`https://litro-ong.onrender.com/news`, {
       method: 'POST',
       body: formData // Utiliza FormData en lugar de JSON.stringify
       // No necesitas establecer 'Content-Type' al usar FormData

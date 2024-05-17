@@ -1,6 +1,6 @@
 
 export async function getNews(): Promise<any> {
-    try{const response = await fetch(`${import.meta.env.PUBLIC_API_LOCAL}/news`, {
+    try{const response = await fetch(`https://litro-ong.onrender.com/news`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
