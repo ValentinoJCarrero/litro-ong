@@ -10,7 +10,7 @@
   <script>
     const donationForm = document.getElementById('donation-form');
 
-    donationForm?.addEventListener('submit', async (event) => {
+    donationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const donationAmount = parseFloat((document.getElementById('donation') as HTMLInputElement).value);
