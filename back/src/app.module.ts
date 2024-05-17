@@ -12,6 +12,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from './functions/Mailer/mailer.module';
+import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { MailerModule } from './functions/Mailer/mailer.module';
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET
     }),
-    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule, MailerModule
+    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule, MailerModule, MercadoPagoModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -33,6 +33,7 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "firebase": "^10.11.1",
+    "mercadopago": "^2.0.9",
     "node-mailjet": "^6.0.5",
     "pg": "^8.11.5",
     "reflect-metadata": "^0.2.0",
