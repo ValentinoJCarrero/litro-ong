@@ -1,0 +1,18 @@
+---
+import AsideMenuRegister from "../../../components/AsideMenuDasboard/AsideMenuRegister.astro";
+import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
+import FormRegisterFormik from "../../../components/Forms/FormRegisterFormik.tsx"
+---
+<DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
+    <div class="flex flex-row h-screen bg-secondary">
+        <div class="w-1/3 h-full pl-14 py-10">
+            <AsideMenuRegister><h3 class="text-3xl font-medium text-primary">Formulario de Registro</h3></AsideMenuRegister>
+        </div>
+        <div class="2-m h-full  w-full px-14 py-10 flex flex-col ">
+            <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 h-full">
+                <h4 class="text-2xl font-medium text-textTertiary mb-10 w-full text-start">Información de Contacto</h4>
+                    <FormRegisterFormik client:load/>
+            </div>
+        </div>
+    </div>
+</DasboardLayouts>

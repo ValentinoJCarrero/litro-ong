@@ -28,10 +28,10 @@ export class NewsService {
   }
 
   async createNews(news: NewsDto): Promise<News> {
-    try {
+   try {
       return await this.newsRepository.createNews(news);
     } catch (error) {
-      if (error.message.includes('unicidad')) {
+      if ((error as any).message?.includes('unicidad')) {
         throw new ConflictException('Ya existe una noticia con ese título');
       }
       throw error;

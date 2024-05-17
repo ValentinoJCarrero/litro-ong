@@ -1,0 +1,31 @@
+---
+import calendario from "../../../assets/calendario.svg";
+import estrellaMov from "../../../assets/estrellaMov.svg";
+import eventosRealizados from "../../../assets/eventosRealizados.svg";
+import sociosActivos from "../../../assets/sociosActivos.svg";
+---
+
+<section
+  class="bg-tertiary flex flex-row items-center justify-center gap-24 content-center p-8 mt-24"
+>
+  <div class="flex flex-col items-center h-32 justify-between ">
+    <img src={calendario.src} alt="calendario" />
+    <h3 class="text-4xl font-bold text-textTertiary">10</h3>
+    <p class="text-textParagraph text-base font-normal">Años Activos</p>
+  </div>
+  <div class="flex flex-col items-center h-32 justify-between ">
+    <img src={sociosActivos.src} alt="sociosActivos" />
+    <h3 class="text-4xl font-bold text-textTertiary">+50</h3>
+    <p class="text-textParagraph text-base font-normal">Socios Activos</p>
+  </div>
+  <div class="flex flex-col items-center h-32 justify-between ">
+    <img src={eventosRealizados.src} alt="eventosRealizados" />
+    <h3 class="text-4xl font-bold text-textTertiary">+100</h3>
+    <p class="text-textParagraph text-base font-normal">Eventos Realizados</p>
+  </div>
+  <div class="flex flex-col items-center h-32 justify-between ">
+    <img src={estrellaMov.src} alt="estrellaMov" />
+    <h3 class="text-4xl font-bold text-textTertiary">12</h3>
+    <p class="text-textParagraph text-base font-normal">Merenderos Activos</p>
+  </div>
+</section>

@@ -5,6 +5,9 @@ import SearchPages from "./SearchPages/SearchPages.astro";
 import ButtonSecondary from "../Buttons/ButtonSecondary.astro";
 import ButtonTextPrimary from "../Buttons/ButtonTextPrimary.astro";
 
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request);
 
 
 
@@ -13,12 +16,23 @@ import ButtonTextPrimary from "../Buttons/ButtonTextPrimary.astro";
 <div  class="bg-primary w-full h-28 flex flex-row items-center px-10 justify-between shadow-3xl">
     <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
     <SearchPages/>
-    <div>
+    <div class="flex flex-row items-center">
         <ButtonSecondary title="Dona"/>
-        <ButtonTextPrimary  title="INGRESAR" idEvent="buttonLogin"/>
+        
+      
+        {
+          session ? (
+          <a href="/auth/login">  <p>{session.user?.name}</p></a>
+          ) : (
+          <a href="/auth/login"><ButtonTextPrimary  title="Ingresar" idEvent="buttonLogin"/></a>
+          )
+          }
+
         <script>
-            const boton = document.getElementById('buttonLogin');
+          
+            /*const boton = document.getElementById('buttonLogin');
             boton?.addEventListener ('click', () => {window.location.href = 'https://litro-ong.onrender.com/login'});
+        */
         </script>
     </div>
 </div>
