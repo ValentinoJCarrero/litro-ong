@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import {postNews} from "../../helpers/postNews";
 import  warningIcon from "../../assets/IconWarrning.svg"
+import { redirect } from "react-router-dom";
 
 interface IFormValues {
   email: string;
@@ -17,13 +18,11 @@ const initialValues = {
 
 const validate = (values:IFormValues) => {
   const errors: Record<string, string> = {};
-
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!values.email) {
-    errors.title = "El Titulo es requerido";
-  }else if (values.email.length < 10) {
-    errors.title = "El titulo debe tener minimo 10 caracteres";
-  }else if (values.email.length > 40 ) {
-    errors.title = "El titulo debe tener maximo 40 caracteres";
+    errors.email = "El correo electrónico es requerido";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "El correo electrónico no es válido";
   }
 
   if (!values.pasword) {
@@ -55,6 +54,7 @@ const validate = (values:IFormValues) => {
         .then((data) => {
           alert(JSON.stringify(data, null, 2));
           setSubmitting(false);
+          redirect("/auth/register/personalInformation")
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -100,10 +100,7 @@ const validate = (values:IFormValues) => {
         </div>
         </div>
         <div className="my-20 w-full flex justify-end">
-            <a href="/dashboardAdmin/news" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
-                Anterior
-            </a>
-            <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Agregar</button>
+            <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Siguiente</button>
         </div>
     </Form>
     )}

@@ -1,0 +1,36 @@
+---
+---
+
+<form id="donation-form">
+    <label for="donation">Donar:</label>
+    <input type="number" id="donation" name="donation" min="1" required>
+    <button type="submit" id="donate-button" class="p-4 bg-blue-200">Donar</button>
+  </form>
+  
+  <script>
+    const donationForm = document.getElementById('donation-form');
+
+    donationForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const donationAmount = parseFloat((document.getElementById('donation') as HTMLInputElement).value);
+
+        if (isNaN(donationAmount) || donationAmount < 1) {
+            alert('Por favor, ingrese una donación válida (mínimo $1).');
+            return;
+        }
+
+        await fetch('http://localhost:3000/mercadopago', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            price: donationAmount,
+            }),
+        }).then(async res => {
+            const response = await res.text()
+            window.location.href = response;
+        })
+    })
+  </script>
