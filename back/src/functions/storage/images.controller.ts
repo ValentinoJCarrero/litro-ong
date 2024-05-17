@@ -23,7 +23,7 @@ export class ImagesController {
         connectStorageEmulator(storage, '127.0.0.1', 9199);
       }
     }
-
+//!HASTA ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     this.storageRef = ref(storage);
   }
 

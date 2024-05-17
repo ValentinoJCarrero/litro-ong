@@ -3,11 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  Query,
   Param,
   ParseUUIDPipe,
   Post,
   UploadedFiles,
   UseInterceptors,
+  DefaultValuePipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NewsService } from './news.service';
@@ -20,8 +23,6 @@ import { BadRequestException } from '@nestjs/common/exceptions';
 
 @ApiTags('Noticias')
 @Controller('news')
-// export class NewsController {
-//   constructor(private readonly newsService: NewsService) {}
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
@@ -33,9 +34,11 @@ export class NewsController {
     summary: 'Obtener todas las noticias',
     description: 'Esta ruta devuelve todas las noticias registradas',
   })
-  getAllNews(): Promise<News[]> {
-    console.log('ENTRASTE AL GET');
-    return this.newsService.getAllNews();
+  getAllNews(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+  ): Promise<News[]> {
+    return this.newsService.getAllNews(limit, page);
   }
 
   @Get(':title')
