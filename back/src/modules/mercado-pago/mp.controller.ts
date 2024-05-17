@@ -6,14 +6,18 @@ export class MercadoPagoController {
   constructor(private readonly mpService: MercadoPagoService) {}
   
   @Get('success')
-  success() {}
+  success() {
+    return 'Pagaste'
+  }
 
   @Get('pending')
-  pending () {}
+  pending () {
+    return 'Pendiente'
+  }
 
   @Get('failure')
   failure() {
-    return 'fallaste chupapija'
+    return 'Fallo.'
   }
 
   @Post()

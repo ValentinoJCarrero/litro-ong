@@ -4,11 +4,11 @@ import { SponsorService } from './sponsor.service';
 import { SponsorRepository } from './sponsor.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Sponsor } from 'src/entities/Sponsor';
-import { ImagesModule } from 'src/functions/storage/images.module';
+import { StorageService } from '../storage/storage.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sponsor]), ImagesModule], 
+  imports: [TypeOrmModule.forFeature([Sponsor])], 
   controllers: [SponsorController],
-  providers: [SponsorService, SponsorRepository],
+  providers: [SponsorService, SponsorRepository, StorageService],
 })
 export class SponsorModule {}
