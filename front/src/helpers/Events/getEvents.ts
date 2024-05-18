@@ -1,6 +1,6 @@
 
 export async function getEvents(): Promise<any> {
-    try{const response = await fetch(`https://litro-ong.onrender.com/events`, {
+    try{const response = await fetch(`https://litro-ong.onrender.com/event`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
