@@ -1,36 +1,155 @@
 ---
+import Layout from "../../layouts/Layout.astro";
+import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
 ---
 
-<form id="donation-form">
-    <label for="donation">Donar:</label>
-    <input type="number" id="donation" name="donation" min="1" required>
-    <button type="submit" id="donate-button" class="p-4 bg-blue-200">Donar</button>
-  </form>
-  
-  <script>
-    const donationForm = document.getElementById('donation-form');
+<Layout title="Donar - Un Litro Alta Gracia.">
+  <section class="bg-secondary p-5 justify-center items-center">
+    <h1 class="text-4xl font-bold mb-3 text-center">
+      ¡Gracias por llegar hasta aquí!
+    </h1>
+    <div class="flex flex-row items-center justify-center m-10 gap-12">
+      <div class="w-3/5 text-lg font-regular text-textParagraph">
+        <p>
+          Tu contribución, ya sea mensual como asociado de nuestra ONG o en
+          forma de donación libre, marca la diferencia en la vida de muchos
+          niños. Todas las donaciones son gestionadas con transparencia por
+          nuestra contadora, Rosana Fernández (matrícula n°268856), para
+          asegurar que cada centavo se use de manera efectiva.
+        </p>
+        <br />
+        <p>
+          Además, te invitamos a que nos envíes un mensaje especial junto con tu
+          donación. Nos encantaría saber tus deseos o dedicatorias, y te
+          aseguramos que los leeremos con mucho cariño.
+        </p>
+        <br />
+        <p>
+          Agradecemos de corazón tu generosidad. Tu apoyo no solo ayuda a los
+          niños, sino que también te hace parte de nuestra comunidad. ¡Siempre
+          serás bienvenido/a en Alta Gracia!
+        </p>
+        <br />
+        <p>
+          <strong> “El Litro ONG - Alta Gracia” </strong>
+        </p>
+      </div>
+      <div class="w-2/5">
+        <form
+          id="donation-form"
+          class="bg-white m-5 p-5 rounded-lg shadow-lg flex flex-col items-stretch justify-center"
+        >
+          <div class="flex flex-col p-6 gap-2">
+            <label for="donation" class="text-lg leading-6 font-bold"
+              >Quiero donar</label
+            >
+            <label
+              for="donation"
+              class="text-sm leading-6 font-semibold text-textParagraph"
+              >ONG - El Litro Alta Gracia | MercadoPago</label
+            >
+          </div>
+          <hr />
+          <div class="flex flex-col gap-5 my-5">
+            <div class="px-6 flex flex-row flex-nowrap justify-between">
+              <label
+                for="donation"
+                class="text-sm leading-6 font-semibold text-textParagraph"
+                >Cantidad a enviar</label
+              >
+              <div class="px-6 flex flex-row flex-nowrap content-center justify-center items-center gap-1">
+                <label>$</label>
+                <input
+                  type="number"
+                  id="donation"
+                  name="donation"
+                  min="1"
+                  required
+                  class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
+                />
+              </div>
+              </div>
+            <!-- <div class="px-6 flex flex-row flex-nowrap justify-between">
+              <label
+                for="donation"
+                class="text-sm leading-6 font-semibold text-textParagraph"
+                >Mensaje
+              </label>
+              <input
+                type="text"
+                id="message"
+                name="message"
+               class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
+              />
+            </div> -->
+            <hr />
+          </div>
 
-    donationForm?.addEventListener('submit', async (event) => {
-        event.preventDefault();
+          <div class="flex flex-row gap-10 px-6">
+            <div class="flex flex-col gap-1 w-1/2">
+              <label for="donation" class="text-lg leading-6 font-bold"
+                >Tu nombre</label
+              >
+              <input
+                type="text"
+                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
+                placeholder="Juan Alberto Pérez"
 
-        const donationAmount = parseFloat((document.getElementById('donation') as HTMLInputElement).value);
+                
+              >
+            </div>
+            <div class="flex flex-col gap-1 w-1/2">
+              <label for="donation" class="text-lg leading-6 font-bold"
+                >Tu email</label
+              >
+              <input
+                type="email"
+                placeholder="ejemplo@mail.com"
+                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
+                
+              />
+            </div>
+          </div>
+          <div class="flex flex-col mt-5 items-center">
+            <ButtonCTASmall
+            title="Enviar a MercadoPago"
+            type="submit"
+            id="donate-button"
+            class="p-4 bg-red-200"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
 
-        if (isNaN(donationAmount) || donationAmount < 1) {
-            alert('Por favor, ingrese una donación válida (mínimo $1).');
-            return;
-        }
+<script>
+  const donationForm = document.getElementById("donation-form");
 
-        await fetch('https://litro-ong.onrender.com/mercadopago', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            price: donationAmount,
-            }),
-        }).then(async res => {
-            const response = await res.text()
-            window.location.href = response;
-        })
-    })
-  </script>
+  donationForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const donationAmount = parseFloat(
+      (document.getElementById("donation") as HTMLInputElement).value
+    );
+
+    if (isNaN(donationAmount) || donationAmount < 1) {
+      alert("Por favor, ingrese una donación válida (mínimo $1).");
+      return;
+    }
+
+    await fetch("https://litro-ong.onrender.com/mercadopago", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price: donationAmount,
+      }),
+    }).then(async (res) => {
+      const response = await res.text();
+      window.location.href = response;
+    });
+  });
+</script>
