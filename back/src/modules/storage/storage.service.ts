@@ -5,7 +5,7 @@ import { connectStorageEmulator, getStorage, ref, uploadBytes, getDownloadURL } 
 import { firebaseConfig } from '../../config/storageConfig';
 
 @Injectable()
-export class ImagesService {
+export class StorageService {
   private storageRef;
 
   constructor() {

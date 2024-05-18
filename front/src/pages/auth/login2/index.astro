@@ -31,31 +31,28 @@ console.log(session.user);
                 <a href="/auth/register" class="w-full text-textPrimary text-2xl font-medium my-6 text-center">¿No tienes usuario?</a>
             </div>
             <div class="bg-textPrimary w-1/2 flex flex-col items-center justify-center ">
-                <FormLoginFormik/>
-                <a href="/" id="buttonLogin" class="bg-secondary flex flex-row items-center justify-center text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap m-6">
+                <FormLoginFormik client:load/>
+                <button id="buttonLogin" class="bg-secondary flex flex-row items-center justify-center text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap m-6">
                     <img src={iconGoogle.src} alt="icono de google" class="w-6 mx-2"/>
                      Continuar con Google
-                  </a>
+                  </button>
             </div>
         </div>
 	</body>
 </html>
 
 <script>
+
+
           
-const { signIn, signOut } = await import("auth-astro/client")
+const { signIn } = await import("auth-astro/client")
 const buttonLogin = document.querySelector<HTMLButtonElement>("#buttonLogin");
 if (buttonLogin) {
-buttonLogin.onclick = () => signIn("google");
+buttonLogin.onclick = () => {
+  signIn("google");
+}
 } else {
 console.error("No se encontró ningún elemento con el ID 'buttonLogin'");
-}
-
-const buttonLogout = document.querySelector<HTMLButtonElement>("#buttonLogout");
-if (buttonLogout) {
-buttonLogout.onclick = () => signOut();
-} else {
-console.error("No se encontró ningún elemento con el ID 'buttonLogout'");
 }
 
 </script>
