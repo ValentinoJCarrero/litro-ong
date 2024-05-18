@@ -6,6 +6,7 @@ import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import { deleteNews } from "../../helpers/deleteNews";
 import SpinnersPrimary from '../Spinners/SpinnersPrimary';
+import NotFound from "../NotFound/NotFound"
 interface NewsItem {
     primaryImage: string;
     title: string;
@@ -47,11 +48,11 @@ const NewsComponent = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-full">
+        <div className="flex items-center justify-center">
             {isLoading ? (
         <SpinnersPrimary />
       ) :!news.length ? (
-                <p className="text-tertiary w-full text-center text-3xl">No hay noticias disponibles por ahora.</p>
+                <NotFound color="#FFAC0C"/>
             ) : (
                 <ul className="overflow-auto h-[22rem] w-full">
                     {news.map(({ primaryImage, title, subtitle, date, location, id }) => (
