@@ -57,66 +57,70 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
                 class="text-sm leading-6 font-semibold text-textParagraph"
                 >Cantidad a enviar</label
               >
-              <input
-                type="number"
-                id="donation"
-                name="donation"
-                min="1"
-                required
-                class="border-gray-300 border shadow-sm rounded-md w-1/2"
-              />
-            </div>
-            <div class="px-6 flex flex-row flex-nowrap justify-between">
+              <div class="px-6 flex flex-row flex-nowrap content-center justify-center items-center gap-1">
+                <label>$</label>
+                <input
+                  type="number"
+                  id="donation"
+                  name="donation"
+                  min="1"
+                  required
+                  class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
+                />
+              </div>
+              </div>
+            <!-- <div class="px-6 flex flex-row flex-nowrap justify-between">
               <label
                 for="donation"
                 class="text-sm leading-6 font-semibold text-textParagraph"
-                >Mensaje</label
-              >
+                >Mensaje
+              </label>
               <input
                 type="text"
                 id="message"
                 name="message"
-                class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
+               class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
               />
-            </div>
+            </div> -->
             <hr />
           </div>
 
           <div class="flex flex-row gap-10 px-6">
-            <div class="flex flex-col w-1/2">
+            <div class="flex flex-col gap-1 w-1/2">
               <label for="donation" class="text-lg leading-6 font-bold"
                 >Tu nombre</label
               >
-              <label
-                for="donation"
-                class="text-sm leading-6 font-semibold text-textParagraph"
-                >Simón Gerardo Flores</label
+              <input
+                type="text"
+                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
+                placeholder="Juan Alberto Pérez"
+
+                
               >
             </div>
-            <div class="flex flex-col w-1/2">
+            <div class="flex flex-col gap-1 w-1/2">
               <label for="donation" class="text-lg leading-6 font-bold"
                 >Tu email</label
               >
-              <label
-                for="donation"
-                class="text-sm leading-6 font-semibold text-textParagraph"
-                >simongf@mail.com</label
-              >
+              <input
+                type="email"
+                placeholder="ejemplo@mail.com"
+                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
+                
+              />
             </div>
           </div>
-          <div class="flex flex-col mt-5 items-center">
-
-            <ButtonCTASmall
-              title="Enviar a MercadoPago"
-              type="submit"
-              id="donate-button"
-              class="p-4 bg-red-200"
-            />
-          </div>
         </form>
+        <div class="flex flex-col mt-5 items-center">
+          <ButtonCTASmall
+            title="Enviar a MercadoPago"
+            type="submit"
+            id="donate-button"
+            class="p-4 bg-red-200"
+          />
+        </div>
       </div>
     </div>
-
   </section>
 </Layout>
 
