@@ -48,7 +48,7 @@ const validate = (values:IFormValues) => {
   const FormRegisterFormik = () => {
     const [passwordText, setPasswordText] = useState("password");
     const [passwordText2, setPasswordText2] = useState("password");
-
+    
   const handleShow = () => {
     setPasswordText(prev => (prev === "password" ? "text" : "password"));
   };
@@ -60,16 +60,9 @@ const validate = (values:IFormValues) => {
       initialValues={initialValues}
       validate={validate}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-        postNews(values)
-        .then((data) => {
-          alert(JSON.stringify(data, null, 2));
-          setSubmitting(false);
-          redirect("/auth/register/personalInformation")
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setSubmitting(false);
-        });
+        localStorage.setItem("registerUser", JSON.stringify(values));
+        setSubmitting(false);
+        window.location.href = "/auth/register/personalInformation";
     }}
   >
     {({ errors, touched }) => (
@@ -112,7 +105,13 @@ const validate = (values:IFormValues) => {
         </div>
         </div>
         <div className="my-20 w-full flex justify-end">
-            <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Siguiente</button>
+            <button 
+            type="submit" 
+            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
+            >
+              Siguiente
+            </button>
         </div>
     </Form>
     )}

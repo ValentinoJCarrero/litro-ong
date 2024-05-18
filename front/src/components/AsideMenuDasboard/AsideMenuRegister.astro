@@ -39,7 +39,7 @@ const images = [
     <div class="p-10 w-full text-center">
         <slot />
     </div>
-    <div class="flex flex-row w-full items-center justify-between px-8">
+    <div class="flex flex-row w-full items-center justify-center px-8">
             {
                 images.map(({ href, active, imageSrc}, key) => (
                 <img src={active ? imageSrc : href} alt="icono Rrss Whatsapp" class={active ? "block h-44" : "hidden"}/>
@@ -51,17 +51,17 @@ const images = [
 
                     
 
-                        <a
-                            href={href}
+                        <p
+                            
                             class:list={[
-                                "text-sm my-3 font-normal   hover:scale-105 my-4",
+                                "text-sm font-normal my-4 mx-4",
                                 { "text-textSecondary flex items-center font-semibold ": active },
                             { "text-textTertiary ": !active },
                             ]}
                             id={`nav-link-${key}`}
                         >
                             <span class="z-10">{name}</span>
-                        </a>
+                        </p>
                     
                 ))
             }

@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import {postNews} from "../../helpers/postNews";
 import  warningIcon from "../../assets/IconWarrning.svg"
+import { useState } from "react";
 
 interface IFormValues {
   name: string;
@@ -11,7 +12,7 @@ interface IFormValues {
   address: string;
   country:string;
   province:string;
-  city:string;
+  //city:string;
 }
 
 
@@ -24,7 +25,7 @@ const initialValues = {
   address: "",
   country:"",
   province:  "",
-  city: "",
+  //city: "",
 };
 
 const validate = (values:IFormValues) => {
@@ -57,7 +58,9 @@ const validate = (values:IFormValues) => {
 
   if (!values.brithDate) {
     errors.brithDate = "La fecha de nacimiento es requerida";
-  } 
+  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.brithDate)) {
+    errors.brithDate = "Ingrese una fecha válida (AAAA-MM-DD)";
+  }
 
   if (!values.dni) {
     errors.dni = "El número de documento es requerido";
@@ -75,34 +78,38 @@ const validate = (values:IFormValues) => {
     errors.country = "El país es requerido";
   } 
 
-  if (!values.province) {
+  if (values.country === "Argentina" && !values.province) {
     errors.province = "La provincia es requerida";
   }
 
-  if (!values.city) {
+  /*if (values.province === "Cordoba" && !values.city) {
     errors.city = "La ciudad es requerida";
-  } 
+  } */
   return errors;
 };
 
 
-  const FormRegisterProfileFormik = () => (
+  const FormRegisterProfileFormik = () => {
+    const [country, setCountry] = useState(initialValues.country);
+    const [province, setProvince] = useState(initialValues.province);
+    return(
+
     <Formik
       initialValues={initialValues}
       validate={validate}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-        postNews(values)
-        .then((data) => {
-          alert(JSON.stringify(data, null, 2));
-          setSubmitting(false);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setSubmitting(false);
-        });
+        const combinedValues = {
+          ...values,
+          fullName: `${values.name} ${values.lastname}`,
+          fullAdress: `${values.address} ${values.country} ${values.province}`,
+        };
+        localStorage.setItem("registerUserProfile", JSON.stringify(combinedValues));
+        alert(JSON.stringify(combinedValues, null, 2));
+        setSubmitting(false);
+        window.location.href = "/auth/register/resume";
     }}
   >
-    {({ errors, touched }) => (
+    {({ errors, touched,setFieldValue }) => (
     <Form className="text-sm text-textParagraph flex flex-col justify-center h-5/6">
       <div className="flex flex-row justify-between w-full ">
        <div className="flex flex-col w-full pr-4">
@@ -141,7 +148,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Fecha de Nacimiento</label>
             <div className="flex w-full">
-              <Field type="text" name="brithDate" placeholder="Ingrese fecha de nacimiento" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.brithDate && touched.brithDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type="text" name="brithDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.brithDate && touched.brithDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.brithDate && touched.brithDate ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.brithDate && touched.brithDate? 'block' : 'hidden'}`}/>
             </div>
@@ -181,6 +188,10 @@ const validate = (values:IFormValues) => {
             className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
               errors.country && touched.country ? 'border-warningBorder text-warningText font-medium' : ''
             }`}
+            onChange={(e:any) => {
+              setFieldValue("country", e.target.value);
+              setCountry(e.target.value);
+            }}
           >
             <option value="">Selecciona país</option>
             <option value="Argentina">Argentina</option>
@@ -204,12 +215,36 @@ const validate = (values:IFormValues) => {
             className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
               errors.province && touched.province ? 'border-warningBorder text-warningText font-medium' : ''
             }`}
+            disabled={country !== "Argentina"}
+            onChange={(e:any) => {
+              setFieldValue("province", e.target.value);
+              setProvince(e.target.value);
+            }}
           >
-            <option value="">Selecciona país</option>
-            <option value="NY">New York</option>
-            <option value="SF">San Francisco</option>
-            <option value="CH">Chicago</option>
-            <option value="OTHER">Otro</option>
+            <option value="">Selecciona tu provincia</option>
+            <option value="Buenos Aires">Buenos Aires</option>
+            <option value="Catamarca">Catamarca</option>
+            <option value="Chaco">Chaco</option>
+            <option value="Chubut">Chubut</option>
+            <option value="Córdoba">Córdoba</option>
+            <option value="Corrientes">Corrientes</option>
+            <option value="Entre Ríos">Entre Ríos</option>
+            <option value="Formosa">Formosa</option>
+            <option value="Jujuy">Jujuy</option>
+            <option value="La Pampa">La Pampa</option>
+            <option value="La Rioja">La Rioja</option>
+            <option value="Mendoza">Mendoza</option>
+            <option value="Misiones">Misiones</option>
+            <option value="Neuquén">Neuquén</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="Salta">Salta</option>
+            <option value="San Juan">San Juan</option>
+            <option value="San Luis">San Luis</option>
+            <option value="Santa Cruz">Santa Cruz</option>
+            <option value="Santa Fe">Santa Fe</option>
+            <option value="Santiago del Estero">Santiago del Estero</option>
+            <option value="Tierra del Fuego">Tierra del Fuego</option>
+            <option value="Tucumán">Tucumán</option>
           </Field>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.province && touched.province ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.province && touched.province ? 'block' : 'hidden'}`}/>
@@ -218,7 +253,7 @@ const validate = (values:IFormValues) => {
             <ErrorMessage name="province" component="span" className="text-warning" />
             
         </div>
-        <div className="flex flex-col w-full pl-4">
+        {/*<div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Ciudad</label>
             <div className="flex w-full">
             <Field
@@ -228,6 +263,7 @@ const validate = (values:IFormValues) => {
             className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
               errors.city && touched.city ? 'border-warningBorder text-warningText font-medium' : ''
             }`}
+            disabled={province !== "Cordoba"}
           >
             <option value="">Selecciona país</option>
             <option value="NY">New York</option>
@@ -240,17 +276,23 @@ const validate = (values:IFormValues) => {
             </div>
             </div>
             <ErrorMessage name="city" component="span" className="text-warning" />
-        </div>
+        </div>*/}
         </div>
   
         <div className="my-20 w-full flex justify-end">
             <a href="/auth/register" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
                 Anterior
             </a>
-            <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Siguiente</button>
+            <button 
+            type="submit" 
+            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100" 
+            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
+            >
+            Siguiente
+            </button>
         </div>
     </Form>
     )}
   </Formik>
-);
+)};
 export default FormRegisterProfileFormik
