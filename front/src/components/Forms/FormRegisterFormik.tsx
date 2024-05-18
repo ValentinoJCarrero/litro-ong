@@ -1,51 +1,61 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import {postNews} from "../../helpers/postNews";
 import  warningIcon from "../../assets/IconWarrning.svg"
-import { redirect } from "react-router-dom";
-
+import { redirect, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import  showPasswordWarning from "../../assets/showPasswordWarning.svg"
+import  showPassword from "../../assets/showPassword.svg"
 interface IFormValues {
   email: string;
-  pasword: string;
-  paswordVerify: string;
+  password: string;
+  passwordVerify: string;
 }
 
 
 const initialValues = {
   email: "",
-  pasword: "",
-  paswordVerify:""
+  password: "",
+  passwordVerify:""
 };
 
 const validate = (values:IFormValues) => {
   const errors: Record<string, string> = {};
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const passwordRegex =/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
   if (!values.email) {
     errors.email = "El correo electrónico es requerido";
   } else if (!emailRegex.test(values.email)) {
     errors.email = "El correo electrónico no es válido";
   }
 
-  if (!values.pasword) {
-    errors.pasword = "El subtitulo es requerido";
-  } else if (values.pasword.length < 10 ) {
-    errors.pasword = "El subtitulo debe tener minimo 10 caracteres";
-  }else if (values.pasword.length > 30 ) {
-    errors.pasword = "El subtitulo debe tener maximo 30 caracteres";
+  if (!values.password) {
+    errors.password = "La contraseña es requerida";
+  } else if (!passwordRegex.test(values.password)) {
+    errors.password = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número";
   }
 
-  if (!values.paswordVerify) {
-    errors.paswordVerify = "La descripcion es requerida";
-  }else if (values.paswordVerify.length < 100) {
-    errors.paswordVerify = "La descripcion  debe tener minimo 100 caracteres";
-  }else if (values.paswordVerify.length > 800 ) {
-    errors.paswordVerify = "La descripcion  debe tener maximo 800 caracteres";
+  if (!values.passwordVerify) {
+    errors.passwordVerify = "La contraseña es requerida";
+  } else if (values.passwordVerify !== values.password) {
+    errors.passwordVerify = "La contraseña no coincide";
   }
 
   return errors;
 };
 
 
-  const FormRegisterFormik = () => (
+  const FormRegisterFormik = () => {
+    const [passwordText, setPasswordText] = useState("password");
+    const [passwordText2, setPasswordText2] = useState("password");
+
+  const handleShow = () => {
+    setPasswordText(prev => (prev === "password" ? "text" : "password"));
+  };
+  const handleShow2 = () => {
+    setPasswordText2(prev => (prev === "password" ? "text" : "password"));
+  };
+  return(
     <Formik
       initialValues={initialValues}
       validate={validate}
@@ -79,23 +89,25 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pr-4">
             <label htmlFor="title" className="font-medium my-2 ">Contraseña</label>
             <div className="flex w-full">
-              <Field type="password" name="pasword" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.pasword && touched.pasword ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.pasword && touched.pasword ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.pasword && touched.pasword ? 'block' : 'hidden'}`}/>
+              <Field type={passwordText} name="password" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.password && touched.password ? 'block' : 'hidden'}`} onClick={handleShow}/>
+                <img src={showPassword.src} alt="warningIcon" className={`${errors.password && touched.password ? 'hidden' : 'block'}`} onClick={handleShow}/>
             </div>
             </div>
-            <ErrorMessage name="pasword" component="span" className="text-warning" />
+            <ErrorMessage name="password" component="span" className="text-warning" />
             
         </div>
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Repetir contraseña</label>
             <div className="flex w-full">
-              <Field type="password" name="paswordVerify" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.paswordVerify && touched.paswordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.paswordVerify && touched.paswordVerify ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.paswordVerify && touched.paswordVerify ? 'block' : 'hidden'}`}/>
+              <Field type={passwordText2} name="passwordVerify" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'block' : 'hidden'}`} onClick={handleShow2}/>
+                <img src={showPassword.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'hidden' : 'block'}`} onClick={handleShow2}/>
             </div>
             </div>
-            <ErrorMessage name="paswordVerify" component="span" className="text-warning" />
+            <ErrorMessage name="passwordVerify" component="span" className="text-warning" />
             
         </div>
         </div>
@@ -104,6 +116,6 @@ const validate = (values:IFormValues) => {
         </div>
     </Form>
     )}
-  </Formik>
-);
+  </Formik>)
+};
 export default FormRegisterFormik

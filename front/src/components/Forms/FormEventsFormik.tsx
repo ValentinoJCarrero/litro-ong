@@ -59,18 +59,26 @@ const validate = (values:IFormValues) => {
 
   if (!values.date) {
     errors.date = "La fecha es requerida";
+  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.date)) {
+    errors.date = "Ingrese una fecha válida (AAAA-MM-DD)";
   }
 
   if (!values.address) {
     errors.address= "La direccion es requerida";
+  }else if (values.subtitle.length < 10 ) {
+    errors.subtitle = "La direccion debe tener minimo 10 caracteres";
   }
 
   if (!values.timeStart) {
-    errors.timeStart= "La hora de inicio es requerida";
+    errors.timeStart = "La hora de inicio es requerida";
+  } else if (!/^\d{2}:\d{2}$/.test(values.timeStart)) {
+    errors.timeStart = "Ingrese una hora válida (HH:MM)";
   }
 
   if (!values.timeEnd) {
-    errors.timeEnd= "La hora de finalizacion es requerida";
+    errors.timeEnd = "La hora de finalizacion es requerida";
+  } else if (!/^\d{2}:\d{2}$/.test(values.timeEnd)) {
+    errors.timeEnd = "Ingrese una hora válida (HH:MM)";
   }
 
 
@@ -91,6 +99,7 @@ const validate = (values:IFormValues) => {
       initialValues={initialValues}
       validate={validate}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
+        console.log(values.timeStart);
         postEvents(values)
         .then((data) => {
           alert(JSON.stringify(data, null, 2));
@@ -139,7 +148,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full ml-4">
             <label htmlFor="title" className="font-medium my-2 ">Fecha de evento</label>
             <div className="flex w-full">
-              <Field type="date" name="subtitle" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.date && touched.date ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field name="date" placeholder="Fecha de evento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.date && touched.date ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.date && touched.date ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.date && touched.date ? 'block' : 'hidden'}`}/>
             </div>
