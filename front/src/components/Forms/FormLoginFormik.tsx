@@ -1,7 +1,9 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import  warningIcon from "../../assets/IconWarrning.svg"
 import { postLogin } from "../../helpers/Auth/postLogin";
-
+import  showPasswordWarning from "../../assets/showPasswordWarning.svg"
+import  showPassword from "../../assets/showPassword.svg"
+import { useState } from "react";
 
 interface IFormValues {
   email: string;
@@ -36,7 +38,13 @@ const validate = (values:IFormValues) => {
 };
 
 
-  const FormLoginFormik = () => (
+  const FormLoginFormik = () => {
+    const [passwordText, setPasswordText] = useState("password");
+
+  const handleShow = () => {
+    setPasswordText(prev => (prev === "password" ? "text" : "password"));
+  };
+    return(
     <Formik
       initialValues={initialValues}
       validate={validate}
@@ -53,30 +61,30 @@ const validate = (values:IFormValues) => {
         });
     }}
   >
-    {({ errors, touched, setFieldValue }) => (
+    {({ errors, touched}) => (
     <Form className="text-sm text-textParagraph flex flex-col justify-center h-60">
       <div className="flex flex-col">
             <label htmlFor="email" className="font-medium my-2 ">Email</label>
             <div className="flex w-full">
-              <Field type="email" name="email" placeholder="Ingrese correo electrónico" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.email && touched.email ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type="email" name="email" placeholder="Ingrese correo electrónico" className={`w-[32rem] rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.email && touched.email ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.email && touched.email ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.email && touched.email ? 'block' : 'hidden'}`}/>
             </div>
             </div>
             <ErrorMessage name="email" component="span" className="text-warning" />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mb-10">
           <label htmlFor="password" className="font-medium my-2 ">Contraseña</label>
           <div className="flex w-full">
-            <Field type="text" name="password" placeholder="Ingrese contraseña" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <Field type={passwordText} name="password" placeholder="Ingrese contraseña" className={`w-[32rem] rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-              <img src={warningIcon.src} alt="warningIcon" className={`${errors.password && touched.password ? 'block' : 'hidden'}`}/>
+            <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.password && touched.password ? 'block' : 'hidden'}`} onClick={handleShow}/>
+                <img src={showPassword.src} alt="warningIcon" className={`${errors.password && touched.password ? 'hidden' : 'block'}`} onClick={handleShow}/>
             </div>
           </div>
           <ErrorMessage name="password" component="span" className="text-warning" />
       </div>
-        
-        <div className="flex flex-col h-1/3"></div>
+
         <div className="my-3 w-full flex flex-col items-center justify-center">
             
             <button type="submit" className="bg-primary text-textPrimary px-[88px] py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Iniciar Sesión</button>
@@ -84,5 +92,5 @@ const validate = (values:IFormValues) => {
     </Form>
     )}
   </Formik>
-);
+)};
 export default FormLoginFormik

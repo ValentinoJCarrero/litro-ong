@@ -6,6 +6,7 @@ import ButtonSecondary from "../Buttons/ButtonSecondary.astro";
 import ButtonTextPrimary from "../Buttons/ButtonTextPrimary.astro";
 
 import { getSession } from 'auth-astro/server';
+import Menu from "./Menu/Menu";
 
 
 const session = await getSession(Astro.request);
@@ -22,9 +23,9 @@ console.log(session.user?.email);
         
       
         {session ? (
-          <a href="/auth/login"> <img src={session.user?.image} alt="Imagen de perfil" class="w-14 h-14 rounded-full ml-4"/></a>
+          <Menu client:load> <img src={session.user?.image} alt="Imagen de perfil" class="w-12 rounded-full ml-4 shadow-3xl"/></Menu>
           ) : (
-          <a href="/auth/login"><ButtonTextPrimary  title="Ingresar" idEvent="buttonLogin"/></a>
+          <a href="/auth/login2"><ButtonTextPrimary  title="Ingresar" idEvent="buttonLogin"/></a>
           )}
     </div>
 </div>
