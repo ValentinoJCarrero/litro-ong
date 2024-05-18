@@ -20,14 +20,14 @@ import { Sponsor } from 'src/entities/Sponsor';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
-import { ImagesController } from 'src/functions/storage/images.controller';
+import { StorageService } from 'src/modules/storage/storage.service';
 
 @ApiTags('Patrocinadores')
 @Controller('sponsor')
 export class SponsorController {
   constructor(
     private readonly sponsorService: SponsorService,
-    private readonly ImagesController: ImagesController,
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -63,7 +63,7 @@ export class SponsorController {
     @Body() sponsor: SponsorDto,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Sponsor> {
-    const uploadedImage = await this.ImagesController.uploadImage(file);
+    const uploadedImage = await this.storageService.uploadImage(file);
 
     sponsor.logo = uploadedImage.url;
     const errors = await validate(sponsor);

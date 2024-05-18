@@ -19,13 +19,13 @@ import { EventService } from './event.service';
 import { EventDto } from 'src/dtos/Event.dto';
 import { Event } from 'src/entities/Event.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ImagesController } from 'src/functions/storage/images.controller';
+import { StorageService } from '../storage/storage.service';
 
 @ApiTags('Eventos')
 @Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService,
-              private readonly ImagesController: ImagesController
+              private readonly storageService: StorageService
   ) {}
 
   @Get()
@@ -92,7 +92,7 @@ export class EventController {
   @UseInterceptors(FileInterceptor('image'))
   async createEvent(@Body() event: EventDto, @UploadedFile() image: Express.Multer.File): Promise<Event> {
     
-    const uploadedImage = await this.ImagesController.uploadImage(image);
+    const uploadedImage = await this.storageService.uploadImage(image);
     event.image = uploadedImage.url
     console.log(event.image)
     if (!event.image) {

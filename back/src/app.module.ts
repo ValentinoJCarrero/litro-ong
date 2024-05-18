@@ -7,11 +7,13 @@ import { NewsModule } from './modules/news/news.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { BenefitModule } from './modules/benefit/benefit.module';
 import dbConfig from './config/dbConfig';
-import { ImagesController } from './functions/storage/images.controller';
 import { EventModule } from './modules/event/event.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
+import { StorageModule } from './modules/storage/storage.module';
+import { MailerModule } from './modules/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -29,9 +31,9 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET
     }),
-    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule
+    NewsModule, SponsorModule, BenefitModule,EventModule, UsersModule, AuthModule, MailerModule, MercadoPagoModule, StorageModule
   ],
-  controllers: [AppController, ImagesController,MailerController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
