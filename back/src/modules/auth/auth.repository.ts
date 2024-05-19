@@ -3,12 +3,14 @@ import { UsersRepository } from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto, SignUpGoogle, UserDto } from 'src/dtos/User.dto';
+ import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class AuthRepository {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly jwtService: JwtService,
+    private readonly mailerService:MailerService
   ) {}
 
   async signUp(user: UserDto) {
@@ -22,6 +24,10 @@ export class AuthRepository {
     });
     const { password, ...userWithoutPassword } = user;
 
+    const userMailer={name:user.fullName, email:user.email}
+    await this.mailerService.sendWelcomeMail(userMailer);
+    
+
     return userWithoutPassword;
   }
 
@@ -30,6 +36,10 @@ export class AuthRepository {
     if (usersExists) throw new BadRequestException('El usuario ya existe.');
 
     await this.usersRepository.createUser(user);
+
+    const userMailer={name:user.fullName, email:user.email}
+    await this.mailerService.sendWelcomeMail(userMailer);
+    
 
     return user;
   }
@@ -49,7 +59,7 @@ export class AuthRepository {
     const token = await this.jwtService.signAsync({ userPayload });
 
     return token;
-  }
+  } 
 
   async googleSignIn(email: string) {
     const user = await this.usersRepository.getUserByEmail(email);
