@@ -5,12 +5,12 @@ import {
   Get,
   Query,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
   UploadedFiles,
   UseInterceptors,
   DefaultValuePipe,
-  ParseIntPipe,
   BadRequestException,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -26,7 +26,7 @@ import { StorageService } from '../storage/storage.service';
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -72,7 +72,7 @@ export class NewsController {
 
     // Extrae las URLs de las imágenes subidas
     [news.primaryImage, news.secondaryImage, news.tertiaryImage] =
-      uploadedImages.map((image) => image.url);
+      uploadedImages.map((image) => image);
 
     // Validación manual del DTO
     const errors = await validate(news);
