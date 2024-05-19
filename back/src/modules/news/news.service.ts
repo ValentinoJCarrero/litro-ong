@@ -31,7 +31,7 @@ export class NewsService {
   }
 
   async createNews(news: NewsDto): Promise<News> {
-   try {
+    try {
       return await this.newsRepository.createNews(news);
     } catch (error) {
       if ((error as any).message?.includes('unicidad')) {

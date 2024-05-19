@@ -5,12 +5,12 @@ import {
   Get,
   Query,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
   UploadedFiles,
   UseInterceptors,
   DefaultValuePipe,
-  ParseIntPipe,
   BadRequestException,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -26,7 +26,7 @@ import { StorageService } from '../storage/storage.service';
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
