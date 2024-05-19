@@ -5,6 +5,7 @@ import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from '../Spinners/SpinnersPrimary';
 import { getEvents } from '../../helpers/Events/getEvents';
 import { deleteEvents } from '../../helpers/Events/deleteEvents';
+import NotFound from '../NotFound/NotFound';
 interface EventItem {
     primaryImage: string;
     title: string;
@@ -52,7 +53,7 @@ const EventsComponent = () => {
             {isLoading ? (
         <SpinnersPrimary />
       ) :!events.length ? (
-                <p className="text-tertiary w-full text-center text-3xl">No hay eventos disponibles por ahora.</p>
+                <NotFound/>
             ) : (
                 <ul className="overflow-auto h-80 w-full">
                     {events.map(({primaryImage, title, address, date, location, id, timeStart, timeEnd }) => (
