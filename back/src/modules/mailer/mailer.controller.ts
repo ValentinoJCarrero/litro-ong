@@ -7,6 +7,6 @@ export class MailerController {
 
   @Post('send')
   async sendMail(@Body() body) {
-    return await this.mailerService.sendMail(body.email);
+    return await this.mailerService.sendMail();
   }
 }
