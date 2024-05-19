@@ -26,7 +26,7 @@ import { StorageService } from '../storage/storage.service';
 export class NewsController {
   constructor(
     private readonly newsService: NewsService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()

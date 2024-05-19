@@ -25,7 +25,7 @@ export class Event {
   address: string;
 
   @Column({ type: 'date', nullable: false })
-  date: Date;
+  date: string;
 
   @Column({ type: 'time', nullable: false })
   timeStart: string;
@@ -37,7 +37,10 @@ export class Event {
   description: string;
 
   @Column({ type: 'varchar', nullable: false })
-  image: string;
+  primaryImage: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  secondaryImage: string;
 
   @ManyToMany(() => Volunteer, (volunteer) => volunteer.events, {
     nullable: true,

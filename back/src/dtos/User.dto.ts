@@ -1,40 +1,58 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+  Matches,
+} from 'class-validator';
 import { PickType } from '@nestjs/swagger';
+import { Volunteer } from 'src/entities/Volunteer.entity';
+import { Role } from 'src/entities/Role.entity';
+import { Partner } from 'src/entities/Partner.entity';
 
 export class UserDto {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
+  @IsNotEmpty({ message: 'El nombre es requerido' })
+  @IsString({ message: 'El nombre debe ser una cadena de texto' })
+  @Length(2, 50, {
+    message: 'El nombre debe tener entre 2 y 50 caracteres',
+  })
+  fullName: string;
 
-  @IsNotEmpty()
-  @IsEmail()
+  @IsNotEmpty({ message: 'El correo electrónico es requerido' })
+  @IsEmail({}, { message: 'El correo electrónico no es válido' })
   email: string;
 
   @IsOptional()
-  @IsString()
+  @Matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/, {
+    message:
+      'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número',
+  })
   password: string;
 
-  // @IsNotEmpty()
-  // @IsString()
-  // address: string;
-  //
-  // @IsNotEmpty()
-  // @IsString()
-  // phone: string;
-  //
-  // @IsNotEmpty()
-  // @IsString()
-  // dni: string;
-  //
-  // @IsNotEmpty()
-  // @IsString()
-  // birthDate: Date;
+  @IsNotEmpty()
+  @IsString()
+  fullAddress: string;
+
+  @IsNotEmpty({ message: 'El número de teléfono es requerido' })
+  phone: string;
+
+  @IsNotEmpty({ message: 'El número de documento es requerido' })
+  dni: string;
+
+  @IsNotEmpty({ message: 'La fecha de nacimiento es requerida' })
+  @IsDateString({}, { message: 'Ingrese una fecha válida (AAAA-MM-DD)' })
+  birthDate: string;
 
   @IsOptional()
-  volunteerData?: any;
+  volunteerData?: Volunteer;
 
   @IsOptional()
-  role: any;
+  partnerData?: Partner;
+
+  @IsOptional()
+  role: Role[];
 }
 
 export class loginUserDto extends PickType(UserDto, ['email', 'password']) {}

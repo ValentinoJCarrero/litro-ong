@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { VolunteerRepository } from './volunteer.repository';
 import { Role } from 'src/entities/Role.entity';
 import { User } from 'src/entities/User.entity';
+import { Event } from 'src/entities/Event.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Volunteer, User, Role])],
+  imports: [TypeOrmModule.forFeature([Volunteer, User, Role, Event])],
   controllers: [VolunteerController],
   providers: [VolunteerService, VolunteerRepository],
 })

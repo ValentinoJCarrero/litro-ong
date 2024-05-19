@@ -40,6 +40,8 @@ import { MailerModule } from './modules/mailer/mailer.module';
     AuthModule,
     MailerModule,
     MercadoPagoModule,
+    StorageModule,
+    VolunteerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

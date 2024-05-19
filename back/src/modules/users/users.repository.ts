@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/dtos/User.dto';
 import { User } from 'src/entities/User.entity';
-import { Repository } from 'typeorm';
+
+import { Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class UsersRepository {
@@ -21,22 +22,35 @@ export class UsersRepository {
     return newUser;
   }
 
-  getAllUsers(page: number, limit: number) {
+  getAllUsers(page: number, limit: number): Promise<User[]> {
     return this.usersRepository.find({
       skip: (page - 1) * limit,
       take: limit,
+      relations: {
+        volunteerData: {
+          events: true,
+        },
+        partnerData: { cardData: true },
+      },
     });
   }
 
-  getUser(id: string) {
-    return this.usersRepository.findOne({ where: { id } });
+  getUser(id: string): Promise<User> {
+    return this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        volunteerData: {
+          events: true,
+        },
+      },
+    });
   }
 
-  updateUser(user) {
-    return this.usersRepository.update(user.id, user);
+  updateUser(id: string, user: Partial<UserDto>): Promise<UpdateResult> {
+    return this.usersRepository.update(id, user);
   }
 
-  deleteUser(id: string) {
-    return this.usersRepository.delete(id);
+  deleteUser(userFound: User): Promise<User> {
+    return this.usersRepository.remove(userFound);
   }
 }
