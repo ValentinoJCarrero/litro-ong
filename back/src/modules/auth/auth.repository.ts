@@ -16,10 +16,7 @@ export class AuthRepository {
     if (usersExists) throw new BadRequestException('El usuario ya existe.');
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    await this.usersRepository.createUser({
-      ...user,
-      password: hashedPassword,
-    });
+    await this.usersRepository.createUser({ ...user, password: hashedPassword });
     const { password, ...userWithoutPassword } = user;
 
     return userWithoutPassword;
@@ -36,14 +33,9 @@ export class AuthRepository {
 
   async signIn(user: LoginUserDto): Promise<string> {
     const findUser = await this.usersRepository.getUserByEmail(user.email);
-    if (!findUser)
-      throw new BadRequestException('Email o contraseña incorrectos.');
-    const isPasswordValid = await bcrypt.compare(
-      findUser.password,
-      user.password,
-    );
-    if (!isPasswordValid)
-      throw new BadRequestException('Email o contraseña incorrectos.');
+    if (!findUser) throw new BadRequestException('Email o contraseña incorrectos.');
+    const isPasswordValid = await bcrypt.compare(user.password, findUser.password);
+    if (!isPasswordValid) throw new BadRequestException('Email o contraseña incorrectos.');
 
     const userPayload = { sub: findUser.id, email: findUser.email };
     const token = await this.jwtService.signAsync({ userPayload });
@@ -53,10 +45,7 @@ export class AuthRepository {
 
   async googleSignIn(email: string) {
     const user = await this.usersRepository.getUserByEmail(email);
-    if (!user)
-      throw new BadRequestException(
-        'Esta cuenta no se encuentra en nuestra base de datos.',
-      );
+    if (!user) throw new BadRequestException('Esta cuenta no se encuentra en nuestra base de datos.',);
 
     const userPayload = { sub: user.id, email: user.email };
     const token = await this.jwtService.signAsync({ userPayload });
