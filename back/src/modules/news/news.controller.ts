@@ -72,7 +72,7 @@ export class NewsController {
 
     // Extrae las URLs de las imágenes subidas
     [news.primaryImage, news.secondaryImage, news.tertiaryImage] =
-      uploadedImages.map((image) => image.url);
+      uploadedImages.map((image) => image);
 
     // Validación manual del DTO
     const errors = await validate(news);

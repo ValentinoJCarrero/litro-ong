@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { StorageService } from './storage.service';
@@ -11,17 +11,14 @@ export class StorageController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadImage(@UploadedFile() file: Express.Multer.File): Promise<{ url: string }> {
-    const allowedMimeTypes = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png', 'image/jfif'];
-    if (!allowedMimeTypes.includes(file.mimetype)) {
-      throw new BadRequestException('Only image files are allowed!');
-    }
-    try {
-      const url = await this.storageService.uploadImage(file);
-      return  url ;
-    } catch (error) {
-      console.error('Upload failed:', error);
-      throw error;
-    }
+  async uploadImage(@UploadedFile(
+    new ParseFilePipe({
+      validators: [
+        new MaxFileSizeValidator({ maxSize: 3000000, message: 'El archivo debe ser menor a 3mb.' }),
+        new FileTypeValidator({ fileType: /(jpg|jpeg|png|jfif|webp)$/ })
+      ]
+    })
+  ) file: Express.Multer.File): Promise<string> {
+      return await this.storageService.uploadImage(file);
   }
 }

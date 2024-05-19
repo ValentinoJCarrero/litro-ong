@@ -13,7 +13,7 @@ export class UsersRepository {
         return user;
     }
 
-    async createUser(user: UserDto): Promise<Partial<User>> {
+    async createUser(user): Promise<Partial<User>> {
         const newUser = await this.usersRepository.save(user);
 
         return newUser;
