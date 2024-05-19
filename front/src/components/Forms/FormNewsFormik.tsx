@@ -96,12 +96,12 @@ const FormNewsFormik = () => (
   >
     {({ errors, touched, setFieldValue }) => (
       <Form className="text-sm text-textParagraph ">
-        <div className="flex flex-col">
+        <div className="flex flex-col h-20">
           <label htmlFor="title" className="font-medium ">
             Título
           </label>
           <div className="flex w-full">
-            <Field
+            <Field 
               type="text"
               name="title"
               placeholder="Título de la noticia"
@@ -133,7 +133,7 @@ const FormNewsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-20">
           <label htmlFor="subtitle" className="font-medium my-2">
             Subtítulo
           </label>
@@ -170,7 +170,7 @@ const FormNewsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-20 my-2">
           <label htmlFor="primaryImage" className="font-medium my-2">
             Foto Principal
           </label>
@@ -194,7 +194,8 @@ const FormNewsFormik = () => (
         </div>
         <div className="flex flex-row items-center justify-between flex-wrap">
 
-        <div className="flex flex-col ">
+        <div className="flex flex-col w-1/2 h-20">
+          <div className=" flex flex-col w-11/12">
           <label htmlFor="secondaryImage" className="font-medium my-2">
             Foto secundaria 1
           </label>
@@ -216,7 +217,8 @@ const FormNewsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col">
+        </div>
+        <div className="flex flex-col w-1/2">
           <label htmlFor="tertiaryImage" className="font-medium my-2">
             Foto secundaria 2
           </label>
@@ -239,7 +241,10 @@ const FormNewsFormik = () => (
           />
         </div>
         </div>
-        <div className="flex flex-col h-1/3">
+
+        <div className=" flex flex-row gap-10">
+
+        <div className="flex flex-col h-32  w-2/3">
           <label htmlFor="description" className="font-medium my-2">
             Descripción
           </label>
@@ -248,7 +253,7 @@ const FormNewsFormik = () => (
               as="textarea"
               name="description"
               placeholder="Describe la noticia"
-              className={`w-full resize-none h-32 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+              className={`w-full resize-none h-20 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                 errors.description && touched.description
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
@@ -276,19 +281,20 @@ const FormNewsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="my-3 w-full flex justify-end">
+        <div className=" w-1/3 flex flex-row items-center  justify-end">
           <a
             href="/dashboardAdmin/news"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
-            Anterior
+            Volver
           </a>
           <button
             type="submit"
-            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
+            className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
           >
             Agregar
           </button>
+        </div>
         </div>
       </Form>
     )}
