@@ -93,7 +93,7 @@ export class EventController {
   async createEvent(@Body() event: EventDto, @UploadedFile() image: Express.Multer.File): Promise<Event> {
     
     const uploadedImage = await this.storageService.uploadImage(image);
-    event.image = uploadedImage.url
+    event.image = uploadedImage
     console.log(event.image)
     if (!event.image) {
         throw new BadRequestException('La validación falló');
