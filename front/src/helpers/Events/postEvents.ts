@@ -8,13 +8,13 @@ export async function postEvents(newsResponse:any): Promise<any> {
     formData.append('description', newsResponse.description);
     formData.append('address', newsResponse.address);
     formData.append('date', newsResponse.date);
-    formData.append('timeStart', newsResponse.description);
-    formData.append('timeEnd', newsResponse.description);
+    formData.append('timeStart', newsResponse.timeStart);
+    formData.append('timeEnd', newsResponse.timeEnd);
 
 
     // Añadir imágenes si están presentes
-    if (newsResponse.primaryImage) formData.append('image', newsResponse.primaryImage);
-    if (newsResponse.secondaryImage) formData.append('image', newsResponse.secondaryImage);
+    if (newsResponse.primaryImage) formData.append('files', newsResponse.primaryImage);
+    if (newsResponse.secondaryImage) formData.append('files', newsResponse.secondaryImage);
 
 console.log(formData);
     const response = await fetch(`https://litro-ong.onrender.com/event`, {
