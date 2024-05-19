@@ -21,9 +21,8 @@ export class AuthRepository {
     await this.usersRepository.createUser({ ...user, password: hashedPassword });
     const { password, ...userWithoutPassword } = user;
 
-    const userMailer={name:user.fullName, email:user.email}
+    const userMailer = { name: user.fullName, email:user.email };
     await this.mailerService.sendWelcomeMail(userMailer);
-    
 
     return userWithoutPassword;
   }
@@ -33,10 +32,9 @@ export class AuthRepository {
     if (usersExists) throw new BadRequestException('El usuario ya existe.');
 
     await this.usersRepository.createUser(user);
-
-    const userMailer={name:user.fullName, email:user.email}
-    await this.mailerService.sendWelcomeMail(userMailer);
     
+    const userMailer = { name:user.fullName, email:user.email };
+    await this.mailerService.sendWelcomeMail(userMailer);
 
     return user;
   }
