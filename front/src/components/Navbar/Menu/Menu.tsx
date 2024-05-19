@@ -30,7 +30,7 @@ const Menu: React.FC<MenuProps> = ({ children}) => {
         <li className="text-2xl p-4 hover:bg-gray-100 hover:rounded-b-lg">
           <button onClick={() => {
             signOut()
-            window.location.reload()
+            // window.location.reload()
           }} className="text-textTertiary text-sm font-medium">Cerrar sesión</button>
         </li>
       </ul>
