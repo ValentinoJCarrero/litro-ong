@@ -48,7 +48,7 @@ const validate = (values:IFormValues) => {
   const FormRegisterFormik = () => {
     const [passwordText, setPasswordText] = useState("password");
     const [passwordText2, setPasswordText2] = useState("password");
-
+    
   const handleShow = () => {
     setPasswordText(prev => (prev === "password" ? "text" : "password"));
   };
@@ -60,16 +60,9 @@ const validate = (values:IFormValues) => {
       initialValues={initialValues}
       validate={validate}
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-        postNews(values)
-        .then((data) => {
-          alert(JSON.stringify(data, null, 2));
-          setSubmitting(false);
-          redirect("/auth/register/personalInformation")
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setSubmitting(false);
-        });
+        localStorage.setItem("registerUser", JSON.stringify(values));
+        setSubmitting(false);
+        window.location.href = "/auth/register/personalInformation";
     }}
   >
     {({ errors, touched }) => (
@@ -89,7 +82,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pr-4">
             <label htmlFor="title" className="font-medium my-2 ">Contraseña</label>
             <div className="flex w-full">
-              <Field type={passwordText} name="password" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type={passwordText} name="password" placeholder="contraseña" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.password && touched.password ? 'block' : 'hidden'}`} onClick={handleShow}/>
                 <img src={showPassword.src} alt="warningIcon" className={`${errors.password && touched.password ? 'hidden' : 'block'}`} onClick={handleShow}/>
@@ -101,7 +94,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Repetir contraseña</label>
             <div className="flex w-full">
-              <Field type={passwordText2} name="passwordVerify" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type={passwordText2} name="passwordVerify" placeholder="contraseña" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'block' : 'hidden'}`} onClick={handleShow2}/>
                 <img src={showPassword.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'hidden' : 'block'}`} onClick={handleShow2}/>
@@ -112,7 +105,13 @@ const validate = (values:IFormValues) => {
         </div>
         </div>
         <div className="my-20 w-full flex justify-end">
-            <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">Siguiente</button>
+            <button 
+            type="submit" 
+            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
+            >
+              Siguiente
+            </button>
         </div>
     </Form>
     )}

@@ -1,6 +1,6 @@
-export async function postLogin(newsResponse: any): Promise<any> {
+export async function postRegister(newsResponse: any): Promise<any> {
   try {
-      const response = await fetch(`https://litro-ong.onrender.com/auth/signin`, {
+      const response = await fetch(`https://litro-ong.onrender.com/auth/signup`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export async function postLogin(newsResponse: any): Promise<any> {
       console.log(data);
       return data;
   } catch (error) {
-      console.error("Error al logear el usuario", error);
+      console.error("Error al registrar el usuario", error);
       throw error;
   }
 }
