@@ -8,11 +8,13 @@ import { deleteEvents } from '../../helpers/Events/deleteEvents';
 interface EventItem {
     primaryImage: string;
     title: string;
-    subtitle: string;
+    address: string;
     date: string;
     location: string;
     href: string;
     id: number;
+    timeStart: string;
+    timeEnd: string;
   }
 
 
@@ -53,21 +55,25 @@ const EventsComponent = () => {
                 <p className="text-tertiary w-full text-center text-3xl">No hay eventos disponibles por ahora.</p>
             ) : (
                 <ul className="overflow-auto h-80 w-full">
-                    {events.map(({primaryImage, title, subtitle, date, location, id }) => (
+                    {events.map(({primaryImage, title, address, date, location, id, timeStart, timeEnd }) => (
                         <li key={id} className="flex flex-row flex-nowrap justify-between pr-10 items-center">
                             <a className="flex flex-row justify-between p-10 items-center text-sm w-full" id={`card${id}`} href={`/dashboardAdmin/${title}`}>
                                 <div className="flex">
-                                    <img src={iconNews.src} alt={title} className="w-20 h-20 rounded-full object-cover mr-4" />
+                                    <img src={primaryImage} alt={title} className="w-20 h-20 rounded-full object-cover mr-4" />
                                     <div>
                                         <h6 className="text-tertiary text-base font-semibold">{title}</h6>
-                                        <p>{subtitle}</p>
+                                        <p>{address}</p>
                                         <p>{date}</p>
+                                        <div className="flex">
+                                        <p>{timeStart}</p>
+                                        <p className="ml-2">{timeEnd}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <p>{location}</p>
                                 </div>
-                                <img src={primaryImage} alt="icono de vector" />
+                               
                             </a>
                             <div className="w-40 flex justify-center">
                                 {isDeleting && deletingId === id ? (

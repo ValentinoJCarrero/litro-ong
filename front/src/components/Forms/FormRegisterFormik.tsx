@@ -82,7 +82,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pr-4">
             <label htmlFor="title" className="font-medium my-2 ">Contraseña</label>
             <div className="flex w-full">
-              <Field type={passwordText} name="password" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type={passwordText} name="password" placeholder="contraseña" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.password && touched.password ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.password && touched.password ? 'block' : 'hidden'}`} onClick={handleShow}/>
                 <img src={showPassword.src} alt="warningIcon" className={`${errors.password && touched.password ? 'hidden' : 'block'}`} onClick={handleShow}/>
@@ -94,7 +94,7 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Repetir contraseña</label>
             <div className="flex w-full">
-              <Field type={passwordText2} name="passwordVerify" placeholder="Subtitulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type={passwordText2} name="passwordVerify" placeholder="contraseña" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.passwordVerify && touched.passwordVerify ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={showPasswordWarning.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'block' : 'hidden'}`} onClick={handleShow2}/>
                 <img src={showPassword.src} alt="warningIcon" className={`${errors.passwordVerify && touched.passwordVerify ? 'hidden' : 'block'}`} onClick={handleShow2}/>
