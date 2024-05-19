@@ -23,14 +23,14 @@ const pages = [
 
 }))
 ---
-<div class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col">
+<div class="bg-textPrimary rounded-2xl shadow-3xl h-full  flex  flex-col">
     <div class=" bg-tertiary py-5 px-10 rounded-t-2xl">
         <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
     </div>
     <div class="pt-10 w-full text-center">
         <slot />
     </div>
-    <div class="flex flex-col h-fiuw-full items-start justify-between px-10">
+    <div class="flex flex-col  items-start justify-between px-10">
             {
                 pages.map(({ name, href, active, hrefActive}, key) => ( 
 
@@ -51,7 +51,7 @@ const pages = [
                 ))
             }
     </div>
-    <div class="pb-10 flex justify-center">
+    <div class="flex justify-center pb-6">
         <ButtonCTA title="Cerrar Sesion" idEvent="Logout"/>
     </div>
 </div>

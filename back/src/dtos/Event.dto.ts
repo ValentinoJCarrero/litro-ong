@@ -1,7 +1,6 @@
 import {
   IsArray,
   IsDateString,
-  IsMilitaryTime,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -49,18 +48,12 @@ export class EventDto {
    * @example '10:00'
    */
   @IsNotEmpty({ message: 'La hora de inicio es requerida' })
-  @IsMilitaryTime({
-    message: 'La hora de inicio debe ser una hora valida, formato HH:MM',
-  })
   timeStart: string;
 
   /**
    * @example '17:00'
    */
   @IsNotEmpty({ message: 'La hora de finalización es requerida' })
-  @IsMilitaryTime({
-    message: 'La hora de finalización debe ser una hora valida, formato HH:MM',
-  })
   timeEnd: string;
 
   /**
@@ -79,8 +72,12 @@ export class EventDto {
   /**
    * @example 'https://example.com/image.jpg'
    * */
-  // @IsNotEmpty({ message: 'La imagen es requerida' })
-  image: string;
+  primaryImage: string;
+
+  /**
+   * @example 'https://example.com/image.jpg'
+   * */
+  secondaryImage: string;
 
   @IsOptional()
   @IsArray()

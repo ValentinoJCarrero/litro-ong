@@ -89,4 +89,14 @@ export class EventService {
     }
     return eventDeleted;
   }
+
+  async addVolunteer(id: string, event: Partial<Event>) {
+    const eventFound = await this.eventRepository.getOneEvent(event.title);
+
+    if (!eventFound) {
+      throw new NotFoundException('El hay un evento registrado con ese titulo');
+    }
+
+    return this.eventRepository.addVolunteer(id, eventFound);
+  }
 }
