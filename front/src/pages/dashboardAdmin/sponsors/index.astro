@@ -3,7 +3,8 @@ import AsideMenuDasboard from "../../../components/AsideMenuDasboard/AsideMenuDa
 import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
-import SponsorsClientComponent from "../../../components/GetComponents/SponsorsClientComponent.tsx";
+import SponsorsClientComponent from "../../../components/GetComponents/SponsorsClientComponent";
+import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -26,15 +27,22 @@ import SponsorsClientComponent from "../../../components/GetComponents/SponsorsC
           <SponsorsClientComponent client:load />
         </div>
         <div class="w-full flex justify-center">
-          <a href="/dashboardAdmin/sponsor/sponsorCreate"
+          <a href="/dashboardAdmin/sponsors/sponsorCreate"
             ><ButtonCTASmall title="Agregar Sponsor" /></a
           >
         </div>
       </div>
-      <div class="w-full flex justify-center mt-6">
-        <a href="/dashboardAdmin/communnityKitchens"
-          ><ButtonPrimarySmall title="Siguiente" /></a
-        >
+      <div class="flex flex-row items-center justify-center flex-nowrap gap-8">
+        <div class="mt-6">
+          <a href="/dashboardAdmin/volunteers">
+            <ButtonSecondarySmall title="Anterior" />
+          </a>
+        </div>
+        <div class="mt-6">
+          <a href="/dashboardAdmin/communityKitchens">
+            <ButtonPrimarySmall title="Siguiente" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
