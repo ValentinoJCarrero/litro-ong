@@ -65,7 +65,7 @@ export class SponsorController {
   ): Promise<Sponsor> {
     const uploadedImage = await this.storageService.uploadImage(file);
 
-    sponsor.logo = uploadedImage.url;
+    sponsor.logo = uploadedImage;
     const errors = await validate(sponsor);
     if (errors.length > 0) {
       throw new BadRequestException('La validación falló');
