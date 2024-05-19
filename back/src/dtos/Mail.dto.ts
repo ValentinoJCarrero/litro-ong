@@ -4,8 +4,8 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 export class MailDto {
     CreateEmailResponse: string
     @IsEmail()
-    from: string
-
+    to: string
+    
     @IsNotEmpty()
     @IsString()
     email: string
