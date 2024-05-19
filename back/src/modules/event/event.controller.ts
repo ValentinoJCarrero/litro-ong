@@ -106,7 +106,7 @@ export class EventController {
 
     // Extrae las URLs de las imágenes subidas
     [event.primaryImage, event.secondaryImage] = uploadedImages.map(
-      (image) => image.url,
+      (image) => image,
     );
 
     // Validación manual del DTO
