@@ -60,21 +60,7 @@ export class AuthRepository {
 
     return token;
   } 
-//   async googleSignIn(email: string) {
-//     const user = await this.usersRepository.getUserByEmail(email);
-//     if (!user)
-//     throw new BadRequestException(
-//         'Esta cuenta no se encuentra en nuestra base de datos.',
-//     );
 
-//     const userPayload = { sub: user.id, email: user.email };
-//     const token = await this.jwtService.signAsync({ userPayload });
-
-// const userPayload = { sub: findUser.id, email: findUser.email };
-// const token = await this.jwtService.signAsync({ userPayload });
-
-// return token;
-// }
   async googleSignIn(email: string) {
     const user = await this.usersRepository.getUserByEmail(email);
     if (!user)
