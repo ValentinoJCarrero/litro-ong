@@ -55,4 +55,15 @@ export class UserDto {
   role: Role[];
 }
 
-export class loginUserDto extends PickType(UserDto, ['email', 'password']) {}
+export class LoginUserDto extends PickType(UserDto, ['email', 'password']) {}
+
+export class SignUpGoogle extends PickType(UserDto, [
+  'name',
+  'email',
+  'address',
+  'phone',
+  'dni',
+  'birthDate',
+]) {}
+
+export class LoginGoogle extends PickType(UserDto, ['email']) {}

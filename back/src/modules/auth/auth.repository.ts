@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersRepository } from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserDto } from 'src/dtos/User.dto';
+import { LoginUserDto, SignUpGoogle, UserDto } from 'src/dtos/User.dto';
 
 @Injectable()
 export class AuthRepository {
@@ -25,14 +25,27 @@ export class AuthRepository {
     return userWithoutPassword;
   }
 
-  async signIn(email: string, password: string): Promise<string> {
-    const user = await this.usersRepository.getUserByEmail(email);
-    if (!user) throw new BadRequestException('Email o contraseña incorrectos.');
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+  async googleSignUp(user: SignUpGoogle) {
+    const usersExists = await this.usersRepository.getUserByEmail(user.email);
+    if (usersExists) throw new BadRequestException('El usuario ya existe.');
+
+    await this.usersRepository.createUser(user);
+
+    return user;
+  }
+
+  async signIn(user: LoginUserDto): Promise<string> {
+    const findUser = await this.usersRepository.getUserByEmail(user.email);
+    if (!findUser)
+      throw new BadRequestException('Email o contraseña incorrectos.');
+    const isPasswordValid = await bcrypt.compare(
+      findUser.password,
+      user.password,
+    );
     if (!isPasswordValid)
       throw new BadRequestException('Email o contraseña incorrectos.');
 
-    const userPayload = { sub: user.id, email: user.email };
+    const userPayload = { sub: findUser.id, email: findUser.email };
     const token = await this.jwtService.signAsync({ userPayload });
 
     return token;

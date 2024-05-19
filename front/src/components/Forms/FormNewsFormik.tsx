@@ -17,7 +17,7 @@ const initialValues: IFormValues = {
   primaryImage: null,
   secondaryImage: null,
   tertiaryImage: null,
-  description: ""
+  description: "",
 };
 
 const validate = (values: IFormValues) => {
@@ -41,15 +41,28 @@ const validate = (values: IFormValues) => {
 
   if (!values.primaryImage) {
     errors.primaryImage = "La imagen principal es requerida";
-  } else if (values.primaryImage && values.primaryImage.type && !values.primaryImage.type.startsWith("image/")) {
+  } else if (
+    values.primaryImage &&
+    values.primaryImage.type &&
+    !values.primaryImage.type.startsWith("image/")
+  ) {
     errors.primaryImage = "La imagen principal debe ser un archivo de imagen";
   }
 
-  if (values.secondaryImage && values.secondaryImage.type && !values.secondaryImage.type.startsWith("image/")) {
-    errors.secondaryImage = "La imagen secundaria debe ser un archivo de imagen";
+  if (
+    values.secondaryImage &&
+    values.secondaryImage.type &&
+    !values.secondaryImage.type.startsWith("image/")
+  ) {
+    errors.secondaryImage =
+      "La imagen secundaria debe ser un archivo de imagen";
   }
 
-  if (values.tertiaryImage && values.tertiaryImage.type && !values.tertiaryImage.type.startsWith("image/")) {
+  if (
+    values.tertiaryImage &&
+    values.tertiaryImage.type &&
+    !values.tertiaryImage.type.startsWith("image/")
+  ) {
     errors.tertiaryImage = "La imagen terciaria debe ser un archivo de imagen";
   }
 
@@ -76,7 +89,7 @@ const FormNewsFormik = () => (
           setSubmitting(false);
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error("Error:", error);
           setSubmitting(false);
         });
     }}
@@ -84,55 +97,196 @@ const FormNewsFormik = () => (
     {({ errors, touched, setFieldValue }) => (
       <Form className="text-sm text-textParagraph ">
         <div className="flex flex-col">
-          <label htmlFor="title" className="font-medium my-2">Título</label>
+          <label htmlFor="title" className="font-medium ">
+            Título
+          </label>
           <div className="flex w-full">
-            <Field type="text" name="title" placeholder="Título de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium' : ''}`} />
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.title && touched.title ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-              <img src={warningIcon.src} alt="warningIcon" className={`${errors.title && touched.title ? 'block' : 'hidden'}`} />
+            <Field
+              type="text"
+              name="title"
+              placeholder="Título de la noticia"
+              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.title && touched.title
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.title && touched.title
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.title && touched.title ? "block" : "hidden"
+                }`}
+              />
             </div>
           </div>
-          <ErrorMessage name="title" component="span" className="text-warning" />
+          <ErrorMessage
+            name="title"
+            component="span"
+            className="text-warning"
+          />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="subtitle" className="font-medium my-2">Subtítulo</label>
+          <label htmlFor="subtitle" className="font-medium my-2">
+            Subtítulo
+          </label>
           <div className="flex w-full">
-            <Field type="text" name="subtitle" placeholder="Subtítulo de la noticia" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.subtitle && touched.subtitle ? 'border-warningBorder text-warningText font-medium' : ''}`} />
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.subtitle && touched.subtitle ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-              <img src={warningIcon.src} alt="warningIcon" className={`${errors.subtitle && touched.subtitle ? 'block' : 'hidden'}`} />
+            <Field
+              type="text"
+              name="subtitle"
+              placeholder="Subtítulo de la noticia"
+              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.subtitle && touched.subtitle
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.subtitle && touched.subtitle
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.subtitle && touched.subtitle ? "block" : "hidden"
+                }`}
+              />
             </div>
           </div>
-          <ErrorMessage name="subtitle" component="span" className="text-warning" />
+          <ErrorMessage
+            name="subtitle"
+            component="span"
+            className="text-warning"
+          />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="primaryImage" className="font-medium my-2">Foto Principal</label>
-          <input type="file" name="primaryImage" accept="image/*" className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" onChange={(event) => setFieldValue('primaryImage', event.currentTarget.files ? event.currentTarget.files[0] : null)} />
-          <ErrorMessage name="primaryImage" component="span" className="text-warning" />
+          <label htmlFor="primaryImage" className="font-medium my-2">
+            Foto Principal
+          </label>
+          <input
+            type="file"
+            name="primaryImage"
+            accept="image/*"
+            className="rounded-md border-backgroundGrey  bg-white border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
+            onChange={(event) =>
+              setFieldValue(
+                "primaryImage",
+                event.currentTarget.files ? event.currentTarget.files[0] : null
+              )
+            }
+          />
+          <ErrorMessage
+            name="primaryImage"
+            component="span"
+            className="text-warning"
+          />
+        </div>
+        <div className="flex flex-row items-center justify-between flex-wrap">
+
+        <div className="flex flex-col ">
+          <label htmlFor="secondaryImage" className="font-medium my-2">
+            Foto secundaria 1
+          </label>
+          <input
+            type="file"
+            name="secondaryImage"
+            accept="image/*"
+            className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
+            onChange={(event) =>
+              setFieldValue(
+                "secondaryImage",
+                event.currentTarget.files ? event.currentTarget.files[0] : null
+              )
+            }
+          />
+          <ErrorMessage
+            name="secondaryImage"
+            component="span"
+            className="text-warning"
+          />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="secondaryImage" className="font-medium my-2">Foto secundaria 1</label>
-          <input type="file" name="secondaryImage" accept="image/*" className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" onChange={(event) => setFieldValue('secondaryImage', event.currentTarget.files ? event.currentTarget.files[0] : null)} />
-          <ErrorMessage name="secondaryImage" component="span" className="text-warning" />
+          <label htmlFor="tertiaryImage" className="font-medium my-2">
+            Foto secundaria 2
+          </label>
+          <input
+            type="file"
+            name="tertiaryImage"
+            accept="image/*"
+            className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
+            onChange={(event) =>
+              setFieldValue(
+                "tertiaryImage",
+                event.currentTarget.files ? event.currentTarget.files[0] : null
+              )
+            }
+          />
+          <ErrorMessage
+            name="tertiaryImage"
+            component="span"
+            className="text-warning"
+          />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="tertiaryImage" className="font-medium my-2">Foto secundaria 2</label>
-          <input type="file" name="tertiaryImage" accept="image/*" className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary" onChange={(event) => setFieldValue('tertiaryImage', event.currentTarget.files ? event.currentTarget.files[0] : null)} />
-          <ErrorMessage name="tertiaryImage" component="span" className="text-warning" />
         </div>
         <div className="flex flex-col h-1/3">
-          <label htmlFor="description" className="font-medium my-2">Descripción</label>
+          <label htmlFor="description" className="font-medium my-2">
+            Descripción
+          </label>
           <div className="flex w-full">
-            <Field as="textarea" name="description" placeholder="Describe la noticia" className={`w-full resize-none h-32 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.description && touched.description ? 'border-warningBorder text-warningText font-medium' : ''}`} />
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.description && touched.description ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-              <img src={warningIcon.src} alt="warningIcon" className={`${errors.description && touched.description ? 'block' : 'hidden'}`} />
+            <Field
+              as="textarea"
+              name="description"
+              placeholder="Describe la noticia"
+              className={`w-full resize-none h-32 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.description && touched.description
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.description && touched.description
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.description && touched.description ? "block" : "hidden"
+                }`}
+              />
             </div>
           </div>
-          <ErrorMessage name="description" component="span" className="text-warning" />
+          <ErrorMessage
+            name="description"
+            component="span"
+            className="text-warning"
+          />
         </div>
         <div className="my-3 w-full flex justify-end">
-          <a href="/dashboardAdmin/news" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
+          <a
+            href="/dashboardAdmin/news"
+            className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
+          >
             Anterior
           </a>
-          <button type="submit" className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap">
+          <button
+            type="submit"
+            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
+          >
             Agregar
           </button>
         </div>
