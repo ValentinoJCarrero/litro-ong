@@ -11,21 +11,23 @@ import {
   Post,
   Put,
   Query,
-  UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EventService } from './event.service';
 import { EventDto } from 'src/dtos/Event.dto';
 import { Event } from 'src/entities/Event.entity';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '../storage/storage.service';
+import { validate } from 'class-validator';
 
 @ApiTags('Eventos')
 @Controller('event')
 export class EventController {
-  constructor(private readonly eventService: EventService,
-              private readonly storageService: StorageService
+  constructor(
+    private readonly eventService: EventService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -49,7 +51,7 @@ export class EventController {
   getFutureEvents(): Promise<Event[]> {
     return this.eventService.getFutureEvents();
   }
-  //paginado
+
   @Get('/past')
   @ApiOperation({
     summary: 'Obtener todos los eventos pasados',
@@ -89,16 +91,31 @@ export class EventController {
     description:
       'Esta ruta crea un nuevo evento con los datos enviados por body, de tipo EventDto',
   })
-  @UseInterceptors(FileInterceptor('image'))
-  async createEvent(@Body() event: EventDto, @UploadedFile() image: Express.Multer.File): Promise<Event> {
-    
-    const uploadedImage = await this.storageService.uploadImage(image);
-    event.image = uploadedImage
-    console.log(event.image)
-    if (!event.image) {
-        throw new BadRequestException('La validación falló');
+  @UseInterceptors(FilesInterceptor('files', 2))
+  async createEvent(
+    @Body() event: EventDto,
+    @UploadedFiles() files: Express.Multer.File[],
+  ): Promise<Event> {
+    if (!files) {
+      throw new BadRequestException('No se recibieron archivos');
     }
-    return this.eventService.createEvent(event); 
+
+    const uploadedImages = await Promise.all(
+      files.map((file) => this.storageService.uploadImage(file)), // Usa ImagesService para subir imágenes
+    );
+
+    // Extrae las URLs de las imágenes subidas
+    [event.primaryImage, event.secondaryImage] = uploadedImages.map(
+      (image) => image.url,
+    );
+
+    // Validación manual del DTO
+    const errors = await validate(event);
+    if (errors.length > 0) {
+      throw new BadRequestException('La validación falló');
+    }
+
+    return this.eventService.createEvent(event);
   }
 
   @Delete(':id')
@@ -109,5 +126,19 @@ export class EventController {
   })
   deleteEvent(@Param('id', ParseUUIDPipe) id: string) {
     return this.eventService.deleteEvent(id);
+  }
+
+  @Post(':id')
+  @ApiOperation({
+    summary: 'Agregar un voluntario a un evento (solo para administradores)',
+    description:
+      'Esta ruta, agrega a un usuario de tipo voluntario, a un evento especifico. El id del voluntario es enviado por parámetro y el evento por body',
+  })
+  addVolunteer(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() event: Partial<Event>,
+  ) {
+    console.log('pasaste por aca');
+    return this.eventService.addVolunteer(id, event);
   }
 }
