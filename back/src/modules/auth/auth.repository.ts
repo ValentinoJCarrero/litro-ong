@@ -3,14 +3,20 @@ import { UsersRepository } from '../users/users.repository';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginUserDto, SignUpGoogle, UserDto } from 'src/dtos/User.dto';
+<<<<<<< HEAD
 import { MailerService } from '../mailer/mailer.service';
+=======
+>>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
 
 @Injectable()
 export class AuthRepository {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly jwtService: JwtService,
+<<<<<<< HEAD
     private readonly mailerService:MailerService
+=======
+>>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
   ) {}
 
   async signUp(user: UserDto) {
@@ -24,6 +30,7 @@ export class AuthRepository {
     });
     const { password, ...userWithoutPassword } = user;
 
+<<<<<<< HEAD
     const userMailer={name:user.fullName, email:user.email}
     await this.mailerService.sendWelcomeMail(userMailer);
     
@@ -70,7 +77,47 @@ export class AuthRepository {
 
         const userPayload = { sub: user.id, email: user.email };
         const token = await this.jwtService.signAsync({ userPayload });
+=======
+    return userWithoutPassword;
+  }
 
-        return token;
-    }
+  async googleSignUp(user: SignUpGoogle) {
+    const usersExists = await this.usersRepository.getUserByEmail(user.email);
+    if (usersExists) throw new BadRequestException('El usuario ya existe.');
+
+    await this.usersRepository.createUser(user);
+
+    return user;
+  }
+
+  async signIn(user: LoginUserDto): Promise<string> {
+    const findUser = await this.usersRepository.getUserByEmail(user.email);
+    if (!findUser)
+      throw new BadRequestException('Email o contraseña incorrectos.');
+    const isPasswordValid = await bcrypt.compare(
+      findUser.password,
+      user.password,
+    );
+    if (!isPasswordValid)
+      throw new BadRequestException('Email o contraseña incorrectos.');
+>>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
+
+    const userPayload = { sub: findUser.id, email: findUser.email };
+    const token = await this.jwtService.signAsync({ userPayload });
+
+    return token;
+  }
+
+  async googleSignIn(email: string) {
+    const user = await this.usersRepository.getUserByEmail(email);
+    if (!user)
+      throw new BadRequestException(
+        'Esta cuenta no se encuentra en nuestra base de datos.',
+      );
+
+    const userPayload = { sub: user.id, email: user.email };
+    const token = await this.jwtService.signAsync({ userPayload });
+
+    return token;
+  }
 }

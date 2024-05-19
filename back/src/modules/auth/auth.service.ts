@@ -5,12 +5,16 @@ import { AuthRepository } from './auth.repository';
 export class AuthService {
     constructor(private readonly authRepository: AuthRepository) {}
 
-    async signUp(user) {
+    signUp(user) {
         return this.authRepository.signUp(user);
     }
 
-    async signIn(email, password) {
-        return this.authRepository.signIn(email, password);
+    googleSignUp(user) {
+        return this.authRepository.googleSignUp(user);
+    }
+
+    signIn(user) {
+        return this.authRepository.signIn(user);
     }
 
     googleSignIn(email) {
