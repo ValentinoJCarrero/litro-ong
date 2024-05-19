@@ -16,13 +16,8 @@ export class UsersRepository {
     return user;
   }
 
-<<<<<<< HEAD
-    async createUser(user): Promise<Partial<User>> {
-        const newUser = await this.usersRepository.save(user);
-=======
   async createUser(user): Promise<Partial<User>> {
     const newUser = await this.usersRepository.save(user);
->>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
 
     return newUser;
   }

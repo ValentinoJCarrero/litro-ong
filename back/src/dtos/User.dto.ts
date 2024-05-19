@@ -25,11 +25,7 @@ export class UserDto {
   email: string;
 
   @IsOptional()
-<<<<<<< HEAD
-  @Matches(/^(?=.[A-Z])(?=.\d)[A-Za-z\d]{8,}$/, {
-=======
   @Matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/, {
->>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
     message:
       'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número',
   })
@@ -70,8 +66,4 @@ export class SignUpGoogle extends PickType(UserDto, [
   'birthDate',
 ]) {}
 
-<<<<<<< HEAD
 export class LoginGoogle extends PickType(UserDto, ['email']) {}
-=======
-export class LoginGoogle extends PickType(UserDto, ['email']) {}
->>>>>>> 5daf07b82706886d7424855b6c5fa80019229451
