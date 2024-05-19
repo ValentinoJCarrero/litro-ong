@@ -7,7 +7,7 @@ interface IFormValues {
   name: string;
   lastname: string;
   phone: string;
-  brithDate: string;
+  birthDate: string;
   dni: string;
   address: string;
   country:string;
@@ -20,7 +20,7 @@ const initialValues = {
   name:"",
   lastname: "",
   phone: "",
-  brithDate: "",
+  birthDate: "",
   dni: "",
   address: "",
   country:"",
@@ -56,10 +56,10 @@ const validate = (values:IFormValues) => {
     errors.phone = "El número de teléfono debe tener 10 dígitos";
   }
 
-  if (!values.brithDate) {
-    errors.brithDate = "La fecha de nacimiento es requerida";
-  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.brithDate)) {
-    errors.brithDate = "Ingrese una fecha válida (AAAA-MM-DD)";
+  if (!values.birthDate) {
+    errors.birthDate = "La fecha de nacimiento es requerida";
+  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)) {
+    errors.birthDate = "Ingrese una fecha válida (AAAA-MM-DD)";
   }
 
   if (!values.dni) {
@@ -101,7 +101,7 @@ const validate = (values:IFormValues) => {
         const combinedValues = {
           ...values,
           fullName: `${values.name} ${values.lastname}`,
-          fullAdress: `${values.address} ${values.country} ${values.province}`,
+          fullAddress: `${values.address} ${values.country} ${values.province}`,
         };
         localStorage.setItem("registerUserProfile", JSON.stringify(combinedValues));
         alert(JSON.stringify(combinedValues, null, 2));
@@ -148,9 +148,9 @@ const validate = (values:IFormValues) => {
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Fecha de Nacimiento</label>
             <div className="flex w-full">
-              <Field type="text" name="brithDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.brithDate && touched.brithDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.brithDate && touched.brithDate ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.brithDate && touched.brithDate? 'block' : 'hidden'}`}/>
+              <Field type="text" name="birthDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.birthDate && touched.birthDate? 'block' : 'hidden'}`}/>
             </div>
             </div>
             <ErrorMessage name="brithDate" component="span" className="text-warning" />

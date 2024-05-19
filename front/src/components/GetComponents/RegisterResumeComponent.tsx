@@ -4,9 +4,9 @@ import { postRegister } from '../../helpers/Auth/postRegister';
 interface UserInfo {
     fullName: string;
     dni: string;
-    brithDate: string;
+    birthDate: string;
     phone: string;
-    fullAdress: string;
+    fullAddress: string;
 }
 interface User {
     email: string;
@@ -28,9 +28,18 @@ const RegisterResumeComponent = () => {
     }, []);
     const handleSubmit = () => {
         if (user && userInfo) {
-            const data = {...user,...userInfo
+            const data = {
+                email: user.email,
+                password: user.password,
+                fullName: userInfo.fullName,
+                dni: userInfo.dni,
+                birthDate: userInfo.birthDate,
+                phone: userInfo.phone,
+                fullAddress: userInfo.fullAddress
 
             };
+
+            
             console.log(data);
             postRegister(data);
             localStorage.clear();
@@ -71,7 +80,7 @@ const RegisterResumeComponent = () => {
                     </div>
                     <div>
                         <h1>Fecha de nacimiento</h1>
-                        <p>{userInfo.brithDate}</p>
+                        <p>{userInfo.birthDate}</p>
                     </div>
                     <div>
                         <h1>Numero de telefono</h1>
@@ -79,7 +88,7 @@ const RegisterResumeComponent = () => {
                     </div>
                     <div>
                         <h1>Domicilio</h1>
-                        <p>{userInfo.fullAdress}</p>
+                        <p>{userInfo.fullAddress}</p>
                     </div>
                 </div>
                 
