@@ -34,7 +34,7 @@ const EventsComponent = () => {
     }, []);
 
     const onClic = async (id:any): Promise<void> => {
-        console.log('Eliminando noticia con ID:', id);
+        console.log('Eliminando noticia con ID :', id);
         setDeletingId(id);
         setIsDeleting(true);
 
