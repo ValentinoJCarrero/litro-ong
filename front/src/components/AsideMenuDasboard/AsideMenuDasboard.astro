@@ -1,62 +1,103 @@
 ---
 import { Image } from "astro:assets";
-import logoIcon from "../../assets/Logo.svg"
+import logoIcon from "../../assets/Logo.svg";
 import ButtonCTA from "../Buttons/ButtonCTA.astro";
+import home from "../../assets/home.svg";
 
-const { pathname } = Astro.url
+const { pathname } = Astro.url;
 console.log(pathname);
 const normalizedPathName =
-	pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
+  pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
 
 const pages = [
-	{ name: "NOTICIAS", href: "/dashboardAdmin/news",hrefActive:"/dashboardAdmin/news/newsCreate" , active: false},
-	{ name: "SECCION VOLUNTARIOS", href: "/dashboardAdmin/volunteers",  },
-	{ name: "SECCION SPONSORS", href: "/dashboardAdmin/sponsors",hrefActive:"/dashboardAdmin/sponsors/sponsorCreate",active: normalizedPathName.startsWith("/dashboardAdmin/sponsors") },
-    { name: "SECCION MERENDEROS", href: "/dashboardAdmin/communityKitchens" },
-    { name: "SECCION TALLERES DE OFICIO", href: "/dashboardAdmin/workshops" },
-    { name: "SECCION EVENTOS", href: "/dashboardAdmin/events",hrefActive:"/dashboardAdmin/events/eventsCreate" },
-    { name: "PROPUESTAS RECIBIDAS", href: "/dashboardAdmin/proposals" },
-	
+  {
+    name: "NOTICIAS",
+    href: "/dashboardAdmin/news",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  { name: "SECCION VOLUNTARIOS", href: "/dashboardAdmin/volunteers" },
+  {
+    name: "SECCION SPONSORS",
+    href: "/dashboardAdmin/sponsors",
+    hrefActive: "/dashboardAdmin/sponsors/sponsorCreate",
+    active: normalizedPathName.startsWith("/dashboardAdmin/sponsors"),
+  },
+  { name: "SECCION MERENDEROS", href: "/dashboardAdmin/communityKitchens" },
+  { name: "SECCION TALLERES DE OFICIO", href: "/dashboardAdmin/workshops" },
+  {
+    name: "SECCION EVENTOS",
+    href: "/dashboardAdmin/events",
+    hrefActive: "/dashboardAdmin/events/eventsCreate",
+  },
+  { name: "PROPUESTAS RECIBIDAS", href: "/dashboardAdmin/proposals" },
 ].map((page) => ({
-	...page,
-	active:  normalizedPathName === page.href || normalizedPathName === page.hrefActive,
-
-}))
+  ...page,
+  active:
+    normalizedPathName === page.href || normalizedPathName === page.hrefActive,
+}));
 ---
-<div class="bg-textPrimary rounded-2xl shadow-3xl h-full  flex  flex-col">
-    <div class=" bg-tertiary py-5 px-10 rounded-t-2xl">
-        <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
-    </div>
-    <div class="pt-10 w-full text-center">
-        <slot />
-    </div>
-    <div class="flex flex-col  items-start justify-between px-10">
-            {
-                pages.map(({ name, href, active, hrefActive}, key) => ( 
 
-                    <>
-                        <a
-                            href={href}
-                            class:list={[
-                                "text-sm my-3 font-normal   hover:scale-105 my-4",
-                                { "h-full text-tertiary flex items-center font-semibold ": active },
-                            { "text-textTertiary ": !active },
-                            ]}
-                            id={`nav-link-${key}`}
-                        >
-                            <span class="z-10">{name}</span>
-                        </a>
-                        
-                    </>
-                ))
-            }
+<div
+  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex flex-col justify-between"
+>
+  <div>
+    <div
+      class="bg-tertiary py-5 flex flex-row items-center justify-start px-5 rounded-t-2xl"
+    >
+      <a href="/"
+        ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
+      >
     </div>
-    <div class="flex justify-center pb-6">
-        <ButtonCTA title="Cerrar Sesion" idEvent="Logout"/>
+
+    <div class="my-5 text-center">
+      <slot />
     </div>
+  </div>
+  <div
+    class="flex flex-col content-center flex-nowrap justify-start items-start h-full"
+  >
+    <div
+      class="flex flex-col items-start mx-5 my-5 justify-center content-center gap-3"
+    >
+      {
+        pages.map(({ name, href, active, hrefActive }, key) => (
+          <>
+            <a
+              href={href}
+              class:list={[
+                "text-sm font-medium  transition-all   hover:text-tertiary cursor-pointer ",
+                {
+                  "h-full text-tertiary flex items-center font-semibold ":
+                    active,
+                },
+                { "text-textTertiary ": !active },
+              ]}
+              id={`nav-link-${key}`}
+            >
+              <span class="z-10">{name}</span>
+            </a>
+          </>
+        ))
+      }
+    </div>
+  </div>
+  <div
+    class="flex flex-row items-center justify-center bg-tertiary rounded-b-2xl"
+  >
+    <!-- <ButtonCTA title="Cerrar Sesion" idEvent="Logout"/> -->
+    <a
+      href="/"
+      class="flex flex-row m-2 p-2 rounded-full cursor-pointer transition-all hover:scale-105"
+    >
+      <img src={home.src} alt="Fondo de la página de inicio" />
+    </a>
+  </div>
 </div>
 
-<script>
+<!-- <script>
 function handleClick() {
         console.log("hola");
         return Astro.redirect("/302")
@@ -66,4 +107,4 @@ function handleClick() {
   
 	button?.addEventListener('click', handleClick)
     
-</script>
+</script> -->
