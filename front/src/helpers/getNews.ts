@@ -1,6 +1,6 @@
 
 export async function getNews(): Promise<any> {
-    try{const response = await fetch(`https://litro-ong-2.onrender.com/news`, {
+    try{const response = await fetch(`https://litro-ong.onrender.com/news`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -9,7 +9,7 @@ export async function getNews(): Promise<any> {
   
     const data = await response.json();
 
-    console.log(data);
+    console.log("esto es data",data);
     return data;}
     catch{
       console.log("Error al traer las noticia");
