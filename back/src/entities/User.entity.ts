@@ -6,11 +6,13 @@ import {
   ManyToMany,
   JoinTable,
   Unique,
+  OneToMany,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Volunteer } from './Volunteer.entity';
 import { Role } from './Role.entity';
 import { Partner } from './Partner.entity';
+import { Donation } from './Donation.entity';
 
 @Entity({ name: 'Users' })
 @Unique(['email'])
@@ -50,6 +52,11 @@ export class User {
     onUpdate: 'CASCADE',
   })
   partnerData: Partner;
+
+  @OneToMany(() => Donation, (donation) => donation.user, {
+    cascade: true,
+  })
+  donations: Donation[];
 
   @ManyToMany(() => Role, { eager: true })
   @JoinTable()
