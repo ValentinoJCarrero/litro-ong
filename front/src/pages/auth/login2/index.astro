@@ -5,17 +5,9 @@ import FormLoginFormik from "../../../components/Forms/FormLoginFormik.tsx";
 import logoIcon from "../../../assets/Logo.svg";
 import iconGoogle from "../../../assets/Google__G__logo.webp";
 import "@fontsource-variable/montserrat";
-import { getSession } from "auth-astro/server";
 import homeBack from "../../../assets/homeBack.svg";
 
-
-const session = await getSession(Astro.request);
-if (session) console.log(session.user);
-
-
-
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -68,12 +60,14 @@ if (session) console.log(session.user);
 </html>
 
 <script>
+
+
   const { signIn } = await import("auth-astro/client");
   const buttonLogin = document.querySelector<HTMLButtonElement>("#buttonLogin");
   if (buttonLogin) {
-    buttonLogin.onclick = () => {
+    buttonLogin.onclick = async() => {
       signIn("google", { callbackUrl: "/" });
-    };
+    }    
   } else {
     console.error("No se encontró ningún elemento con el ID 'buttonLogin'");
   }

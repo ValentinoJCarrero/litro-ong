@@ -1,10 +1,9 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
-import {postNews} from "../../helpers/postNews";
 import  warningIcon from "../../assets/IconWarrning.svg"
-import { redirect, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import  showPasswordWarning from "../../assets/showPasswordWarning.svg"
 import  showPassword from "../../assets/showPassword.svg"
+
 interface IFormValues {
   email: string;
   password: string;
