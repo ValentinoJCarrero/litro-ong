@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DonationRepository } from './donation.repository';
 
 import { Donation } from 'src/entities/Donation.entity';
+import { DonationDto } from 'src/dtos/Donation.dto';
 
 @Injectable()
 export class DonationService {
@@ -14,7 +15,7 @@ export class DonationService {
     return await this.donationRepository.getDonation(id);
   }
 
-  registerDonation(donation: any, id: string) {
-    return this.donationRepository.registerDonation(donation, id);
+  registerDonation(donation: DonationDto) {
+    return this.donationRepository.registerDonation(donation);
   }
 }

@@ -17,8 +17,8 @@ export class NewsRepository {
     });
   }
 
-  getOneNews(title: string): Promise<News> {
-    return this.newsRepository.findOne({ where: { title: title } });
+  getOneNews(id: string): Promise<News> {
+    return this.newsRepository.findOne({ where: { id: id } });
   }
 
   createNews(news: NewsDto): Promise<News> {

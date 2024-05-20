@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  Column,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { User } from './User.entity';
@@ -26,11 +20,10 @@ export class Donation {
   @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
   date: Date;
 
-  @OneToOne(() => User, (user) => user.volunteerData, {
+  @ManyToOne(() => User, (user) => user.donations, {
     nullable: true,
-    onDelete: 'CASCADE',
+    onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn()
   user: User;
 }
