@@ -61,6 +61,6 @@ export class AuthRepository {
     const userPayload = { sub: user.id, email: user.email };
     const token = await this.jwtService.signAsync({ userPayload });
 
-    return token;
+    return { token };
   }
 }
