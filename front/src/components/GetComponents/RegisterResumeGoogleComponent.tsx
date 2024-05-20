@@ -29,7 +29,7 @@ const RegisterResumeGoogleComponent = () => {
     const handleSubmit = () => {
         if (user && userInfo) {
             const data = {
-
+                email: user.email,
                 fullName: userInfo.fullName,
                 dni: userInfo.dni,
                 birthDate: userInfo.birthDate,

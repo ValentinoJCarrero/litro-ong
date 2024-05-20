@@ -148,7 +148,7 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
       }),
     }).then(async (res) => {
       const response = await res.text();
-      window.location.href = response;
+      window.open(response, "_blank");
     });
   });
 </script>

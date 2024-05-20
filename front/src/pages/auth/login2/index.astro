@@ -9,18 +9,6 @@ import { getSession } from "auth-astro/server";
 import homeBack from "../../../assets/homeBack.svg";
 import { postGoogleLogin } from "../../../helpers/Auth/postGoogleLogin";
 
-const session = await getSession(Astro.request);
-if (session) {console.log(session.user);
-const response:any = {email:'julian@ju.com'};
-      const  object =await postGoogleLogin(response);
-      if(object.tokenUser==="no esta registrado"){
-        Astro.cookies.set("emailUser",session?.user?.email as string);
-        return Astro.redirect("/auth/register/personalInformationGoogle");
-      }else{
-        return Astro.redirect("/");
-      } 
-    }
-
 
 ---
 
@@ -82,7 +70,7 @@ const response:any = {email:'julian@ju.com'};
   const buttonLogin = document.querySelector<HTMLButtonElement>("#buttonLogin");
   if (buttonLogin) {
     buttonLogin.onclick = async() => {
-      signIn("google");
+      signIn("google", { callbackUrl: "/" });
     }    
   } else {
     console.error("No se encontró ningún elemento con el ID 'buttonLogin'");

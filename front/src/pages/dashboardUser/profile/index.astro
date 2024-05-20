@@ -1,14 +1,36 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import BannerVoluntarios from "../../../components/fromVoluntarios/BannerVoluntarios/BannerVoluntarios.astro";
-import SerVoluntarioText from "../../../components/fromVoluntarios/SerVoluntarioText/SerVoluntarioText.astro";
-import ResumenVoluntario from "../../../components/fromVoluntarios/ResumenVoluntario/ResumenVoluntario.astro";
----
+import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
+import AsideMenuUser from "../../../components/AsideMenuDasboard/AsideMenuUser.astro";
+import { postGoogleLogin } from "../../../helpers/Auth/postGoogleLogin";
+import { getSession } from "auth-astro/server";
 
-<Layout title="Voluntarios - Un Litro Alta Gracia.">
-  <main>
-    <BannerVoluntarios/>
-    <SerVoluntarioText/>
-    <ResumenVoluntario/>
-  </main>
-</Layout>
+const session = await getSession(Astro.request);
+if (session) {;
+const response:any = {email:session?.user?.email};
+      const  object =await postGoogleLogin(response);
+      if(object.tokenUser==="no esta registrado"){
+        Astro.cookies.set("emailUser",session?.user?.email as string);
+        return Astro.redirect("/auth/register/personalInformationGoogle");
+      }else{
+        console.log("logueado");
+      } 
+    }
+---
+<DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
+    <div class="flex flex-row h-screen bg-secondary">
+        <div class="w-1/3 h-full pl-14 py-10">
+            <AsideMenuUser><h3 class="text-3xl font-medium text-primary">Menu de Control</h3></AsideMenuUser>
+        </div>
+        <div class="2-m h-full  w-full px-14 py-10 flex flex-col justify-between">
+        <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-between h-full ">
+          <h4 class="text-2xl font-medium text-primary mb-10 w-full text-end ">Seccion Usuario</h4>
+              <div class="h-full w-full  flex items-center justify-center">
+                  <h1 class="text-3xl font-medium ">En construccion</h1>
+              </div>
+          <div class="w-full flex justify-center">
+              {/*<a href="/"><ButtonPrimarySmall title="Volver a Inicio"/></a>*/}
+          </div>
+      </div>
+    </div>
+    </div>
+</DasboardLayouts>
