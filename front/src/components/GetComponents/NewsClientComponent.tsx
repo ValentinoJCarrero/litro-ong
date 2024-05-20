@@ -63,7 +63,7 @@ const NewsComponent = () => {
                 <a
                   className="flex flex-row justify-between p-10 items-center text-sm w-full"
                   id={`card${id}`}
-                  href={`/dashboardAdmin/${title}`}
+                  href={`/news/DinamicNew/${title}`}
                 >
                   <div className="flex">
                     <img
