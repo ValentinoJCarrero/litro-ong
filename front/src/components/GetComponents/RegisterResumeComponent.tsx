@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { postRegister } from '../../helpers/Auth/postRegister';
-import  showPasswordIcon from "../../assets/showPassword.svg"
+import  showPasswordIcon from "../../assets/showPassword.svg";
+import Swal from 'sweetalert2'
 interface UserInfo {
     fullName: string;
     dni: string;
@@ -40,10 +41,24 @@ const RegisterResumeComponent = () => {
             };
 
             
-            console.log(data);
-            postRegister(data);
-            //localStorage.clear();
-            //window.location.href = '/auth/login';
+            postRegister(data)
+                .then((data) => {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Bienvenido ${data.fullName}`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setTimeout(() => {
+                        window.location.href = '/'
+                        localStorage.clear();
+                    }, 1500);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
         }
     };
     const handleTogglePasswordVisibility = () => {

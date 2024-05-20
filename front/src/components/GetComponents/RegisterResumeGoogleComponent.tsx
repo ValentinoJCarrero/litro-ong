@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { postGoogleRegister } from '../../helpers/Auth/postGoogleRegister';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2'
 interface UserInfo {
     fullName: string;
     dni: string;
@@ -40,11 +41,28 @@ const RegisterResumeGoogleComponent = () => {
 
             
             console.log(data);
-            postGoogleRegister(data);
-            //localStorage.clear();
-            //window.location.href = '/auth/login';
-        }
-    };
+            postGoogleRegister(data)
+            .then((data) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `Bienvenido ${data.fullName}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                Cookies.remove("emailUser");
+                Cookies.remove("tokenUser");
+                setTimeout(() => {
+                    window.location.href = '/'
+                    localStorage.clear();
+                }, 1500);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+    }
+};
 
     return (
         <div className="2-m h-full w-full px-14 flex flex-col">

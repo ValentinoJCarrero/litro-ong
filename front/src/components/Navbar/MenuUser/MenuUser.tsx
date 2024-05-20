@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cookies from 'js-cookie';
 const {signOut } = await import("auth-astro/client")
 interface MenuProps {
   children: React.ReactNode;
@@ -30,7 +31,7 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
         <li className="text-2xl p-4 hover:bg-gray-100 hover:rounded-b-lg">
           <button onClick={() => {
             signOut()
-            // window.location.reload()
+            Cookies.remove("token");
           }} className="text-textTertiary text-sm font-medium">Cerrar sesión</button>
         </li>
       </ul>

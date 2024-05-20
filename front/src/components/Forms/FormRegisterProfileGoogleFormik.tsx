@@ -1,8 +1,6 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
-import {postNews} from "../../helpers/postNews";
 import  warningIcon from "../../assets/IconWarrning.svg"
 import { useState } from "react";
-
 interface IFormValues {
   name: string;
   lastname: string;
@@ -104,7 +102,6 @@ const validate = (values:IFormValues) => {
           fullAddress: `${values.address} ${values.country} ${values.province}`,
         };
         localStorage.setItem("registerUserProfile", JSON.stringify(combinedValues));
-        alert(JSON.stringify(combinedValues, null, 2));
         setSubmitting(false);
         window.location.href = "/auth/register/resumeGoogle";
     }}
