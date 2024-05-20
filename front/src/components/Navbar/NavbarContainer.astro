@@ -1,16 +1,18 @@
 ---
 import { Image } from "astro:assets";
 import logoIcon from "../../assets/Logo.svg";
+import avatarUser from "../../assets/avatarUser.jpg";
 import SearchPages from "./SearchPages/SearchPages.astro";
 import ButtonSecondary from "../Buttons/ButtonSecondary.astro";
-import ButtonTextPrimary from "../Buttons/ButtonTextPrimary.astro";
 import imagenPerfilDefault from "../../assets/imagenPerfilDefault.svg";
-
 import { getSession } from "auth-astro/server";
 import Menu from "./Menu/Menu";
+import MenuUser from "./MenuUser/MenuUser";
 
 const session = await getSession(Astro.request);
-if (session) console.log(session.user?.email);
+const email = session?.user?.email;
+
+const tokenUser = Astro.cookies.get("token")
 ---
 
 <div
@@ -26,25 +28,37 @@ if (session) console.log(session.user?.email);
     </a>
 
     {
-      session ? (
-        <Menu client:load>
-          {" "}
-          <img
-            src={session.user?.image}
-            alt="Imagen de perfil"
-            class="w-16 rounded-full  shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-          />
-        </Menu>
-      ) : (
-        <a href="/auth/login2">
-          {/* <ButtonTextPrimary title="Ingresar" idEvent="buttonLogin" /> */}
-            <img
+      email
+        ? (email === "julianmagallanes1994@gmail.com" || email === "johndoe@example.com")
+          ? <Menu client:load>
+              <img
+                src={session?.user?.image}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </Menu>
+          : <MenuUser client:load>
+              <img
+                src={session?.user?.image}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </MenuUser>
+        : tokenUser
+          ? <MenuUser client:load>
+              <img
+                src={avatarUser.src}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </MenuUser>
+          : <a href="/auth/login2">
+              <img
                 src={imagenPerfilDefault.src}
                 alt="Imagen de perfil"
-                class="w-16 rounded-full  shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-            />
-        </a>
-      )
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </a>
     }
   </div>
 </div>

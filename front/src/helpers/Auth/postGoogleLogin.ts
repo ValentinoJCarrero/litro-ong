@@ -1,11 +1,14 @@
-export async function postLogin(newsResponse: any): Promise<any> {
-  try {
-      const response = await fetch(`https://litro-ong.onrender.com/auth/signin`, {
+
+
+export async function postGoogleLogin(data: any) {
+;
+    try {
+      const response = await fetch("https://litro-ong.onrender.com/auth/googlesignin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newsResponse),
+        body: JSON.stringify(data),
       });
   
       if (!response.ok) {
@@ -20,4 +23,4 @@ export async function postLogin(newsResponse: any): Promise<any> {
       const tokenJson = { tokenUser: "no esta registrado" };
       return tokenJson;
     }
-}
+  }

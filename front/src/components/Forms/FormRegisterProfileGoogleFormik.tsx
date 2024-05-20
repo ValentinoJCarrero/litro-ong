@@ -1,8 +1,6 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import  warningIcon from "../../assets/IconWarrning.svg"
 import { useState } from "react";
-import Swal from 'sweetalert2'
-
 interface IFormValues {
   name: string;
   lastname: string;
@@ -89,7 +87,7 @@ const validate = (values:IFormValues) => {
 };
 
 
-  const FormRegisterProfileFormik = () => {
+  const FormRegisterProfileGoogleFormik = () => {
     const [country, setCountry] = useState(initialValues.country);
     const [province, setProvince] = useState(initialValues.province);
     return(
@@ -105,7 +103,7 @@ const validate = (values:IFormValues) => {
         };
         localStorage.setItem("registerUserProfile", JSON.stringify(combinedValues));
         setSubmitting(false);
-        window.location.href = "/auth/register/resume";
+        window.location.href = "/auth/register/resumeGoogle";
     }}
   >
     {({ errors, touched,setFieldValue }) => (
@@ -279,8 +277,8 @@ const validate = (values:IFormValues) => {
         </div>
   
         <div className="my-20 w-full flex justify-end">
-            <a href="/auth/register" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
-                Anterior
+            <a href="/" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
+                Volver a inicio
             </a>
             <button 
             type="submit" 
@@ -294,4 +292,4 @@ const validate = (values:IFormValues) => {
     )}
   </Formik>
 )};
-export default FormRegisterProfileFormik
+export default FormRegisterProfileGoogleFormik
