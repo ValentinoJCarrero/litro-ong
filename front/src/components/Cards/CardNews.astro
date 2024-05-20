@@ -1,0 +1,36 @@
+---
+// CardNews.astro
+import { Image } from 'astro:assets';
+import calendarIcon from  "../../assets/calendarIcon.svg";
+import cursorIcon from  "../../assets/cursorIcon.svg";
+import rectangle from  "../../assets/rectangleCard.svg";
+
+interface Props {
+  title: string;
+  href: string;
+  calendar: string;
+  children?: any;
+}
+
+const { href, title, calendar} = Astro.props as Props;
+---
+
+<li class="h-[30rem] w-[25rem] list-none rounded-3xl shadow-3xl hover:shadow-4xl">
+  <a href={href}>
+    <slot />
+    <Image src={rectangle} alt="fondo card" class="relative bottom-80 z-0"/>
+    <div class="relative bottom-[32rem] z-20">
+      <div class="m-9">
+        <h6 class="font-semibold">{title}</h6>
+        <div class="flex">
+          <Image src={calendarIcon} alt="icono calendario"/>
+          <p class="font-semibold m-1">{calendar}</p>
+        </div>
+      </div>
+      <div class="flex justify-end relative bottom-8 m-4">
+        <Image src={cursorIcon} alt="icono cursor"/>
+        <h6 class="font-semibold m-4">Ver detalles</h6>
+      </div>
+    </div>
+  </a>
+</li>
