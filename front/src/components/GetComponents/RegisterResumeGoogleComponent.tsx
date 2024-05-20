@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { postRegister } from '../../helpers/Auth/postRegister';
-import  showPasswordIcon from "../../assets/showPassword.svg";
+import { postGoogleRegister } from '../../helpers/Auth/postGoogleRegister';
+import Cookies from 'js-cookie';
 import Swal from 'sweetalert2'
 interface UserInfo {
     fullName: string;
@@ -11,27 +11,26 @@ interface UserInfo {
 }
 interface User {
     email: string;
-    password: string;
 }
-const RegisterResumeComponent = () => {
+const RegisterResumeGoogleComponent = () => {
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
     const [user, setUser] = useState<User | null>(null);
-    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     useEffect(() => {
         // Simular la obtención de datos del localStorage
         const registerUserProfile = localStorage.getItem('registerUserProfile');
         const userInfo = registerUserProfile ? JSON.parse(registerUserProfile) : null;
-        const registerUser = localStorage.getItem('registerUser');
-        const user = registerUser ? JSON.parse(registerUser) : null;
         setUserInfo(userInfo);
-        setUser(user);
+
+        const registerUser = Cookies.get('emailUser');
+    if (registerUser) {
+      setUser({ email: registerUser });
+    }
     }, []);
     const handleSubmit = () => {
         if (user && userInfo) {
             const data = {
                 email: user.email,
-                password: user.password,
                 fullName: userInfo.fullName,
                 dni: userInfo.dni,
                 birthDate: userInfo.birthDate,
@@ -41,29 +40,30 @@ const RegisterResumeComponent = () => {
             };
 
             
-            postRegister(data)
-                .then((data) => {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: `Bienvenido ${data.fullName}`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    setTimeout(() => {
-                        window.location.href = '/'
-                        localStorage.clear();
-                    }, 1500);
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
+            console.log(data);
+            postGoogleRegister(data)
+            .then((data) => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `Bienvenido ${data.fullName}`,
+                    showConfirmButton: false,
+                    timer: 1500
                 });
+                Cookies.remove("emailUser");
+                Cookies.remove("tokenUser");
+                setTimeout(() => {
+                    window.location.href = '/'
+                    localStorage.clear();
+                }, 1500);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
 
-        }
-    };
-    const handleTogglePasswordVisibility = () => {
-        setShowPassword(prevShowPassword => !prevShowPassword);
-    };
+    }
+};
+
     return (
         <div className="2-m h-full w-full px-14 flex flex-col">
             {user && (
@@ -71,15 +71,6 @@ const RegisterResumeComponent = () => {
                     <div>
                         <h1 className='font-medium my-2'>Email</h1>
                         <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'> {user.email}</p>
-                    </div>
-                    <div >
-                        <h1 className='font-medium my-2'>Contraseña</h1>
-                        <div className='flex flex-row rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>
-                            <p className='w-full '>{showPassword ? user.password : '********'}</p>
-                            <button onClick={handleTogglePasswordVisibility}>
-                                {showPassword ? <img src={showPasswordIcon.src} alt="warningIcon"/> : <img src={showPasswordIcon.src} alt="warningIcon"/>}
-                            </button>
-                        </div>
                     </div>
                 </div>
             )}
@@ -124,4 +115,4 @@ const RegisterResumeComponent = () => {
     );
 };
 
-export default RegisterResumeComponent;
+export default RegisterResumeGoogleComponent;

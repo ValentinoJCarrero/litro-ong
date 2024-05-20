@@ -4,8 +4,8 @@ import { postLogin } from "../../helpers/Auth/postLogin";
 import showPasswordWarning from "../../assets/showPasswordWarning.svg";
 import showPassword from "../../assets/showPassword.svg";
 import { useState } from "react";
-// import iconGoogle from "../../assets/Google__G__logo.webp";
-
+import Swal from 'sweetalert2'
+import Cookies from 'js-cookie';
 interface IFormValues {
   email: string;
   password: string;
@@ -50,9 +50,18 @@ const FormLoginFormik = () => {
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
         postLogin(values)
           .then((data) => {
-            alert(JSON.stringify(data, null, 2));
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `Bienvenido`,
+              showConfirmButton: false,
+              timer: 1500
+            });
+            Cookies.set('token',(data.tokenUser));
+            setTimeout(() => {
+              window.location.href = '/'
+            },1500)
             setSubmitting(false);
-            console.log(values);
           })
           .catch((error) => {
             console.error("Error:", error);

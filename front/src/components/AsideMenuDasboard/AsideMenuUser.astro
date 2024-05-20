@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import logoIcon from "../../assets/Logo.svg"
+import ButtonCTA from "../Buttons/ButtonCTA.astro";
+import ButtonPrimary from "../Buttons/ButtonPrimary.astro";
+
+const { pathname } = Astro.url
+console.log(pathname);
+const normalizedPathName =
+	pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
+
+const pages = [
+	{ name: "Usuario", href: "/dashboardUser/profile",hrefActive:"/dashboardAdmin/news/newsCreate" , active: false},
+
+	
+].map((page) => ({
+	...page,
+	active:  normalizedPathName === page.href || normalizedPathName === page.hrefActive,
+
+}))
+---
+<div class="bg-textPrimary rounded-2xl shadow-3xl h-full  flex  flex-col ">
+    <div class=" bg-primary py-5 px-10 rounded-t-2xl">
+        <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
+    </div>
+    <div class="pt-10 w-full text-center">
+        <slot />
+    </div>
+    <div class="flex flex-col  items-start justify-between px-10">
+            {
+                pages.map(({ name, href, active, hrefActive}, key) => ( 
+
+                    <>
+                        <a
+                            href={href}
+                            class:list={[
+                                "text-sm my-3 font-normal   hover:scale-105 my-4",
+                                { "h-full text-lg text-primary flex items-center font-semibold ": active },
+                            { "text-textTertiary ": !active },
+                            ]}
+                            id={`nav-link-${key}`}
+                        >
+                            <span class="z-10">{name}</span>
+                        </a>
+                        
+                    </>
+                ))
+            }
+    </div>
+    <div class="flex justify-center pb-6  h-full items-end">
+        <a href="/"><ButtonPrimary title="Volver al inicio" idEvent="Logout"/></a>
+    </div>
+</div>
+
+<script>
+function handleClick() {
+        console.log("hola");
+        return Astro.redirect("/302")
+	}
+  
+	const button = document.getElementById('Logout')
+  
+	button?.addEventListener('click', handleClick)
+    
+</script>

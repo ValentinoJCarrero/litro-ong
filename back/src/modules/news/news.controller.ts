@@ -41,14 +41,14 @@ export class NewsController {
     return this.newsService.getAllNews(limit, page);
   }
 
-  @Get(':title')
+  @Get(':id')
   @ApiOperation({
-    summary: 'Obtener una noticia por titulo',
+    summary: 'Obtener una noticia por id',
     description:
       'Esta ruta devuelve una noticia registrada por un id de tipo uuid enviado por parámetro',
   })
-  getOneNews(@Param('title') title: string): Promise<News> {
-    return this.newsService.getOneNews(title);
+  getOneNews(@Param('id', ParseUUIDPipe) id: string): Promise<News> {
+    return this.newsService.getOneNews(id);
   }
 
   @Post()

@@ -11,8 +11,12 @@ import { PickType } from '@nestjs/swagger';
 import { Volunteer } from 'src/entities/Volunteer.entity';
 import { Role } from 'src/entities/Role.entity';
 import { Partner } from 'src/entities/Partner.entity';
+import { Donation } from 'src/entities/Donation.entity';
 
 export class UserDto {
+  /**
+   * @example 'Homero Simpson'
+   */
   @IsNotEmpty({ message: 'El nombre es requerido' })
   @IsString({ message: 'El nombre debe ser una cadena de texto' })
   @Length(2, 50, {
@@ -24,6 +28,9 @@ export class UserDto {
   @IsEmail({}, { message: 'El correo electrónico no es válido' })
   email: string;
 
+  /**
+   * @example 'Contraseña123'
+   */
   @IsOptional()
   @Matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/, {
     message:
@@ -31,16 +38,28 @@ export class UserDto {
   })
   password: string;
 
+  /**
+   * @example 'Av. Siempreviva 123 - Springfield, USA'
+   */
   @IsNotEmpty()
   @IsString()
   fullAddress: string;
 
+  /**
+   * @example '12345678'
+   */
   @IsNotEmpty({ message: 'El número de teléfono es requerido' })
   phone: string;
 
+  /**
+   * @example '12345678'
+   */
   @IsNotEmpty({ message: 'El número de documento es requerido' })
   dni: string;
 
+  /**
+   * @example '1999-01-01'
+   */
   @IsNotEmpty({ message: 'La fecha de nacimiento es requerida' })
   @IsDateString({}, { message: 'Ingrese una fecha válida (AAAA-MM-DD)' })
   birthDate: string;
@@ -50,6 +69,9 @@ export class UserDto {
 
   @IsOptional()
   partnerData?: Partner;
+
+  @IsOptional()
+  donationsData?: Donation[];
 
   @IsOptional()
   role: Role[];

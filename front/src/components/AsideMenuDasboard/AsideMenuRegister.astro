@@ -22,8 +22,8 @@ const pages = [
 }))
 const images = [
 	{ href: "/auth/register",hrefActive:"/auth/register" , imageSrc: CheckSecondary.src},
-	{ href: "/auth/register/personalInformation",active: normalizedPathName.startsWith("/auth/register/personalInformation"), imageSrc: CheckStart.src },
-    { href: "/auth/register/resume",imageSrc: CheckComplete.src },
+	{ href: "/auth/register/personalInformation",hrefActive:"/auth/register/personalInformationGoogle",active: normalizedPathName.startsWith("/auth/register/personalInformation"), imageSrc: CheckStart.src },
+    { href: "/auth/register/resume/personalInformationGoogle",hrefActive:"/auth/register/resumeGoogle",imageSrc: CheckComplete.src },
 	
 ].map((images) => ({
 	...images,
