@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import { postNews } from "../../helpers/postNews";
 import warningIcon from "../../assets/IconWarrning.svg";
-
+import Swal from 'sweetalert2'
 interface IFormValues {
   title: string;
   subtitle: string;
@@ -85,7 +85,13 @@ const FormNewsFormik = () => (
       console.log(values);
       postNews(values)
         .then((data) => {
-          alert(JSON.stringify(data, null, 2));
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Se agrego correctamente`,
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         })
         .catch((error) => {

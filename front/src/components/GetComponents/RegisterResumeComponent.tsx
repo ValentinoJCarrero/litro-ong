@@ -42,8 +42,8 @@ const RegisterResumeComponent = () => {
             
             console.log(data);
             postRegister(data);
-            localStorage.clear();
-            window.location.href = '/auth/login';
+            //localStorage.clear();
+            //window.location.href = '/auth/login';
         }
     };
     const handleTogglePasswordVisibility = () => {
