@@ -3,6 +3,7 @@ import { config as dotenvconfig } from 'dotenv';
 import { registerAs } from '@nestjs/config';
 
 dotenvconfig({ path: '.env' });
+
 const config = {
   type: 'postgres',
   database: `${process.env.DB_NAME}`,
@@ -15,8 +16,13 @@ const config = {
   autoLoadEntities: true,
   synchronize: true,
   logging: true,
+<<<<<<< HEAD
   dropSchema: false,
   // ssl: true,
+=======
+  dropSchema: true,
+  ssl: process.env.SSL,
+>>>>>>> 91692dadcf133d28d65831c507295154faf4b5ca
   timezone: 'America/Argentina/Cordoba',
 };
 

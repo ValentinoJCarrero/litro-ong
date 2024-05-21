@@ -15,7 +15,11 @@ import { VolunteerModule } from './modules/volunteer/volunteer.module';
 import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
+<<<<<<< HEAD
 import { UsersRepository } from './modules/users/users.repository';
+=======
+import { DonationModule } from './modules/donation/donation.module';
+>>>>>>> 91692dadcf133d28d65831c507295154faf4b5ca
 
 @Module({
   imports: [
@@ -43,6 +47,7 @@ import { UsersRepository } from './modules/users/users.repository';
     MercadoPagoModule,
     StorageModule,
     VolunteerModule,
+    DonationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

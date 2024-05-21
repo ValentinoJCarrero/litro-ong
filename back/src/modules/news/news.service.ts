@@ -25,8 +25,8 @@ export class NewsService {
     return allNews;
   }
 
-  async getOneNews(title: string): Promise<News> {
-    const newsById: News | null = await this.newsRepository.getOneNews(title);
+  async getOneNews(id: string): Promise<News> {
+    const newsById: News | null = await this.newsRepository.getOneNews(id);
     if (!newsById) {
       throw new NotFoundException('Noticia no encontrada');
     }
