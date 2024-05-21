@@ -47,9 +47,11 @@ const NewsComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center h-full">
       {isLoading ? (
+        <div className="flex items-center justify-center">
         <SpinnersPrimary />
+        </div>
       ) : !news.length ? (
         <NotFound />
       ) : (
