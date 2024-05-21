@@ -23,19 +23,23 @@ const initialValues: IFormValues = {
 const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
 
-  if (!values.title) {
+  const trimmedTitle = values.title.trim();
+  const trimmedSubtitle = values.subtitle.trim()
+  const trimmedDescription = values.description.trim()
+
+  if (!trimmedTitle) {
     errors.title = "El Título es requerido";
-  } else if (values.title.length < 10) {
+  } else if (trimmedTitle.length < 10) {
     errors.title = "El título debe tener mínimo 10 caracteres";
-  } else if (values.title.length > 40) {
+  } else if (trimmedTitle.length > 40) {
     errors.title = "El título debe tener máximo 40 caracteres";
   }
 
-  if (!values.subtitle) {
+  if (!trimmedSubtitle) {
     errors.subtitle = "El subtítulo es requerido";
-  } else if (values.subtitle.length < 10) {
+  } else if (trimmedSubtitle.length < 10) {
     errors.subtitle = "El subtítulo debe tener mínimo 10 caracteres";
-  } else if (values.subtitle.length > 30) {
+  } else if (trimmedSubtitle.length > 30) {
     errors.subtitle = "El subtítulo debe tener máximo 30 caracteres";
   }
 
@@ -66,11 +70,11 @@ const validate = (values: IFormValues) => {
     errors.tertiaryImage = "La imagen terciaria debe ser un archivo de imagen";
   }
 
-  if (!values.description) {
+  if (!trimmedDescription) {
     errors.description = "La descripción es requerida";
-  } else if (values.description.length < 100) {
+  } else if (trimmedDescription.length < 100) {
     errors.description = "La descripción debe tener mínimo 100 caracteres";
-  } else if (values.description.length > 800) {
+  } else if (trimmedDescription.length > 800) {
     errors.description = "La descripción debe tener máximo 800 caracteres";
   }
 
