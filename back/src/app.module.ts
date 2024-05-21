@@ -15,6 +15,7 @@ import { VolunteerModule } from './modules/volunteer/volunteer.module';
 import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
+import { UsersRepository } from './modules/users/users.repository';
 
 @Module({
   imports: [
