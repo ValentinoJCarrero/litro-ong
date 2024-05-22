@@ -29,7 +29,7 @@ const tokenUser = Astro.cookies.get("token")
 
     {
       email
-        ? (email === "julianmagallanes1994@gmail.com" || email === "valenkxdd@gmail.com" || email === "simonflores200394@gmail.com")
+        ? (email === "julianmagallanes1994@gmail.com" || email === "johndoe@example.com" || email === "simonflores200394@gmail.com" || email === "valenkxdd@gmail.com")
           ? <Menu client:load>
               <img
                 src={session?.user?.image}

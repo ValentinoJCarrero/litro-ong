@@ -30,19 +30,23 @@ const initialValues = {
 const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
 
-  if (!values.title) {
+  const trimmedTitle = values.title.trim();
+  const trimmedSubtitle = values.subtitle.trim()
+  const trimmedDescription = values.description.trim()
+
+  if (!trimmedTitle) {
     errors.title = "El Titulo es requerido";
-  } else if (values.title.length < 10) {
+  } else if (trimmedTitle.length < 10) {
     errors.title = "El titulo debe tener minimo 10 caracteres";
-  } else if (values.title.length > 40) {
+  } else if (trimmedTitle.length > 40) {
     errors.title = "El titulo debe tener maximo 40 caracteres";
   }
 
-  if (!values.subtitle) {
+  if (!trimmedSubtitle) {
     errors.subtitle = "El subtitulo es requerido";
-  } else if (values.subtitle.length < 10) {
+  } else if (trimmedSubtitle.length < 10) {
     errors.subtitle = "El subtitulo debe tener minimo 10 caracteres";
-  } else if (values.subtitle.length > 30) {
+  } else if (trimmedSubtitle.length > 30) {
     errors.subtitle = "El subtitulo debe tener maximo 30 caracteres";
   }
 
@@ -89,11 +93,11 @@ const validate = (values: IFormValues) => {
     errors.timeEnd = "Ingrese una hora válida (HH:MM)";
   }
 
-  if (!values.description) {
+  if (!trimmedDescription) {
     errors.description = "La descripcion es requerida";
-  } else if (values.description.length < 100) {
+  } else if (trimmedDescription.length < 100) {
     errors.description = "La descripcion  debe tener minimo 100 caracteres";
-  } else if (values.description.length > 800) {
+  } else if (trimmedDescription.length > 800) {
     errors.description = "La descripcion  debe tener maximo 800 caracteres";
   }
 

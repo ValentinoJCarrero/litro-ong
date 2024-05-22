@@ -1,28 +1,14 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { MercadoPagoService } from './mp.service';
+import { DonationDto } from 'src/dtos/Donation.dto';
 
 @Controller('mercadopago')
 export class MercadoPagoController {
   constructor(private readonly mpService: MercadoPagoService) {}
-  
-  @Get('success')
-  success() {
-    return 'Pagaste'
-  }
-
-  @Get('pending')
-  pending () {
-    return 'Pendiente'
-  }
-
-  @Get('failure')
-  failure() {
-    return 'Fallo.'
-  }
 
   @Post()
-  createOrder(@Body() body) {
-    return this.mpService.createPreference(body.price);
+  createOrder(@Body() donation: DonationDto) {
+    return this.mpService.createPreference(donation);
   }
 
   @Post('webhook')

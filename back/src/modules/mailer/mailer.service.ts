@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { WelcomeMailDto } from 'src/dtos/Mail.dto';
 import sgMail from '../../config/mailer.config';
+import { UserDto } from 'src/dtos/User.dto';
+import { UsersRepository } from '../users/users.repository';
+import { Cron } from '@nestjs/schedule';
+
+
 
 @Injectable()
-export class MailerService {
-  constructor() {}
-
+export class MailerService implements OnModuleInit {
+  constructor(private readonly usersRepository: UsersRepository) {}
+  async onModuleInit() {
+  //  return "Aca se ejecutaria el saludo por el cumpleaños."
+  }
+  
   async sendMail(): Promise<any> {
     const msg = {
       to: "addamo.nicolas1991@gmail.com",
@@ -30,4 +38,115 @@ export class MailerService {
     sgMail.send(msg)
     .catch((error) => console.log(error))
   }
+ 
+    
+  calculateAge = function(birthDate: Date): number {
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      if (new Date(today.getFullYear(), today.getMonth(), today.getDate()) < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate())) {
+        age--;
+      }
+    return age;
+  }
+        async sendBirthdayMessage(user: UserDto): Promise<void> {
+          const age = this.calculateAge(new Date(user.birthDate));
+          const messageSubject = `¡Feliz cumpleaños, ${user.fullName}!`;
+          const messageBody = `
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>¡Feliz cumpleaños!</title>
+          </head>
+          <body>
+          <p>Hola, ${user.fullName},</p>
+          <p>¡Feliz cumpleaños! Desde el litro te deseamos un día lleno de alegría y felicidad. ¡Cumpliste ${age} años!</p>
+          <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="200" height="200">
+          </body>
+          </html>
+          `;
+          
+          const message = {
+            from: 'your-email@example.com',
+            to: user.email,
+            subject: messageSubject,
+            html: messageBody,
+          };
+          const today = new Date();
+          if (new Date(today.getFullYear(), today.getMonth(), today.getDate()) === new Date(today.getFullYear(), new Date (user.birthDate).getMonth(),  new Date (user.birthDate).getDate())) {
+            try {
+              await sgMail.send(message);
+              console.log(`Birthday greeting sent to ${user.email}`);
+            } catch (error) {
+              console.error(`Error sending birthday greeting to ${user.email}:`, error);
+            }
+          }
+        }
+
+        async sendNewsletterMail(): Promise<void> {
+          try {
+            const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+            const mailList = users.data.map(user => user.email);
+            console.log(mailList);
+            const msg = {
+              to: mailList,
+              from:  'nicolasaddamo1@gmail.com',
+              subject: 'Noticias del litro',
+              text: `este es el texto`,
+              html: `<strong>Noticias del litro</strong>
+                     <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+            };
+            await sgMail.send(msg);
+          } catch (error) {
+            console.error('Error sending newsletter email:', error);
+          }
+        }
+
+
+      @Cron('1 9 1 1 *') //minuto, hora, dia, mes, dia de la semana (9:01 del 1ro de enero)
+      async cronNewyearMail(): Promise<void> {
+        try {
+          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+          const mailList = users.data.map(user => user.email);
+          console.log(mailList);
+          const msg = {
+            to: mailList,
+            from:  'nicolasaddamo1@gmail.com',
+            subject: 'Feliz año Nuevo te deseamos desde el litro',
+            text: `este es el texto`,
+            html: `<strong>Feliz año Nuevo</strong>
+                   <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+          };
+          await sgMail.send(msg);
+        
+        
+        }
+        catch (error) {
+          console.error('Error sending newsletter email:', error);
+        }
+      }
+      @Cron('1 9 25 12 *') //minuto, hora, dia, mes, dia de la semana (9:01 del 1ro de enero)
+      async cronXMasMail(): Promise<void> {
+        try {
+          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+          const mailList = users.data.map(user => user.email);
+          console.log(mailList);
+          const msg = {
+            to: mailList,
+            from:  'nicolasaddamo1@gmail.com',
+            subject: 'Feliz Navidad te deseamos desde el litro',
+            text: `este es el texto`,
+            html: `<strong>Feliz año Navidad</strong>
+                   <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+          };
+          await sgMail.send(msg);
+        
+        
+        }
+        catch (error) {
+          console.error('Error sending newsletter email:', error);
+        }
+      }
+      
 }

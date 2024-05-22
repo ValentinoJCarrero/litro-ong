@@ -17,10 +17,17 @@ import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
 import { DonationModule } from './modules/donation/donation.module';
 import { WorkshopModule } from './modules/workshop/workshop.module';
+import { User } from './entities/User.entity';
+import { Donation } from './entities/Donation.entity';
+import { Event } from './entities/Event.entity';
+import { News } from './entities/News.entity';
+import { Role } from './entities/Role.entity';
+import { Sponsor } from './entities/Sponsor';
 import { CommunityKitchensModule } from './modules/communityKitchens/communityKitchens.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([User, Donation, Event, News, Role, Sponsor]),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [dbConfig],
@@ -30,6 +37,7 @@ import { CommunityKitchensModule } from './modules/communityKitchens/communityKi
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
+    //ScheduleModule.forRoot(),
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
