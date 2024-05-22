@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class WorkshopDto {
   /**
@@ -16,25 +16,60 @@ export class WorkshopDto {
   teacher: string;
 
   /**
+   * @example '123456789'
+   */
+  @IsNotEmpty()
+  @IsString()
+  teacherPhone: string;
+
+  /**
    * @example 'https://www.example.image.com'
    */
   @IsNotEmpty()
   @IsString()
-  image: string;
+  photo: string;
 
   /**
-   * @example '2022-01-01'
+   * @example '13:00:00'
    */
   @IsNotEmpty()
   @IsString()
-  date: string;
+  timeStart: string;
 
   /**
-   * @example '09:00 - 12:00'
+   * @example '01:30:00'
    */
   @IsNotEmpty()
   @IsString()
-  horarios: string;
+  duration: string;
+
+  /**
+   * @example '2024-03-03'
+   */
+  @IsOptional()
+  @IsString()
+  dateStart: string;
+
+  /**
+   * @example '2024-10-10'
+   */
+  @IsOptional()
+  @IsString()
+  dateEnd: string;
+
+  /**
+   * @example '$700.00'
+   */
+  @IsNotEmpty()
+  @IsString()
+  cost: string;
+
+  /**
+   * @example '["Monday", "Tuesday", "Wednesday"]'
+   */
+  @IsNotEmpty()
+  @IsArray()
+  days: string[];
 
   /**
    * @example 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'

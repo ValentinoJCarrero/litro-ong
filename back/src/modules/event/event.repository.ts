@@ -13,12 +13,17 @@ export class EventRepository {
     private volunteerRepository: Repository<Volunteer>,
   ) {}
 
-  getAllEvent(limit: number, page: number): Promise<Event[]> {
-    return this.EventRepository.find({
+  async getAllEvent(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Event[]; total: number }> {
+    const [data, total] = await this.EventRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-      relations: { volunteer: { user: true } },
+      relations: { volunteer: { user: { volunteerData: { events: false } } } },
     });
+
+    return { data, total };
   }
 
   getFilterEvent(filter): Promise<Event[]> {
@@ -28,7 +33,7 @@ export class EventRepository {
   getOneEvent(title: string): Promise<Event> {
     return this.EventRepository.findOne({
       where: { title: title },
-      relations: { volunteer: { user: true } },
+      relations: { volunteer: { user: { volunteerData: { events: false } } } },
     });
   }
   updateEvent(id: string, eventData: Partial<EventDto>) {

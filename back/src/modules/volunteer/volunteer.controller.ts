@@ -30,13 +30,13 @@ export class VolunteerController {
   @ApiOperation({
     summary: 'Obtener todos los voluntarios',
     description:
-      'Esta ruta devuelve todos los datos de los voluntarios junto a el usuario al que pertenecen',
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de voluntarios y total es la cantidad de voluntarios registrados en la base de datos',
   })
   @UseInterceptors(RemoveDataSensitive)
   getAllVolunteers(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<Volunteer[]> {
+  ): Promise<{ data: Volunteer[]; total: number }> {
     return this.volunteerService.getAllVolunteers(Number(limit), Number(page));
   }
 
