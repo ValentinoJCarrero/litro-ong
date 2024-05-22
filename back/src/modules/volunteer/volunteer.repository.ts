@@ -24,18 +24,7 @@ export class VolunteerRepository {
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
-  ) {
-    this.roles();
-  }
-
-  async roles() {
-    const roles = await this.roleRepository.find();
-
-    if (roles.length === 0) {
-      await this.roleRepository.save({ role: 'Volunteer' });
-      //funcion para insertar roles en desarrolo porque me tiran dropshema-> eliminar
-    }
-  }
+  ) {}
 
   async getAllVolunteers(
     limit: number,
