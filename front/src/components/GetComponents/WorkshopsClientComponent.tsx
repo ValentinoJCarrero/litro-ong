@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { getNews } from "../../helpers/getNews";
-import iconNews from "../../assets/logoOG.png";
 import vectorIcon from "../../assets/vectorIcon.svg";
 import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
-import { deleteNews } from "../../helpers/deleteNews";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-interface NewsItem {
-  primaryImage: string;
-  title: string;
-  subtitle: string;
-  date: string;
-  location: string;
-  href: string;
+import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
+import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
+interface WorkshopItem {
+  name: string;
+  teacher: string;
+  teacherPhone: string;
+  photo: string;
+  timeStart: string;
+  duration: string;
+  dateEnd: string;
+  dateStart: string;
+  cost: string;
+  days: string;
   id: number;
 }
 
-const NewsComponent = () => {
+const WorkshopsComponent = () => {
   const [page, setPage] = useState (1)
-  const [totalPages, setTotalPages] = useState (3)
-  const [news, setNews] = useState<NewsItem[]>([]);
+  const [workshop, setWorkshop] = useState<WorkshopItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchNews = async (page: number) => {
-      const newsData = await getNews(3,page);
-      setNews(newsData.data);
-      setTotalPages(Math.ceil(newsData.total/3));
+    const fetchNews = async () => {
+      const newsData = await getWorkshops(2,page);
+      setWorkshop(newsData);
       setIsLoading(false);
     };
-    fetchNews(page);
+    fetchNews();
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
@@ -40,10 +41,10 @@ const NewsComponent = () => {
     setDeletingId(id);
     setIsDeleting(true);
 
-    await deleteNews(id);
+    await deleteWorkshops(id);
 
     setTimeout(() => {
-      setNews(news.filter((item) => item.id !== id));
+      setWorkshop(workshop.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
@@ -55,11 +56,11 @@ const NewsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : !news.length ? (
+      ) : !workshop.length ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
-          {news.map(({ primaryImage, title, subtitle, date, location, id }) => (
+          {workshop.map(({ photo, name, teacher, days, cost, id }) => (
             <>
               <li
                 key={id}
@@ -68,24 +69,24 @@ const NewsComponent = () => {
                 <a
                   className="flex flex-row justify-between p-10 items-center text-sm w-full"
                   id={`card${id}`}
-                  href={`/news/DinamicNew/${title}`}
+                  href={`/news/DinamicNew/${name}`}
                 >
                   <div className="flex">
                     <img
-                      src={primaryImage}
-                      alt={title}
+                      src={photo}
+                      alt={name}
                       className="w-20 h-20 rounded-full object-cover mr-4"
                     />
                     <div>
                       <h6 className="text-tertiary text-base font-semibold">
-                        {title}
+                        {name}
                       </h6>
-                      <p>{subtitle}</p>
-                      <p>{date}</p>
+                      <p>{teacher}</p>
+                      <p>{cost}</p>
                     </div>
                   </div>
                   <div>
-                    <p>{location}</p>
+                    <p>{days}</p>
                   </div>
                   <img src={vectorIcon.src} alt="icono de vector" />
                 </a>
@@ -109,11 +110,11 @@ const NewsComponent = () => {
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
               </div>
-                <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
+                <p className=" font-base text-lg mx-4">{page}/20</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
-          </div>
+              </div>
         </ul>
       )}
       
@@ -121,4 +122,4 @@ const NewsComponent = () => {
   );
 };
 
-export default NewsComponent;
+export default WorkshopsComponent;

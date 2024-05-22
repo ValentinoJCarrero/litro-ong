@@ -18,7 +18,7 @@ const SectionSponsors: React.FC = ():React.ReactElement =>{
 
   useEffect(() => {
       const fetchNews = async () => {
-          const newsData = await getSponsors();
+          const newsData = await getSponsors(5, 1);
           setSponsors(newsData);
           setIsLoading(false);
       };
