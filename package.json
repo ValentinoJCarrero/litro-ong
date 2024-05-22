@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@nestjs/schedule": "^4.0.2"
-  }
-}
