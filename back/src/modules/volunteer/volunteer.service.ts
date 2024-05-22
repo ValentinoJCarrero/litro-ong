@@ -10,12 +10,28 @@ import { EventDto } from 'src/dtos/Event.dto';
 export class VolunteerService {
   constructor(private readonly volunteerRepository: VolunteerRepository) {}
 
-  getAllVolunteers(page: number, limit: number): Promise<Volunteer[]> {
-    return this.volunteerRepository.getAllVolunteers(page, limit);
+  async getAllVolunteers(
+    page: number,
+    limit: number,
+  ): Promise<{ data: Volunteer[]; total: number }> {
+    const allVolunteers = await this.volunteerRepository.getAllVolunteers(
+      page,
+      limit,
+    );
+    if (allVolunteers.data.length === 0) {
+      throw new NotFoundException('No hay voluntarios en esta pagina');
+    } else {
+      return allVolunteers;
+    }
   }
 
-  getVolunteer(id: string): Promise<Volunteer> {
-    return this.volunteerRepository.getVolunteer(id);
+  async getVolunteer(id: string): Promise<Volunteer> {
+    const volunteerFound = await this.volunteerRepository.getVolunteer(id);
+    if (!volunteerFound) {
+      throw new NotFoundException('No se encontro el voluntario');
+    } else {
+      return volunteerFound;
+    }
   }
 
   async updateVolunteer(

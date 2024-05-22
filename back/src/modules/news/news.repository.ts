@@ -10,11 +10,16 @@ export class NewsRepository {
     @InjectRepository(News) private newsRepository: Repository<News>,
   ) {}
 
-  getAllNews(limit: number, page: number): Promise<News[]> {
-    return this.newsRepository.find({
+  async getAllNews(
+    limit: number,
+    page: number,
+  ): Promise<{ data: News[]; total: number }> {
+    const [data, total] = await this.newsRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
     });
+
+    return { data, total };
   }
 
   getOneNews(id: string): Promise<News> {

@@ -33,12 +33,13 @@ export class SponsorController {
   @Get()
   @ApiOperation({
     summary: 'Obtener todos los patrocinadores',
-    description: 'Esta ruta devuelve todos los patrocinadores registrados',
+    description:
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de patrocinadores y total es la cantidad de patrocinadores registrados en la base de datos',
   })
   getAllSponsors(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<Sponsor[]> {
+  ): Promise<{ data: Sponsor[]; total: number }> {
     return this.sponsorService.getAllSponsors(Number(limit), Number(page));
   }
 

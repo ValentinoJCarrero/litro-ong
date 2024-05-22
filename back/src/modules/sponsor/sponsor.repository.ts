@@ -9,11 +9,15 @@ export class SponsorRepository {
   constructor(
     @InjectRepository(Sponsor) private sponsorRepository: Repository<Sponsor>,
   ) {}
-  getAllSponsors(limit: number, page: number): Promise<Sponsor[]> {
-    return this.sponsorRepository.find({
+  async getAllSponsors(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Sponsor[]; total: number }> {
+    const [data, total] = await this.sponsorRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
     });
+    return { data, total };
   }
   getOneSponsor(id: string): Promise<Sponsor> {
     return this.sponsorRepository.findOne({ where: { id: id } });
