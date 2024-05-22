@@ -15,12 +15,16 @@ export class DonationRepository {
     private userRepository: Repository<User>,
   ) {}
 
-  getAllDonations(page: number, limit: number): Promise<Donation[]> {
-    return this.donationRepository.find({
+  async getAllDonations(
+    page: number,
+    limit: number,
+  ): Promise<{ data: Donation[]; total: number }> {
+    const [data, total] = await this.donationRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
       relations: { user: true },
     });
+    return { data, total };
   }
 
   async getDonation(id: string): Promise<Donation> {

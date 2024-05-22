@@ -12,15 +12,16 @@ import { LessThan, MoreThan } from 'typeorm';
 export class EventService {
   constructor(private readonly eventRepository: EventRepository) {}
 
-  async getAllEvent(limit: number, page: number): Promise<Event[]> {
-    const events: Event[] | null = await this.eventRepository.getAllEvent(
-      limit,
-      page,
-    );
-    if (events.length === 0) {
-      throw new NotFoundException('No se encontraron eventos registrados');
+  async getAllEvent(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Event[]; total: number }> {
+    const events = await this.eventRepository.getAllEvent(limit, page);
+    if (events.data.length === 0) {
+      throw new NotFoundException('No se encontraron eventos en esta pagina');
+    } else {
+      return events;
     }
-    return events;
   }
   async getPastEvents(): Promise<Event[]> {
     const currentDate = new Date();

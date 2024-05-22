@@ -16,7 +16,8 @@ import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
 import { DonationModule } from './modules/donation/donation.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { WorkshopModule } from './modules/workshop/workshop.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -45,6 +46,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     StorageModule,
     VolunteerModule,
     DonationModule,
+    WorkshopModule,
   ],
   controllers: [AppController],
   providers: [AppService],

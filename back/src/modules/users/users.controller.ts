@@ -26,14 +26,16 @@ export class UsersController {
 
   @Get()
   @ApiOperation({
-    summary: ' Obtener todos los usuarios',
-    description: 'Esta ruta devuelve todos los usuarios registrados',
+    summary: ' Obtener todos los usuarios (Administradores)',
+    description:
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de usuarios y total es la cantidad de usuarios registrados en la base de datos',
   })
   @UseInterceptors(RemoveDataSensitive)
   getAllUsers(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<User[]> {
+  ): Promise<{ data: User[]; total: number }> {
+    console.log(page, limit);
     return this.usersService.getAllUsers(Number(page), Number(limit));
   }
 

@@ -11,10 +11,15 @@ import { Sponsor } from 'src/entities/Sponsor';
 export class SponsorService {
   constructor(private readonly sponsorRepository: SponsorRepository) {}
 
-  async getAllSponsors(limit: number, page: number): Promise<Sponsor[]> {
-    const allSponsors: Sponsor[] | null =
-      await this.sponsorRepository.getAllSponsors(limit, page);
-    if (allSponsors.length === 0) {
+  async getAllSponsors(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Sponsor[]; total: number }> {
+    const allSponsors = await this.sponsorRepository.getAllSponsors(
+      limit,
+      page,
+    );
+    if (allSponsors.data.length === 0) {
       throw new NotFoundException('No se encontraron patrocinadores');
     }
     return allSponsors;

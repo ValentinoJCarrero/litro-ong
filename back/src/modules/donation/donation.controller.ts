@@ -24,13 +24,14 @@ export class DonationController {
   @Get()
   @ApiOperation({
     summary: ' Obtener todas las donaciones',
-    description: 'Esta ruta devuelve todas las donaciones registradas',
+    description:
+      'Esta ruta devuelve un objeto con data y total. donde data es un arreglo de donaciones y total es la cantidad de donaciones registradas en la base de datos',
   })
   @UseInterceptors(RemoveDataSensitive)
   getAllDonations(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<Donation[]> {
+  ): Promise<{ data: Donation[]; total: number }> {
     return this.donationService.getAllDonations(Number(page), Number(limit));
   }
 
