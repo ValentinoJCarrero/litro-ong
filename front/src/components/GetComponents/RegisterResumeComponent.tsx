@@ -51,7 +51,7 @@ const RegisterResumeComponent = () => {
             timer: 1500,
           });
           setTimeout(() => {
-            window.location.href = "/";
+            window.location.href = "/auth/login2";
             localStorage.clear();
           }, 1500);
         })
