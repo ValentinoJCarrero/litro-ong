@@ -5,9 +5,10 @@ import { NewsRepository } from './news.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { News } from 'src/entities/News.entity';
 import { StorageService } from '../storage/storage.service';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News]), ], 
+  imports: [TypeOrmModule.forFeature([News]), MailerModule], 
   controllers: [NewsController],
   providers: [NewsService, NewsRepository, StorageService],
 })

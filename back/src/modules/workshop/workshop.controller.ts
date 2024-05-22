@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   DefaultValuePipe,
@@ -10,16 +11,23 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { WorkshopService } from './workshop.service';
 import { Workshop } from 'src/entities/Workshop.entity';
 import { WorkshopDto } from 'src/dtos/Workshop.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { StorageService } from '../storage/storage.service';
+import { validate } from 'class-validator';
 
 @ApiTags('Talleres')
 @Controller('workshop')
 export class WorkshopController {
-  constructor(private readonly workshopService: WorkshopService) {}
+  constructor(private readonly workshopService: WorkshopService,
+              private readonly storageService: StorageService  
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -63,7 +71,17 @@ export class WorkshopController {
     description:
       'Esta ruta crea un nuevo taller con los datos enviados por body, de tipo WorkshopDto',
   })
-  async createWorkshop(@Body() workshop: WorkshopDto): Promise<Workshop> {
+  @UseInterceptors(FileInterceptor('files'))
+  async createWorkshop(@Body() workshop: WorkshopDto, @UploadedFile() file: Express.Multer.File): Promise<Workshop> {
+
+    const uploadedImage = await this.storageService.uploadImage(file);
+    workshop.photo= uploadedImage;
+    const errors = await validate(workshop);
+    if (errors.length > 0) {
+      throw new BadRequestException('La validación falló');
+    }
+
+
     return this.workshopService.createWorkshop(workshop);
   }
 

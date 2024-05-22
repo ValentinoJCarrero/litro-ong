@@ -1,11 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { preference, payment } from "src/config/mp.config";
+import { DonationDto } from "src/dtos/Donation.dto";
+import { DonationService } from "../donation/donation.service";
+import { Donation } from "src/entities/Donation.entity";
 
 @Injectable()
 export class MercadoPagoService {
-    constructor() {}
+    constructor(
+        private readonly donationService: DonationService
+    ) {}
 
-    async createPreference(price: number) {
+    async createPreference(donation: DonationDto) {
         const result = await preference.create({
             body: {
                 items: [
@@ -13,27 +18,32 @@ export class MercadoPagoService {
                         id: '1',
                         title: 'Donación - El Litro',
                         quantity: 1,
-                        unit_price: price
+                        unit_price: donation.amount
                     }
                 ],
-                back_urls: {
-                    success: 'http://localhost:3000/mercadopago/success',
-                    failure: 'http://localhost:3000/mercadopago/failure',
-                    pending: 'http://localhost:3000/mercadopago/pending'
-                },
-                notification_url: 'https://e440-2800-810-434-8a87-cc67-737c-7c55-18e6.ngrok-free.app/mercadopago/webhook'
+                notification_url: 'https://litro-ong.onrender.com/mercadopago/webhook',
+                payer: {
+                    name: donation.fullName,
+                    surname: donation.email
+                }
             },
         })
-
         return result.init_point;
     }
 
-    async webhook(paid) {
+    async webhook(paid): Promise<Donation> {
         if(paid.type == 'payment') {
             const data = await payment.capture({ id: paid.data.id});
-            console.log(data);
-        }
 
-        return 'webhook';
+            const user = data.additional_info.payer;
+
+            const donation = {
+                fullName: user.first_name,
+                email: user.last_name,
+                amount: data.transaction_amount
+            }
+
+            return await this.donationService.registerDonation(donation);
+        }
     }
 }
