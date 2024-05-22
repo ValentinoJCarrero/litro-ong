@@ -14,8 +14,8 @@ export class Donation {
   @Column({ type: 'varchar', nullable: true })
   email: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  amount: string;
+  @Column({ type: 'float', nullable: false })
+  amount: number;
 
   @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
   date: Date;

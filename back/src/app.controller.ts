@@ -1,12 +1,16 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, OnModuleInit, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
-export class AppController {
+export class AppController implements OnModuleInit {
   constructor(private readonly appService: AppService) {}
 
-  @Get('devs')
-  getDevs(): string {
-    return this.appService.getDevs();
+  async onModuleInit() {
+    await this.appService.seeder();
+  }
+
+  @Get('seeder')
+  seeder(): Promise<string> {
+    return this.appService.seeder();
   }
 }
