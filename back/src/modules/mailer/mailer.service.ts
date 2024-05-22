@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { WelcomeMailDto } from 'src/dtos/Mail.dto';
 import sgMail from '../../config/mailer.config';
 import { UserDto } from 'src/dtos/User.dto';
 import { UsersRepository } from '../users/users.repository';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
-export class MailerService {
+export class MailerService implements OnModuleInit {
   constructor(private readonly usersRepository: UsersRepository) {}
-
+  async onModuleInit() {
+  //  return "Aca se ejecutaria el saludo por el cumpleaños."
+  }
+  
   async sendMail(): Promise<any> {
     const msg = {
       to: "addamo.nicolas1991@gmail.com",
@@ -78,21 +82,69 @@ export class MailerService {
           }
         }
 
-    async sendNewsletterMail(): Promise<any> {
-
-      const users = await this.usersRepository.getAllUsers(1, 100);
-      const mailList = users.map((user) => user.email);
-      console.log(mailList)
-      const msg = {
-            to: mailList,
-            from: 'nicolasaddamo1@gmail.com',
-            subject: 'Noticias del litro',
-            text: `este es el text`,
-            html: `<strong>Noticias del litro</strong>
-            <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+        async sendNewsletterMail(): Promise<void> {
+          try {
+            const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+            const mailList = users.map(user => user.email);
+            console.log(mailList);
+            const msg = {
+              to: mailList,
+              from:  'nicolasaddamo1@gmail.com',
+              subject: 'Noticias del litro',
+              text: `este es el texto`,
+              html: `<strong>Noticias del litro</strong>
+                     <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+            };
+            await sgMail.send(msg);
+          } catch (error) {
+            console.error('Error sending newsletter email:', error);
           }
-          sgMail.send(msg)
-          .catch((error) => console.log(error))
-        } 
+        }
+
+
+      @Cron('1 9 1 1 *') //minuto, hora, dia, mes, dia de la semana (9:01 del 1ro de enero)
+      async cronNewyearMail(): Promise<void> {
+        try {
+          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+          const mailList = users.map(user => user.email);
+          console.log(mailList);
+          const msg = {
+            to: mailList,
+            from:  'nicolasaddamo1@gmail.com',
+            subject: 'Feliz año Nuevo te deseamos desde el litro',
+            text: `este es el texto`,
+            html: `<strong>Feliz año Nuevo</strong>
+                   <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+          };
+          await sgMail.send(msg);
         
+        
+        }
+        catch (error) {
+          console.error('Error sending newsletter email:', error);
+        }
+      }
+      @Cron('1 9 25 12 *') //minuto, hora, dia, mes, dia de la semana (9:01 del 1ro de enero)
+      async cronXMasMail(): Promise<void> {
+        try {
+          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
+          const mailList = users.map(user => user.email);
+          console.log(mailList);
+          const msg = {
+            to: mailList,
+            from:  'nicolasaddamo1@gmail.com',
+            subject: 'Feliz Navidad te deseamos desde el litro',
+            text: `este es el texto`,
+            html: `<strong>Feliz año Navidad</strong>
+                   <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+          };
+          await sgMail.send(msg);
+        
+        
+        }
+        catch (error) {
+          console.error('Error sending newsletter email:', error);
+        }
+      }
+      
 }

@@ -15,12 +15,8 @@ import { VolunteerModule } from './modules/volunteer/volunteer.module';
 import { MercadoPagoModule } from './modules/mercado-pago/mp.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
-<<<<<<< HEAD
-import { UsersRepository } from './modules/users/users.repository';
-=======
 import { DonationModule } from './modules/donation/donation.module';
->>>>>>> 91692dadcf133d28d65831c507295154faf4b5ca
-
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,6 +28,7 @@ import { DonationModule } from './modules/donation/donation.module';
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
+    //ScheduleModule.forRoot(),
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
