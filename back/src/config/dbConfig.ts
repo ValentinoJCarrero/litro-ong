@@ -17,7 +17,7 @@ const config = {
   synchronize: true,
   logging: true,
   dropSchema: false,
-  // ssl: true,
+  ssl: process.env.SSL,
   timezone: 'America/Argentina/Cordoba',
 };
 
