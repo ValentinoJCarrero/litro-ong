@@ -3,9 +3,7 @@ import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuUser from "../../../components/AsideMenuDasboard/AsideMenuUser.astro";
 import { postGoogleLogin } from "../../../helpers/Auth/postGoogleLogin";
 import { getSession } from "auth-astro/server";
-
 import rectangle from "../../../assets/rectangleCard.svg";
-import calendarIcon from "../../../assets/calendarIcon.svg";
 import cursorIcon from "../../../assets/cursorIcon.svg";
 import voluntario from "../../../assets/equipo.jpg";
 import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
@@ -37,15 +35,20 @@ if (session) {
       <div
         class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-around h-full gap-4"
       >
-        <h4 class="text-2xl font-medium text-primary  w-full text-end ">
+        <h4 class="text-2xl font-medium text-primary w-full text-end">
           SUMATE A NOSOTROS
         </h4>
-        <h5>Participa, diviértete, construye y mostremos que se puede vivir en un mundo mucho mejor y más colaborativo. Aquí encontrarás un grupo extraordinario que te ayudaremos en todo lo que necesites. <strong>¡Te esperamos!</strong></h5>
-        <div class=" flex flex-row justify-around ">
+        <h5>
+          Participa, diviértete, construye y mostremos que se puede vivir en un
+          mundo mucho mejor y más colaborativo. Aquí encontrarás un grupo
+          extraordinario que te ayudaremos en todo lo que necesites. <strong
+            >¡Te esperamos!</strong>
+        </h5>
+        <div class="flex flex-row justify-around m-8">
           <div
             class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer"
           >
-            <a class="">
+            <a href="/dashboardUser/profile/optionSelected/voluntario">
               <img
                 src={voluntario.src}
                 alt="imagen"
@@ -60,7 +63,7 @@ if (session) {
                 <div class="flex flex-col items-center gap-5">
                   <h6 class="font-semibold text-lg">Ser voluntario/a</h6>
 
-                  <ButtonCTASmall title="¡Participar!" />
+                  <ButtonCTASmall title="Seleccionar" />
                 </div>
                 <div class="flex justify-end">
                   <img src={cursorIcon.src} alt="icono cursor" />
@@ -70,9 +73,9 @@ if (session) {
             </a>
           </div>
           <div
-            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer "
+            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer"
           >
-            <a class="">
+            <a href="/dashboardUser/profile/optionSelected/socio">
               <img
                 src={socio.src}
                 alt="imagen"
@@ -87,7 +90,7 @@ if (session) {
                 <div class="flex flex-col items-center gap-5">
                   <h6 class="font-semibold text-lg">Ser socio/a</h6>
 
-                  <ButtonCTASmall title="¡Participar!" />
+                  <ButtonCTASmall title="Seleccionar" />
                 </div>
                 <div class="flex justify-end">
                   <img src={cursorIcon.src} alt="icono cursor" />
@@ -97,7 +100,6 @@ if (session) {
             </a>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
