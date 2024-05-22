@@ -24,20 +24,35 @@ export class VolunteerRepository {
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
-  ) {}
+  ) {
+    this.roles();
+  }
 
-  getAllVolunteers(limit: number, page: number): Promise<Volunteer[]> {
-    return this.volunteerRepository.find({
+  async roles() {
+    const roles = await this.roleRepository.find();
+
+    if (roles.length === 0) {
+      await this.roleRepository.save({ role: 'Volunteer' });
+      //funcion para insertar roles en desarrolo porque me tiran dropshema-> eliminar
+    }
+  }
+
+  async getAllVolunteers(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Volunteer[]; total: number }> {
+    const [data, total] = await this.volunteerRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-      relations: { user: true, events: true },
+      relations: { user: true, events: { volunteer: false } },
     });
+    return { data, total };
   }
 
   getVolunteer(id: string): Promise<Volunteer> {
     return this.volunteerRepository.findOne({
       where: { id },
-      relations: { user: true, events: true },
+      relations: { user: true, events: { volunteer: false } },
     });
   }
 
@@ -135,12 +150,12 @@ export class VolunteerRepository {
         throw new ConflictException('El usuario ya es voluntario');
       }
 
-      //const role = await this.roleRepository.findOne({
-      //  where: { role: 'Volunteer' },
-      //});
-      //if (!role) {
-      //  throw new NotFoundException('Rol de voluntario no encontrado');
-      //}
+      const role = await this.roleRepository.findOne({
+        where: { role: 'Volunteer' },
+      });
+      if (!role) {
+        throw new NotFoundException('Rol de voluntario no encontrado');
+      }
 
       const volunterData = this.volunteerRepository.create({
         ...volunteerData,
@@ -149,7 +164,7 @@ export class VolunteerRepository {
 
       await this.volunteerRepository.save(volunterData);
       user.volunteerData = volunterData;
-      //user.role = [...user.role, role];
+      user.role = [...user.role, role];
 
       await this.userRepository.save(user);
       await queryRunner.commitTransaction();

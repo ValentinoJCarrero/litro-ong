@@ -33,12 +33,13 @@ export class EventController {
   @Get()
   @ApiOperation({
     summary: 'Obtener todos los eventos',
-    description: 'Esta ruta devuelve todos los eventos registrados',
+    description:
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de eventos y total es la cantidad de eventos registrados en la base de datos',
   })
   getAllEvent(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<Event[]> {
+  ): Promise<{ data: Event[]; total: number }> {
     return this.eventService.getAllEvent(Number(limit), Number(page));
   }
 

@@ -10,8 +10,15 @@ export class BenefitRepository {
     @InjectRepository(Benefit) private benefitRepository: Repository<Benefit>,
   ) {}
 
-  getAllBenefits(): Promise<Benefit[]> {
-    return this.benefitRepository.find();
+  async getAllBenefits(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Benefit[]; total: number }> {
+    const [data, total] = await this.benefitRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return { data, total };
   }
 
   getOneBenefit(id: string): Promise<Benefit> {
