@@ -9,8 +9,16 @@ import { UpdateResult } from 'typeorm';
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
-  async getAllUsers(page: number, limit: number): Promise<User[]> {
-    return await this.usersRepository.getAllUsers(page, limit);
+  async getAllUsers(
+    page: number,
+    limit: number,
+  ): Promise<{ data: User[]; total: number }> {
+    const allUsers = await this.usersRepository.getAllUsers(page, limit);
+    if (allUsers.data.length === 0) {
+      throw new NotFoundException('No se encontraron usuarios en esta pagina');
+    } else {
+      return allUsers;
+    }
   }
 
   async getUser(id: string): Promise<User> {
@@ -19,8 +27,9 @@ export class UsersService {
       throw new NotFoundException(
         'No se encontro al usuario por el id ingresado',
       );
+    } else {
+      return userFound;
     }
-    return userFound;
   }
 
   async updateUser(id: string, user: Partial<UserDto>): Promise<UpdateResult> {
