@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CommunityKitchensDto } from 'src/dtos/CommunityKitchens.dto';
 import { CommunityKitchens } from 'src/entities/CommunityKitchens.entity';
 
 import { Repository } from 'typeorm';
@@ -11,32 +12,38 @@ export class CommunityKitchensRepository {
     private communityKitchensRepository: Repository<CommunityKitchens>,
   ) {}
 
-  // async getAllWorkshop(
-  //   limit: number,
-  //   page: number,
-  // ): Promise<{ data: Workshop[]; total: number }> {
-  //   const [data, total] = await this.workshopRepository.findAndCount({
-  //     skip: (page - 1) * limit,
-  //     take: limit,
-  //   });
-  //
-  //   return { data, total };
-  // }
-  //
-  // getWorkshop(id: string): Promise<Workshop> {
-  //   return this.workshopRepository.findOne({
-  //     where: { id: id },
-  //   });
-  // }
-  // updateWorkshop(id: string, workshopData: Partial<WorkshopDto>) {
-  //   return this.workshopRepository.update(id, workshopData);
-  // }
-  //
-  // createWorkshop(workshop: WorkshopDto): Promise<Workshop> {
-  //   return this.workshopRepository.save(workshop);
-  // }
-  //
-  // deleteWorkshop(id: string) {
-  //   return this.workshopRepository.delete(id);
-  // }
+  async getAllCommunityKitchens(
+    limit: number,
+    page: number,
+  ): Promise<{ data: CommunityKitchens[]; total: number }> {
+    const [data, total] = await this.communityKitchensRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return { data, total };
+  }
+
+  getCommunityKitchens(id: string): Promise<CommunityKitchens> {
+    return this.communityKitchensRepository.findOne({
+      where: { id: id },
+    });
+  }
+
+  updateCommunityKitchens(
+    id: string,
+    communityKitchensData: Partial<CommunityKitchens>,
+  ) {
+    return this.communityKitchensRepository.update(id, communityKitchensData);
+  }
+
+  createCommunityKitchens(
+    communityKitchens: CommunityKitchensDto,
+  ): Promise<CommunityKitchens> {
+    return this.communityKitchensRepository.save(communityKitchens);
+  }
+
+  deleteCommunityKitchens(id: string) {
+    return this.communityKitchensRepository.delete(id);
+  }
 }

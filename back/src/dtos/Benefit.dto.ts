@@ -15,7 +15,7 @@ export class BenefitDto {
   @IsNotEmpty({ message: 'El nombre es requerido' })
   @IsString({ message: 'El nombre debe ser un texto' })
   @MinLength(3, { message: 'El nombre debe tener al menos 3 caracteres' })
-  @MaxLength(35, { message: 'El nombre debe tener menos de 35 caracteres' })
+  @MaxLength(50, { message: 'El nombre debe tener menos de 50 caracteres' })
   name: string;
 
   /**
@@ -31,7 +31,7 @@ export class BenefitDto {
   @IsNotEmpty({ message: 'La dirección es requerida' })
   @IsString({ message: 'La dirección debe ser un texto' })
   @MinLength(5, { message: 'La dirección debe tener al menos 10 caracteres' })
-  @MaxLength(35, { message: 'La dirección debe tener menos de 40 caracteres' })
+  @MaxLength(50, { message: 'La dirección debe tener menos de 40 caracteres' })
   address: string;
 
   /**
@@ -40,7 +40,7 @@ export class BenefitDto {
   @IsNotEmpty({ message: 'El beneficio es requerido' })
   @IsString({ message: 'El beneficio debe ser un texto' })
   @MinLength(10, { message: 'El beneficio debe tener al menos 10 caracteres' })
-  @MaxLength(40, { message: 'El beneficio debe tener menos de 40 caracteres' })
+  @MaxLength(50, { message: 'El beneficio debe tener menos de 50 caracteres' })
   benefits: string;
 
   /**
@@ -58,8 +58,8 @@ export class BenefitDto {
   @MinLength(10, {
     message: 'La descripción debe tener al menos 10 caracteres',
   })
-  @MaxLength(45, {
-    message: 'La descripción debe tener menos de 45 caracteres',
+  @MaxLength(70, {
+    message: 'La descripción debe tener menos de 70 caracteres',
   })
   description?: string;
 }

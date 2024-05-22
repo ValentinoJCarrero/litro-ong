@@ -1,18 +1,30 @@
-import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class WorkshopDto {
   /**
    * @example 'Computacion'
    */
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'El nombre es requerido' })
+  @IsString({ message: 'El nombre debe ser una cadena de caracteres' })
+  @MaxLength(50, { message: 'El nombre debe tener menos de 50 caracteres' })
   name: string;
 
   /**
    * @example 'Nicolas Addamo'
    */
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'El nombre del docente es requerido' })
+  @IsString({
+    message: 'El nombre del docente debe ser una cadena de caracteres',
+  })
+  @MaxLength(70, {
+    message: 'El nombre del docente debe tener menos de 70 caracteres',
+  })
   teacher: string;
 
   /**

@@ -25,6 +25,9 @@ export class CommunityKitchens {
   @Column({ type: 'varchar', nullable: false })
   time: string;
 
+  @Column({ type: 'text', nullable: false })
+  description: string;
+
   @Column({ type: 'varchar', nullable: false })
   photo: string;
 }

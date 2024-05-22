@@ -16,7 +16,7 @@ export class EventDto {
   @IsNotEmpty({ message: 'El titulo es requerido' })
   @IsString({ message: 'El titulo debe ser un texto' })
   @MinLength(10, { message: 'El titulo debe tener al menos 10 caracteres' })
-  @MaxLength(40, { message: 'El titulo debe tener menos de 40 caracteres' })
+  @MaxLength(100, { message: 'El titulo debe tener menos de 60 caracteres' })
   title: string;
 
   /**
@@ -25,7 +25,7 @@ export class EventDto {
   @IsNotEmpty({ message: 'El subtitulo es requerido' })
   @IsString({ message: 'El subtitulo debe ser un texto' })
   @MinLength(10, { message: 'El subtitulo debe tener al menos 10 caracteres' })
-  @MaxLength(30, { message: 'El subtitulo debe tener menos de 30 caracteres' })
+  @MaxLength(90, { message: 'El subtitulo debe tener menos de 50 caracteres' })
   subtitle: string;
 
   /**
@@ -34,7 +34,7 @@ export class EventDto {
   @IsNotEmpty({ message: 'La dirección es requerida' })
   @IsString({ message: 'La dirección debe ser un texto' })
   @MinLength(5, { message: 'La dirección debe tener al menos 10 caracteres' })
-  @MaxLength(30, { message: 'La dirección debe tener menos de 30 caracteres' })
+  @MaxLength(60, { message: 'La dirección debe tener menos de 30 caracteres' })
   address: string;
 
   /**
@@ -64,8 +64,8 @@ export class EventDto {
   @MinLength(100, {
     message: 'La descripción debe tener al menos 100 caracteres',
   })
-  @MaxLength(800, {
-    message: 'La descripción debe tener menos de 800 caracteres',
+  @MaxLength(1500, {
+    message: 'La descripción debe tener menos de 1500 caracteres',
   })
   description: string;
 
