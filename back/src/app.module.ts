@@ -29,6 +29,7 @@ import { WorkshopModule } from './modules/workshop/workshop.module';
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
+    //ScheduleModule.forRoot(),
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
