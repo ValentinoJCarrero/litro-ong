@@ -1,9 +1,8 @@
 ---
 import AsideMenuDasboard from "../../../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
 import DasboardLayouts from "../../../../layouts/DasboardLayouts.astro";
-// import FormNewsFormik from "../../../../components/Forms/FormNewsFormik.tsx";
-import EnConstruccion from "../../../../components/EnConstruccion/EnConstruccion.jsx";
 import ButtonSecondarySmall from "../../../../components/Buttons/ButtonSecondarySmall.astro";
+import FormWorkshopsFormik from "../../../../components/Forms/FormWorkshopsFormik";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -21,13 +20,7 @@ import ButtonSecondarySmall from "../../../../components/Buttons/ButtonSecondary
           CREAR NUEVO TALLER DE OFICIO
         </h4>
         <div class="h-full">
-          <!-- <FormNewsFormik client:load /> -->
-        </div>
-        <div class="justify-center items-center flex flex-col gap-5">
-          <EnConstruccion />
-          <a href="/dashboardAdmin/workshops">
-            <ButtonSecondarySmall title="Volver" />
-          </a>
+          <FormWorkshopsFormik client:load />
         </div>
       </div>
     </div>

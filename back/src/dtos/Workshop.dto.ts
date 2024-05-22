@@ -25,8 +25,8 @@ export class WorkshopDto {
   /**
    * @example 'https://www.example.image.com'
    */
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   photo: string;
 
   /**

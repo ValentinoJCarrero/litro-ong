@@ -6,10 +6,13 @@ import {
 import { NewsRepository } from './news.repository';
 import { NewsDto } from 'src/dtos/News.dto';
 import { News } from 'src/entities/News.entity';
+import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class NewsService {
-  constructor(private readonly newsRepository: NewsRepository) {}
+  constructor(private readonly newsRepository: NewsRepository,
+              private readonly mailerService:MailerService
+  ) {}
 
   async getAllNews(
     limit: number,
@@ -33,6 +36,7 @@ export class NewsService {
 
   async createNews(news: NewsDto): Promise<News> {
     try {
+      this.mailerService.sendNewsletterMail();
       return await this.newsRepository.createNews(news);
     } catch (error) {
       if ((error as any).message?.includes('unicidad')) {

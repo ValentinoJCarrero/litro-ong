@@ -20,6 +20,8 @@ interface EventItem {
 
 
 const EventsComponent = () => {
+    const [page, setPage] = useState (1)
+    const [totalPages, setTotalPages] = useState (3)
     const [events, setEvents] = useState<EventItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -27,8 +29,9 @@ const EventsComponent = () => {
 
     useEffect(() => {
         const fetchNews = async () => {
-            const newsData = await getEvents();
-            setEvents(newsData);
+            const newsData = await getEvents(3,page);
+            setEvents(newsData.data);
+            setTotalPages(Math.ceil(newsData.total/3));
             setIsLoading(false);
         };
         fetchNews();
@@ -55,7 +58,7 @@ const EventsComponent = () => {
       ) :!events.length ? (
                 <NotFound/>
             ) : (
-                <ul className="overflow-auto h-80 w-full">
+                <ul className=" w-full">
                     {events.map(({primaryImage, title, address, date, location, id, timeStart, timeEnd }) => (
                         <li key={id} className="flex flex-row flex-nowrap justify-between pr-10 items-center">
                             <a className="flex flex-row justify-between p-10 items-center text-sm w-full" id={`card${id}`} href={`/dashboardAdmin/${title}`}>
@@ -89,6 +92,15 @@ const EventsComponent = () => {
                             </div>
                         </li>
                     ))}
+                    <div className="flex items-center justify-center flex-row w-full mt-8">
+                        <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+                            <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
+                        </div>
+                            <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
+                        <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+                            <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                        </div> 
+                </div>
                 </ul>
             )}
         </div>

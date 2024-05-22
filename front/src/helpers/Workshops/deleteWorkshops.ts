@@ -1,5 +1,5 @@
-export async function deleteNews(id:any): Promise<any> {
-    fetch(`https://litro-ong.onrender.com/news/${id}`, {
+export async function deleteWorkshops(id:any): Promise<any> {
+    fetch(`https://litro-ong.onrender.com/workshop/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -10,10 +10,8 @@ export async function deleteNews(id:any): Promise<any> {
             throw new Error('Error al eliminar la noticia');
           }
           console.log('Noticia eliminada con éxito');
-
         })
         .catch(error => {
           console.error('Error al eliminar la noticia:', error);
-
         });
   } 
