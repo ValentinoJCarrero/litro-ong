@@ -10,10 +10,15 @@ import { BenefitDto } from 'src/dtos/Benefit.dto';
 @Injectable()
 export class BenefitService {
   constructor(private readonly benefitRepository: BenefitRepository) {}
-  async getAllBenefits(): Promise<Benefit[]> {
-    const allBenefits: Benefit[] =
-      await this.benefitRepository.getAllBenefits();
-    if (allBenefits.length === 0) {
+  async getAllBenefits(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Benefit[]; total: number }> {
+    const allBenefits = await this.benefitRepository.getAllBenefits(
+      limit,
+      page,
+    );
+    if (allBenefits.data.length === 0) {
       throw new NotFoundException('No se encontraron beneficios');
     }
     return allBenefits;

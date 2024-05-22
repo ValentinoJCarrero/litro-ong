@@ -32,23 +32,24 @@ export class NewsController {
   @Get()
   @ApiOperation({
     summary: 'Obtener todas las noticias',
-    description: 'Esta ruta devuelve todas las noticias registradas',
+    description:
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de noticias y total es la cantidad de noticias registradas en la base de datos',
   })
   getAllNews(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
-  ): Promise<News[]> {
-    return this.newsService.getAllNews(limit, page);
+  ): Promise<{ data: News[]; total: number }> {
+    return this.newsService.getAllNews(Number(limit), Number(page));
   }
 
-  @Get(':title')
+  @Get(':id')
   @ApiOperation({
-    summary: 'Obtener una noticia por titulo',
+    summary: 'Obtener una noticia por id',
     description:
       'Esta ruta devuelve una noticia registrada por un id de tipo uuid enviado por parámetro',
   })
-  getOneNews(@Param('title') title: string): Promise<News> {
-    return this.newsService.getOneNews(title);
+  getOneNews(@Param('id', ParseUUIDPipe) id: string): Promise<News> {
+    return this.newsService.getOneNews(id);
   }
 
   @Post()

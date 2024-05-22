@@ -18,7 +18,7 @@ const config = {
   logging: true,
   dropSchema: true,
   ssl: process.env.SSL,
-  timezone: 'America/Argentina/Cordoba', 
+  timezone: 'America/Argentina/Cordoba',
 };
 
 export default registerAs(`dbConfig`, () => config);

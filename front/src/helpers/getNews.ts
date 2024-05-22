@@ -9,7 +9,7 @@ export async function getNews(): Promise<any> {
   
     const data = await response.json();
 
-    console.log(data);
+    console.log("esto es data",data);
     return data;}
     catch{
       console.log("Error al traer las noticia");

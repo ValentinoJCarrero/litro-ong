@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import { postNews } from "../../helpers/postNews";
 import warningIcon from "../../assets/IconWarrning.svg";
-
+import Swal from 'sweetalert2'
 interface IFormValues {
   title: string;
   subtitle: string;
@@ -85,7 +85,14 @@ const FormNewsFormik = () => (
       console.log(values);
       postNews(values)
         .then((data) => {
-          alert(JSON.stringify(data, null, 2));
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Se agrego correctamente`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          window.location.href = '/dashboardAdmin/news'
           setSubmitting(false);
         })
         .catch((error) => {
@@ -290,7 +297,8 @@ const FormNewsFormik = () => (
           </a>
           <button
             type="submit"
-            className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
+            className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
           >
             Agregar
           </button>

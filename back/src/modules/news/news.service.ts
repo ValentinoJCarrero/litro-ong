@@ -11,19 +11,20 @@ import { News } from 'src/entities/News.entity';
 export class NewsService {
   constructor(private readonly newsRepository: NewsRepository) {}
 
-  async getAllNews(limit: number, page: number): Promise<News[]> {
-    const allNews: News[] | null = await this.newsRepository.getAllNews(
-      limit,
-      page,
-    );
-    if (allNews.length === 0) {
-      throw new NotFoundException('No se encontraron noticias');
+  async getAllNews(
+    limit: number,
+    page: number,
+  ): Promise<{ data: News[]; total: number }> {
+    const allNews = await this.newsRepository.getAllNews(limit, page);
+    if (allNews.data.length === 0) {
+      throw new NotFoundException('No se encontraron noticias en esta pagina');
+    } else {
+      return allNews;
     }
-    return allNews;
   }
 
-  async getOneNews(title: string): Promise<News> {
-    const newsById: News | null = await this.newsRepository.getOneNews(title);
+  async getOneNews(id: string): Promise<News> {
+    const newsById: News | null = await this.newsRepository.getOneNews(id);
     if (!newsById) {
       throw new NotFoundException('Noticia no encontrada');
     }

@@ -22,17 +22,23 @@ export class UsersRepository {
     return newUser;
   }
 
-  getAllUsers(page: number, limit: number): Promise<User[]> {
-    return this.usersRepository.find({
+  async getAllUsers(
+    page: number,
+    limit: number,
+  ): Promise<{ data: User[]; total: number }> {
+    const [data, total] = await this.usersRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
       relations: {
         volunteerData: {
-          events: true,
+          events: { volunteer: false },
         },
         partnerData: { cardData: true },
+        role: true,
+        donations: true,
       },
     });
+    return { data, total };
   }
 
   getUser(id: string): Promise<User> {
@@ -40,8 +46,11 @@ export class UsersRepository {
       where: { id },
       relations: {
         volunteerData: {
-          events: true,
+          events: { volunteer: false },
         },
+        partnerData: { cardData: true },
+        role: true,
+        donations: true,
       },
     });
   }
