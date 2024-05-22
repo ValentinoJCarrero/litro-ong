@@ -1,10 +1,11 @@
-export async function getNews(limit: number, page: number): Promise<any> {
-
+export async function getWorkshops(limit: number, page: number): Promise<any> {
+  console.log(page);
+  console.log(limit);
   try {
     const validLimit = limit;
     const validPage = page;
 
-    const url = new URL('https://litro-ong.onrender.com/news');
+    const url = new URL('https://litro-ong.onrender.com/workshop');
     url.searchParams.append('limit', validLimit.toString());
     url.searchParams.append('page', validPage.toString());
 

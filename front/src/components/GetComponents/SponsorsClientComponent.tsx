@@ -13,6 +13,8 @@ interface SponsorsItem {
 }
 
 const SponsorsComponent = () => {
+  const [page, setPage] = useState (1)
+  const [totalPages, setTotalPages] = useState (3)
   const [sponsors, setSponsors] = useState<SponsorsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,8 +22,9 @@ const SponsorsComponent = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await getSponsors();
-      setSponsors(newsData);
+      const newsData = await getSponsors(3,page);
+      setSponsors(newsData.data);
+      setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
     fetchNews();
@@ -48,7 +51,7 @@ const SponsorsComponent = () => {
       ) : !sponsors.length ? (
         <NotFound />
       ) : (
-        <ul className="overflow-auto h-80 w-full">
+        <ul className=" w-full">
           {sponsors.map(({ logo, name, email, id }) => (
             <li
               key={id}
@@ -85,6 +88,15 @@ const SponsorsComponent = () => {
               </div>
             </li>
           ))}
+          <div className="flex items-center justify-center flex-row w-full mt-8">
+              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+                <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
+              </div>
+                <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
+              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+                <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+              </div> 
+          </div>
         </ul>
       )}
     </div>

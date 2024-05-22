@@ -96,7 +96,9 @@ const FormNewsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          window.location.href = '/dashboardAdmin/news'
+          setTimeout(() => {
+            window.location.href = '/dashboardAdmin/news'
+        }, 1500);
           setSubmitting(false);
         })
         .catch((error) => {
