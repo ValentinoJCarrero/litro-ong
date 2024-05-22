@@ -20,8 +20,8 @@ const GetNewsClientComponent: React.FC = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await getNews();
-      setNews(newsData);
+      const newsData = await getNews(2, 1);
+      setNews(newsData.data);
     };
     fetchNews();
   }, []);
