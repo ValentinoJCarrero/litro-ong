@@ -17,6 +17,7 @@ import { StorageModule } from './modules/storage/storage.module';
 import { MailerModule } from './modules/mailer/mailer.module';
 import { DonationModule } from './modules/donation/donation.module';
 import { WorkshopModule } from './modules/workshop/workshop.module';
+import { CommunityKitchensModule } from './modules/communityKitchens/communityKitchens.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { WorkshopModule } from './modules/workshop/workshop.module';
     VolunteerModule,
     DonationModule,
     WorkshopModule,
+    CommunityKitchensModule,
   ],
   controllers: [AppController],
   providers: [AppService],
