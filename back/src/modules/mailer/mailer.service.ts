@@ -5,6 +5,8 @@ import { UserDto } from 'src/dtos/User.dto';
 import { UsersRepository } from '../users/users.repository';
 import { Cron } from '@nestjs/schedule';
 
+
+
 @Injectable()
 export class MailerService implements OnModuleInit {
   constructor(private readonly usersRepository: UsersRepository) {}
@@ -85,7 +87,7 @@ export class MailerService implements OnModuleInit {
         async sendNewsletterMail(): Promise<void> {
           try {
             const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
-            const mailList = users.map(user => user.email);
+            const mailList = users.data.map(user => user.email);
             console.log(mailList);
             const msg = {
               to: mailList,
@@ -106,7 +108,7 @@ export class MailerService implements OnModuleInit {
       async cronNewyearMail(): Promise<void> {
         try {
           const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
-          const mailList = users.map(user => user.email);
+          const mailList = users.data.map(user => user.email);
           console.log(mailList);
           const msg = {
             to: mailList,
@@ -128,7 +130,7 @@ export class MailerService implements OnModuleInit {
       async cronXMasMail(): Promise<void> {
         try {
           const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
-          const mailList = users.map(user => user.email);
+          const mailList = users.data.map(user => user.email);
           console.log(mailList);
           const msg = {
             to: mailList,
