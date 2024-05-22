@@ -35,21 +35,15 @@ export class DonationRepository {
   }
 
   async registerDonation(donation: DonationDto): Promise<Donation> {
-    if (!donation.userId) {
-      return await this.donationRepository.save(donation);
-    } else {
-      const userFound: User | null = await this.userRepository.findOneBy({
-        id: donation.userId,
-      });
+    if (!donation.email) return await this.donationRepository.save(donation); 
 
-      if (!userFound) {
-        throw new NotFoundException('Usuario no encontrado');
-      }
-      const donationCreated = this.donationRepository.create({
-        ...donation,
-        user: userFound,
-      });
-      return await this.donationRepository.save(donationCreated);
-    }
+    const userFound = await this.userRepository.findOneBy({ email: donation.email });
+    if(!userFound) return await this.donationRepository.save(donation);
+    
+    const donationCreated = this.donationRepository.create({ ...donation, user: userFound });
+      
+    return await this.donationRepository.save(donationCreated);
   }
+
+  async registerSubscription(subscription) {}
 }
