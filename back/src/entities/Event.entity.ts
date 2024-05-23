@@ -33,7 +33,7 @@ export class Event {
   @Column({ type: 'time', nullable: false })
   timeEnd: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'text', nullable: false })
   description: string;
 
   @Column({ type: 'varchar', nullable: false })

@@ -22,7 +22,7 @@ export class Volunteer {
   @JoinColumn()
   user: User;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'simple-array', nullable: false })
   availableDays: string[];
 
   @Column({ type: 'varchar', nullable: false })

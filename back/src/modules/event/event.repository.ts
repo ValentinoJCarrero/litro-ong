@@ -20,20 +20,31 @@ export class EventRepository {
     const [data, total] = await this.EventRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-      relations: { volunteer: { user: { volunteerData: { events: false } } } },
+      relations: { volunteer: { user: { volunteerData: false } } },
     });
 
     return { data, total };
   }
 
-  getFilterEvent(filter): Promise<Event[]> {
-    return this.EventRepository.findBy(filter);
+  async getFilterEvent(
+    filter,
+    limit: number,
+    page: number,
+  ): Promise<{ data: Event[]; total: number }> {
+    const [data, total] = await this.EventRepository.findAndCount({
+      where: filter,
+      skip: (page - 1) * limit,
+      take: limit,
+      relations: { volunteer: { user: { volunteerData: false } } },
+    });
+
+    return { data, total };
   }
 
   getOneEvent(title: string): Promise<Event> {
     return this.EventRepository.findOne({
       where: { title: title },
-      relations: { volunteer: { user: { volunteerData: { events: false } } } },
+      relations: { volunteer: { user: { volunteerData: false } } },
     });
   }
   updateEvent(id: string, eventData: Partial<EventDto>) {

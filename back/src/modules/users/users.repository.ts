@@ -31,9 +31,9 @@ export class UsersRepository {
       take: limit,
       relations: {
         volunteerData: {
-          events: { volunteer: false },
+          events: false,
         },
-        partnerData: { cardData: true },
+        partnerData: true,
         role: true,
         donations: true,
       },
