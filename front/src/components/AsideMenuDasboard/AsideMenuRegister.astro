@@ -1,84 +1,112 @@
 ---
 import { Image } from "astro:assets";
-import logoIcon from "../../assets/Logo.svg"
+import logoIcon from "../../assets/Logo.svg";
 import ButtonCTA from "../Buttons/ButtonCTA.astro";
-import CheckStart from "../../assets/checkStart.svg"
-import CheckSecondary from "../../assets/checkSecondary.svg"
-import CheckComplete from "../../assets/checkComplete.svg"
-const { pathname } = Astro.url
+import CheckStart from "../../assets/checkStart.svg";
+import CheckSecondary from "../../assets/checkSecondary.svg";
+import CheckComplete from "../../assets/checkComplete.svg";
+const { pathname } = Astro.url;
 console.log(pathname);
 const normalizedPathName =
-	pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname
+  pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
 
 const pages = [
-	{ name: "INFORMACION DE CONTACTO", href: "/auth/register",hrefActive:"/auth/register" , active: false, imageSrc: CheckStart.src},
-	{ name: "INFORMACION PERSONAL", href: "/auth/register/personalInformation",active: normalizedPathName.startsWith("/dashboardAdmin/sponsors") },
-    { name: "RESUMEN", href: "/auth/register/resume" },
-	
+  {
+    name: "INFORMACION DE CONTACTO",
+    href: "/auth/register",
+    hrefActive: "/auth/register",
+    active: false,
+    imageSrc: CheckStart.src,
+  },
+  {
+    name: "INFORMACION PERSONAL",
+    href: "/auth/register/personalInformation",
+    active: normalizedPathName.startsWith("/dashboardAdmin/sponsors"),
+  },
+  { name: "RESUMEN", href: "/auth/register/resume" },
 ].map((page) => ({
-	...page,
-	active:  normalizedPathName === page.href || normalizedPathName === page.hrefActive,
-
-}))
+  ...page,
+  active:
+    normalizedPathName === page.href || normalizedPathName === page.hrefActive,
+}));
 const images = [
-	{ href: "/auth/register",hrefActive:"/auth/register" , imageSrc: CheckSecondary.src},
-	{ href: "/auth/register/personalInformation",hrefActive:"/auth/register/personalInformationGoogle",active: normalizedPathName.startsWith("/auth/register/personalInformation"), imageSrc: CheckStart.src },
-    { href: "/auth/register/resume/personalInformationGoogle",hrefActive:"/auth/register/resumeGoogle",imageSrc: CheckComplete.src },
-	
+  {
+    href: "/auth/register",
+    hrefActive: "/auth/register",
+    imageSrc: CheckSecondary.src,
+  },
+  {
+    href: "/auth/register/personalInformation",
+    hrefActive: "/auth/register/personalInformationGoogle",
+    active: normalizedPathName.startsWith("/auth/register/personalInformation"),
+    imageSrc: CheckStart.src,
+  },
+  {
+    href: "/auth/register/resume/personalInformationGoogle",
+    hrefActive: "/auth/register/resumeGoogle",
+    imageSrc: CheckComplete.src,
+  },
 ].map((images) => ({
-	...images,
-	active:  normalizedPathName === images.href || normalizedPathName === images.hrefActive,
-
-}))
+  ...images,
+  active:
+    normalizedPathName === images.href ||
+    normalizedPathName === images.hrefActive,
+}));
 ---
-<div class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col">
-    <div>
-    <div class=" bg-primary py-5 px-10 rounded-t-2xl">
-        <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
+
+<div
+  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col"
+>
+  <div>
+    <div class="bg-primary py-5 px-10 rounded-t-2xl">
+      <a href="/"
+        ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
+      >
     </div>
     <div class="p-10 w-full text-center">
-        <slot />
+      <slot />
     </div>
     <div class="flex flex-row w-full items-center justify-center px-8">
-            {
-                images.map(({ href, active, imageSrc}, key) => (
-                <img src={active ? imageSrc : href} alt="icono Rrss Whatsapp" class={active ? "block h-44" : "hidden"}/>
-                ))
-            }
-            <div class="flex flex-col h-48 justify-between">
-            {
-                pages.map(({ name, href, active, imageSrc}, key) => ( 
-
-                    
-
-                        <p
-                            
-                            class:list={[
-                                "text-sm font-normal my-4 mx-4",
-                                { "text-textSecondary flex items-center font-semibold ": active },
-                            { "text-textTertiary ": !active },
-                            ]}
-                            id={`nav-link-${key}`}
-                        >
-                            <span class="z-10">{name}</span>
-                        </p>
-                    
-                ))
-            }
-            </div>
+      {
+        images.map(({ href, active, imageSrc }, key) => (
+          <img
+            src={active ? imageSrc : href}
+            alt="icono Rrss Whatsapp"
+            class={active ? "block h-44" : "hidden"}
+          />
+        ))
+      }
+      <div class="flex flex-col h-48 justify-between">
+        {
+          pages.map(({ name, href, active, imageSrc }, key) => (
+            <p
+              class:list={[
+                "text-sm font-normal my-4 mx-4",
+                {
+                  "text-textSecondary flex items-center font-semibold ": active,
+                },
+                { "text-textTertiary ": !active },
+              ]}
+              id={`nav-link-${key}`}
+            >
+              <span class="z-10">{name}</span>
+            </p>
+          ))
+        }
+      </div>
     </div>
-
-    </div>
+  </div>
 </div>
 
 <script>
-function handleClick() {
-        console.log("hola");
-        return Astro.redirect("/302")
-	}
-  
-	const button = document.getElementById('Logout')
-  
-	button?.addEventListener('click', handleClick)
-    
+  function handleClick() {
+    console.log("hola");
+    return Astro.redirect("/302");
+  }
+
+  const button = document.getElementById("Logout");
+
+  button?.addEventListener("click", handleClick);
 </script>
