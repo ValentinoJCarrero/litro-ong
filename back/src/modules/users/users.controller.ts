@@ -35,7 +35,6 @@ export class UsersController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
   ): Promise<{ data: User[]; total: number }> {
-    console.log(page, limit);
     return this.usersService.getAllUsers(Number(page), Number(limit));
   }
 
@@ -56,7 +55,6 @@ export class UsersController {
     description:
       'Esta ruta actualiza un usuario, por un id enviado por parametro y datos nuevos, de tipo UserDto enviados por body',
   })
-  @UseInterceptors(RemoveDataSensitive)
   updateUser(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() user: Partial<UserDto>,

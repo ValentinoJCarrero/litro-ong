@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class DonationDto {
   /**
@@ -13,17 +13,14 @@ export class DonationDto {
   /**
    * @example 'HomeroSimpson@gmail.com'
    */
-  @IsOptional({
-    message:
-      'El correo electrónico es opcional si la donacion es de un usuario registrado',
-  })
+  @IsOptional({ message: 'El correo electrónico es opcional' })
   @IsEmail()
   email: string;
 
   /**
-   *@example '$5000'
+   *@example 5000
    */
   @IsNotEmpty()
-  @IsString()
+  @IsNumber()
   amount: number;
 }

@@ -21,6 +21,7 @@ import { Event } from 'src/entities/Event.entity';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '../storage/storage.service';
 import { validate } from 'class-validator';
+import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 
 @ApiTags('Eventos')
 @Controller('event')
@@ -36,6 +37,7 @@ export class EventController {
     description:
       'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de eventos y total es la cantidad de eventos registrados en la base de datos',
   })
+  @UseInterceptors(RemoveDataSensitive)
   getAllEvent(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
@@ -49,8 +51,12 @@ export class EventController {
     description:
       'Esta ruta devuelve todos los eventos registrados, posteriores a la fecha actual',
   })
-  getFutureEvents(): Promise<Event[]> {
-    return this.eventService.getFutureEvents();
+  @UseInterceptors(RemoveDataSensitive)
+  getFutureEvents(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+  ): Promise<{ data: Event[]; total: number }> {
+    return this.eventService.getFutureEvents(Number(limit), Number(page));
   }
 
   @Get('/past')
@@ -59,8 +65,12 @@ export class EventController {
     description:
       'Esta ruta devuelve todos los eventos registrados, anteriores a la fecha actual',
   })
-  getPastEvents(): Promise<Event[]> {
-    return this.eventService.getPastEvents();
+  @UseInterceptors(RemoveDataSensitive)
+  getPastEvents(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+  ): Promise<{ data: Event[]; total: number }> {
+    return this.eventService.getPastEvents(Number(limit), Number(page));
   }
 
   @Get(':title')
@@ -69,6 +79,7 @@ export class EventController {
     description:
       'Esta ruta devuelve un evento registrado por un titulo especifico, enviado por parámetro',
   })
+  @UseInterceptors(RemoveDataSensitive)
   getOneEvent(@Param('title') title: string): Promise<Event> {
     return this.eventService.getOneEvent(title);
   }
@@ -79,6 +90,7 @@ export class EventController {
     description:
       'Esta ruta actualiza un evento registrado por un id de tipo uuid enviado por parámetro',
   })
+  @UseInterceptors(RemoveDataSensitive)
   updateEvent(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() eventData: Partial<EventDto>,
@@ -135,11 +147,11 @@ export class EventController {
     description:
       'Esta ruta, agrega a un usuario de tipo voluntario, a un evento especifico. El id del voluntario es enviado por parámetro y el evento por body',
   })
+  @UseInterceptors(RemoveDataSensitive)
   addVolunteer(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() event: Partial<Event>,
   ) {
-    console.log('pasaste por aca');
     return this.eventService.addVolunteer(id, event);
   }
 }

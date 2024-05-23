@@ -10,6 +10,6 @@ export async function getWorkshopsByTitle(title: string): Promise<any> {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log(`Error al buscar noticias con el título: ${title}`, error);
+      console.log(`Error al buscar el taller con el título: ${title}`, error);
     }
   }

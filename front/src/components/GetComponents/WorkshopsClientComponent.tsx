@@ -16,24 +16,28 @@ interface WorkshopItem {
   dateEnd: string;
   dateStart: string;
   cost: string;
-  days: string;
+  days: string[];	
   id: number;
 }
 
 const WorkshopsComponent = () => {
   const [page, setPage] = useState (1)
+  const [message, setMessage] = useState ("")
+  const [totalPages, setTotalPages] = useState (3)
   const [workshop, setWorkshop] = useState<WorkshopItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchWorkshops = async (page: number) => {
       const newsData = await getWorkshops(2,page);
-      setWorkshop(newsData);
+      setWorkshop(newsData.data);
+      setMessage(newsData.message);
+      setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
-    fetchNews();
+    fetchWorkshops(page);
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
@@ -56,7 +60,7 @@ const WorkshopsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : !workshop.length ? (
+      ) : message ==="No se encontraron en talleres esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
@@ -82,11 +86,11 @@ const WorkshopsComponent = () => {
                         {name}
                       </h6>
                       <p>{teacher}</p>
-                      <p>{cost}</p>
+                      <p>{cost} Pesos</p>
                     </div>
                   </div>
                   <div>
-                    <p>{days}</p>
+                    <p>{days.join(' - ')}</p>
                   </div>
                   <img src={vectorIcon.src} alt="icono de vector" />
                 </a>
@@ -110,9 +114,9 @@ const WorkshopsComponent = () => {
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
               </div>
-                <p className=" font-base text-lg mx-4">{page}/20</p>
+                <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
               </div>
         </ul>

@@ -27,7 +27,7 @@ const initialValues: IFormValues = {
   dateEnd: "",
   dateStart: "",
   cost: "",
-  days: [""],
+  days: [],
   description: "",
 }
 
@@ -41,8 +41,8 @@ const validate = (values: IFormValues) => {
     errors.name = "El nombre es requerido";
   } else if (values.name.length < 4) {
     errors.name = "El nombre debe tener mínimo 4 caracteres";
-  } else if (values.name.length > 30) {
-    errors.name = "El nombre debe tener máximo 30 caracteres";
+  } else if (values.name.length > 50) {
+    errors.name = "El nombre debe tener máximo 50 caracteres";
   }
 
   if (!values.teacher) {
@@ -61,16 +61,12 @@ const validate = (values: IFormValues) => {
     errors.teacherPhone = "El número de teléfono debe tener 10 dígitos";
   }
 
- /* if (!values.photo) {
-    errors.photo  = "La imagen es requerida";
-  } else if (
-    values.photo &&
-    values.photo.type &&
-    !values.photo.type.startsWith("image/")
-  ) {
+  if (values.photo === null) {
+    errors.photo = "La imagen es requerida";
+  } else if (!values.photo.type.startsWith("image/")) {
     errors.photo = "La imagen debe ser un archivo de imagen";
   }
-  */
+  
 
   if (!values.timeStart) {
     errors.timeStart = "El horario de inicio es requerido";
@@ -95,8 +91,8 @@ const validate = (values: IFormValues) => {
     errors.description = "La descripción es requerida";
   } else if (trimmedDescription.length < 100) {
     errors.description = "La descripción debe tener mínimo 100 caracteres";
-  } else if (trimmedDescription.length > 800) {
-    errors.description = "La descripción debe tener máximo 800 caracteres";
+  } else if (trimmedDescription.length > 1500) {
+    errors.description = "La descripción debe tener máximo 1500 caracteres";
   }
 
   return errors;
@@ -118,7 +114,7 @@ const FormWorkshopsFormik = () => (
             timer: 1500
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/workshops';
+            window.location.href = '/dashboardAdmin/workshops';
         }, 1500);
           setSubmitting(false);
         })
@@ -168,7 +164,7 @@ const FormWorkshopsFormik = () => (
           />
         </div>
         <div className="flex flex-row">
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full pr-4">
           <label htmlFor="teacher" className="font-medium my-2">
             Profesor/a
           </label>
@@ -205,7 +201,7 @@ const FormWorkshopsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full pl-4">
           <label htmlFor="teacherPhone" className="font-medium my-2">
             Numero telefonico profesor/a
           </label>
@@ -244,7 +240,7 @@ const FormWorkshopsFormik = () => (
         </div>
         </div>
         <div className="flex flex-row">
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full pr-4">
           <label htmlFor="timeStart" className="font-medium my-2">
             Horario de inicio
           </label>
@@ -281,7 +277,7 @@ const FormWorkshopsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full pl-4">
           <label htmlFor="duration" className="font-medium my-2">
             Duración
           </label>
@@ -320,7 +316,7 @@ const FormWorkshopsFormik = () => (
         </div>
         </div>
         <div className="flex flex-row">
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20  w-full pr-4">
           <label htmlFor="dateStart" className="font-medium my-2">
             Fecha de inicio
           </label>
@@ -356,7 +352,7 @@ const FormWorkshopsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full px-4">
           <label htmlFor="dateEnd" className="font-medium my-2">
             Fecha de finalización
           </label>
@@ -392,9 +388,7 @@ const FormWorkshopsFormik = () => (
             className="text-warning"
           />
         </div>
-        </div>
-        <div className="flex flex-row">
-        <div className="flex flex-col h-20">
+        <div className="flex flex-col h-20 w-full pl-4">
           <label htmlFor="cost" className="font-medium my-2">
             Costo del taller
           </label>
@@ -402,7 +396,7 @@ const FormWorkshopsFormik = () => (
             <Field
               type="number"
               name="cost"
-              placeholder="Costo del taller"
+              placeholder="Costo del taller en Pesos Argentinos"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                 errors.cost && touched.cost
                   ? "border-warningBorder text-warningText font-medium"
@@ -424,7 +418,6 @@ const FormWorkshopsFormik = () => (
                 }`}
               />
             </div>
-            <p>Pesos Argentinos</p>
           </div>
           <ErrorMessage
             name="cost"
@@ -432,43 +425,45 @@ const FormWorkshopsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20">
+
+        </div>
+
+        <div className="flex flex-col h-20 w-full ">
           <label htmlFor="days" className="font-medium my-2">
             Dias de la semana
           </label>
-          <div className="flex w-full" role="group" aria-labelledby="checkbox-group">
+          <div className="flex w-full justify-between" role="group" aria-labelledby="checkbox-group">
           <label>
-            <Field type="checkbox" name="days" value="Lunes"/>
+            <Field type="checkbox" name="days" value="Lunes" className="mx-2"/>
             Lunes
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Martes"/>
+            <Field type="checkbox" name="days" value="Martes"  className="mx-2"/>
             Martes
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Miercoles"/>
+            <Field type="checkbox" name="days" value="Miercoles" className="mx-2"/>
             Miercoles
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Jueves"/>
+            <Field type="checkbox" name="days" value="Jueves" className="mx-2"/>
             Jueves
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Viernes"/>
+            <Field type="checkbox" name="days" value="Viernes" className="mx-2"/>
             Viernes
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Sabado"/>
-            Sabado
+            <Field type="checkbox" name="days" value="Sabado" className="mx-2"/>
+             Sabado
           </label>
           <label>
-            <Field type="checkbox" name="days" value="Domingo"/>
+            <Field type="checkbox" name="days" value="Domingo" className="mx-2"/>
             Domingo
           </label>  
           </div>
         </div>
-        </div>
-        {/*<div className="flex flex-col h-20 my-2">
+        <div className="flex flex-col h-20 my-2">
           <label htmlFor="photo" className="font-medium my-2">
             Foto Principal
           </label>
@@ -479,7 +474,7 @@ const FormWorkshopsFormik = () => (
             className="rounded-md border-backgroundGrey  bg-white border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
             onChange={(event) =>
               setFieldValue(
-                "photo ",
+                "photo",
                 event.currentTarget.files ? event.currentTarget.files[0] : null
               )
             }
@@ -489,7 +484,7 @@ const FormWorkshopsFormik = () => (
             component="span"
             className="text-warning"
           />
-          </div>*/}
+          </div>
 
         <div className=" flex flex-row gap-10">
         <div className="flex flex-col h-32  w-2/3">
@@ -531,7 +526,7 @@ const FormWorkshopsFormik = () => (
         </div>
         <div className=" w-1/3 flex flex-row items-center  justify-end">
           <a
-            href="/dashboardAdmin/news"
+            href="/dashboardAdmin/workshops"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
             Volver

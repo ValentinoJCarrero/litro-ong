@@ -13,7 +13,7 @@ export class SponsorDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(5, { message: 'El nombre debe tener al menos 5 caracteres' })
-  @MaxLength(35, { message: 'el nombre debe tener menos de 35 caracteres' })
+  @MaxLength(50, { message: 'el nombre debe tener menos de 50 caracteres' })
   name: string;
 
   @IsNotEmpty({ message: 'El email es requerido' })
