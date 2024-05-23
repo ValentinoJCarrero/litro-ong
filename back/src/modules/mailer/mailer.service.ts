@@ -148,5 +148,5 @@ export class MailerService implements OnModuleInit {
           console.error('Error sending newsletter email:', error);
         }
       }
-      
+
 }
