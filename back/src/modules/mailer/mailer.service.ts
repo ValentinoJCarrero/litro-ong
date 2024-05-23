@@ -38,8 +38,6 @@ export class MailerService implements OnModuleInit {
     sgMail.send(msg)
     .catch((error) => console.log(error))
   }
- 
-    
   calculateAge = function(birthDate: Date): number {
       const today = new Date();
       let age = today.getFullYear() - birthDate.getFullYear();
@@ -84,18 +82,24 @@ export class MailerService implements OnModuleInit {
           }
         }
 
-        async sendNewsletterMail(): Promise<void> {
+        async sendNewsletterMail(title, subtitle, description, primaryImage?): Promise<void> {
           try {
             const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
             const mailList = users.data.map(user => user.email);
+            console.log("SERVICE DATA",title, subtitle, description, primaryImage);
             console.log(mailList);
             const msg = {
               to: mailList,
               from:  'nicolasaddamo1@gmail.com',
               subject: 'Noticias del litro',
               text: `este es el texto`,
-              html: `<strong>Noticias del litro</strong>
-                     <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="20" height="20">`,
+              html:  `<div style="font-family: Arial, sans-serif; text-align: center; color: #333;">
+              <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">${title}</h1>
+              <h2 style="font-size: 20px; font-weight: normal; margin-bottom: 20px;">${subtitle}</h2>
+              <p style="font-size: 16px; margin-bottom: 20px;">${description}</p>
+              ${primaryImage ? `<img src="${primaryImage}" alt="Newsletter Image" style="max-width: 100%; height: auto; margin-bottom: 20px;">` : ''}
+              <img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="50" height="50">
+            </div>`,
             };
             await sgMail.send(msg);
           } catch (error) {
