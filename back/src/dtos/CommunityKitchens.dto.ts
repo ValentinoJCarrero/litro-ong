@@ -58,6 +58,10 @@ export class CommunityKitchensDto {
   @IsString({ message: 'El horario de inicio debe ser un texto' })
   time: string;
 
+  /**
+   * @example 'El mejor lugar para recaudar fondos'
+   */
+  @IsNotEmpty({ message: 'La descripción es requerida' })
   description: string;
 
   photo: string;

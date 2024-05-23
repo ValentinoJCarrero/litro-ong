@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   DefaultValuePipe,
@@ -10,17 +11,21 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommunityKitchensService } from './communityKitchens.service';
 import { CommunityKitchens } from 'src/entities/CommunityKitchens.entity';
 import { CommunityKitchensDto } from 'src/dtos/CommunityKitchens.dto';
+import { StorageService } from '../storage/storage.service';
+import { validate } from 'class-validator';
 
 @ApiTags('Merenderos')
 @Controller('communityKitchens')
 export class CommunityKitchensController {
   constructor(
     private readonly communityKitchensService: CommunityKitchensService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -75,7 +80,14 @@ export class CommunityKitchensController {
   })
   async createCommunityKitchens(
     @Body() communityKitchens: CommunityKitchensDto,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<CommunityKitchens> {
+    const uploadedImage = await this.storageService.uploadImage(file);
+    communityKitchens.photo = uploadedImage;
+    const errors = await validate(communityKitchens);
+    if (errors.length > 0) {
+      throw new BadRequestException('La validación falló');
+    }
     return this.communityKitchensService.createCommunityKitchens(
       communityKitchens,
     );

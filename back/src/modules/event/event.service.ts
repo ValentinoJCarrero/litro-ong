@@ -23,22 +23,36 @@ export class EventService {
       return events;
     }
   }
-  async getPastEvents(): Promise<Event[]> {
+  async getPastEvents(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Event[]; total: number }> {
     const currentDate = new Date();
-    const pastEvents = await this.eventRepository.getFilterEvent({
-      date: LessThan(currentDate),
-    });
-    if (pastEvents.length === 0) {
+    const pastEvents = await this.eventRepository.getFilterEvent(
+      {
+        date: LessThan(currentDate),
+      },
+      limit,
+      page,
+    );
+    if (pastEvents.data.length === 0) {
       throw new NotFoundException('No hay eventos pasados');
     }
     return pastEvents;
   }
-  async getFutureEvents(): Promise<Event[]> {
+  async getFutureEvents(
+    limit: number,
+    page: number,
+  ): Promise<{ data: Event[]; total: number }> {
     const currentDate = new Date();
-    const futureEvents = await this.eventRepository.getFilterEvent({
-      date: MoreThan(currentDate),
-    });
-    if (futureEvents.length === 0) {
+    const futureEvents = await this.eventRepository.getFilterEvent(
+      {
+        date: MoreThan(currentDate),
+      },
+      limit,
+      page,
+    );
+    if (futureEvents.data.length === 0) {
       throw new NotFoundException('No hay eventos futuros');
     }
     return futureEvents;

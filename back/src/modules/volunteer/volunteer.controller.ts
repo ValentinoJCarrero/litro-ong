@@ -50,6 +50,7 @@ export class VolunteerController {
   getVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<Volunteer> {
     return this.volunteerService.getVolunteer(id);
   }
+
   @Put(':id')
   @ApiOperation({
     summary: 'Actualizar un voluntario',
@@ -74,18 +75,21 @@ export class VolunteerController {
   deleteVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.volunteerService.deleteVolunteer(id);
   }
+
   @Post('/collaborate/:id')
   @ApiOperation({
     summary: 'Agregarme como voluntario a un evento. (solo para voluntarios)',
     description:
       'Esta ruta agrega a un voluntario a un evento. por un id de voluntario enviado por parametro, y por el tipo de evento enviado por body',
   })
+  @UseInterceptors(RemoveDataSensitive)
   collaboratEevent(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() event: Partial<EventDto>,
   ) {
     return this.volunteerService.collaboratEevent(id, event);
   }
+
   @Post(':id')
   @ApiOperation({
     summary: 'Asignar nuevo voluntario',
@@ -96,7 +100,7 @@ export class VolunteerController {
   convertToVolunteer(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() volunteerData: VolunteerDto,
-  ): Promise<User> {
+  ): Promise<Volunteer> {
     return this.volunteerService.convertToVolunteer(id, volunteerData);
   }
 }
