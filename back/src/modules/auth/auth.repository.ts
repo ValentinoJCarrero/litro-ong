@@ -41,19 +41,19 @@ export class AuthRepository {
     return user;
   }
 
-  async signIn(user: LoginUserDto): Promise<string> {
+  async signIn(user: LoginUserDto): Promise<{ token: string }> {
     const findUser = await this.usersRepository.getUserByEmail(user.email.toLowerCase());
     if (!findUser) throw new BadRequestException('Email o contraseña incorrectos.');
     const isPasswordValid = await bcrypt.compare(user.password, findUser.password);
     if (!isPasswordValid) throw new BadRequestException('Email o contraseña incorrectos.');
 
-    const userPayload = { sub: findUser.id, email: findUser.email, roles: [findUser.role] };
+    const userPayload = { sub: findUser.id, email: findUser.email, roles: findUser.role };
     const token = await this.jwtService.signAsync({ userPayload });
 
-    return token;
+    return { token };
   }
 
-  async googleSignIn(email: string) {
+  async googleSignIn(email: string): Promise<{ token: string }> {
     const user = await this.usersRepository.getUserByEmail(email);
     if (!user) throw new BadRequestException('Esta cuenta no se encuentra en nuestra base de datos.',);
 
