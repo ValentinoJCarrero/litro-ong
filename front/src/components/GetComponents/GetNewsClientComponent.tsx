@@ -67,7 +67,7 @@ const GetNewsClientComponent: React.FC = () => {
               key={id}
               className="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10"
             >
-              <a className="" href={`/news/DinamicNew/${title}`}>
+              <a className="" href={`/news/DinamicNew/${id}`}>
                 <img
                   src={primaryImage}
                   alt="imagen"

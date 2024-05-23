@@ -66,7 +66,7 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
                   key={id}
                   className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
                 >
-                  <a href={`/workshops/DinamicWorkShop/${name}`} className="block h-full w-full">
+                  <a href={`/workshops/DinamicWorkShop/${id}`} className="block h-full w-full">
                     <div className="relative h-full w-full">
                       <img src={photo} alt="Workshop" className="h-80 w-full object-cover" />
                       <img

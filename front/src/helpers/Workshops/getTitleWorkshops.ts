@@ -1,6 +1,6 @@
-export async function getWorkshopsByTitle(title: string): Promise<any> {
+export async function getWorkshopsByTitle(id: string): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:3000/workshop/${title}`, {
+      const response = await fetch(`http://localhost:3000/workshop/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -10,6 +10,6 @@ export async function getWorkshopsByTitle(title: string): Promise<any> {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log(`Error al buscar noticias con el título: ${title}`, error);
+      console.log(`Error al buscar noticias con el título: ${id}`, error);
     }
   }
