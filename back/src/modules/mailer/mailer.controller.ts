@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
 import { MailerService } from './mailer.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -27,6 +27,11 @@ export class MailerController {
   @Post('send')
   async sendMail(@Body() body) {
     return await this.mailerService.sendMail();
+  }
+
+  @Put('unsuscribe')
+  async unsuscribe(@Body() body) {
+    return await this.mailerService.unsuscribe();
   }
 
 }
