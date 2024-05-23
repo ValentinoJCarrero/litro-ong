@@ -6,38 +6,38 @@ import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
 import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
-interface WorkshopItem {
+import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
+import { getCommunityKitchens } from "../../helpers/CommunityKitchens/getCommunityKitchens";
+interface CommunityKitchensItem {
   name: string;
-  teacher: string;
-  teacherPhone: string;
+  address: string;
   photo: string;
-  timeStart: string;
-  duration: string;
-  dateEnd: string;
-  dateStart: string;
-  cost: string;
+  holder: string;
+  kidsNumber: string;
+  description: string;
+  time: string;
   days: string[];	
   id: number;
 }
 
-const WorkshopsComponent = () => {
+const CommunityKitchensComponent = () => {
   const [page, setPage] = useState (1)
   const [message, setMessage] = useState ("")
   const [totalPages, setTotalPages] = useState (3)
-  const [workshop, setWorkshop] = useState<WorkshopItem[]>([]);
+  const [kitchen, setKitchen] = useState<CommunityKitchensItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchWorkshops = async (page: number) => {
-      const newsData = await getWorkshops(2,page);
-      setWorkshop(newsData.data);
+    const fetchCommunityKitchens = async (page: number) => {
+      const newsData = await getCommunityKitchens(2,page);
+      setKitchen(newsData.data);
       setMessage(newsData.message);
       setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
-    fetchWorkshops(page);
+    fetchCommunityKitchens(page);
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
@@ -45,10 +45,10 @@ const WorkshopsComponent = () => {
     setDeletingId(id);
     setIsDeleting(true);
 
-    await deleteWorkshops(id);
+    await deleteCommunityKitchens(id);
 
     setTimeout(() => {
-      setWorkshop(workshop.filter((item) => item.id !== id));
+      setKitchen(kitchen.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
@@ -60,11 +60,11 @@ const WorkshopsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron en talleres esta pagina" ? (
+      ) : message ==="No se encontraron merenderos en esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
-          {workshop.map(({ photo, name, teacher, days, cost, id }) => (
+          {kitchen.map(({ name, photo, address, holder, kidsNumber, description, time, days, id }) => (
             <>
               <li
                 key={id}
@@ -85,8 +85,8 @@ const WorkshopsComponent = () => {
                       <h6 className="text-tertiary text-base font-semibold">
                         {name}
                       </h6>
-                      <p>{teacher}</p>
-                      <p>{cost} Pesos</p>
+                      <p>{holder}</p>
+                      <p>{address}</p>
                     </div>
                   </div>
                   <div>
@@ -126,4 +126,4 @@ const WorkshopsComponent = () => {
   );
 };
 
-export default WorkshopsComponent;
+export default CommunityKitchensComponent;

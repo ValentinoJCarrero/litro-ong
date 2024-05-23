@@ -18,7 +18,7 @@ console.log(formData);
     console.log(data);
     return data;
   } catch (error) {
-    console.error("Error al crear l sponsor", error);
+    console.error("Error al crear el sponsor", error);
     throw error; 
   }
 } 

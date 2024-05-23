@@ -14,6 +14,7 @@ interface SponsorsItem {
 
 const SponsorsComponent = () => {
   const [page, setPage] = useState (1)
+  const [message, setMessage] = useState ("")
   const [totalPages, setTotalPages] = useState (3)
   const [sponsors, setSponsors] = useState<SponsorsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,13 +22,14 @@ const SponsorsComponent = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchSponsors = async () => {
       const newsData = await getSponsors(3,page);
       setSponsors(newsData.data);
+      setMessage(newsData.message);
       setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
-    fetchNews();
+    fetchSponsors();
   }, []);
 
   const onClic = async (id: any): Promise<void> => {
@@ -48,7 +50,7 @@ const SponsorsComponent = () => {
     <div className="flex items-center justify-center h-full">
       {isLoading ? (
         <SpinnersPrimary />
-      ) : !sponsors.length ? (
+      ) : message ==="No se encontraron patrocinadores" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">

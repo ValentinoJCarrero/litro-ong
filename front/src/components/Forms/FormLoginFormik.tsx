@@ -50,13 +50,19 @@ const FormLoginFormik = () => {
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
         postLogin(values)
           .then((data) => {
-            Swal.fire({
+            if(data){Swal.fire({
               position: "top-end",
               icon: "success",
               title: `Bienvenido`,
               showConfirmButton: false,
               timer: 1500
-            });
+            })}else if(!data){(Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: `Usuario no registrado`,
+              showConfirmButton: false,
+              timer: 1500
+            }));}
             Cookies.set('token',(data.tokenUser));
             setTimeout(() => {
               window.location.href = '/'

@@ -7,11 +7,11 @@ export async function deleteWorkshops(id:any): Promise<any> {
       })
         .then(response => {
           if (!response.ok) {
-            throw new Error('Error al eliminar la noticia');
+            throw new Error('Error al eliminar el taller');
           }
-          console.log('Noticia eliminada con éxito');
+          console.log('Taller eliminado con éxito');
         })
         .catch(error => {
-          console.error('Error al eliminar la noticia:', error);
+          console.error('Error al eliminar el taller:', error);
         });
   } 
