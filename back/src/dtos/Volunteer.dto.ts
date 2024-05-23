@@ -1,9 +1,12 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 export class VolunteerDto {
   /**
    * @example '["Monday", "Tuesday"]'
    */
   @IsNotEmpty()
+  @IsArray({
+    message: 'Los dias de la semana deben ser un arreglo',
+  })
   availableDays: string[];
 
   /**

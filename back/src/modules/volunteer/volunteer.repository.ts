@@ -24,18 +24,7 @@ export class VolunteerRepository {
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
-  ) {
-    this.roles();
-  }
-
-  async roles() {
-    const roles = await this.roleRepository.find();
-
-    if (roles.length === 0) {
-      await this.roleRepository.save({ role: 'Volunteer' });
-      //funcion para insertar roles en desarrolo porque me tiran dropshema-> eliminar
-    }
-  }
+  ) {}
 
   async getAllVolunteers(
     limit: number,
@@ -44,7 +33,10 @@ export class VolunteerRepository {
     const [data, total] = await this.volunteerRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
-      relations: { user: true, events: { volunteer: false } },
+      relations: {
+        user: { volunteerData: false, role: true },
+        events: { volunteer: false },
+      },
     });
     return { data, total };
   }
@@ -52,7 +44,10 @@ export class VolunteerRepository {
   getVolunteer(id: string): Promise<Volunteer> {
     return this.volunteerRepository.findOne({
       where: { id },
-      relations: { user: true, events: { volunteer: false } },
+      relations: {
+        user: { volunteerData: false, role: true },
+        events: { volunteer: false },
+      },
     });
   }
 
@@ -79,13 +74,13 @@ export class VolunteerRepository {
         throw new NotFoundException('Usuario no encontrado');
       }
 
-      user.role = user.role.filter((r) => r.role !== 'voluntario');
+      user.role = user.role.filter((r) => r.role !== 'Volunteer');
 
-      await this.userRepository.save(user);
+      const newVolunteer = await this.userRepository.save(user);
 
       await queryRunner.commitTransaction();
 
-      return user;
+      return newVolunteer;
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;
@@ -132,7 +127,7 @@ export class VolunteerRepository {
   async convertToVolunteer(
     id: string,
     volunteerData: VolunteerDto,
-  ): Promise<User> {
+  ): Promise<Volunteer> {
     const queryRunner =
       this.volunteerRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
@@ -162,13 +157,13 @@ export class VolunteerRepository {
         user: user,
       });
 
-      await this.volunteerRepository.save(volunterData);
+      const newVolunteer = await this.volunteerRepository.save(volunterData);
       user.volunteerData = volunterData;
       user.role = [...user.role, role];
 
       await this.userRepository.save(user);
       await queryRunner.commitTransaction();
-      return user;
+      return newVolunteer;
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;

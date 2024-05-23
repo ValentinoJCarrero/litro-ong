@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { VolunteerRepository } from './volunteer.repository';
 import { VolunteerDto } from 'src/dtos/Volunteer.dto';
 import { Volunteer } from 'src/entities/Volunteer.entity';
-import { User } from 'src/entities/User.entity';
 import { UpdateResult } from 'typeorm';
 import { EventDto } from 'src/dtos/Event.dto';
 
@@ -59,7 +58,10 @@ export class VolunteerService {
     return this.volunteerRepository.addVolunteer(id, event);
   }
 
-  convertToVolunteer(id: string, volunteerData: VolunteerDto): Promise<User> {
+  convertToVolunteer(
+    id: string,
+    volunteerData: VolunteerDto,
+  ): Promise<Volunteer> {
     return this.volunteerRepository.convertToVolunteer(id, volunteerData);
   }
 }
