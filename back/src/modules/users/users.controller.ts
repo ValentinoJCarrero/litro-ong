@@ -7,9 +7,9 @@ import {
   Param,
   ParseIntPipe,
   ParseUUIDPipe,
-  Post,
   Put,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -18,6 +18,9 @@ import { UserDto } from 'src/dtos/User.dto';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 import { UpdateResult } from 'typeorm';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Usuarios')
 @Controller('users')
@@ -30,6 +33,8 @@ export class UsersController {
     description:
       'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de usuarios y total es la cantidad de usuarios registrados en la base de datos',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin', 'Volunteer')
   @UseInterceptors(RemoveDataSensitive)
   getAllUsers(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -70,11 +75,5 @@ export class UsersController {
   })
   deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.usersService.deleteUser(id);
-  }
-
-  //ruta creada para pruebas(asi no toco lo de valen), eliminar
-  @Post()
-  createUser(@Body() user: UserDto) {
-    return this.usersService.createUser(user);
   }
 }

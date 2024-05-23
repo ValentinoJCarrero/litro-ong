@@ -140,6 +140,18 @@ export class EventController {
   deleteEvent(@Param('id', ParseUUIDPipe) id: string) {
     return this.eventService.deleteEvent(id);
   }
+  @Delete('/removeVolunteer/:idEvent')
+  @ApiOperation({
+    summary: 'Eliminar un voluntario de un evento(solo para administradores)',
+    description:
+      'Esta ruta elimina un voluntario asignado a un evento.El id del evento es enviado por parametro y el id del voluntario por query',
+  })
+  removeVolunteersOfEvent(
+    @Param('idEvent', ParseUUIDPipe) idEvent: string,
+    @Query('idVolunter', ParseUUIDPipe) idVolunter: string,
+  ) {
+    return this.eventService.removeVolunteer(idEvent, idVolunter);
+  }
 
   @Post(':id')
   @ApiOperation({

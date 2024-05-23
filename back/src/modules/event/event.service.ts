@@ -105,6 +105,10 @@ export class EventService {
     return eventDeleted;
   }
 
+  removeVolunteer(idEvent: string, idVolunter: string) {
+    return this.eventRepository.removeVolunteer(idEvent, idVolunter);
+  }
+
   async addVolunteer(id: string, event: Partial<Event>) {
     const eventFound = await this.eventRepository.getOneEvent(event.title);
 
