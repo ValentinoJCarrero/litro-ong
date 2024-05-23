@@ -21,16 +21,16 @@ export class AppService {
 
   async seeder(): Promise<string> {
     const users = await this.usersRepository.find();
-    if(!(users.length === 0)) return;
-    
+    if (!(users.length === 0)) return;
+
     await this.usersRepository.save({
       fullName: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin',
+      password: 'Administrador1',
       fullAddress: 'admin',
       phone: '123123123',
       dni: '123123123',
-      birthDate: '2005-02-17'
+      birthDate: '2005-02-17',
     });
 
     await this.EventRepository.save({
@@ -40,7 +40,8 @@ export class AppService {
       date: '2022-02-17',
       timeStart: '10:00',
       timeEnd: '11:00',
-      description: 'Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar.',
+      description:
+        'Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar.',
       primaryImage: 'https://imgur.com/JGZlS8b',
       secondaryImage: 'https://imgur.com/JGZlS8b',
     });
@@ -49,40 +50,41 @@ export class AppService {
       title: 'Noticia - 1 Litro de Leche',
       subtitle: 'Recaudar fondos y leche.',
       primaryImage: 'https://imgur.com/JGZlS8b',
-      description: 'Esta es una noticia para precargar. Esta es una noticia para precargar. Esta es una noticia para precargar.',
+      description:
+        'Esta es una noticia para precargar. Esta es una noticia para precargar. Esta es una noticia para precargar.',
       date: '2022-02-17',
     });
 
-    await this.rolesRepository.save({ role: 'Admin'});
+    await this.rolesRepository.save({ role: 'Admin' });
     await this.rolesRepository.save({ role: 'Volunteer' });
     await this.rolesRepository.save({ role: 'Partner' });
 
     await this.sponsorRepository.save({
       name: 'Evi Desarrollos',
       email: 'evi@evi.com',
-      logo: 'https://imgur.com/mjxdHSb'
+      logo: 'https://imgur.com/mjxdHSb',
     });
     await this.sponsorRepository.save({
       name: 'COSAG',
       email: 'cosag@cosag.com',
-      logo: 'https://imgur.com/f1pZvo5'
+      logo: 'https://imgur.com/f1pZvo5',
     });
     await this.sponsorRepository.save({
       name: 'Supermercados Becerra',
       email: 'becerra@becerra.com',
-      logo: 'https://imgur.com/I98eGGV'
+      logo: 'https://imgur.com/I98eGGV',
     });
     await this.sponsorRepository.save({
       name: 'Jalisco Heladería',
       email: 'jalisco@jalisco.com',
-      logo: 'https://imgur.com/SmOJSAs'
+      logo: 'https://imgur.com/SmOJSAs',
     });
     await this.sponsorRepository.save({
       name: 'Alsina Farmacia',
       email: 'alsina@alsina.com',
-      logo: 'https://imgur.com/x8RBvh3'
+      logo: 'https://imgur.com/x8RBvh3',
     });
 
-    return 'Precarga completada.'
+    return 'Precarga completada.';
   }
 }

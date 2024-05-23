@@ -22,6 +22,6 @@ export class Benefit {
   @Column({ type: 'date', nullable: true })
   benefitEndDate?: Date;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'text', nullable: true })
   description?: string;
 }

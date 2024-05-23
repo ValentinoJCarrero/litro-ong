@@ -23,6 +23,7 @@ import { Event } from './entities/Event.entity';
 import { News } from './entities/News.entity';
 import { Role } from './entities/Role.entity';
 import { Sponsor } from './entities/Sponsor';
+import { CommunityKitchensModule } from './modules/communityKitchens/communityKitchens.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { Sponsor } from './entities/Sponsor';
     VolunteerModule,
     DonationModule,
     WorkshopModule,
+    CommunityKitchensModule,
   ],
   controllers: [AppController],
   providers: [AppService],
