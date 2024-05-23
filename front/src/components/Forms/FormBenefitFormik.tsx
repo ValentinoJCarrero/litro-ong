@@ -1,73 +1,58 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
-import { postNews } from "../../helpers/postNews";
 import warningIcon from "../../assets/IconWarrning.svg";
 import Swal from 'sweetalert2'
+import { postBenefits } from "../../helpers/Benefits/postBenefits";
 interface IFormValues {
-  title: string;
-  subtitle: string;
+  address: string;
+  name: string;
+  benefits: string;
+  benefitEndDate: string;
   description: string;
-  primaryImage: File | null;
-  secondaryImage: File | null;
-  tertiaryImage: File | null;
+  logo: File | null;
 }
 
-const initialValues: IFormValues = {
-  title: "",
-  subtitle: "",
-  primaryImage: null,
-  secondaryImage: null,
-  tertiaryImage: null,
+const initialValues = {
+  address: "",
+  benefits: "",
+  benefitEndDate: "",
   description: "",
+  name: "",
+  logo: null,
 };
 
 const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
-
-  const trimmedTitle = values.title.trim();
-  const trimmedSubtitle = values.subtitle.trim()
   const trimmedDescription = values.description.trim()
 
-  if (!trimmedTitle) {
-    errors.title = "El Título es requerido";
-  } else if (trimmedTitle.length < 10) {
-    errors.title = "El título debe tener mínimo 10 caracteres";
-  } else if (trimmedTitle.length > 60) {
-    errors.title = "El título debe tener máximo 60 caracteres";
+  if (!values.name) {
+    errors.name = "El nombre de la empresa es requerido";
+  } else if (values.name.length < 5) {
+    errors.name = "El nombre de la empresa debe tener minimo 5 caracteres";
+  } else if (values.name.length > 50) {
+    errors.name = "El nombre de la empresa debe tener maximo 50 caracteres";
   }
 
-  if (!trimmedSubtitle) {
-    errors.subtitle = "El subtítulo es requerido";
-  } else if (trimmedSubtitle.length < 10) {
-    errors.subtitle = "El subtítulo debe tener mínimo 10 caracteres";
-  } else if (trimmedSubtitle.length > 50) {
-    errors.subtitle = "El subtítulo debe tener máximo 50 caracteres";
+  if (!values.address) {
+    errors.address = "La dirección es requerida";
   }
 
-  if (!values.primaryImage) {
-    errors.primaryImage = "La imagen principal es requerida";
+  if (!values.benefits) {
+    errors.benefits = "Los beneficios son requeridos";
+  }
+
+  if (!values.benefitEndDate) {
+    errors.benefitEndDate = "La fecha de fin de beneficios es requerida";
+  }
+
+
+  if (!values.logo) {
+    errors.logo = "La imagen del logo es requerida";
   } else if (
-    values.primaryImage &&
-    values.primaryImage.type &&
-    !values.primaryImage.type.startsWith("image/")
+    values.logo &&
+    values.logo.type &&
+    !values.logo.type.startsWith("image/")
   ) {
-    errors.primaryImage = "La imagen principal debe ser un archivo de imagen";
-  }
-
-  if (
-    values.secondaryImage &&
-    values.secondaryImage.type &&
-    !values.secondaryImage.type.startsWith("image/")
-  ) {
-    errors.secondaryImage =
-      "La imagen secundaria debe ser un archivo de imagen";
-  }
-
-  if (
-    values.tertiaryImage &&
-    values.tertiaryImage.type &&
-    !values.tertiaryImage.type.startsWith("image/")
-  ) {
-    errors.tertiaryImage = "La imagen terciaria debe ser un archivo de imagen";
+    errors.logo = "La imagen del logo debe ser un archivo de imagen";
   }
 
   if (!trimmedDescription) {
@@ -77,17 +62,15 @@ const validate = (values: IFormValues) => {
   } else if (trimmedDescription.length > 1500) {
     errors.description = "La descripción debe tener máximo 1500 caracteres";
   }
-
   return errors;
 };
 
-const FormNewsFormik = () => (
+const FormBenefitsFormik = () => (
   <Formik
     initialValues={initialValues}
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-      console.log(values);
-      postNews(values)
+      postBenefits(values)
         .then((data) => {
           Swal.fire({
             position: "top-end",
@@ -96,10 +79,9 @@ const FormNewsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          setTimeout(() => {
-            window.location.href = '/dashboardAdmin/news'
-        }, 1500);
+          //window.location.href = '/dashboardAdmin/benefits'
           setSubmitting(false);
+          console.log(values);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -108,62 +90,25 @@ const FormNewsFormik = () => (
     }}
   >
     {({ errors, touched, setFieldValue }) => (
-      <Form className="text-sm text-textParagraph ">
-        <div className="flex flex-col h-20">
-          <label htmlFor="title" className="font-medium ">
-            Título
-          </label>
-          <div className="flex w-full">
-            <Field 
-              type="text"
-              name="title"
-              placeholder="Título de la noticia"
-              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.title && touched.title
-                  ? "border-warningBorder text-warningText font-medium"
-                  : ""
-              }`}
-            />
-            <div
-              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.title && touched.title
-                  ? "border-warningBorder text-warningText font-medium "
-                  : ""
-              }`}
-            >
-              <img
-                src={warningIcon.src}
-                alt="warningIcon"
-                className={`${
-                  errors.title && touched.title ? "block" : "hidden"
-                }`}
-              />
-            </div>
-          </div>
-          <ErrorMessage
-            name="title"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        <div className="flex flex-col h-20">
-          <label htmlFor="subtitle" className="font-medium my-2">
-            Subtítulo
+      <Form className="text-sm text-textParagraph h-full">
+        <div className="flex flex-col">
+          <label htmlFor="name" className="font-medium my-2 ">
+            Nombre de la empresa
           </label>
           <div className="flex w-full">
             <Field
               type="text"
-              name="subtitle"
-              placeholder="Subtítulo de la noticia"
+              name="name"
+              placeholder="Nombre de la empresa que ofrece el beneficio"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.subtitle && touched.subtitle
+                errors.name && touched.name
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
               }`}
             />
             <div
               className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.subtitle && touched.subtitle
+                errors.name && touched.name
                   ? "border-warningBorder text-warningText font-medium "
                   : ""
               }`}
@@ -172,91 +117,143 @@ const FormNewsFormik = () => (
                 src={warningIcon.src}
                 alt="warningIcon"
                 className={`${
-                  errors.subtitle && touched.subtitle ? "block" : "hidden"
+                  errors.name && touched.name ? "block" : "hidden"
+                }`}
+              />
+            </div>
+          </div>
+          <ErrorMessage name="name" component="span" className="text-warning" />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="address" className="font-medium my-2 ">
+            Direccion
+          </label>
+          <div className="flex w-full">
+            <Field
+              type="text"
+              name="address"
+              placeholder="Dirección del local"
+              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.address && touched.address
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.address && touched.address
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.address && touched.address ? "block" : "hidden"
                 }`}
               />
             </div>
           </div>
           <ErrorMessage
-            name="subtitle"
+            name="address"
             component="span"
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20 my-2">
-          <label htmlFor="primaryImage" className="font-medium my-2">
-            Foto Principal
+        <div className="flex flex-col">
+          <label htmlFor="benefits" className="font-medium my-2 ">
+            Beneficios
+          </label>
+          <div className="flex w-full">
+            <Field
+              type="text"
+              name="benefits"
+              placeholder="Beneficios del local"
+              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.benefits && touched.benefits
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.benefits && touched.benefits
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.benefits && touched.benefits ? "block" : "hidden"
+                }`}
+              />
+            </div>
+          </div>
+          <ErrorMessage
+            name="benefits"
+            component="span"
+            className="text-warning"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="benefitEndDate" className="font-medium my-2 ">
+            Finalizacion de beneficio
+          </label>
+          <div className="flex w-full">
+            <Field
+              type="date"
+              name="benefitEndDate"
+              placeholder="Fecha de finalizacion del beneficio"
+              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                errors.benefitEndDate && touched.benefitEndDate
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+              }`}
+            />
+            <div
+              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                errors.benefitEndDate && touched.benefitEndDate
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+              }`}
+            >
+              <img
+                src={warningIcon.src}
+                alt="warningIcon"
+                className={`${
+                  errors.benefitEndDate && touched.benefitEndDate ? "block" : "hidden"
+                }`}
+              />
+            </div>
+          </div>
+          <ErrorMessage
+            name="benefitEndDate"
+            component="span"
+            className="text-warning"
+          />
+        </div>
+        
+        <div className="flex flex-col">
+          <label htmlFor="logo" className="font-medium my-2">
+            Logo
           </label>
           <input
             type="file"
-            name="primaryImage"
+            name="logo"
             accept="image/*"
-            className="rounded-md border-backgroundGrey  bg-white border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
+            className="rounded-md bg-white border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
             onChange={(event) =>
               setFieldValue(
-                "primaryImage",
+                "logo",
                 event.currentTarget.files ? event.currentTarget.files[0] : null
               )
             }
           />
-          <ErrorMessage
-            name="primaryImage"
-            component="span"
-            className="text-warning"
-          />
+          <ErrorMessage name="logo" component="span" className="text-warning" />
         </div>
-        <div className="flex flex-row items-center justify-between flex-wrap">
-
-        <div className="flex flex-col w-1/2 h-20">
-          <div className=" flex flex-col w-11/12">
-          <label htmlFor="secondaryImage" className="font-medium my-2">
-            Foto secundaria 1
-          </label>
-          <input
-            type="file"
-            name="secondaryImage"
-            accept="image/*"
-            className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
-            onChange={(event) =>
-              setFieldValue(
-                "secondaryImage",
-                event.currentTarget.files ? event.currentTarget.files[0] : null
-              )
-            }
-          />
-          <ErrorMessage
-            name="secondaryImage"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        </div>
-        <div className="flex flex-col w-1/2">
-          <label htmlFor="tertiaryImage" className="font-medium my-2">
-            Foto secundaria 2
-          </label>
-          <input
-            type="file"
-            name="tertiaryImage"
-            accept="image/*"
-            className="rounded-md border-backgroundGrey border placeholder:text-textParagraph px-3 py-2 focus-visible:outline focus-visible:text-textTertiary"
-            onChange={(event) =>
-              setFieldValue(
-                "tertiaryImage",
-                event.currentTarget.files ? event.currentTarget.files[0] : null
-              )
-            }
-          />
-          <ErrorMessage
-            name="tertiaryImage"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        </div>
-
-        <div className=" flex flex-row gap-10">
-
         <div className="flex flex-col h-32  w-2/3">
           <label htmlFor="description" className="font-medium my-2">
             Descripción
@@ -294,9 +291,9 @@ const FormNewsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className=" w-1/3 flex flex-row items-center  justify-end">
+        <div className="my-3 w-full flex justify-end">
           <a
-            href="/dashboardAdmin/news"
+            href="/dashboardAdmin/sponsors"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
             Volver
@@ -309,10 +306,8 @@ const FormNewsFormik = () => (
             Agregar
           </button>
         </div>
-        </div>
       </Form>
     )}
   </Formik>
 );
-
-export default FormNewsFormik;
+export default FormBenefitsFormik;

@@ -1,33 +1,27 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import warningIcon from "../../assets/IconWarrning.svg";
 import Swal from 'sweetalert2'
-import { postWorkshops } from "../../helpers/Workshops/postWorkshops";
+import { postCommunityKitchens } from "../../helpers/CommunityKitchens/postCommunityKitchens";
 interface IFormValues {
   name: string;
-  teacher: string;
-  teacherPhone: string;
+  address: string;
   photo: File | null;
-  timeStart: string;
-  duration: string;
-  dateEnd: string;
-  dateStart: string;
-  cost: string;
-  days: string[];
+  holder: string;
+  kidsNumber: string;
   description: string;
+  time: string;
+  days: string[];
 }
 
 
 const initialValues: IFormValues = {
   name: "",
-  teacher: "",
-  teacherPhone: "",
+  address: "",
+  holder: "",
   photo: null,
-  timeStart: "",
-  duration: "",
-  dateEnd: "",
-  dateStart: "",
-  cost: "",
-  days: [],
+  kidsNumber: "",
+  time: "",
+  days: [""],
   description: "",
 }
 
@@ -41,25 +35,23 @@ const validate = (values: IFormValues) => {
     errors.name = "El nombre es requerido";
   } else if (values.name.length < 4) {
     errors.name = "El nombre debe tener mínimo 4 caracteres";
-  } else if (values.name.length > 50) {
-    errors.name = "El nombre debe tener máximo 50 caracteres";
+  } else if (values.name.length > 30) {
+    errors.name = "El nombre debe tener máximo 30 caracteres";
   }
 
-  if (!values.teacher) {
-    errors.teacher = "El nombre es requerido";
-  } else if (values.teacher.length < 4) {
-    errors.teacher = "El nombre debe tener mínimo 4 caracteres";
-  } else if (values.teacher.length > 30) {
-    errors.teacher = "El nombre debe tener máximo 30 caracteres";
+  if (!values.holder) {
+    errors.holder = "El nombre es requerido";
+  } else if (values.holder.length < 4) {
+    errors.holder = "El nombre debe tener mínimo 4 caracteres";
+  } else if (values.holder.length > 30) {
+    errors.holder = "El nombre debe tener máximo 30 caracteres";
   }
 
-  if (!values.teacherPhone) {
-    errors.teacherPhone = "El número de teléfono es requerido";
-  } else if (isNaN(Number(values.teacherPhone))) {
-    errors.teacherPhone = "El número de teléfono debe ser un valor numérico";
-  } else if (values.teacherPhone.toString().length !== 10) {
-    errors.teacherPhone = "El número de teléfono debe tener 10 dígitos";
-  }
+  if (!values.kidsNumber) {
+    errors.kidsNumber = "El número de chicos que asisten es requerido";
+  } else if (isNaN(Number(values.kidsNumber))) {
+    errors.kidsNumber = "El número de chicos que asisten debe ser un valor numérico";
+  } 
 
   if (values.photo === null) {
     errors.photo = "La imagen es requerida";
@@ -68,21 +60,13 @@ const validate = (values: IFormValues) => {
   }
   
 
-  if (!values.timeStart) {
-    errors.timeStart = "El horario de inicio es requerido";
+  if (!values.address) {
+    errors.address = "La dirección es requerida";
   }
-  if (!values.duration) {
-      errors.duration = "La duración es requerida";
+  if (!values.time) {
+      errors.time = "El horario es requerida";
   }
-  if (!values.dateEnd) {
-        errors.dateEnd = "La fecha de finalización es requerida";
-  }
-  if (!values.dateStart) {
-    errors.dateStart = "La fecha de inicio es requerida";
-  }
-  if (!values.cost) {
-    errors.cost = "El costo es requerido";
-  }
+
   if (!values.days) {
     errors.days = "Los días de la semana son requeridos";
   }
@@ -98,13 +82,13 @@ const validate = (values: IFormValues) => {
   return errors;
 };
 
-const FormWorkshopsFormik = () => (
+const FormCommunityKitchensFormik = () => (
   <Formik
     initialValues={initialValues}
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       console.log(values);
-      postWorkshops(values)
+      postCommunityKitchens(values)
         .then((data) => {
           Swal.fire({
             position: "top-end",
@@ -114,7 +98,7 @@ const FormWorkshopsFormik = () => (
             timer: 1500
           });
           setTimeout(() => {
-            window.location.href = '/dashboardAdmin/workshops';
+            //window.location.href = '/dashboardAdmin/workshops';
         }, 1500);
           setSubmitting(false);
         })
@@ -165,23 +149,23 @@ const FormWorkshopsFormik = () => (
         </div>
         <div className="flex flex-row">
         <div className="flex flex-col h-20 w-full pr-4">
-          <label htmlFor="teacher" className="font-medium my-2">
-            Profesor/a
+          <label htmlFor="holder" className="font-medium my-2">
+            Titular del merendero
           </label>
           <div className="flex w-full">
             <Field
               type="text"
-              name="teacher"
-              placeholder="Nombre del Profesor/a"
+              name="holder"
+              placeholder="Nombre del Titular"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.teacher && touched.teacher
+                errors.holder && touched.holder
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
               }`}
             />
             <div
               className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.teacher && touched.teacher
+                errors.holder && touched.holder
                   ? "border-warningBorder text-warningText font-medium "
                   : ""
               }`}
@@ -190,35 +174,35 @@ const FormWorkshopsFormik = () => (
                 src={warningIcon.src}
                 alt="warningIcon"
                 className={`${
-                  errors.teacher && touched.teacher ? "block" : "hidden"
+                  errors.holder && touched.holder ? "block" : "hidden"
                 }`}
               />
             </div>
           </div>
           <ErrorMessage
-            name="teacher"
+            name="holder"
             component="span"
             className="text-warning"
           />
         </div>
         <div className="flex flex-col h-20 w-full pl-4">
-          <label htmlFor="teacherPhone" className="font-medium my-2">
-            Numero telefonico profesor/a
+          <label htmlFor="address" className="font-medium my-2">
+            Direccion del merendero.
           </label>
           <div className="flex w-full">
             <Field
-              type="number"
-              name="teacherPhone"
-              placeholder="Ejemplo: 1234567890"
+              type="text"
+              name="address"
+              placeholder="Ingresar Direccion"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.teacherPhone && touched.teacherPhone
+                errors.address && touched.address
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
               }`}
             />
             <div
               className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.teacherPhone && touched.teacherPhone
+                errors.address && touched.address
                   ? "border-warningBorder text-warningText font-medium "
                   : ""
               }`}
@@ -227,13 +211,13 @@ const FormWorkshopsFormik = () => (
                 src={warningIcon.src}
                 alt="warningIcon"
                 className={`${
-                  errors.teacherPhone && touched.teacherPhone ? "block" : "hidden"
+                  errors.address && touched.address ? "block" : "hidden"
                 }`}
               />
             </div>
           </div>
           <ErrorMessage
-            name="teacherPhone"
+            name="address"
             component="span"
             className="text-warning"
           />
@@ -241,23 +225,23 @@ const FormWorkshopsFormik = () => (
         </div>
         <div className="flex flex-row">
         <div className="flex flex-col h-20 w-full pr-4">
-          <label htmlFor="timeStart" className="font-medium my-2">
+          <label htmlFor="time" className="font-medium my-2">
             Horario de inicio
           </label>
           <div className="flex w-full">
             <Field
               type="time"
-              name="timeStart"
+              name="time"
               placeholder="HH:MM"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.timeStart && touched.timeStart
+                errors.time && touched.time
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
               }`}
             />
             <div
               className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.timeStart && touched.timeStart
+                errors.time && touched.time
                   ? "border-warningBorder text-warningText font-medium "
                   : ""
               }`}
@@ -266,146 +250,35 @@ const FormWorkshopsFormik = () => (
                 src={warningIcon.src}
                 alt="warningIcon"
                 className={`${
-                  errors.timeStart && touched.timeStart ? "block" : "hidden"
+                  errors.time && touched.time ? "block" : "hidden"
                 }`}
               />
             </div>
           </div>
           <ErrorMessage
-            name="timeStart"
+            name="time"
             component="span"
             className="text-warning"
           />
         </div>
         <div className="flex flex-col h-20 w-full pl-4">
-          <label htmlFor="duration" className="font-medium my-2">
-            Duración
-          </label>
-          <div className="flex w-full">
-            <Field
-              type="text"
-              name="duration"
-              placeholder="Duracion del taller"
-              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.duration && touched.duration
-                  ? "border-warningBorder text-warningText font-medium"
-                  : ""
-              }`}
-            />
-            <div
-              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.duration && touched.duration
-                  ? "border-warningBorder text-warningText font-medium "
-                  : ""
-              }`}
-            >
-              <img
-                src={warningIcon.src}
-                alt="warningIcon"
-                className={`${
-                  errors.duration && touched.duration ? "block" : "hidden"
-                }`}
-              />
-            </div>
-          </div>
-          <ErrorMessage
-            name="duration"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        </div>
-        <div className="flex flex-row">
-        <div className="flex flex-col h-20  w-full pr-4">
-          <label htmlFor="dateStart" className="font-medium my-2">
-            Fecha de inicio
-          </label>
-          <div className="flex w-full">
-            <Field
-              type="date"
-              name="dateStart"
-              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.dateStart && touched.dateStart
-                  ? "border-warningBorder text-warningText font-medium"
-                  : ""
-              }`}
-            />
-            <div
-              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.dateStart && touched.dateStart
-                  ? "border-warningBorder text-warningText font-medium "
-                  : ""
-              }`}
-            >
-              <img
-                src={warningIcon.src}
-                alt="warningIcon"
-                className={`${
-                  errors.dateStart && touched.dateStart ? "block" : "hidden"
-                }`}
-              />
-            </div>
-          </div>
-          <ErrorMessage
-            name="dateStart"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        <div className="flex flex-col h-20 w-full px-4">
-          <label htmlFor="dateEnd" className="font-medium my-2">
-            Fecha de finalización
-          </label>
-          <div className="flex w-full">
-            <Field
-              type="date"
-              name="dateEnd"
-              className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.dateEnd && touched.dateEnd
-                  ? "border-warningBorder text-warningText font-medium"
-                  : ""
-              }`}
-            />
-            <div
-              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.dateEnd && touched.dateEnd
-                  ? "border-warningBorder text-warningText font-medium "
-                  : ""
-              }`}
-            >
-              <img
-                src={warningIcon.src}
-                alt="warningIcon"
-                className={`${
-                  errors.timeStart && touched.timeStart ? "block" : "hidden"
-                }`}
-              />
-            </div>
-          </div>
-          <ErrorMessage
-            name="dateEnd"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        <div className="flex flex-col h-20 w-full pl-4">
-          <label htmlFor="cost" className="font-medium my-2">
-            Costo del taller
+          <label htmlFor="kidsNumber" className="font-medium my-2">
+            Cantidad de chicos asistidos.
           </label>
           <div className="flex w-full">
             <Field
               type="number"
-              name="cost"
-              placeholder="Costo del taller en Pesos Argentinos"
+              name="kidsNumber"
+              placeholder="Ingresar Cantidad"
               className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.cost && touched.cost
+                errors.kidsNumber && touched.kidsNumber
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
               }`}
             />
             <div
               className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.cost && touched.cost
+                errors.kidsNumber && touched.kidsNumber
                   ? "border-warningBorder text-warningText font-medium "
                   : ""
               }`}
@@ -414,20 +287,18 @@ const FormWorkshopsFormik = () => (
                 src={warningIcon.src}
                 alt="warningIcon"
                 className={`${
-                  errors.cost && touched.cost ? "block" : "hidden"
+                  errors.kidsNumber && touched.kidsNumber ? "block" : "hidden"
                 }`}
               />
             </div>
           </div>
           <ErrorMessage
-            name="cost"
+            name="kidsNumber"
             component="span"
             className="text-warning"
           />
         </div>
-
         </div>
-
         <div className="flex flex-col h-20 w-full ">
           <label htmlFor="days" className="font-medium my-2">
             Dias de la semana
@@ -526,7 +397,7 @@ const FormWorkshopsFormik = () => (
         </div>
         <div className=" w-1/3 flex flex-row items-center  justify-end">
           <a
-            href="/dashboardAdmin/workshops"
+            href="/dashboardAdmin/communityKitchens"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
             Volver
@@ -545,4 +416,4 @@ const FormWorkshopsFormik = () => (
   </Formik>
 );
 
-export default FormWorkshopsFormik;
+export default FormCommunityKitchensFormik;

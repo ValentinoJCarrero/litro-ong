@@ -4,40 +4,36 @@ import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
-import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
-interface WorkshopItem {
+import { getBenefits } from "../../helpers/Benefits/getBenefits";
+import { deleteBenefits } from "../../helpers/Benefits/deleteBenefits";
+interface BenefitsItem {
+  address: string;
   name: string;
-  teacher: string;
-  teacherPhone: string;
-  photo: string;
-  timeStart: string;
-  duration: string;
-  dateEnd: string;
-  dateStart: string;
-  cost: string;
-  days: string[];	
-  id: number;
+  benefits: string;
+  benefitEndDate: string;
+  description: string;
+  logo: string;
+  id:number;
 }
 
-const WorkshopsComponent = () => {
+const BenefitsComponent = () => {
   const [page, setPage] = useState (1)
   const [message, setMessage] = useState ("")
   const [totalPages, setTotalPages] = useState (3)
-  const [workshop, setWorkshop] = useState<WorkshopItem[]>([]);
+  const [benefits, setBenefits] = useState<BenefitsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchWorkshops = async (page: number) => {
-      const newsData = await getWorkshops(2,page);
-      setWorkshop(newsData.data);
+    const fetchBenefits = async (page: number) => {
+      const newsData = await getBenefits(3,page);
+      setBenefits(newsData.data);
       setMessage(newsData.message);
       setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
-    fetchWorkshops(page);
+    fetchBenefits(page);
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
@@ -45,10 +41,10 @@ const WorkshopsComponent = () => {
     setDeletingId(id);
     setIsDeleting(true);
 
-    await deleteWorkshops(id);
+    await deleteBenefits(id);
 
     setTimeout(() => {
-      setWorkshop(workshop.filter((item) => item.id !== id));
+      setBenefits(benefits.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
@@ -60,11 +56,11 @@ const WorkshopsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron en talleres esta pagina" ? (
+      ) : message ==="No se encontraron noticias en esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
-          {workshop.map(({ photo, name, teacher, days, cost, id }) => (
+          {benefits.map(({ logo, name, address, benefits, benefitEndDate, id }) => (
             <>
               <li
                 key={id}
@@ -77,7 +73,7 @@ const WorkshopsComponent = () => {
                 >
                   <div className="flex">
                     <img
-                      src={photo}
+                      src={logo}
                       alt={name}
                       className="w-20 h-20 rounded-full object-cover mr-4"
                     />
@@ -85,12 +81,12 @@ const WorkshopsComponent = () => {
                       <h6 className="text-tertiary text-base font-semibold">
                         {name}
                       </h6>
-                      <p>{teacher}</p>
-                      <p>{cost} Pesos</p>
+                      <p>{address}</p>
+                      <p>{benefits}</p>
                     </div>
                   </div>
                   <div>
-                    <p>{days.join(' - ')}</p>
+                    <p>{benefitEndDate}</p>
                   </div>
                   <img src={vectorIcon.src} alt="icono de vector" />
                 </a>
@@ -118,7 +114,7 @@ const WorkshopsComponent = () => {
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
-              </div>
+          </div>
         </ul>
       )}
       
@@ -126,4 +122,4 @@ const WorkshopsComponent = () => {
   );
 };
 
-export default WorkshopsComponent;
+export default BenefitsComponent;

@@ -1,10 +1,10 @@
 ---
-import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuDasboard from "../../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
 import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
+import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
-import CommunityKitchensClientComponent from "../../../components/GetComponents/CommunityKitchensClientComponent.tsx";
+import DonationsComponent from "../../../components/GetComponents/DonationsClientComponent";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -16,34 +16,30 @@ import CommunityKitchensClientComponent from "../../../components/GetComponents/
         </h3></AsideMenuDasboard
       >
     </div>
-    <div class="2-m h-full w-full px-14 py-10 flex flex-col justify-between">
+    
+    <div class=" h-full w-full px-14 py-10 flex flex-col justify-between">
       <div
         class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-between h-full"
       >
         <h4 class="text-2xl font-medium text-tertiary mb-10 w-full text-end">
-          SECCIÓN MERENDEROS
+          SECCIÓN DONACIONES
         </h4>
         <div class="h-full">
-          <CommunityKitchensClientComponent client:load />
-        </div>
-        <div class="w-full flex justify-center">
-          <a href="/dashboardAdmin/communityKitchens/newCommunityKitchen">
-            <ButtonCTASmall title="Agregar merendero" />
-          </a>
+          <DonationsComponent client:load />
         </div>
       </div>
       <div class="flex flex-row items-center justify-center flex-nowrap gap-8">
         <div class="mt-6">
-          <a href="/dashboardAdmin/sponsors">
+          <a href="/dashboardAdmin/benefits">
             <ButtonSecondarySmall title="Anterior" />
           </a>
         </div>
         <div class="mt-6">
-          <a href="/dashboardAdmin/workshops">
+          <a href="/dashboardAdmin/proposals">
             <ButtonPrimarySmall title="Siguiente" />
           </a>
         </div>
       </div>
     </div>
-  </div></DasboardLayouts
->
+  </div>
+</DasboardLayouts>

@@ -20,10 +20,10 @@ const validate = (values: IFormValues) => {
 
   if (!values.name) {
     errors.name = "El nombre de la empresa es requerido";
-  } else if (values.name.length < 10) {
-    errors.name = "El nombre de la empresa debe tener minimo 10 caracteres";
-  } else if (values.name.length > 40) {
-    errors.name = "El nombre de la empresa debe tener maximo 40 caracteres";
+  } else if (values.name.length < 5) {
+    errors.name = "El nombre de la empresa debe tener minimo 5 caracteres";
+  } else if (values.name.length > 35) {
+    errors.name = "El nombre de la empresa debe tener maximo 35 caracteres";
   }
 
   if (!values.logo) {
