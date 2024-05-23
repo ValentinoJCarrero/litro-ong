@@ -1,34 +1,35 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import warningIcon from "../../assets/IconWarrning.svg";
 import Swal from "sweetalert2";
-import { postWorkshops } from "../../helpers/Workshops/postWorkshops";
+import { postVolunteers } from "../../helpers/Volunteers/postVolunteers";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 interface IFormValues {
-  timeStart: string;
-  days: string[];
-  timeEnd: string;
+  startHours: string;
+  availableDays: string[];
+  endHours: string;
 }
 
 const initialValues: IFormValues = {
-  timeStart: "",
-  timeEnd: "",
-  days: [],
+  startHours: "",
+  endHours: "",
+  availableDays: [],
 };
 
 const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
 
-  if (!values.timeStart) {
-    errors.timeStart = "El horario de inicio es requerido";
+  if (!values.startHours) {
+    errors.startHours = "El horario de inicio es requerido";
   }
-  if (!values.timeEnd) {
-    errors.timeEnd = "El horario de finalizado es requerido";
+  if (!values.endHours) {
+    errors.endHours = "El horario de finalizado es requerido";
   }
-  if (!values.days || values.days.length === 0) {
-    errors.days = "Los días de la semana son requeridos";
+  if (!values.availableDays || values.availableDays.length === 0) {
+    errors.availableDays = "Los días de la semana son requeridos";
   }
 
-  console.log(errors);
   return errors;
 };
 
@@ -37,9 +38,35 @@ const FormWorkshopsFormik = () => (
     initialValues={initialValues}
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-      console.log(values);
-      postWorkshops(values)
+      //! este es propio
+
+      const tokenFromCookies = Cookies.get("token");
+      if (!tokenFromCookies) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `ID de voluntario no encontrado`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setSubmitting(false);
+        return;
+      }
+
+      let idDecodificado = "";
+      try {
+        const decodedToken: any = jwtDecode(tokenFromCookies);
+
+        idDecodificado = decodedToken.userPayload.sub;
+      } catch (error) {
+        console.error("Error al decodificar token", error);
+        setSubmitting(false);
+        return;
+      }
+
+      postVolunteers(idDecodificado, values)
         .then((data) => {
+          console.log(data);
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -48,7 +75,7 @@ const FormWorkshopsFormik = () => (
             timer: 1500,
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/workshops';
+            window.location.href = "/";
           }, 1500);
           setSubmitting(false);
         })
@@ -62,63 +89,63 @@ const FormWorkshopsFormik = () => (
       <Form className="text-sm text-textParagraph flex flex-col gap-5 h-2/3 justify-between">
         <div className=" flex flex-row items-center justify-center gap-5">
           <div className="flex flex-col w-1/2 ">
-            <label htmlFor="timeStart" className="font-medium my-2">
+            <label htmlFor="startHours" className="font-medium my-2">
               Horario de disponibilidad
             </label>
             <div className="flex items-center">
               <Field
                 type="time"
-                name="timeStart"
+                name="startHours"
                 placeholder="HH:MM"
                 className={`w-full rounded-l-md border px-3 py-2 focus:outline-none ${
-                  errors.timeStart && touched.timeStart
+                  errors.startHours && touched.startHours
                     ? "border-warning text-warning"
                     : "border-backgroundGrey"
                 }`}
               />
-              {errors.timeStart && touched.timeStart && (
+              {errors.startHours && touched.startHours && (
                 <div className="flex items-center justify-center rounded-r-md px-4 bg-white border-warning">
                   <img src={warningIcon.src} alt="warningIcon" />
                 </div>
               )}
             </div>
             <ErrorMessage
-              name="timeStart"
+              name="startHours"
               component="span"
               className="text-warning mt-1"
             />
           </div>
 
           <div className="flex flex-col  w-1/2 ">
-            <label htmlFor="timeEnd" className="font-medium my-2">
+            <label htmlFor="endHours" className="font-medium my-2">
               Fin del horario de disponibilidad
             </label>
             <div className="flex items-center">
               <Field
                 type="time"
-                name="timeEnd"
+                name="endHours"
                 placeholder="HH:MM"
                 className={`w-full rounded-l-md border px-3 py-2 focus:outline-none ${
-                  errors.timeEnd && touched.timeEnd
+                  errors.endHours && touched.endHours
                     ? "border-warning text-warning"
                     : "border-backgroundGrey"
                 }`}
               />
-              {errors.timeEnd && touched.timeEnd && (
+              {errors.endHours && touched.endHours && (
                 <div className="flex items-center justify-center rounded-r-md px-4 bg-white border-warning">
                   <img src={warningIcon.src} alt="warningIcon" />
                 </div>
               )}
             </div>
             <ErrorMessage
-              name="timeEnd"
+              name="endHours"
               component="span"
               className="text-warning mt-1"
             />
           </div>
         </div>
         <div className="flex flex-col">
-          <label htmlFor="days" className="font-medium my-2">
+          <label htmlFor="availableDays" className="font-medium my-2">
             Días de la semana
           </label>
           <div
@@ -134,15 +161,19 @@ const FormWorkshopsFormik = () => (
               "Viernes",
               "Sábado",
               "Domingo",
-            ].map((day) => (
-              <label key={day} className="flex items-center gap-2">
-                <Field type="checkbox" name="days" value={day} />
-                {day}
+            ].map((availableDay) => (
+              <label key={availableDay} className="flex items-center gap-2">
+                <Field
+                  type="checkbox"
+                  name="availableDays"
+                  value={availableDay}
+                />
+                {availableDay}
               </label>
             ))}
           </div>
-          {errors.days && touched.days && (
-            <span className="text-warning mt-1">{errors.days}</span>
+          {errors.availableDays && touched.availableDays && (
+            <span className="text-warning mt-1">{errors.availableDays}</span>
           )}
         </div>
 
