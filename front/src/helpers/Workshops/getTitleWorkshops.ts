@@ -1,6 +1,6 @@
 export async function getWorkshopsByTitle(title: string): Promise<any> {
     try {
-      const response = await fetch(`https://litro-ong.onrender.com/workshop/${title}`, {
+      const response = await fetch(`http://localhost:3000/workshop/${title}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
