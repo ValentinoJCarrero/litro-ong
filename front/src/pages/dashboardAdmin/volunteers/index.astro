@@ -5,7 +5,7 @@ import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
 import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
 import NotFound from "../../../components/NotFound/NotFound";
-// import NewsClientComponent from "../../../components/GetComponents/NewsClientComponent.tsx";
+import VolunteersClientComponent from "../../../components/GetComponents/VolunteersClientComponent";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -25,9 +25,7 @@ import NotFound from "../../../components/NotFound/NotFound";
           SECCIÓN VOLUNTARIOS
         </h4>
         <div class="h-full">
-          <!-- <NewsClientComponent client:load /> -->
-          <!-- Hay que hacer el get de los voluntarios -->
-          <NotFound /> <!-- Cambiar por el componente de voluntarios -->
+          <VolunteersClientComponent client:load />
         </div>
         <div class="w-full flex justify-center">
           <a href="/dashboardAdmin/volunteers/volunteerCreate">

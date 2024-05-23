@@ -11,16 +11,13 @@ export async function postEvents(newsResponse:any): Promise<any> {
     formData.append('timeStart', newsResponse.timeStart);
     formData.append('timeEnd', newsResponse.timeEnd);
 
-
-    // Añadir imágenes si están presentes
     if (newsResponse.primaryImage) formData.append('files', newsResponse.primaryImage);
     if (newsResponse.secondaryImage) formData.append('files', newsResponse.secondaryImage);
 
 console.log(formData);
     const response = await fetch(`https://litro-ong.onrender.com/event`, {
       method: 'POST',
-      body: formData // Utiliza FormData en lugar de JSON.stringify
-      // No necesitas establecer 'Content-Type' al usar FormData
+      body: formData
     });
 
     const data = await response.json();
@@ -28,6 +25,6 @@ console.log(formData);
     return data;
   } catch (error) {
     console.error("Error al crear la noticia", error);
-    throw error; // Lanza el error para manejarlo en el llamado
+    throw error; 
   }
 } 
