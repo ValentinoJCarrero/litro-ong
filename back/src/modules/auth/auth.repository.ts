@@ -57,7 +57,7 @@ export class AuthRepository {
     const user = await this.usersRepository.getUserByEmail(email);
     if (!user) throw new BadRequestException('Esta cuenta no se encuentra en nuestra base de datos.',);
 
-    const userPayload = { sub: user.id, email: user.email };
+    const userPayload = { sub: user.id, email: user.email, roles: [user.role] };
     const token = await this.jwtService.signAsync({ userPayload });
 
     return { token };
