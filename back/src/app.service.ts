@@ -26,7 +26,7 @@ export class AppService {
     await this.usersRepository.save({
       fullName: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin',
+      password: 'Administrador1',
       fullAddress: 'admin',
       phone: '123123123',
       dni: '123123123',

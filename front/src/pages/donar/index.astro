@@ -62,7 +62,7 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
                   type="number"
                   id="donation"
                   name="donation"
-                  min="1"
+                  min="500"
                   required
                   class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
                 />
@@ -93,8 +93,7 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
                 type="text"
                 class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
                 placeholder="Juan Alberto Pérez"
-
-                
+                id="fullName"
               >
             </div>
             <div class="flex flex-col gap-1 w-1/2">
@@ -105,7 +104,7 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
                 type="email"
                 placeholder="ejemplo@mail.com"
                 class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
-                
+                id="email"
               />
             </div>
           </div>
@@ -130,14 +129,11 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
   donationForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const donationAmount = parseFloat(
-      (document.getElementById("donation") as HTMLInputElement).value
-    );
-
-    if (isNaN(donationAmount) || donationAmount < 1) {
-      alert("Por favor, ingrese una donación válida (mínimo $1).");
-      return;
-    }
+    const fullName = (document.getElementById('fullName') as HTMLInputElement).value;
+    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const amount = parseFloat((document.getElementById("donation") as HTMLInputElement).value);
+    
+    if(!amount || amount < 500) return 'El monto debe ser mayor a $500.'
 
     await fetch("https://litro-ong.onrender.com/mercadopago", {
       method: "POST",
@@ -145,7 +141,9 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        price: donationAmount,
+        fullName,
+        email,
+        amount
       }),
     }).then(async (res) => {
       const response = await res.text();
