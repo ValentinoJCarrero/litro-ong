@@ -101,16 +101,16 @@ const SearchResultsComponent: React.FC = () => {
           </div>
           <div className="flex items-center justify-center">
             {news.secondaryImage && news.tertiaryImage && (
-              <div className="rounded-3xl w-1/2 h-96 flex flex-row items-center justify-center flex-wrap content-center gap-10">
+              <div className=" rounded-3xl w-1/2 h-96 flex flex-row items-center justify-center flex-wrap content-center gap-10">
                 <img
                   src={news.secondaryImage}
                   alt="imagen"
-                  className="h-80 object-fit rounded-3xl"
+                  className=" h-80 w-80 object-cover rounded-3xl"
                 />
                 <img
                   src={news.tertiaryImage}
                   alt="imagen"
-                  className="h-80 object-fit rounded-3xl"
+                  className="h-80 w-80 object-cover rounded-3xl"
                 />
               </div>
             )}
@@ -120,7 +120,7 @@ const SearchResultsComponent: React.FC = () => {
                 <img
                   src={news.tertiaryImage}
                   alt="imagen"
-                  className="h-96 object-fit rounded-3xl"
+                  className="h-96 w-96 object-cover rounded-3xl"
                 />
               </div>
             )}
@@ -130,7 +130,7 @@ const SearchResultsComponent: React.FC = () => {
                 <img
                   src={news.secondaryImage}
                   alt="imagen"
-                  className="h-96 object-fit rounded-3xl"
+                  className="h-96 w-96 object-cover rounded-3xl"
                 />
               </div>
             )}
