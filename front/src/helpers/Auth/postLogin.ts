@@ -16,8 +16,6 @@ export async function postLogin(newsResponse: any): Promise<any> {
       const tokenJson = { tokenUser: token };
       return tokenJson;
     } catch (error) {
-      console.error("Error en postGoogleLogin:", error);
-      const tokenJson = { tokenUser: "no esta registrado" };
-      return tokenJson;
+      console.error("Error en postGoogleLogin:", error);;
     }
 }
