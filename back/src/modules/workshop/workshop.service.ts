@@ -20,7 +20,7 @@ export class WorkshopService {
       page,
     );
     if (allWorkshop.data.length === 0) {
-      throw new NotFoundException('No se encontraron en talleres esta pagina');
+      throw new NotFoundException('No se encontraron talleres esta pagina');
     } else {
       return allWorkshop;
     }

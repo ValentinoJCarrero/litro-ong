@@ -36,7 +36,7 @@ export class NewsService {
 
   async createNews(news: NewsDto): Promise<News> {
     try {
-      this.mailerService.sendNewsletterMail();
+      this.mailerService.sendNewsletterMail(news.title, news.subtitle, news.description, news.primaryImage);
       return await this.newsRepository.createNews(news);
     } catch (error) {
       if ((error as any).message?.includes('unicidad')) {
