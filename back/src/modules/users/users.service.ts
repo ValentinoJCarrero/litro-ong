@@ -58,11 +58,4 @@ export class UsersService {
     }
     return await this.usersRepository.deleteUser(userFound);
   }
-
-  //para pruebas(asi no toco lo de valen), eliminar despues
-  createUser(user) {
-    return this.usersRepository.createUser(user);
-  }
-
-
 }
