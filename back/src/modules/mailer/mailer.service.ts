@@ -6,21 +6,36 @@ import { Cron } from '@nestjs/schedule';
 
 
 
+
 @Injectable()
-export class MailerService implements OnModuleInit {
+export class MailerService {
   constructor(private readonly usersRepository: UsersRepository) {}
-  async onModuleInit() {
-    //  return "Aca se ejecutaria el saludo por el cumpleaños."
-  }
+
   
-  unsuscribe() {
-    throw new Error('Method not implemented.');
+  async unsubscribe(email: string): Promise<void> {
+    const user = await this.usersRepository.getUserByEmail(email);
+
+    if (!user) {
+      console.log(`No user found with email: ${email}`);
+      return;
+    }
+
+    try {
+      await this.usersRepository.updateUser(user.id, { isSubscribed: false });
+      console.log(`User unsubscribed: ${user.email}`);
+    } catch (error) {
+      console.error('Error unsubscribing user:', error);
+    }
+
+    const users = await this.usersRepository.getAllUsers(1, 100);
+    const mailList = users.data.filter(user => user.isSubscribed).map(user => user.email);
+    console.log(mailList);
   }
 
   async sendWelcomeMail(mailData: WelcomeMailDto): Promise<any> {
     const msg = {
     to: mailData.email, 
-    from: 'ellitroag@gmail.com', 
+    from: 'nicolasaddamo1@gmail.com', 
     subject: 'Registro completado - Un Litro',
     html: `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>¡Bienvenido a Litro!</title><style>body{font-family:Arial,sans-serif;margin:0;padding:0}.container{width:80%;margin:0 auto;padding:20px;background-color:#f5f5f5}.header{text-align:center}.title{font-size:24px;font-weight:bold}.subtitle{font-size:18px}.body{margin-top:20px}.footer{text-align:center;margin-top:20px}.footer a{color:#007bff;text-decoration:none}</style></head><body><div class="container"><div class="header"><img src="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png" alt="Litro de leche" width="200" height="200"><h1 class="title">¡Bienvenido a Litro!</h1><p class="subtitle">Gracias por registrarte en Litro.</p><p class="subtitle">Se ha registrado correctamente en <strong>El Litro</strong></p></div></div></body></html>`
     }
@@ -31,13 +46,10 @@ export class MailerService implements OnModuleInit {
          
   async sendNewsletterMail(title, subtitle, description, primaryImage?): Promise<void> {
     try {
-         const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
-         const mailList = users.data.map(user => user.email);
+         const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.)
+         const mailList = users.data.map(user => user.isSubscribed===true && user.email);
          
-         console.log("SERVICE DATA",title, subtitle, description, primaryImage);         
-         console.log(mailList);
-
-         const msg = {
+        const msg = {
           to: mailList,
           from:  'nicolasaddamo1@gmail.com',
           subject: 'Noticias del litro',
@@ -62,7 +74,6 @@ export class MailerService implements OnModuleInit {
     try {
         const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
         const mailList = users.data.map(user => user.email);
-        console.log(mailList);
         const msg = {
             to: mailList,
             from:  'ellitroag@gmail.com',
@@ -83,7 +94,6 @@ export class MailerService implements OnModuleInit {
     try {
         const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.
         const mailList = users.data.map(user => user.email);
-        console.log(mailList);
         const msg = {
             to: mailList,
             from:  'ellitroag@gmail.com',

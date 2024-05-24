@@ -26,9 +26,11 @@ export class MailerController {
   }
 
 
-  @Put('unsuscribe')
-  async unsuscribe(@Body() body) {
-    return await this.mailerService.unsuscribe();
+  @Put('unsubscribe')
+  async unsuscribe(@Body('email') email:string) {
+    if(!email) return "Email es obligatorio para desuscribirse";
+    await this.mailerService.unsubscribe(email)
+    return "La desuscripción fue exitosa";
   }
 
 }
