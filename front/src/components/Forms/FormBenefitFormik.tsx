@@ -293,7 +293,7 @@ const FormBenefitsFormik = () => (
         </div>
         <div className="my-3 w-full flex justify-end">
           <a
-            href="/dashboardAdmin/sponsors"
+            href="/dashboardAdmin/benefits"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
             Volver
