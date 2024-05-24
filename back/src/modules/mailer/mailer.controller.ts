@@ -24,10 +24,10 @@ export class MailerController {
     return await this.mailerService.sendNewsletterMail(newsLetterForm.title, newsLetterForm.subtitle, newsLetterForm.description, newsLetterForm.primaryImage);
     
   }
-  @Post('send')
-  async sendMail(@Body() body) {
-    return await this.mailerService.sendMail();
-  }
+  // @Post('send')
+  // async sendMail(@Body() body) {
+  //   return await this.mailerService.sendMail();
+  // }
 
   @Put('unsuscribe')
   async unsuscribe(@Body() body) {
