@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/dtos/User.dto';
 import { User } from 'src/entities/User.entity';
+import { format } from 'date-fns';
+
 
 import { Repository, UpdateResult } from 'typeorm';
 
@@ -61,5 +63,13 @@ export class UsersRepository {
 
   deleteUser(userFound: User): Promise<User> {
     return this.usersRepository.remove(userFound);
+  }
+
+  async getUsersWithBirthdayToday(): Promise<User[]> {
+    const today = format(new Date(), 'MM-dd');
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .where(`TO_CHAR(user.birthDate, 'MM-dd') = :today`, { today })
+      .getMany();
   }
 }

@@ -1,11 +1,10 @@
-export async function getWorkshops(limit: number, page: number): Promise<any> {
-  console.log(page);
-  console.log(limit);
+export async function getCommunityKitchens(limit: number, page: number): Promise<any> {
+
   try {
     const validLimit = limit;
     const validPage = page;
 
-    const url = new URL('https://litro-ong.onrender.com/workshop');
+    const url = new URL('https://litro-ong.onrender.com/communityKitchens');
     url.searchParams.append('limit', validLimit.toString());
     url.searchParams.append('page', validPage.toString());
 
@@ -21,7 +20,7 @@ export async function getWorkshops(limit: number, page: number): Promise<any> {
     console.log("esto es data", data);
     return data;
   } catch (error) {
-    console.error("Error al traer el taller", error);
+    console.error("Error al traer las merenderos", error);
     throw error; 
   }
 }

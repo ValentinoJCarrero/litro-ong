@@ -62,20 +62,19 @@ export class AuthRepository {
       email: findUser.email,
       roles: findUser.role,
     };
-
-    const token = await this.jwtService.signAsync(userPayload);
+    const token = await this.jwtService.signAsync({ userPayload });
 
     return { token };
   }
 
-  async googleSignIn(email: string) {
+  async googleSignIn(email: string): Promise<{ token: string }> {
     const user = await this.usersRepository.getUserByEmail(email);
     if (!user)
       throw new BadRequestException(
         'Esta cuenta no se encuentra en nuestra base de datos.',
       );
 
-    const userPayload = { sub: user.id, email: user.email };
+    const userPayload = { sub: user.id, email: user.email, roles: [user.role] };
     const token = await this.jwtService.signAsync({ userPayload });
 
     return { token };

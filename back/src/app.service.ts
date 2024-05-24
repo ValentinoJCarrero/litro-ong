@@ -6,6 +6,7 @@ import { Event } from './entities/Event.entity';
 import { News } from './entities/News.entity';
 import { Role } from './entities/Role.entity';
 import { Sponsor } from './entities/Sponsor';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AppService {
@@ -26,7 +27,7 @@ export class AppService {
     await this.usersRepository.save({
       fullName: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin',
+      password: await bcrypt.hash('Administrador1', 10),
       fullAddress: 'admin',
       phone: '123123123',
       dni: '123123123',
