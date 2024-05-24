@@ -179,14 +179,14 @@ const FormWorkshopsFormik = () => (
 
         <div className="flex justify-end gap-5 mt-4">
           <a
-            href="/dashboardAdmin/news"
-            className="bg-secondary text-textSecondary px-8 py-2 rounded-full text-lg shadow-3xl hover:scale-105 transition-transform"
+            href="/dashboardUser/profile/optionSelected/voluntario/"
+            className=" bg-secondary transition-all text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
           >
             Volver
           </a>
           <button
             type="submit"
-            className="bg-tertiary text-textPrimary px-8 py-2 rounded-full text-lg shadow-3xl hover:scale-105 transition-transform disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+            className="bg-tertiary  text-textPrimary px-10 py-1 rounded-full transition-all text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
             disabled={
               Object.keys(errors).length !== 0 ||
               Object.keys(touched).length === 0
