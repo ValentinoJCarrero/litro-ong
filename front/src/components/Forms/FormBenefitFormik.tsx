@@ -90,9 +90,9 @@ const FormBenefitsFormik = () => (
     }}
   >
     {({ errors, touched, setFieldValue }) => (
-      <Form className="text-sm text-textParagraph h-full">
-        <div className="flex flex-col">
-          <label htmlFor="name" className="font-medium my-2 ">
+      <Form className="text-sm text-textParagraph h-full flex flex-col gap-2">
+        <div className="flex flex-col h-20">
+          <label htmlFor="name" className="font-medium  ">
             Nombre de la empresa
           </label>
           <div className="flex w-full">
@@ -124,8 +124,8 @@ const FormBenefitsFormik = () => (
           </div>
           <ErrorMessage name="name" component="span" className="text-warning" />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="address" className="font-medium my-2 ">
+        <div className="flex flex-col h-20">
+          <label htmlFor="address" className="font-medium  ">
             Direccion
           </label>
           <div className="flex w-full">
@@ -161,8 +161,8 @@ const FormBenefitsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="benefits" className="font-medium my-2 ">
+        <div className="flex flex-col h-20">
+          <label htmlFor="benefits" className="font-medium  ">
             Beneficios
           </label>
           <div className="flex w-full">
@@ -198,8 +198,8 @@ const FormBenefitsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="benefitEndDate" className="font-medium my-2 ">
+        <div className="flex flex-col h-20">
+          <label htmlFor="benefitEndDate" className="font-medium  ">
             Finalizacion de beneficio
           </label>
           <div className="flex w-full">
@@ -236,8 +236,8 @@ const FormBenefitsFormik = () => (
           />
         </div>
         
-        <div className="flex flex-col">
-          <label htmlFor="logo" className="font-medium my-2">
+        <div className="flex flex-col h-20">
+          <label htmlFor="logo" className="font-medium ">
             Logo
           </label>
           <input
@@ -254,8 +254,11 @@ const FormBenefitsFormik = () => (
           />
           <ErrorMessage name="logo" component="span" className="text-warning" />
         </div>
-        <div className="flex flex-col h-32  w-2/3">
-          <label htmlFor="description" className="font-medium my-2">
+        <div className="flex flex-row gap-6">
+
+       
+        <div className="flex flex-col h-32   w-2/3">
+          <label htmlFor="description" className="font-medium ">
             Descripción
           </label>
           <div className="flex w-full">
@@ -291,7 +294,7 @@ const FormBenefitsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="my-3 w-full flex justify-end">
+        <div className=" w-1/3 flex flex-row justify-end items-end  py-4 ">
           <a
             href="/dashboardAdmin/sponsors"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
@@ -305,6 +308,7 @@ const FormBenefitsFormik = () => (
           >
             Agregar
           </button>
+        </div>
         </div>
       </Form>
     )}

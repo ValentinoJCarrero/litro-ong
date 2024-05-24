@@ -4,6 +4,8 @@ import AsideMenuUser from "../../../../../components/AsideMenuDasboard/AsideMenu
 import rectangle from "../../../../../assets/rectangleCard.svg";
 import voluntario from "../../../../../assets/equipo.jpg";
 import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.astro";
+import ButtonPrimarySmall from "../../../../../components/Buttons/ButtonPrimarySmall.astro";
+import ButtonSecondarySmall from "../../../../../components/Buttons/ButtonSecondarySmall.astro";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -41,8 +43,23 @@ import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.ast
               <div class="relative top-64">
                 <div class="flex flex-col items-center gap-5">
                   <h6 class="font-semibold text-lg">Ser voluntario/a</h6>
-
-                  <ButtonCTASmall title="¡Participar!" />
+                  <div class="bg-green-200 p-2 rounded-full flex items-center justify-center hover:scale-105 transition-all hover:shadow-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <!-- <ButtonCTASmall title="¡Participar!" /> -->
                 </div>
                 
               </div>
@@ -64,12 +81,18 @@ import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.ast
             </p>
           </div>
         </div>
-        <div class="w-full flex justify-end absolute bottom-14 right-20">
+        <div class="w-full flex justify-end absolute bottom-14 right-20 gap-5">
           <a
             href="/dashboardUser/profile"
-            class="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
+            
           >
-            Anterior
+          <ButtonSecondarySmall title="Anterior" />
+          
+          </a>
+          <a href="/dashboardUser/profile/optionSelected/voluntario/formVoluntario"
+            
+          >
+            <ButtonPrimarySmall title="Siguiente" />
           </a>
         </div>
       </div>
