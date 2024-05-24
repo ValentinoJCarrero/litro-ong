@@ -54,6 +54,27 @@ export class VolunteerService {
     return this.volunteerRepository.deleteVolunteer(volunteerData);
   }
 
+  async removeEvent(idVolunteer: string, idEvent: string): Promise<Volunteer> {
+    const volunteerFound =
+      await this.volunteerRepository.getVolunteer(idVolunteer);
+    if (!volunteerFound) {
+      throw new NotFoundException('No se encontro el voluntario');
+    }
+    const existingEvent = volunteerFound.events.some(
+      (event) => event.id === idEvent,
+    );
+    if (!existingEvent) {
+      throw new NotFoundException(
+        'El evento que intentabas desvincular, no esta relacionado con el voluntario',
+      );
+    }
+
+    volunteerFound.events = volunteerFound.events.filter(
+      (event) => event.id !== idEvent,
+    );
+    return await this.volunteerRepository.removeEvent(volunteerFound);
+  }
+
   collaboratEevent(id: string, event: Partial<EventDto>) {
     return this.volunteerRepository.addVolunteer(id, event);
   }

@@ -7,7 +7,6 @@ import {
   Param,
   ParseIntPipe,
   ParseUUIDPipe,
-  Post,
   Put,
   Query,
   UseInterceptors,
@@ -70,11 +69,5 @@ export class UsersController {
   })
   deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.usersService.deleteUser(id);
-  }
-
-  //ruta creada para pruebas(asi no toco lo de valen), eliminar
-  @Post()
-  createUser(@Body() user: UserDto) {
-    return this.usersService.createUser(user);
   }
 }
