@@ -10,6 +10,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { VolunteerService } from './volunteer.service';
@@ -20,13 +21,16 @@ import { Volunteer } from 'src/entities/Volunteer.entity';
 import { User } from 'src/entities/User.entity';
 import { UpdateResult } from 'typeorm';
 import { EventDto } from 'src/dtos/Event.dto';
+import { Roles } from 'src/decorators/roles.decorator';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
 
 @ApiTags('Voluntarios')
 @Controller('volunteer')
 export class VolunteerController {
   constructor(private readonly volunteerService: VolunteerService) {}
 
-  @Get()
+  @Get('/all')
   @ApiOperation({
     summary: 'Obtener todos los voluntarios',
     description:
@@ -40,7 +44,7 @@ export class VolunteerController {
     return this.volunteerService.getAllVolunteers(Number(limit), Number(page));
   }
 
-  @Get(':id')
+  @Get('/one/:id')
   @ApiOperation({
     summary: 'Obtener un voluntario',
     description:
@@ -49,31 +53,6 @@ export class VolunteerController {
   @UseInterceptors(RemoveDataSensitive)
   getVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<Volunteer> {
     return this.volunteerService.getVolunteer(id);
-  }
-
-  @Put(':id')
-  @ApiOperation({
-    summary: 'Actualizar un voluntario',
-    description:
-      'Esta ruta actualiza los datos de un voluntario por su id enviado por parametro y los datos enviados por body. devolvera los datos actualizados',
-  })
-  @UseInterceptors(RemoveDataSensitive)
-  updateVolunteer(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() newData: Partial<VolunteerDto>,
-  ): Promise<UpdateResult> {
-    return this.volunteerService.updateVolunteer(id, newData);
-  }
-
-  @Delete(':id')
-  @ApiOperation({
-    summary: 'Eliminar un voluntario',
-    description:
-      'Esta ruta elimina los datos de un voluntario por su id enviado por parametro y el rol de voluntario, sin afectar al usuario al que pertenece. devolvera el usuario actualizado',
-  })
-  @UseInterceptors(RemoveDataSensitive)
-  deleteVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
-    return this.volunteerService.deleteVolunteer(id);
   }
 
   @Post('/collaborate/:id')
@@ -90,7 +69,7 @@ export class VolunteerController {
     return this.volunteerService.collaboratEevent(id, event);
   }
 
-  @Post(':id')
+  @Post('/assign/:id')
   @ApiOperation({
     summary: 'Asignar nuevo voluntario',
     description:
@@ -102,5 +81,45 @@ export class VolunteerController {
     @Body() volunteerData: VolunteerDto,
   ): Promise<Volunteer> {
     return this.volunteerService.convertToVolunteer(id, volunteerData);
+  }
+
+  @Put('/update/:id')
+  @ApiOperation({
+    summary: 'Actualizar un voluntario',
+    description:
+      'Esta ruta actualiza los datos de un voluntario por su id enviado por parametro y los datos enviados por body. devolvera los datos actualizados',
+  })
+  updateVolunteer(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() newData: Partial<VolunteerDto>,
+  ): Promise<UpdateResult> {
+    return this.volunteerService.updateVolunteer(id, newData);
+  }
+
+  @Delete('/removeVolunteer/:id')
+  @ApiOperation({
+    summary: 'Eliminar un voluntario',
+    description:
+      'Esta ruta elimina los datos de un voluntario por su id enviado por parametro y el rol de voluntario, sin afectar al usuario al que pertenece. devolvera el usuario actualizado',
+  })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Volunteer')
+  @UseInterceptors(RemoveDataSensitive)
+  deleteVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
+    return this.volunteerService.deleteVolunteer(id);
+  }
+
+  @Delete('/removeEvent/:idVolunteer')
+  @ApiOperation({
+    summary: 'Eliminarse como voluntario de un evento',
+    description:
+      'Esta ruta permite a un voluntario eliminarse a sí mismo de un evento. El id del voluntario es enviado por parametro, y el id del evento por Query',
+  })
+  @UseInterceptors(RemoveDataSensitive)
+  removeVolunteersOfEvent(
+    @Param('idVolunteer', ParseUUIDPipe) idVolunteer: string,
+    @Query('idEvent', ParseUUIDPipe) idEvent: string,
+  ): Promise<Volunteer> {
+    return this.volunteerService.removeEvent(idVolunteer, idEvent);
   }
 }

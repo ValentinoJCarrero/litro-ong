@@ -31,7 +31,7 @@ export class EventController {
     private readonly storageService: StorageService,
   ) {}
 
-  @Get()
+  @Get('/all')
   @ApiOperation({
     summary: 'Obtener todos los eventos',
     description:
@@ -43,6 +43,17 @@ export class EventController {
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
   ): Promise<{ data: Event[]; total: number }> {
     return this.eventService.getAllEvent(Number(limit), Number(page));
+  }
+
+  @Get('/one/:title')
+  @ApiOperation({
+    summary: 'Obtener un evento por titulo',
+    description:
+      'Esta ruta devuelve un evento registrado por un titulo especifico, enviado por parámetro',
+  })
+  @UseInterceptors(RemoveDataSensitive)
+  getOneEvent(@Param('title') title: string): Promise<Event> {
+    return this.eventService.getOneEvent(title);
   }
 
   @Get('/future')
@@ -73,32 +84,21 @@ export class EventController {
     return this.eventService.getPastEvents(Number(limit), Number(page));
   }
 
-  @Get(':title')
+  @Post('/addVolunteer/:id')
   @ApiOperation({
-    summary: 'Obtener un evento por titulo',
+    summary: 'Agregar un voluntario a un evento (solo para administradores)',
     description:
-      'Esta ruta devuelve un evento registrado por un titulo especifico, enviado por parámetro',
+      'Esta ruta, agrega a un usuario de tipo voluntario, a un evento especifico. El id del voluntario es enviado por parámetro y el evento por body',
   })
   @UseInterceptors(RemoveDataSensitive)
-  getOneEvent(@Param('title') title: string): Promise<Event> {
-    return this.eventService.getOneEvent(title);
-  }
-
-  @Put(':id')
-  @ApiOperation({
-    summary: 'Actualizar un evento (solo para administradores)',
-    description:
-      'Esta ruta actualiza un evento registrado por un id de tipo uuid enviado por parámetro',
-  })
-  @UseInterceptors(RemoveDataSensitive)
-  updateEvent(
+  addVolunteer(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() eventData: Partial<EventDto>,
+    @Body() event: Partial<Event>,
   ) {
-    return this.eventService.updateEvent(id, eventData);
+    return this.eventService.addVolunteer(id, event);
   }
 
-  @Post()
+  @Post('/create')
   @ApiOperation({
     summary: 'Crear un nuevo evento (solo para administradores)',
     description:
@@ -131,7 +131,21 @@ export class EventController {
     return this.eventService.createEvent(event);
   }
 
-  @Delete(':id')
+  @Put('/update/:id')
+  @ApiOperation({
+    summary: 'Actualizar un evento (solo para administradores)',
+    description:
+      'Esta ruta actualiza un evento registrado por un id de tipo uuid enviado por parámetro',
+  })
+  @UseInterceptors(RemoveDataSensitive)
+  updateEvent(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() eventData: Partial<EventDto>,
+  ) {
+    return this.eventService.updateEvent(id, eventData);
+  }
+
+  @Delete('/delete/:id')
   @ApiOperation({
     summary: 'Eliminar un evento (solo para administradores)',
     description:
@@ -140,6 +154,7 @@ export class EventController {
   deleteEvent(@Param('id', ParseUUIDPipe) id: string) {
     return this.eventService.deleteEvent(id);
   }
+
   @Delete('/removeVolunteer/:idEvent')
   @ApiOperation({
     summary: 'Eliminar un voluntario de un evento(solo para administradores)',
@@ -148,22 +163,8 @@ export class EventController {
   })
   removeVolunteersOfEvent(
     @Param('idEvent', ParseUUIDPipe) idEvent: string,
-    @Query('idVolunter', ParseUUIDPipe) idVolunter: string,
+    @Query('idVolunteer', ParseUUIDPipe) idVolunteer: string,
   ) {
-    return this.eventService.removeVolunteer(idEvent, idVolunter);
-  }
-
-  @Post(':id')
-  @ApiOperation({
-    summary: 'Agregar un voluntario a un evento (solo para administradores)',
-    description:
-      'Esta ruta, agrega a un usuario de tipo voluntario, a un evento especifico. El id del voluntario es enviado por parámetro y el evento por body',
-  })
-  @UseInterceptors(RemoveDataSensitive)
-  addVolunteer(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() event: Partial<Event>,
-  ) {
-    return this.eventService.addVolunteer(id, event);
+    return this.eventService.removeVolunteer(idEvent, idVolunteer);
   }
 }
