@@ -24,6 +24,7 @@ import { News } from './entities/News.entity';
 import { Role } from './entities/Role.entity';
 import { Sponsor } from './entities/Sponsor';
 import { CommunityKitchensModule } from './modules/communityKitchens/communityKitchens.module';
+import { ProposalsModule } from './modules/proposals/proposals.module';
 
 @Module({
   imports: [
@@ -37,7 +38,7 @@ import { CommunityKitchensModule } from './modules/communityKitchens/communityKi
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
-    //ScheduleModule.forRoot(),
+
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },
@@ -56,6 +57,7 @@ import { CommunityKitchensModule } from './modules/communityKitchens/communityKi
     DonationModule,
     WorkshopModule,
     CommunityKitchensModule,
+    ProposalsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

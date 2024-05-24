@@ -58,6 +58,30 @@ export class EventRepository {
   deleteEvent(id: string) {
     return this.EventRepository.delete(id);
   }
+  async removeVolunteer(idEvent: string, idVolunteer: string) {
+    const eventFound = await this.EventRepository.findOne({
+      where: { id: idEvent },
+      relations: { volunteer: true },
+    });
+    if (!eventFound) {
+      throw new NotFoundException('Evento no encontrado');
+    }
+
+    const volunteerExists = eventFound.volunteer.some(
+      (volunteer) => volunteer.id === idVolunteer,
+    );
+    if (!volunteerExists) {
+      throw new NotFoundException(
+        'El voluntario que intentabas desvincular, no esta registrado en el evento',
+      );
+    }
+
+    eventFound.volunteer = eventFound.volunteer.filter(
+      (volunteer) => volunteer.id !== idVolunteer,
+    );
+
+    return this.EventRepository.save(eventFound);
+  }
 
   async addVolunteer(id: string, eventFound: Event) {
     const volunteer = await this.volunteerRepository.findOne({
