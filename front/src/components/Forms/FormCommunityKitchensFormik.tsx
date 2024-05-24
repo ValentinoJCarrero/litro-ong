@@ -109,8 +109,8 @@ const FormCommunityKitchensFormik = () => (
     }}
   >
     {({ errors, touched, setFieldValue }) => (
-      <Form className="text-sm text-textParagraph ">
-        <div className="flex flex-col h-20">
+      <Form className="text-sm text-textParagraph flex flex-col gap-2">
+        <div className="flex flex-col  h-20 ">
           <label htmlFor="name" className="font-medium ">
             Nombre
           </label>
@@ -147,9 +147,9 @@ const FormCommunityKitchensFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-row">
-        <div className="flex flex-col h-20 w-full pr-4">
-          <label htmlFor="holder" className="font-medium my-2">
+        <div className="flex flex-row  h-20">
+        <div className="flex flex-col  w-full pr-4">
+          <label htmlFor="holder" className="font-medium ">
             Titular del merendero
           </label>
           <div className="flex w-full">
@@ -185,8 +185,8 @@ const FormCommunityKitchensFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20 w-full pl-4">
-          <label htmlFor="address" className="font-medium my-2">
+        <div className="flex flex-col  w-full pl-4">
+          <label htmlFor="address" className="font-medium ">
             Direccion del merendero.
           </label>
           <div className="flex w-full">
@@ -223,9 +223,9 @@ const FormCommunityKitchensFormik = () => (
           />
         </div>
         </div>
-        <div className="flex flex-row">
-        <div className="flex flex-col h-20 w-full pr-4">
-          <label htmlFor="time" className="font-medium my-2">
+        <div className="flex flex-row bg-green- h-20">
+        <div className="flex flex-col  w-full pr-4">
+          <label htmlFor="time" className="font-medium ">
             Horario de inicio
           </label>
           <div className="flex w-full">
@@ -261,8 +261,8 @@ const FormCommunityKitchensFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className="flex flex-col h-20 w-full pl-4">
-          <label htmlFor="kidsNumber" className="font-medium my-2">
+        <div className="flex flex-col  w-full pl-4">
+          <label htmlFor="kidsNumber" className="font-medium ">
             Cantidad de chicos asistidos.
           </label>
           <div className="flex w-full">
@@ -299,43 +299,44 @@ const FormCommunityKitchensFormik = () => (
           />
         </div>
         </div>
-        <div className="flex flex-col h-20 w-full ">
-          <label htmlFor="days" className="font-medium my-2">
+        <div className="flex flex-row justify-between items-stretch gap-10">
+           <div className="flex flex-col    gap-2 w-1/2">
+          <label htmlFor="days" className="font-medium ">
             Dias de la semana
           </label>
-          <div className="flex w-full justify-between" role="group" aria-labelledby="checkbox-group">
-          <label>
+          <div className="flex flex-row  justify-between items-center  content-center " role="group" aria-labelledby="checkbox-group">
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Lunes" className="mx-2"/>
             Lunes
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Martes"  className="mx-2"/>
             Martes
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Miercoles" className="mx-2"/>
             Miercoles
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Jueves" className="mx-2"/>
             Jueves
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Viernes" className="mx-2"/>
             Viernes
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Sabado" className="mx-2"/>
              Sabado
           </label>
-          <label>
+          <label className="flex flex-col gap-1 justify-center items-center">
             <Field type="checkbox" name="days" value="Domingo" className="mx-2"/>
             Domingo
           </label>  
           </div>
         </div>
-        <div className="flex flex-col h-20 my-2">
-          <label htmlFor="photo" className="font-medium my-2">
+        <div className="flex flex-col w-1/2  ">
+          <label htmlFor="photo" className="font-medium ">
             Foto Principal
           </label>
           <input
@@ -356,10 +357,12 @@ const FormCommunityKitchensFormik = () => (
             className="text-warning"
           />
           </div>
+        </div>
+       
 
         <div className=" flex flex-row gap-10">
         <div className="flex flex-col h-32  w-2/3">
-          <label htmlFor="description" className="font-medium my-2">
+          <label htmlFor="description" className="font-medium ">
             Descripción
           </label>
           <div className="flex w-full">
@@ -367,7 +370,7 @@ const FormCommunityKitchensFormik = () => (
               as="textarea"
               name="description"
               placeholder="Describe la noticia"
-              className={`w-full resize-none h-20 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+              className={`w-full resize-none  rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                 errors.description && touched.description
                   ? "border-warningBorder text-warningText font-medium"
                   : ""
