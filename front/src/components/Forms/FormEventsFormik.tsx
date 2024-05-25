@@ -120,7 +120,7 @@ const FormEventsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          window.location.href = '/dashboardAdmin/events'
+          //window.location.href = '/dashboardAdmin/events'
           setSubmitting(false);
         })
         .catch((error) => {
@@ -330,6 +330,7 @@ const FormEventsFormik = () => (
             <div className="flex w-full">
               <Field
                 type="time"
+                step="1800"
                 name="timeEnd"
                 placeholder="Subtitulo de la noticia"
                 className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
