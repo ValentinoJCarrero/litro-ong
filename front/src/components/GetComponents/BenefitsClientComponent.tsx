@@ -56,7 +56,7 @@ const BenefitsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron noticias en esta pagina" ? (
+      ) : message ==="No se encontraron beneficios" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
