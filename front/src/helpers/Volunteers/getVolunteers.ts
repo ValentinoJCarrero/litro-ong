@@ -4,7 +4,7 @@ export async function getVolunteer(limit: number, page: number): Promise<any> {
     const validLimit = limit;
     const validPage = page;
 
-    const url = new URL('https://litro-ong.onrender.com/volunteer');
+    const url = new URL('https://litro-ong.onrender.com/volunteer/all');
     url.searchParams.append('limit', validLimit.toString());
     url.searchParams.append('page', validPage.toString());
 
