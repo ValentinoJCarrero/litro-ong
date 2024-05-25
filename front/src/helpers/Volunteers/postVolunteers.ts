@@ -11,7 +11,7 @@ export async function postVolunteers(userId: string, volunteerData: any): Promis
 
     
     const response = await fetch(
-      `https://litro-ong.onrender.com/volunteer/${userId}`,
+      `https://litro-ong.onrender.com/volunteer/assign/${userId}`,
       {
         method: "POST",
         headers: {

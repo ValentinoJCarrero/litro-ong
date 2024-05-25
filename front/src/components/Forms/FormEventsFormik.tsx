@@ -120,7 +120,7 @@ const FormEventsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          //window.location.href = '/dashboardAdmin/events'
+          window.location.href = '/dashboardAdmin/events'
           setSubmitting(false);
         })
         .catch((error) => {
