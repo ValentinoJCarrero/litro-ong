@@ -4,7 +4,7 @@ import { Proposals } from 'src/entities/Proposals.entity';
 
 import { ProposalsService } from './proposals.service';
 import { ProposalsController } from './proposals.controller';
-import { ProposalsRepository } from './Proposals.repository';
+import { ProposalsRepository } from './proposals.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Proposals])],
