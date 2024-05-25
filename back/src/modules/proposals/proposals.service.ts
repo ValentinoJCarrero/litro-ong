@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProposalsRepository } from './Proposals.repository';
+import { ProposalsRepository } from './proposals.repository';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
 
@@ -33,6 +33,13 @@ export class ProposalsService {
     return proposalsById;
   }
 
+  async createProposals(
+    id: string,
+    proposals: ProposalsDto,
+  ): Promise<Proposals> {
+    return await this.proposalsRepository.createProposals(id, proposals);
+  }
+
   async updateProposals(id: string, proposalsData: Partial<ProposalsDto>) {
     const proposalsUpdated = await this.proposalsRepository.updateProposals(
       id,
@@ -45,10 +52,6 @@ export class ProposalsService {
     } else {
       return proposalsUpdated;
     }
-  }
-
-  async createProposals(proposals: ProposalsDto): Promise<Proposals> {
-    return await this.proposalsRepository.createProposals(proposals);
   }
 
   async deleteProposals(id: string) {

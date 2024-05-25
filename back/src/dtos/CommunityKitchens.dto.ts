@@ -8,7 +8,7 @@ import {
 
 export class CommunityKitchensDto {
   /**
-   * @example 'La Granjita - BAR & ROTICERIA'
+   * @example 'Caritas felices'
    */
   @IsNotEmpty({ message: 'El nombre es requerido' })
   @IsString({ message: 'El nombre debe ser un texto' })
@@ -59,7 +59,7 @@ export class CommunityKitchensDto {
   time: string;
 
   /**
-   * @example 'El mejor lugar para recaudar fondos'
+   * @example 'Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
    */
   @IsNotEmpty({ message: 'La descripción es requerida' })
   description: string;
