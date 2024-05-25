@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { User } from 'src/entities/User.entity';
 import { UserDto } from 'src/dtos/User.dto';
-
 import * as bcrypt from 'bcrypt';
 import { UpdateResult } from 'typeorm';
 

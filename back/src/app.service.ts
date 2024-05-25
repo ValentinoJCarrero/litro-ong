@@ -29,9 +29,10 @@ export class AppService {
       email: 'admin@admin.com',
       password: await bcrypt.hash('Administrador1', 10),
       fullAddress: 'admin',
-      phone: '123123123',
+      phone: '23123123',
       dni: '123123123',
       birthDate: '2005-02-17',
+      isSubscribed: true,
     });
 
     await this.EventRepository.save({
