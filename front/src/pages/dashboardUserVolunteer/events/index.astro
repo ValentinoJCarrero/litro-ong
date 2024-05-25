@@ -2,6 +2,9 @@
 
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
+import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
+import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
+import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -20,7 +23,17 @@ import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/Aside
           </h4>
           <hr />
         </div>
+        <EnConstruccion />
+        <div class="flex justify-end gap-5">
+          <a href="/dashboardUserVolunteer/profileSettings">
+            <ButtonSecondarySmall title="Volver" />
+          </a>
+          <a href="/dashboardUserVolunteer/communityKitchens">
+            <ButtonPrimarySmall title="Siguiente" />
+          </a>
+        </div>
       </div>
+      
     </div>
   </div>
 </DasboardLayouts>
