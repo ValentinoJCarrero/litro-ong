@@ -1,5 +1,5 @@
 export async function deleteVolunteer(id:any): Promise<any> {
-    fetch(`https://litro-ong.onrender.com/volunteer/${id}`, {
+    fetch(`https://litro-ong.onrender.com/volunteer/removeVolunteer/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

@@ -5,7 +5,7 @@ export async function getEvents(limit: number, page: number): Promise<any> {
       const validLimit = limit;
       const validPage = page;
       
-      const url = new URL('https://litro-ong.onrender.com/event');
+      const url = new URL('https://litro-ong.onrender.com/event/all');
       url.searchParams.append('limit', validLimit.toString());
       url.searchParams.append('page', validPage.toString());
 
