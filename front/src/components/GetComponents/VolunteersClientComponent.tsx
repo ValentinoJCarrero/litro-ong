@@ -85,7 +85,7 @@ const VolunteersClientComponent = () => {
                       <p>{user.email}</p>
                     </div>
                     <div className="text-center">
-                      <p>Días disponibles: {availableDays.join(", ")}</p>
+                      <p>Días disponibles : {availableDays.join(", ")}</p>
                       <p>Horas: {startHours} - {endHours}</p>
                     </div>
                   </div>
