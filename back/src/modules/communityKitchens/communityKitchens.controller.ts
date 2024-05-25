@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommunityKitchensService } from './communityKitchens.service';
@@ -19,6 +20,7 @@ import { CommunityKitchens } from 'src/entities/CommunityKitchens.entity';
 import { CommunityKitchensDto } from 'src/dtos/CommunityKitchens.dto';
 import { StorageService } from '../storage/storage.service';
 import { validate } from 'class-validator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Merenderos')
 @Controller('communityKitchens')
@@ -78,6 +80,7 @@ export class CommunityKitchensController {
     description:
       'Esta ruta crea un nuevo merendero con los datos enviados por body, de tipo CommunityKitchensDto',
   })
+  @UseInterceptors(FileInterceptor('files'))
   async createCommunityKitchens(
     @Body() communityKitchens: CommunityKitchensDto,
     @UploadedFile() file: Express.Multer.File,
