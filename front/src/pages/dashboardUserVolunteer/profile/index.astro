@@ -3,6 +3,7 @@
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
 import GetVolunteerByID from "../../../components/GetComponents/GetSocioVoluntarioByID.tsx";
+import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 
 
 // http://localhost:4321/dashboardUserVolunteer/profile
@@ -27,6 +28,10 @@ import GetVolunteerByID from "../../../components/GetComponents/GetSocioVoluntar
         <!-- Desarrollo del codigo a partir de acá -->
 
         <GetVolunteerByID client:load/>
+        <div class="flex justify-end">
+
+          <ButtonCTASmall title="Editar" />
+        </div>
         <div>
 
           
