@@ -7,12 +7,12 @@ export async function deleteSponsors(id:any): Promise<any> {
       })
         .then(response => {
           if (!response.ok) {
-            throw new Error('Error al eliminar la esponsor');
+            throw new Error('Error al eliminar la sponsor');
           }
-          console.log('Noticia eliminada con éxito');
+          console.log('Sponsor eliminada con éxito');
 
         })
         .catch(error => {
-          console.error('Error al eliminar el esponsor:', error);
+          console.error('Error al eliminar el sponsor:', error);
         });
   } 

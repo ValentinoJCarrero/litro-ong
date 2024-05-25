@@ -33,7 +33,7 @@ if (session) {
     </div>
     <div class="h-full w-full px-14 py-10 flex flex-col justify-between">
       <div
-        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-around h-full gap-4"
+        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-start h-full gap-4"
       >
         <h4 class="text-2xl font-medium text-primary w-full text-end">
           SUMATE A NOSOTROS
@@ -42,62 +42,66 @@ if (session) {
           Participa, diviértete, construye y mostremos que se puede vivir en un
           mundo mucho mejor y más colaborativo. Aquí encontrarás un grupo
           extraordinario que te ayudaremos en todo lo que necesites. <strong
-            >¡Te esperamos!</strong>
-        </h5>
-        <div class="flex flex-row justify-around m-8">
-          <div
-            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer"
+            >¡Te esperamos!</strong
           >
-            <a href="/dashboardUser/profile/optionSelected/voluntario">
-              <img
-                src={voluntario.src}
-                alt="imagen"
-                class="absolute h-80 w-80 object-cover rounded-3xl"
-              />
-              <img
-                src={rectangle.src}
-                alt="fondo card"
-                class="absolute h-96 w-80 rounded-3xl my-10"
-              />
-              <div class="relative top-64">
-                <div class="flex flex-col items-center gap-5">
-                  <h6 class="font-semibold text-lg">Ser voluntario/a</h6>
+        </h5>
+        <div class="flex flex-row justify-center items-start gap-24">
+          <div
+            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl"
+          >
+            <img
+              src={voluntario.src}
+              alt="imagen"
+              class="absolute h-80 w-80 object-cover rounded-3xl"
+            />
+            <img
+              src={rectangle.src}
+              alt="fondo card"
+              class="absolute h-96 w-80 rounded-3xl my-10"
+            />
+            <div class="relative top-64">
+              <div class="flex flex-col items-center gap-5">
+                <h6 class="font-semibold text-lg">Ser voluntario/a</h6>
 
+                <a href="/dashboardUser/profile/optionSelected/voluntario">
                   <ButtonCTASmall title="Seleccionar" />
-                </div>
-                <div class="flex justify-end">
+                </a>
+              </div>
+              <a href="/voluntarios" class="">
+                <div class="flex justify-end transition-all hover:scale-105">
                   <img src={cursorIcon.src} alt="icono cursor" />
                   <h6 class="font-semibold m-5">Ver detalles</h6>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
           <div
-            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer"
+            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl"
           >
-            <a href="/dashboardUser/profile/optionSelected/socio">
-              <img
-                src={socio.src}
-                alt="imagen"
-                class="absolute h-80 w-80 object-cover rounded-3xl"
-              />
-              <img
-                src={rectangle.src}
-                alt="fondo card"
-                class="absolute h-96 w-80 rounded-3xl my-10"
-              />
-              <div class="relative top-64">
-                <div class="flex flex-col items-center gap-5">
-                  <h6 class="font-semibold text-lg">Ser socio/a</h6>
-
+            <img
+              src={socio.src}
+              alt="imagen"
+              class="absolute h-80 w-80 object-cover rounded-3xl"
+            />
+            <img
+              src={rectangle.src}
+              alt="fondo card"
+              class="absolute h-96 w-80 rounded-3xl my-10"
+            />
+            <div class="relative top-64">
+              <div class="flex flex-col items-center gap-5">
+                <h6 class="font-semibold text-lg">Ser socio/a</h6>
+                <a href="/dashboardUser/profile/optionSelected/socio">
                   <ButtonCTASmall title="Seleccionar" />
-                </div>
-                <div class="flex justify-end">
+                </a>
+              </div>
+              <a href="/socios">
+                <div class="flex justify-end hover:scale-105 transition-all">
                   <img src={cursorIcon.src} alt="icono cursor" />
                   <h6 class="font-semibold m-5">Ver detalles</h6>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
         </div>
       </div>

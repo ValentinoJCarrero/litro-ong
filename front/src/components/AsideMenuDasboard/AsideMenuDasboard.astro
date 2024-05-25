@@ -25,12 +25,27 @@ const pages = [
     hrefActive: "/dashboardAdmin/sponsors/sponsorCreate",
     active: normalizedPathName.startsWith("/dashboardAdmin/sponsors"),
   },
-  { name: "SECCION MERENDEROS", href: "/dashboardAdmin/communityKitchens" },
-  { name: "SECCION TALLERES DE OFICIO", href: "/dashboardAdmin/workshops" },
+  { name: "SECCION MERENDEROS", 
+    href: "/dashboardAdmin/communityKitchens" ,
+    hrefActive: "/dashboardAdmin/communityKitchens/newCommunityKitchen",
+  },
+  { name: "SECCION TALLERES DE OFICIO", 
+    href: "/dashboardAdmin/workshops" ,
+    hrefActive: "/dashboardAdmin/workshops/newWorkshop",
+  },
   {
     name: "SECCION EVENTOS",
     href: "/dashboardAdmin/events",
     hrefActive: "/dashboardAdmin/events/eventsCreate",
+  },
+  {
+    name: "SECCION BENEFICIOS",
+    href: "/dashboardAdmin/benefits",
+    hrefActive: "/dashboardAdmin/benefits/benefitsCreate",
+  },
+  {
+    name: "SECCION DONACIONES",
+    href: "/dashboardAdmin/donations",
   },
   { name: "PROPUESTAS RECIBIDAS", href: "/dashboardAdmin/proposals" },
 ].map((page) => ({
@@ -41,7 +56,7 @@ const pages = [
 ---
 
 <div
-  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex flex-col justify-between"
+  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex flex-col justify-between w-96"
 >
   <div>
     <div

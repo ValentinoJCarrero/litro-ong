@@ -5,7 +5,7 @@ export async function getWorkshops(limit: number, page: number): Promise<any> {
     const validLimit = limit;
     const validPage = page;
 
-    const url = new URL('https://litro-ong.onrender.com/workshop');
+    const url = new URL('http://localhost:3000/workshop');
     url.searchParams.append('limit', validLimit.toString());
     url.searchParams.append('page', validPage.toString());
 
@@ -21,7 +21,7 @@ export async function getWorkshops(limit: number, page: number): Promise<any> {
     console.log("esto es data", data);
     return data;
   } catch (error) {
-    console.error("Error al traer las noticias", error);
+    console.error("Error al traer el taller", error);
     throw error; 
   }
 }

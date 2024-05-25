@@ -19,6 +19,7 @@ interface NewsItem {
 
 const NewsComponent = () => {
   const [page, setPage] = useState (1)
+  const [message, setMessage] = useState ("")
   const [totalPages, setTotalPages] = useState (3)
   const [news, setNews] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +30,7 @@ const NewsComponent = () => {
     const fetchNews = async (page: number) => {
       const newsData = await getNews(3,page);
       setNews(newsData.data);
+      setMessage(newsData.message);
       setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
@@ -55,7 +57,7 @@ const NewsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : !news.length ? (
+      ) : message ==="No se encontraron noticias en esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
@@ -111,7 +113,7 @@ const NewsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page >= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>

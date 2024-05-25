@@ -31,16 +31,16 @@ const validate = (values: IFormValues) => {
     errors.title = "El Título es requerido";
   } else if (trimmedTitle.length < 10) {
     errors.title = "El título debe tener mínimo 10 caracteres";
-  } else if (trimmedTitle.length > 40) {
-    errors.title = "El título debe tener máximo 40 caracteres";
+  } else if (trimmedTitle.length > 60) {
+    errors.title = "El título debe tener máximo 60 caracteres";
   }
 
   if (!trimmedSubtitle) {
     errors.subtitle = "El subtítulo es requerido";
   } else if (trimmedSubtitle.length < 10) {
     errors.subtitle = "El subtítulo debe tener mínimo 10 caracteres";
-  } else if (trimmedSubtitle.length > 30) {
-    errors.subtitle = "El subtítulo debe tener máximo 30 caracteres";
+  } else if (trimmedSubtitle.length > 50) {
+    errors.subtitle = "El subtítulo debe tener máximo 50 caracteres";
   }
 
   if (!values.primaryImage) {
@@ -74,8 +74,8 @@ const validate = (values: IFormValues) => {
     errors.description = "La descripción es requerida";
   } else if (trimmedDescription.length < 100) {
     errors.description = "La descripción debe tener mínimo 100 caracteres";
-  } else if (trimmedDescription.length > 800) {
-    errors.description = "La descripción debe tener máximo 800 caracteres";
+  } else if (trimmedDescription.length > 1500) {
+    errors.description = "La descripción debe tener máximo 1500 caracteres";
   }
 
   return errors;

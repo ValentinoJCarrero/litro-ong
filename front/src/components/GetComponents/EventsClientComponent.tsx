@@ -21,6 +21,7 @@ interface EventItem {
 
 const EventsComponent = () => {
     const [page, setPage] = useState (1)
+    const [message, setMessage] = useState ("")
     const [totalPages, setTotalPages] = useState (3)
     const [events, setEvents] = useState<EventItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -28,13 +29,14 @@ const EventsComponent = () => {
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
     useEffect(() => {
-        const fetchNews = async () => {
+        const fetchEvents = async () => {
             const newsData = await getEvents(3,page);
             setEvents(newsData.data);
+            setMessage(newsData.message);
             setTotalPages(Math.ceil(newsData.total/3));
             setIsLoading(false);
         };
-        fetchNews();
+        fetchEvents();
     }, []);
 
     const onClic = async (id:any): Promise<void> => {
@@ -55,7 +57,7 @@ const EventsComponent = () => {
         <div className="flex items-center justify-center h-full">
             {isLoading ? (
         <SpinnersPrimary />
-      ) :!events.length ? (
+      ) :message ==="No se encontraron eventos en esta pagina" ? (
                 <NotFound/>
             ) : (
                 <ul className=" w-full">
@@ -98,7 +100,7 @@ const EventsComponent = () => {
                         </div>
                             <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
                         <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                            <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                            <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
                         </div> 
                 </div>
                 </ul>

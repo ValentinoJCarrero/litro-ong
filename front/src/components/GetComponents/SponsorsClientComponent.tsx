@@ -14,6 +14,7 @@ interface SponsorsItem {
 
 const SponsorsComponent = () => {
   const [page, setPage] = useState (1)
+  const [message, setMessage] = useState ("")
   const [totalPages, setTotalPages] = useState (3)
   const [sponsors, setSponsors] = useState<SponsorsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,13 +22,14 @@ const SponsorsComponent = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchSponsors = async () => {
       const newsData = await getSponsors(3,page);
       setSponsors(newsData.data);
+      setMessage(newsData.message);
       setTotalPages(Math.ceil(newsData.total/3));
       setIsLoading(false);
     };
-    fetchNews();
+    fetchSponsors();
   }, []);
 
   const onClic = async (id: any): Promise<void> => {
@@ -48,17 +50,17 @@ const SponsorsComponent = () => {
     <div className="flex items-center justify-center h-full">
       {isLoading ? (
         <SpinnersPrimary />
-      ) : !sponsors.length ? (
+      ) : message ==="No se encontraron patrocinadores" ? (
         <NotFound />
       ) : (
-        <ul className=" w-full">
+        <ul className=" w-full flex flex-col gap-4">
           {sponsors.map(({ logo, name, email, id }) => (
             <li
               key={id}
-              className="flex flex-row flex-nowrap justify-between pr-10 items-center"
+              className="flex flex-row flex-nowrap justify-between px-10 items-center"
             >
               <div
-                className="flex flex-row justify-between p-10 items-center text-sm w-full"
+                className="flex flex-row justify-between  items-center text-sm w-full"
                 id={`card${id}`}
               >
                 <div className="flex">
@@ -88,13 +90,13 @@ const SponsorsComponent = () => {
               </div>
             </li>
           ))}
-          <div className="flex items-center justify-center flex-row w-full mt-8">
-              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+          <div className="flex items-center justify-center flex-row w-full">
+              <div  className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
-              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+              <div  className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>

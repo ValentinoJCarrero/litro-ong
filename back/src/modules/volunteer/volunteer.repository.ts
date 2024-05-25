@@ -89,6 +89,10 @@ export class VolunteerRepository {
     }
   }
 
+  removeEvent(volunterFound: Volunteer): Promise<Volunteer> {
+    return this.volunteerRepository.save(volunterFound);
+  }
+
   async addVolunteer(id: string, event: Partial<EventDto>) {
     const queryRunner =
       this.volunteerRepository.manager.connection.createQueryRunner();

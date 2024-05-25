@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { User } from 'src/entities/User.entity';
 import { UserDto } from 'src/dtos/User.dto';
-
 import * as bcrypt from 'bcrypt';
 import { UpdateResult } from 'typeorm';
 
@@ -57,10 +56,5 @@ export class UsersService {
       );
     }
     return await this.usersRepository.deleteUser(userFound);
-  }
-
-  //para pruebas(asi no toco lo de valen), eliminar despues
-  createUser(user) {
-    return this.usersRepository.createUser(user);
   }
 }

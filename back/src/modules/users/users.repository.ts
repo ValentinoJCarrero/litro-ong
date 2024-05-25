@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/dtos/User.dto';
 import { User } from 'src/entities/User.entity';
-
 import { Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
@@ -62,4 +61,12 @@ export class UsersRepository {
   deleteUser(userFound: User): Promise<User> {
     return this.usersRepository.remove(userFound);
   }
+  async getBirthdayTodayUsers(): Promise<User[]> {
+    const today = new Date().toISOString().slice(0, 10);
+    const usersWithBirthdaysToday = await this.usersRepository.find({
+      where: { birthDate: today },
+    });
+    return usersWithBirthdaysToday;
+  }
+
 }

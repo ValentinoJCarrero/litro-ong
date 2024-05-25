@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDateString,
   IsEmail,
   IsNotEmpty,
@@ -56,7 +57,10 @@ export class UserDto {
    */
   @IsNotEmpty({ message: 'El número de documento es requerido' })
   dni: string;
-
+  
+  @IsBoolean()
+  isSubscribed: boolean;
+  
   /**
    * @example '1999-01-01'
    */
@@ -75,6 +79,7 @@ export class UserDto {
 
   @IsOptional()
   role: Role[];
+
 }
 
 export class LoginUserDto extends PickType(UserDto, ['email', 'password']) {}

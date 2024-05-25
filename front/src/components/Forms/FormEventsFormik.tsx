@@ -38,16 +38,16 @@ const validate = (values: IFormValues) => {
     errors.title = "El Titulo es requerido";
   } else if (trimmedTitle.length < 10) {
     errors.title = "El titulo debe tener minimo 10 caracteres";
-  } else if (trimmedTitle.length > 40) {
-    errors.title = "El titulo debe tener maximo 40 caracteres";
+  } else if (trimmedTitle.length > 60) {
+    errors.title = "El titulo debe tener maximo 60 caracteres";
   }
 
   if (!trimmedSubtitle) {
     errors.subtitle = "El subtitulo es requerido";
   } else if (trimmedSubtitle.length < 10) {
     errors.subtitle = "El subtitulo debe tener minimo 10 caracteres";
-  } else if (trimmedSubtitle.length > 30) {
-    errors.subtitle = "El subtitulo debe tener maximo 30 caracteres";
+  } else if (trimmedSubtitle.length > 50) {
+    errors.subtitle = "El subtitulo debe tener maximo 50 caracteres";
   }
 
   if (!values.primaryImage) {
@@ -77,8 +77,8 @@ const validate = (values: IFormValues) => {
 
   if (!values.address) {
     errors.address = "La direccion es requerida";
-  } else if (values.subtitle.length < 10) {
-    errors.subtitle = "La direccion debe tener minimo 10 caracteres";
+  } else if (values.address.length < 10) {
+    errors.address = "La direccion debe tener minimo 10 caracteres";
   }
 
   if (!values.timeStart) {
@@ -97,8 +97,8 @@ const validate = (values: IFormValues) => {
     errors.description = "La descripcion es requerida";
   } else if (trimmedDescription.length < 100) {
     errors.description = "La descripcion  debe tener minimo 100 caracteres";
-  } else if (trimmedDescription.length > 800) {
-    errors.description = "La descripcion  debe tener maximo 800 caracteres";
+  } else if (trimmedDescription.length > 1500) {
+    errors.description = "La descripcion  debe tener maximo 1500 caracteres";
   }
 
   return errors;
@@ -120,7 +120,7 @@ const FormEventsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          window.location.href = '/dashboardAdmin/events'
+          //window.location.href = '/dashboardAdmin/events'
           setSubmitting(false);
         })
         .catch((error) => {
@@ -330,6 +330,7 @@ const FormEventsFormik = () => (
             <div className="flex w-full">
               <Field
                 type="time"
+                step="1800"
                 name="timeEnd"
                 placeholder="Subtitulo de la noticia"
                 className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
