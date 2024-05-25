@@ -98,7 +98,7 @@ function GetVolunteerByID() {
           </div>
         </div>
       ) : (
-        <div className="h-full w-full justify-center items-center bg-red-500 text-center">
+        <div className="h-full w-full justify-center items-center bg-red-500 flex">
           <SpinnersPrimary />
         </div>
       )}
