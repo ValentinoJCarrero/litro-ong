@@ -22,6 +22,7 @@
     "astro": "^4.7.1",
     "astro-carousel": "^2.0.8",
     "auth-astro": "^4.1.1",
+    "date-fns": "^3.6.0",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
