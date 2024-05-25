@@ -62,8 +62,11 @@ export class ProposalsController {
     description:
       'Esta ruta crea una nueva propuesta con los datos enviados por body, de tipo ProposalsDto',
   })
-  createProposals(@Body() proposals: ProposalsDto): Promise<Proposals> {
-    return this.proposalsService.createProposals(proposals);
+  createProposals(
+    @Query('userId', ParseUUIDPipe) id: string,
+    @Body() proposals: ProposalsDto,
+  ): Promise<Proposals> {
+    return this.proposalsService.createProposals(id, proposals);
   }
 
   @Delete(':id')

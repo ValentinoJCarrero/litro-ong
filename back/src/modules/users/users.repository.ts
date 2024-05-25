@@ -50,6 +50,7 @@ export class UsersRepository {
         partnerData: { cardData: true },
         role: true,
         donations: true,
+        proposals: true,
       },
     });
   }
@@ -68,5 +69,4 @@ export class UsersRepository {
     });
     return usersWithBirthdaysToday;
   }
-
 }

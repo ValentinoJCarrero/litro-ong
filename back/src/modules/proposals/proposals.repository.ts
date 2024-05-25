@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
 import { Proposals } from 'src/entities/Proposals.entity';
+import { User } from 'src/entities/User.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class ProposalsRepository {
   constructor(
     @InjectRepository(Proposals)
     private proposalsRepository: Repository<Proposals>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async getAllProposals(
@@ -33,7 +36,7 @@ export class ProposalsRepository {
     return this.proposalsRepository.update(id, proposalsData);
   }
 
-  createProposals(proposals: ProposalsDto): Promise<Proposals> {
+  createProposals(id: string, proposals: ProposalsDto): Promise<Proposals> {
     return this.proposalsRepository.save(proposals);
   }
 
