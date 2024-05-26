@@ -2,6 +2,7 @@
 
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
+import FormProposalsFormik from "../../../components/Forms/FormProposalsFormik";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -20,7 +21,9 @@ import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/Aside
           </h4>
           <hr />
         </div>
+        <FormProposalsFormik client:load />
       </div>
+      
     </div>
   </div>
 </DasboardLayouts>

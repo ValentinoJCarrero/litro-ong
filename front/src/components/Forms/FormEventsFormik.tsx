@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
-import { postNews } from "../../helpers/postNews";
+// import { postNews } from "../../helpers/postNews";
 import warningIcon from "../../assets/IconWarrning.svg";
 import { postEvents } from "../../helpers/Events/postEvents";
 import Swal from 'sweetalert2'
