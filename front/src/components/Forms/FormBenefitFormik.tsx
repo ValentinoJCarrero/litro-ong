@@ -75,7 +75,8 @@ const FormBenefitsFormik = () => (
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       postBenefits(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -83,12 +84,23 @@ const FormBenefitsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          //window.location.href = '/dashboardAdmin/benefits'
+          setTimeout(() => {
+            window.location.href = '/dashboardAdmin/benefits';
+          }, 1500);
           setSubmitting(false);
-          console.log(values);
+          }else {
+          throw new Error("Failed to add benefit");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar el beneficio",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}

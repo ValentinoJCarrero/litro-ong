@@ -16,8 +16,6 @@ export async function getCommunityKitchens(limit: number, page: number): Promise
     });
 
     const data = await response.json();
-
-    console.log("esto es data", data);
     return data;
   } catch (error) {
     console.error("Error al traer las merenderos", error);

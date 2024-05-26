@@ -102,7 +102,8 @@ const FormWorkshopsFormik = () => (
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       console.log(values);
       postWorkshops(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -114,9 +115,19 @@ const FormWorkshopsFormik = () => (
             window.location.href = "/dashboardAdmin/workshops";
           }, 1500);
           setSubmitting(false);
+          }else {
+          throw new Error("Failed to add workshop");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar el taller",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}
@@ -454,69 +465,24 @@ const FormWorkshopsFormik = () => (
             role="group"
             aria-labelledby="checkbox-group"
           >
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Lunes"
-                
-              />
-              Lunes
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Martes"
-                
-              />
-              Martes
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Miercoles"
-                
-              />
-              Miercoles
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Jueves"
-                
-              />
-              Jueves
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Viernes"
-                
-              />
-              Viernes
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Sabado"
-                
-              />
-              Sabado
-            </label>
-            <label>
-              <Field
-                type="checkbox"
-                name="days"
-                value="Domingo"
-                
-              />
-              Domingo
-            </label>
+            {[
+              "Lunes",
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado",
+              "Domingo",
+            ].map((days) => (
+              <label key={days} className="flex items-center gap-2">
+                <Field
+                  type="checkbox"
+                  name="days"
+                  value={days}
+                />
+                {days}
+              </label>
+            ))}
           </div>
         </div>
         </div>

@@ -449,7 +449,7 @@ const FormRegisterProfileFormik = () => {
               />
             </div>
             <div className="flex flex-col w-full pl-4">
-            <label htmlFor="title" className="font-medium my-2 ">Ciudad
+            <label htmlFor="isSubscribed" className="font-medium my-2 ">Registrarse al newslatter
             <div className="flex w-full">
             <Field
             type="checkbox"
