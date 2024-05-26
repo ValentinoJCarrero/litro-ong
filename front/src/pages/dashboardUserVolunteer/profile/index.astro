@@ -2,10 +2,8 @@
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
 import GetVolunteerByID from "../../../components/GetComponents/GetSocioVoluntarioByID.tsx";
-import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
 
-// http://localhost:4321/dashboardUserVolunteer/profile
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -25,13 +23,10 @@ import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.a
           </h4>
           <hr />
         </div>
-        <!-- Desarrollo del codigo a partir de acá -->
 
         <GetVolunteerByID client:load />
         <div class="flex justify-end gap-5">
-          <!-- <a href="/dashboardUserVolunteer/profileSettings">
-            <ButtonCTASmall title="Editar" />
-          </a> -->
+      
           <a href="/dashboardUserVolunteer/events">
             <ButtonPrimarySmall title="Siguiente" /></a
           >
