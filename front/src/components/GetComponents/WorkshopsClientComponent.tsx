@@ -60,7 +60,7 @@ const WorkshopsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron en talleres esta pagina" ? (
+      ) : message ==="No se encontraron talleres esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">

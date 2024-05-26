@@ -63,7 +63,8 @@ const FormLoginFormik = () => {
               showConfirmButton: false,
               timer: 1500
             }));}
-            Cookies.set('token',(data.tokenUser));
+            console.log(data);
+            Cookies.set('token',(data));
             setTimeout(() => {
               window.location.href = '/'
             },1500)
