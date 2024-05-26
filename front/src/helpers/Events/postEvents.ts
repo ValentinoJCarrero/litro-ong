@@ -15,7 +15,7 @@ export async function postEvents(newsResponse:any): Promise<any> {
     if (newsResponse.secondaryImage) formData.append('files', newsResponse.secondaryImage);
 
 console.log(formData);
-    const response = await fetch(`https://litro-ong.onrender.com/event`, {
+    const response = await fetch(`https://litro-ong.onrender.com/event/create`, {
       method: 'POST',
       body: formData
     });

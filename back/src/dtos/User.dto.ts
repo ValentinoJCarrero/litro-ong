@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDateString,
   IsEmail,
   IsNotEmpty,
@@ -56,6 +57,10 @@ export class UserDto {
    */
   @IsNotEmpty({ message: 'El número de documento es requerido' })
   dni: string;
+
+  @IsNotEmpty({ message: 'Debe indicar si es suscrito' })
+  @IsBoolean()
+  isSubscribed: boolean;
 
   /**
    * @example '1999-01-01'

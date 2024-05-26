@@ -13,6 +13,7 @@ import { Volunteer } from './Volunteer.entity';
 import { Role } from './Role.entity';
 import { Partner } from './Partner.entity';
 import { Donation } from './Donation.entity';
+import { Proposals } from './Proposals.entity';
 
 @Entity({ name: 'Users' })
 @Unique(['email'])
@@ -41,6 +42,9 @@ export class User {
   @Column({ type: 'varchar', nullable: false })
   birthDate: string;
 
+  @Column({ type: 'boolean', nullable: false })
+  isSubscribed: boolean;
+
   @OneToOne(() => Volunteer, (volunteer) => volunteer.user, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
@@ -57,6 +61,9 @@ export class User {
     cascade: true,
   })
   donations: Donation[];
+
+  @OneToMany(() => Proposals, (proposal) => proposal.user)
+  proposals: Proposals[];
 
   @ManyToMany(() => Role, { eager: true })
   @JoinTable()

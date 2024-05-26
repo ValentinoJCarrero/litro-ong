@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
-import { postNews } from "../../helpers/postNews";
+// import { postNews } from "../../helpers/postNews";
 import warningIcon from "../../assets/IconWarrning.svg";
 import { postEvents } from "../../helpers/Events/postEvents";
 import Swal from 'sweetalert2'
@@ -330,6 +330,7 @@ const FormEventsFormik = () => (
             <div className="flex w-full">
               <Field
                 type="time"
+                step="1800"
                 name="timeEnd"
                 placeholder="Subtitulo de la noticia"
                 className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${

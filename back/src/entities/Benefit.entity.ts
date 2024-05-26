@@ -19,7 +19,7 @@ export class Benefit {
   @Column({ type: 'varchar', nullable: false })
   benefits: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   benefitEndDate?: Date;
 
   @Column({ type: 'text', nullable: true })

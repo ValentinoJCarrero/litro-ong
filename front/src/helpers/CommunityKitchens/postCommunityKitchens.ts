@@ -4,8 +4,9 @@ export async function postCommunityKitchens(newsResponse: any): Promise<any> {
 
     const formData = new FormData();
     formData.append('name', newsResponse.name);
+    formData.append('holder', newsResponse.holder);
     formData.append('address', newsResponse.address);
-    formData.append('kidsNumber', newsResponse.kidsNumber);
+    formData.append('kidsNumber', newsResponse.kidsNumber.toString());
     formData.append('description', newsResponse.description);
     formData.append('time', newsResponse.time);
     newsResponse.days.forEach((day: string) => formData.append('days', day));
