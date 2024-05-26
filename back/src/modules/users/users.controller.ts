@@ -40,6 +40,7 @@ export class UsersController {
   @Get(':id')
   @ApiOperation({
     summary: ' Obtener un usuario por id',
+
     description:
       'Esta ruta devuelve un usuario registrado, por un id enviado por parametro',
   })
