@@ -1,6 +1,4 @@
 export async function getWorkshops(limit: number, page: number): Promise<any> {
-  console.log(page);
-  console.log(limit);
   try {
     const validLimit = limit;
     const validPage = page;
@@ -17,8 +15,6 @@ export async function getWorkshops(limit: number, page: number): Promise<any> {
     });
 
     const data = await response.json();
-
-    console.log("esto es data", data);
     return data;
   } catch (error) {
     console.error("Error al traer el taller", error);

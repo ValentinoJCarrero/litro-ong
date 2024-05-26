@@ -1,4 +1,3 @@
-
 export async function getSponsors(limit: number, page: number): Promise<any> {
     try{
       const validLimit = limit;

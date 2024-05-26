@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import vectorIcon from "../../assets/vectorIcon.svg";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getProposals } from "../../helpers/Proposals/getProposals";
-import { deleteProposals } from "../../helpers/Proposals/deleteProposals";
-import ButtonPrimarySmall from "../Buttons/ButtonPrimarySmall.astro";
 import { getVolunteersByID } from "../../helpers/SocioVoluntario/getUserSocioVoluntarioByID";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -36,7 +30,6 @@ const GetProposalsComponent = () => {
   try {
     const decodedToken: any = jwtDecode(tokenFromCookies);
     idDecodificado = decodedToken.userPayload.sub;
-    // console.log("ID decodificado", idDecodificado);
   } catch (error) {
     console.error("Error al decodificar token", error);
     return;
@@ -86,7 +79,6 @@ const GetProposalsComponent = () => {
                   </div>
               </li>
               <hr />
-              
             </>
           ))}
         </ul>

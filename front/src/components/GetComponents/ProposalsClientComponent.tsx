@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import vectorIcon from "../../assets/vectorIcon.svg";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getProposals } from "../../helpers/Proposals/getProposals";
-import { deleteProposals } from "../../helpers/Proposals/deleteProposals";
-import ButtonPrimarySmall from "../Buttons/ButtonPrimarySmall.astro";
+import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 interface ProposalsItem {
   status: string;
   title: string;
@@ -81,12 +78,14 @@ const ProposalsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page >= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>
       )}
-      
+      {/*<div className="w-full flex justify-end mt-10">
+        <ButtonWarningSmall title="Eliminar propuestas" idEvent="newProposal" onClick={() => {}} />
+      </div>*/}
     </div>
   );
 };
