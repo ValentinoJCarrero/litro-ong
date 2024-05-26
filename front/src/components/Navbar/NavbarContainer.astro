@@ -22,7 +22,7 @@ if (tokenUser) {
     const decodedToken: any = jwtDecode(tokenUser);
     idDecodificado = decodedToken.userPayload.sub;
 
-    console.log(idDecodificado);
+    console.log("el token magico decodificado es:",idDecodificado);
   } catch (error) {
     console.error("Error decoding token:", error);
   }

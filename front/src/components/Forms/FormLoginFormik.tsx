@@ -4,8 +4,8 @@ import { postLogin } from "../../helpers/Auth/postLogin";
 import showPasswordWarning from "../../assets/showPasswordWarning.svg";
 import showPassword from "../../assets/showPassword.svg";
 import { useState } from "react";
-import Swal from 'sweetalert2'
-import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 interface IFormValues {
   email: string;
   password: string;
@@ -50,25 +50,32 @@ const FormLoginFormik = () => {
       onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
         postLogin(values)
           .then((data) => {
-            if(data){Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: `Bienvenido`,
-              showConfirmButton: false,
-              timer: 1500
-            })}else if(!data){(Swal.fire({
-              position: "top-end",
-              icon: "error",
-              title: `Usuario no registrado`,
-              showConfirmButton: false,
-              timer: 1500
-            }));}
-            console.log(data);
-            Cookies.set('token',(data));
-            setTimeout(() => {
-              window.location.href = '/'
-            },1500)
-            setSubmitting(false);
+            if (data) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Bienvenido`,
+                showConfirmButton: false,
+                timer: 1500,
+              })
+              console.log(data);
+              Cookies.set("token", data);
+              setTimeout(() => {
+                window.location.href = "/";
+              }, 1500);
+              setSubmitting(false);
+
+            
+            } else if (!data) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `Usuario no registrado`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+            
           })
           .catch((error) => {
             console.error("Error:", error);
