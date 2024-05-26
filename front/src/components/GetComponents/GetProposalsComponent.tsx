@@ -78,9 +78,9 @@ const GetProposalsComponent = () => {
                     <h6 className="text-colorSocioVoluntario text-base font-semibold">
                       {title}
                     </h6>
-                    <p>{date}</p>
+                    <p className=" text-textParagraph text-sm">{date}</p>
                   </div>
-                  <p className="text-sm">{status}</p>
+                  <p className="text-xs font-semibold">{status}</p>
                 </div>
               </li>
               <hr />
