@@ -1,12 +1,8 @@
 ---
-import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
-import AsideMenuDasboard from "../../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
-import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
-import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
-import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
-import NotFound from "../../../components/NotFound/NotFound";
-import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
-import ProposalsComponent from "../../../components/GetComponents/ProposalsClientComponent";
+import DasboardLayouts from "../../../../layouts/DasboardLayouts.astro";
+import AsideMenuDasboard from "../../../../components/AsideMenuDasboard/AsideMenuDasboard.astro";
+import ButtonSecondarySmall from "../../../../components/Buttons/ButtonSecondarySmall.astro";
+import DynamicProposals from "../../../../components/GetComponents/GetDinamicProposalsComponent";
 // import NewsClientComponent from "../../../components/GetComponents/NewsClientComponent.tsx";
 ---
 
@@ -25,14 +21,14 @@ import ProposalsComponent from "../../../components/GetComponents/ProposalsClien
           PROPUESTAS RECIBIDAS
         </h4>
         <div class="h-full">
-          <ProposalsComponent client:load/>
+          <DynamicProposals client:load/>
         </div>    
     </div>
     <div class="w-full flex justify-center mt-6">
-      <a href="/dashboardAdmin/donations">
+      <a href="/dashboardAdmin/proposals">
         <ButtonSecondarySmall title="Anterior" />
       </a>
     </div>
     </div>
-  </div></DasboardLayouts
->
+  </div>
+  </DasboardLayouts>

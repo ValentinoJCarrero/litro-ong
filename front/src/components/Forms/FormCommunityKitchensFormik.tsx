@@ -96,7 +96,7 @@ const FormCommunityKitchensFormik = () => (
             timer: 1500,
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/workshops';
+            window.location.href = '/dashboardAdmin/communityKitchens';
           }, 1500);
           setSubmitting(false);
         })
