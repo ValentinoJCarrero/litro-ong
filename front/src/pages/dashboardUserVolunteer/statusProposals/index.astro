@@ -2,9 +2,7 @@
 
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
-import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
-import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
-import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
+import GetProposalsComponent from "../../../components/GetComponents/GetProposalsComponent";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -23,15 +21,7 @@ import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.a
           </h4>
           <hr />
         </div>
-        <EnConstruccion />
-        <div class="flex justify-end gap-5">
-          <a href="/dashboardUserVolunteer/createProposal">
-            <ButtonSecondarySmall title="Volver" />
-          </a>
-          <a href="/dashboardUserVolunteer/yourCard">
-            <ButtonPrimarySmall title="Siguiente" />
-          </a>
-        </div>
+        <GetProposalsComponent client:load />
       </div>
       
     </div>

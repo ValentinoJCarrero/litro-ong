@@ -38,6 +38,10 @@ const validate = (values: IFormValues) => {
 
   if (!values.benefits) {
     errors.benefits = "Los beneficios son requeridos";
+  }else if (values.benefits.length < 10) {
+    errors.benefits = "El nombre de la empresa debe tener minimo 10 caracteres";
+  } else if (values.benefits.length > 50) {
+    errors.name = "El nombre de la empresa debe tener maximo 50 caracteres";
   }
 
   if (!values.benefitEndDate) {
@@ -57,10 +61,10 @@ const validate = (values: IFormValues) => {
 
   if (!trimmedDescription) {
     errors.description = "La descripción es requerida";
-  } else if (trimmedDescription.length < 100) {
-    errors.description = "La descripción debe tener mínimo 100 caracteres";
-  } else if (trimmedDescription.length > 1500) {
-    errors.description = "La descripción debe tener máximo 1500 caracteres";
+  } else if (trimmedDescription.length < 10) {
+    errors.description = "La descripción debe tener mínimo 10 caracteres";
+  } else if (trimmedDescription.length > 60) {
+    errors.description = "La descripción debe tener máximo 60 caracteres";
   }
   return errors;
 };

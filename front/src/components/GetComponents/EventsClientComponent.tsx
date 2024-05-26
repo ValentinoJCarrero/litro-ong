@@ -6,6 +6,10 @@ import SpinnersPrimary from '../Spinners/SpinnersPrimary';
 import { getEvents } from '../../helpers/Events/getEvents';
 import { deleteEvents } from '../../helpers/Events/deleteEvents';
 import NotFound from '../NotFound/NotFound';
+import ButtonCTASmall from '../Buttons/ButtonCTASmall.astro';
+import ButtonCTASmallReact from '../Buttons/ButtonCTASmallReact';
+import VolunteersClientComponent from './VolunteersClientComponent';
+import GetVolunteersWithEvents from './GetVolunteersWithEvents';
 interface EventItem {
     primaryImage: string;
     title: string;
@@ -27,7 +31,8 @@ const EventsComponent = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
-
+    const [volunteers, setVolunteers] = useState(false);
+    const [selectedEventTitle, setSelectedEventTitle] = useState<string>("");
     useEffect(() => {
         const fetchEvents = async () => {
             const newsData = await getEvents(3,page);
@@ -40,7 +45,7 @@ const EventsComponent = () => {
     }, []);
 
     const onClic = async (id:any): Promise<void> => {
-        console.log('Eliminando noticia con ID :', id);
+        console.log('Eliminando evento con ID :', id);
         setDeletingId(id);
         setIsDeleting(true);
 
@@ -52,7 +57,10 @@ const EventsComponent = () => {
             setDeletingId(null);
         }, 1000);
     };
-
+    const onClickAssignVolunteer = (title: string) => {
+        setSelectedEventTitle(title);
+        setVolunteers(true);
+      };
     return (
         <div className="flex items-center justify-center h-full">
             {isLoading ? (
@@ -81,6 +89,13 @@ const EventsComponent = () => {
                                 </div>
                                
                             </a>
+                            <div className='mx-8'>
+                            <ButtonCTASmallReact
+                                        title="Asignar Voluntario"
+                                        idEvent={`assign-${id}`}
+                                        onClick={() => onClickAssignVolunteer(title)}
+                                    />
+                            </div>
                             <div className="w-40 flex justify-center">
                                 {isDeleting && deletingId === id ? (
                                     <SpinnersDelete />
@@ -105,6 +120,10 @@ const EventsComponent = () => {
                 </div>
                 </ul>
             )}
+            <div className={volunteers===true ? 'absolute z-20 bg-textPrimary shadow-3xl rounded-2xl p-10' : 'hidden'}>
+                <GetVolunteersWithEvents>{selectedEventTitle}</GetVolunteersWithEvents>
+                <button className="absolute top-2 right-2 bg-warning w-8 h-8 text-textPrimary font-semibold rounded-lg" onClick={() => setVolunteers(false)}>X</button>
+            </div>
         </div>
     );
 };

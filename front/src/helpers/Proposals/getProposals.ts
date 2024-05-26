@@ -1,13 +1,13 @@
-export async function getWorkshops(limit: number, page: number): Promise<any> {
-  console.log(page);
-  console.log(limit);
+export async function getProposals(limit: number, page: number, status: string): Promise<any> {
+
   try {
     const validLimit = limit;
     const validPage = page;
 
-    const url = new URL('https://litro-ong.onrender.com/workshop');
+    const url = new URL('https://litro-ong.onrender.com/proposals');
     url.searchParams.append('limit', validLimit.toString());
     url.searchParams.append('page', validPage.toString());
+    url.searchParams.append('filter', status.toString());
 
     const response = await fetch(url.toString(), {
       method: 'GET',
@@ -21,7 +21,7 @@ export async function getWorkshops(limit: number, page: number): Promise<any> {
     console.log("esto es data", data);
     return data;
   } catch (error) {
-    console.error("Error al traer el taller", error);
+    console.error("Error al traer las propuestas", error);
     throw error; 
   }
 }
