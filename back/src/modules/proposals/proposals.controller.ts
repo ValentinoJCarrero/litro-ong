@@ -10,11 +10,13 @@ import {
   Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ProposalsService } from './proposals.service';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
+import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 
 @ApiTags('Propuestas')
 @Controller('proposals')
@@ -25,13 +27,19 @@ export class ProposalsController {
   @ApiOperation({
     summary: 'Obtener todas las propuestas',
     description:
-      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de propuestas y total es la cantidad de propuestas registradas en la base de datos',
+      'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de propuestas y total es la cantidad de propuestas registradas en la base de datos. Se puede enviar por query page y limit para la paginación, por defecto page es 1 y limit es 5. y se puede enviar por query un filter para filtrar por el estado de la propuesta en caso de ser necesario(APPROVED, REJECTED o PENDING)',
   })
+  @UseInterceptors(RemoveDataSensitive)
   getAllProposals(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(5), ParseIntPipe) limit: number,
+    @Query('filter') filter?: string,
   ): Promise<{ data: Proposals[]; total: number }> {
-    return this.proposalsService.getAllProposals(Number(limit), Number(page));
+    return this.proposalsService.getAllProposals(
+      Number(limit),
+      Number(page),
+      filter,
+    );
   }
 
   @Get(':id')
@@ -40,20 +48,22 @@ export class ProposalsController {
     description:
       'Esta ruta devuelve una propuesta especifica registrada por un id de tipo uuid, enviado por parámetro',
   })
+  @UseInterceptors(RemoveDataSensitive)
   getProposals(@Param('id', ParseUUIDPipe) id: string): Promise<Proposals> {
     return this.proposalsService.getProposals(id);
   }
 
   @Put(':id')
   @ApiOperation({
-    summary: '',
-    description: '',
+    summary: 'Actualizar el estado de una propuesta',
+    description:
+      'Esta ruta actualiza el estado de una propuesta por un id de tipo uuid enviado por parámetro y el nuevo estado por Query',
   })
   updateProposals(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() proposalsData: Partial<ProposalsDto>,
+    @Query('status') newStatus: string,
   ) {
-    return this.proposalsService.updateProposals(id, proposalsData);
+    return this.proposalsService.updateProposals(id, newStatus);
   }
 
   @Post()
@@ -62,6 +72,7 @@ export class ProposalsController {
     description:
       'Esta ruta crea una nueva propuesta con los datos enviados por body, de tipo ProposalsDto',
   })
+  @UseInterceptors(RemoveDataSensitive)
   createProposals(
     @Query('userId', ParseUUIDPipe) id: string,
     @Body() proposals: ProposalsDto,
@@ -69,7 +80,7 @@ export class ProposalsController {
     return this.proposalsService.createProposals(id, proposals);
   }
 
-  @Delete(':id')
+  @Delete('/one/:id')
   @ApiOperation({
     summary: 'Eliminar una propuesta (solo para administradores)',
     description:
@@ -77,5 +88,15 @@ export class ProposalsController {
   })
   deleteProposals(@Param('id', ParseUUIDPipe) id: string) {
     return this.proposalsService.deleteProposals(id);
+  }
+
+  @Delete('/all')
+  @ApiOperation({
+    summary: 'Eliminar todas las propuestas (solo para administradores)',
+    description:
+      'Esta ruta elimina todas las propuestas registradas anteriores a un mes con status diferente a PENDING ',
+  })
+  deleteAllProposals() {
+    return this.proposalsService.deleteAllProposals();
   }
 }
