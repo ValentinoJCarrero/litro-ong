@@ -9,7 +9,6 @@ export async function deleteBenefits(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar la noticia');
           }
-          console.log('Noticia eliminada con éxito');
 
         })
         .catch(error => {

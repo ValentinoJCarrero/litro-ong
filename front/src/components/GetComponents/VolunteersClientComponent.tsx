@@ -5,6 +5,7 @@ import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getVolunteer } from "../../helpers/Volunteers/getVolunteers";
 import { deleteVolunteer } from "../../helpers/Volunteers/deleteVolunteers";
+import Swal from 'sweetalert2'
 interface User {
   id: string;
   fullName: string;
@@ -51,17 +52,35 @@ const VolunteersClientComponent = () => {
   }, [page]);
 
   const onClic = async (id: string): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este voluntario?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteVolunteer(id);
+        await deleteVolunteer(id);
 
     setTimeout(() => {
       setVolunteers(volunteers.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El voluntario ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando voluntario con ID:", id);
   };
 
   return (

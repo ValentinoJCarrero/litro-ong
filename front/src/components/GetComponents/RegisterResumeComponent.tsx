@@ -20,7 +20,6 @@ const RegisterResumeComponent = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
-    // Simular la obtención de datos del localStorage
     const registerUserProfile = localStorage.getItem("registerUserProfile");
     const userInfo = registerUserProfile
       ? JSON.parse(registerUserProfile)
@@ -29,7 +28,6 @@ const RegisterResumeComponent = () => {
     const user = registerUser ? JSON.parse(registerUser) : null;
     setUserInfo(userInfo);
     setUser(user);
-    console.log(userInfo.isSubscribed);
   }, []);
   const handleSubmit = () => {
     if (user && userInfo) {

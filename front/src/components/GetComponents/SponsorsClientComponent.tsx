@@ -5,6 +5,7 @@ import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import { getSponsors } from "../../helpers/Sponsors/getSponsors";
 import { deleteSponsors } from "../../helpers/Sponsors/deleteSponsors";
 import NotFound from "../NotFound/NotFound";
+import Swal from 'sweetalert2'
 interface SponsorsItem {
   logo: string;
   name: string;
@@ -30,20 +31,39 @@ const SponsorsComponent = () => {
       setIsLoading(false);
     };
     fetchSponsors();
-  }, []);
+  }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este sponsor?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteSponsors(id);
+        await deleteSponsors(id);
 
     setTimeout(() => {
       setSponsors(sponsors.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El sponsor ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando sponsor con ID:", id);
   };
 
   return (
@@ -96,7 +116,7 @@ const SponsorsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>

@@ -9,7 +9,6 @@ export async function deleteSponsors(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar la sponsor');
           }
-          console.log('Sponsor eliminada con éxito');
 
         })
         .catch(error => {

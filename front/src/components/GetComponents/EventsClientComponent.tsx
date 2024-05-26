@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import iconNews from "../../assets/logoOG.png";
 import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import { getEvents } from "../../helpers/Events/getEvents";
 import { deleteEvents } from "../../helpers/Events/deleteEvents";
 import NotFound from "../NotFound/NotFound";
-import ButtonCTASmall from "../Buttons/ButtonCTASmall.astro";
 import ButtonCTASmallReact from "../Buttons/ButtonCTASmallReact";
-import VolunteersClientComponent from "./VolunteersClientComponent";
 import GetVolunteersWithEvents from "./GetVolunteersWithEvents";
+import Swal from 'sweetalert2'
 interface EventItem {
   primaryImage: string;
   title: string;
@@ -41,20 +39,39 @@ const EventsComponent = () => {
       setIsLoading(false);
     };
     fetchEvents();
-  }, []);
+  }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando evento con ID :", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este evento?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteEvents(id);
+        await deleteEvents(id);
 
     setTimeout(() => {
       setEvents(events.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El evento ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando evento con ID:", id);
   };
   const onClickAssignVolunteer = (title: string) => {
     setSelectedEventTitle(title);
@@ -145,7 +162,7 @@ const EventsComponent = () => {
             </p>
             <div className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
               <button
-                onClick={() => page <= totalPages && setPage(page + 1)}
+                onClick={() => page < totalPages && setPage(page + 1)}
                 className="w-full h-full font-medium text-xl"
               >
                 {">"}

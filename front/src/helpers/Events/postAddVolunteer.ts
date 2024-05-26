@@ -1,8 +1,5 @@
 export async function postAddVolunteer(id:any, newsResponse:any): Promise<any> {
-    console.log(id);
-    console.log(newsResponse);
-  try {
-   
+  try {  
     const formData = new FormData();
     formData.append("id", id);
     formData.append("title", newsResponse);
@@ -14,9 +11,7 @@ export async function postAddVolunteer(id:any, newsResponse:any): Promise<any> {
     },
     body: JSON.stringify(formData),
   });
-  
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.error("Error al crear la noticia", error);

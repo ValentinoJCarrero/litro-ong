@@ -9,7 +9,6 @@ export async function deleteWorkshops(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar el taller');
           }
-          console.log('Taller eliminado con éxito');
         })
         .catch(error => {
           console.error('Error al eliminar el taller:', error);
