@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import vectorIcon from "../../assets/vectorIcon.svg";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
+// import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
+// import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
-import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
-import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
+// import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
+// import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
+// import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
 import { getCommunityKitchens } from "../../helpers/CommunityKitchens/getCommunityKitchens";
 interface CommunityKitchensItem {
   name: string;
@@ -60,9 +60,9 @@ const ListCommunityKitchensComponent = (props: Color) => {
               photo,
               address,
               holder,
-              kidsNumber,
-              description,
-              time,
+              // kidsNumber,
+              // description,
+              // time,
               days,
               id,
             }) => (
