@@ -1,20 +1,18 @@
 import React from 'react';
 
-interface BannerIndividualEventProps {
+interface BannerIndividualCommunityKitchenProps {
   titulo: string;
-  fecha: string;
-  banner: string;
   direccion: string;
+  banner: string;
 }
 
-const BannerIndividualEvent: React.FC<BannerIndividualEventProps> = ({ titulo, fecha, banner, direccion }) => {
+const BannerIndividualCommunityKitchen: React.FC<BannerIndividualCommunityKitchenProps> = ({ titulo, direccion, banner }) => {
   return (
     <div className="relative my-3 flex justify-end">
       <div className="absolute inset-0 z-10" style={{ backgroundImage: `linear-gradient(to right, white 35%, transparent 100%)` }}></div>
       <div className="absolute inset-0 top-24 left-36 w-2/5 z-20">
         <div>
           <h1 className="text-5xl font-bold mb-3 leading-tight">{titulo}</h1>
-          <h2 className="text-textTertiary text-xl font-normal tracking-widest">{fecha}</h2>
           {direccion && <h2 className="text-textTertiary text-xl font-normal tracking-widest">{direccion}</h2>}
         </div>
       </div>
@@ -23,4 +21,4 @@ const BannerIndividualEvent: React.FC<BannerIndividualEventProps> = ({ titulo, f
   );
 };
 
-export default BannerIndividualEvent;
+export default BannerIndividualCommunityKitchen;
