@@ -29,15 +29,9 @@ const DynamicWorkshop: React.FC = () => {
 
   useEffect(() => {
     const fullUrl = window.location.href;
-    const regex = /DinamicWorkshop\/(.+)/;
-    const match = fullUrl.match(regex);
-
-    if (match && match[1]) {
-      const decodedUrl = decodeURIComponent(match[1]);
-      setUrl(decodedUrl);
-    } else {
-      setUrl("");
-    }
+    const urlParts = fullUrl.split('/');
+    const id = urlParts[urlParts.length - 1];
+    setUrl(id);
   }, []);
 
   useEffect(() => {
@@ -46,11 +40,13 @@ const DynamicWorkshop: React.FC = () => {
         try {
           const workshopData = await getWorkshopsByTitle(url);
           setWorkshop(workshopData);
-          setIsLoading(false);
         } catch (error: any) {
           setError(error.message);
+        } finally {
           setIsLoading(false);
         }
+      } else {
+        setIsLoading(false);
       }
     };
     fetchWorkshopByTitle();
@@ -82,25 +78,25 @@ const DynamicWorkshop: React.FC = () => {
           <div className="bg-secondary">
             <div className="mx-24 p-16 flex flex-col gap-5">
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.teacher}
+                Teacher: {workshop.teacher}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.teacherPhone}
+                Phone: {workshop.teacherPhone}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.timeStart}
+                Start Time: {workshop.timeStart}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.duration}
+                Duration: {workshop.duration} hours
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.dateStart} - {workshop.dateEnd}
+                Dates: {workshop.dateStart} - {workshop.dateEnd}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.cost}
+                Cost: ${workshop.cost}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                {workshop.days.join(", ")}
+                Days: {workshop.days.join(", ")}
               </h4>
               <p className="text-base font-normal text-textParagraph">
                 {workshop.description}

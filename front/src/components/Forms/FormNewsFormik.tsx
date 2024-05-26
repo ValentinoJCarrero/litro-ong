@@ -88,7 +88,8 @@ const FormNewsFormik = () => (
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       console.log(values);
       postNews(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -98,11 +99,21 @@ const FormNewsFormik = () => (
           });
           setTimeout(() => {
             window.location.href = '/dashboardAdmin/news'
-        }, 1500);
-          setSubmitting(false);
+          }, 1500);
+            setSubmitting(false);
+          }else {
+          throw new Error("Failed to add news");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar la noticia",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}

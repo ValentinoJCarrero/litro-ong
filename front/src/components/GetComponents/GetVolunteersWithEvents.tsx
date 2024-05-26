@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getVolunteer } from "../../helpers/Volunteers/getVolunteers";
-import { deleteVolunteer } from "../../helpers/Volunteers/deleteVolunteers";
 import ButtonCTASmallReact from "../Buttons/ButtonCTASmallReact";
 import { postAddVolunteer } from "../../helpers/Events/postAddVolunteer";
 interface User {
