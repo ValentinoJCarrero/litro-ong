@@ -41,55 +41,47 @@ const ListEventComponents = (props: Color) => {
   return (
     <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
       ) : message === "No se encontraron eventos en esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
-          {events.map(
-            ({
-              primaryImage,
-              title,
-              address,
-              date,
-              id
-            }) => (
-              <>
-                <li
-                  key={id}
-                  className="flex flex-row flex-nowrap justify-between items-center"
+          {events.map(({ primaryImage, title, address, date, id }) => (
+            <>
+              <li
+                key={id}
+                className="flex flex-row flex-nowrap justify-between items-center"
+              >
+                <a
+                  className="flex flex-row justify-between items-center text-sm w-full"
+                  id={`card${id}`}
+                  href={`/dashboardAdmin/${title}`}
                 >
-                  <a
-                    className="flex flex-row justify-between items-center text-sm w-full"
-                    id={`card${id}`}
-                    href={`/dashboardAdmin/${title}`}
-                  >
-                    <div className="flex">
-                      <img
-                        src={primaryImage}
-                        alt={title}
-                        className="w-20 h-20 rounded-full object-cover mr-4"
-                      />
-                      <div>
-                        <h6
-                          className={`text-${props.color} text-base font-semibold`}
-                        >
-                          {title}
-                        </h6>
-                        <p>{address}</p>
-                        <p>{date}</p>
-                      </div>
+                  <div className="flex">
+                    <img
+                      src={primaryImage}
+                      alt={title}
+                      className="w-20 h-20 rounded-full object-cover mr-4"
+                    />
+                    <div>
+                      <h6
+                        className={`text-${props.color} text-base font-semibold`}
+                      >
+                        {title}
+                      </h6>
+                      <p>{address}</p>
+                      <p>{date}</p>
                     </div>
+                  </div>
 
-                    <img src={vectorIcon.src} alt="icono de vector" />
-                  </a>
-                </li>
-                <hr />
-              </>
-            )
-          )}
+                  <img src={vectorIcon.src} alt="icono de vector" />
+                </a>
+              </li>
+              <hr />
+            </>
+          ))}
           <div className="flex items-center justify-center flex-row w-full  ">
             <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
               <button
