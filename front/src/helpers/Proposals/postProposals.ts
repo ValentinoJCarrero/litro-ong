@@ -1,15 +1,16 @@
-export async function postProposals(newsResponse: any): Promise<any> {
+export async function postProposals(id:any, newsResponse: any): Promise<any> {
   try {
+    console.log(id);
     console.log(newsResponse);
-
-    const formData = new FormData();
-    formData.append('title', newsResponse.title);
-    formData.append('description', newsResponse.description);
-
-console.log(formData);
-    const response = await fetch(`https://litro-ong.onrender.com/proposals`, {
+    const url= new URL(`https://litro-ong.onrender.com/proposals`);
+    url.searchParams.append('userId', id.toString());
+         
+    const response = await fetch(url.toString(), {
       method: 'POST',
-      body: formData 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newsResponse)
     });
 
     const data = await response.json();
