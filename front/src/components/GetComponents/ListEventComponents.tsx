@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import iconNews from "../../assets/logoOG.png";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
+// import iconNews from "../../assets/logoOG.png";
+// import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
+// import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import { getEvents } from "../../helpers/Events/getEvents";
-import { deleteEvents } from "../../helpers/Events/deleteEvents";
+// import { deleteEvents } from '../../helpers/Events/deleteEvents';
 import NotFound from "../NotFound/NotFound";
-import ButtonCTASmall from "../Buttons/ButtonCTASmall.astro";
-import ButtonCTASmallReact from "../Buttons/ButtonCTASmallReact";
-import VolunteersClientComponent from "./VolunteersClientComponent";
+// import ButtonCTASmall from '../Buttons/ButtonCTASmall.astro';
+// import ButtonCTASmallReact from '../Buttons/ButtonCTASmallReact';
+// import VolunteersClientComponent from './VolunteersClientComponent';
 import GetVolunteersWithEvents from "./GetVolunteersWithEvents";
 interface EventItem {
   primaryImage: string;
@@ -22,14 +22,18 @@ interface EventItem {
   timeEnd: string;
 }
 
-const EventsComponent = () => {
+interface Color {
+  color: string;
+}
+
+const ListEventComponents = (props: Color) => {
   const [page, setPage] = useState(1);
   const [message, setMessage] = useState("");
   const [totalPages, setTotalPages] = useState(3);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  // const [isDeleting, setIsDeleting] = useState(false);
+  // const [deletingId, setDeletingId] = useState<number | null>(null);
   const [volunteers, setVolunteers] = useState(false);
   const [selectedEventTitle, setSelectedEventTitle] = useState<string>("");
   useEffect(() => {
@@ -43,23 +47,7 @@ const EventsComponent = () => {
     fetchEvents();
   }, []);
 
-  const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando evento con ID :", id);
-    setDeletingId(id);
-    setIsDeleting(true);
-
-    await deleteEvents(id);
-
-    setTimeout(() => {
-      setEvents(events.filter((item) => item.id !== id));
-      setIsDeleting(false);
-      setDeletingId(null);
-    }, 1000);
-  };
-  const onClickAssignVolunteer = (title: string) => {
-    setSelectedEventTitle(title);
-    setVolunteers(true);
-  };
+  
   return (
     <div className="flex items-center justify-center h-full">
       {isLoading ? (
@@ -67,7 +55,7 @@ const EventsComponent = () => {
       ) : message === "No se encontraron eventos en esta pagina" ? (
         <NotFound />
       ) : (
-        <ul className=" w-full">
+        <ul className=" w-full h-full flex flex-col justify-between bg-red-500">
           {events.map(
             ({
               primaryImage,
@@ -81,10 +69,10 @@ const EventsComponent = () => {
             }) => (
               <li
                 key={id}
-                className="flex flex-row flex-nowrap justify-between pr-10 items-center"
+                className="flex flex-row flex-nowrap justify-between pr-10 items-center bg-green-200"
               >
                 <a
-                  className="flex flex-row justify-between p-10 items-center text-sm w-full"
+                  className="flex flex-row justify-between items-center text-sm w-full"
                   id={`card${id}`}
                   href={`/dashboardAdmin/${title}`}
                 >
@@ -95,14 +83,16 @@ const EventsComponent = () => {
                       className="w-20 h-20 rounded-full object-cover mr-4"
                     />
                     <div>
-                      <h6 className="text-tertiary text-base font-semibold">
+                      <h6
+                        className={`text-${props.color} text-base font-semibold`}
+                      >
                         {title}
                       </h6>
                       <p>{address}</p>
                       <p>{date}</p>
                       <div className="flex">
-                        <p>{timeStart}</p>
-                        <p className="ml-2">{timeEnd}</p>
+                        {/* <p>{timeStart}</p> */}
+                        {/* <p className="ml-2">{timeEnd}</p> */}
                       </div>
                     </div>
                   </div>
@@ -110,29 +100,11 @@ const EventsComponent = () => {
                     <p>{location}</p>
                   </div>
                 </a>
-                <div className="mx-8">
-                  <ButtonCTASmallReact
-                    title="Asignar Voluntario"
-                    idEvent={`assign-${id}`}
-                    onClick={() => onClickAssignVolunteer(title)}
-                  />
-                </div>
-                <div className="w-40 flex justify-center">
-                  {isDeleting && deletingId === id ? (
-                    <SpinnersDelete />
-                  ) : (
-                    <ButtonWarningSmall
-                      title="Eliminar"
-                      idEvent={`delete-${id}`}
-                      onClick={() => onClic(id)}
-                    />
-                  )}
-                </div>
               </li>
             )
           )}
-          <div className="flex items-center justify-center flex-row w-full mt-8">
-            <div className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+          <div className="flex items-center justify-center flex-row w-full  bg-blue-200">
+            <div className="rounded-lg w-10 h-10  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
               <button
                 onClick={() => page > 1 && setPage(page - 1)}
                 className="w-full h-full font-medium text-xl"
@@ -143,7 +115,7 @@ const EventsComponent = () => {
             <p className=" font-base text-lg mx-4">
               {page}/{totalPages}
             </p>
-            <div className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+            <div className="rounded-lg w-10 h-10  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
               <button
                 onClick={() => page <= totalPages && setPage(page + 1)}
                 className="w-full h-full font-medium text-xl"
@@ -154,7 +126,7 @@ const EventsComponent = () => {
           </div>
         </ul>
       )}
-      <div
+      {/* <div
         className={
           volunteers === true
             ? "absolute z-20 bg-textPrimary shadow-3xl rounded-2xl p-10"
@@ -168,9 +140,9 @@ const EventsComponent = () => {
         >
           X
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default EventsComponent;
+export default ListEventComponents;

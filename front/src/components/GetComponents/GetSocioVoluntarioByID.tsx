@@ -1,22 +1,16 @@
 import Cookies from "js-cookie";
-// import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import EnConstruccion from "../EnConstruccion/EnConstruccion";
 import { getVolunteersByID } from "../../helpers/SocioVoluntario/getUserSocioVoluntarioByID";
 import { useEffect, useState } from "react";
 import avatarUser from "../../assets/avatarUser.jpg";
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 
 interface infoUser {
   fullName: string;
   phone: string;
   email: string;
   fullAddress: string;
-  role: any;
-  // birthDate: string;
-  // dni: string;
-  // donation: Array<string>;
-  // partnerData: any;
-  // volunteerData: any;
+  role: Array<{ role: string }>;
 }
 function GetVolunteerByID() {
   let idDecodificado: string;
@@ -55,7 +49,7 @@ function GetVolunteerByID() {
     }
   }, [idDecodificado]);
 
-  console.log(infoUser?.role[0].role)
+  // console.log(infoUser?.role[0].role)
 
   return (
     <div className="h-full flex flex-col justify-between items-stretch ">
@@ -104,9 +98,8 @@ function GetVolunteerByID() {
           </div>
         </div>
       ) : (
-        <div>
-          <h1>Información del socio voluntario</h1>
-          <p>No hay información</p>
+        <div className="h-full w-full justify-center items-center  flex">
+          <SpinnersPrimary />
         </div>
       )}
     </div>
