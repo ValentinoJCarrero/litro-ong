@@ -71,8 +71,11 @@ const ListEventComponents = (props: Color) => {
                       >
                         {title}
                       </h6>
-                      <p>{address}</p>
-                      <p>{date}</p>
+                      <div className=" text-sm text-textParagraph">
+
+                      <p className=" ">{address}</p>
+                      <p className="text-xs">{date}</p>
+                      </div>
                     </div>
                   </div>
 

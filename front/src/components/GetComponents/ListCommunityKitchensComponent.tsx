@@ -40,7 +40,7 @@ const ListCommunityKitchensComponent = (props: Color) => {
   return (
     <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
       ) : message === "No se encontraron merenderos en esta pagina" ? (
@@ -70,8 +70,11 @@ const ListCommunityKitchensComponent = (props: Color) => {
                       >
                         {name}
                       </h6>
-                      <p>{holder}</p>
-                      <p>{address}</p>
+                      <div className="text-sm  text-textParagraph">
+
+                      <p className=" ">{holder}</p>
+                      <p className="text-xs">{address}</p>
+                      </div>
                     </div>
                   </div>
                   <div className=" flex flex-row gap-2">

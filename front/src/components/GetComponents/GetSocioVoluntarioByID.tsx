@@ -30,7 +30,6 @@ function GetVolunteerByID() {
   try {
     const decodedToken: any = jwtDecode(tokenFromCookies);
     idDecodificado = decodedToken.userPayload.sub;
-    // console.log("ID decodificado", idDecodificado);
   } catch (error) {
     console.error("Error al decodificar token", error);
     return;
@@ -49,7 +48,6 @@ function GetVolunteerByID() {
     }
   }, [idDecodificado]);
 
-  // console.log(infoUser?.role[0].role)
 
   return (
     <div className="h-full flex flex-col justify-between items-stretch ">
