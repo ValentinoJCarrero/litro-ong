@@ -84,9 +84,9 @@ const VolunteersClientComponent = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between  h-full py-4 ">
+    <div className="flex flex-col items-center justify-between h-full py-4 ">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full w-full ">
           <SpinnersPrimary />
         </div>
       ) : message === "No hay voluntarios en esta pagina" ? (
@@ -100,17 +100,17 @@ const VolunteersClientComponent = () => {
               availableDays,
               endHours,
               startHours,
-              volunteerSince,
+              // volunteerSince,
             }) => (
               <React.Fragment key={id}>
                 <li className="flex flex-row flex-nowrap w-full justify-between items-center">
-                  <div className="p-2 ">
-                    <h6 className="text-tertiary text-base font-semibold">
+                  <div className=" w-1/4 ">
+                    <h6 className="text-tertiary  font-semibold">
                       {user.fullName}
                     </h6>
-                    <p>{user.email}</p>
+                    <p className="text-xs">{user.email}</p>
                   </div>
-                  <div className="text-center flex flex-col w-full h-full justify-center items-center">
+                  <div className="text-center flex flex-col h-full justify-center items-center text-xs w-96  ">
                     <p>{availableDays.join(", ")}</p>
                     <p>
                       {startHours} - {endHours}

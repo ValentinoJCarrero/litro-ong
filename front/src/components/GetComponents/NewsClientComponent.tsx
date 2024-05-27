@@ -83,7 +83,7 @@ const NewsComponent = () => {
         
           <ul className=" w-full flex flex-col  ">
             {news.map(
-              ({ primaryImage, title, subtitle, date, location, id }) => (
+              ({ primaryImage, title, subtitle, date, id }) => (
                 <div className="">
                   <li
                     key={id}
