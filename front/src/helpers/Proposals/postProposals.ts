@@ -1,7 +1,5 @@
 export async function postProposals(id:any, newsResponse: any): Promise<any> {
   try {
-    console.log(id);
-    console.log(newsResponse);
     const url= new URL(`https://litro-ong.onrender.com/proposals`);
     url.searchParams.append('userId', id.toString());
          
@@ -12,9 +10,12 @@ export async function postProposals(id:any, newsResponse: any): Promise<any> {
       },
       body: JSON.stringify(newsResponse)
     });
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData;
+    }  
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al crear la propuesta", error);

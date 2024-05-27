@@ -44,7 +44,9 @@ const ListCommunityKitchensComponent = (props: Color) => {
           <SpinnersPrimary />
         </div>
       ) : message === "No se encontraron merenderos en esta pagina" ? (
-        <NotFound />
+        <div className="flex items-center justify-center h-full">
+          <NotFound />
+        </div>
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
           {kitchen.map(({ name, photo, address, holder, days, id }) => (
@@ -88,8 +90,7 @@ const ListCommunityKitchensComponent = (props: Color) => {
               <hr />
             </>
           ))}
-        </ul>
-      )}
+        
       <div className="flex items-center justify-center flex-row w-full  ">
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
@@ -104,13 +105,15 @@ const ListCommunityKitchensComponent = (props: Color) => {
         </p>
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
-            onClick={() => page <= totalPages && setPage(page + 1)}
+            onClick={() => page < totalPages && setPage(page + 1)}
             className="w-full h-full font-medium text-xl"
           >
             {">"}
           </button>
         </div>
       </div>
+      </ul>
+      )}
     </div>
   );
 };

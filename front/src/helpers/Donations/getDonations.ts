@@ -1,5 +1,4 @@
 export async function getDonations(limit: number, page: number): Promise<any> {
-
   try {
     const validLimit = limit;
     const validPage = page;

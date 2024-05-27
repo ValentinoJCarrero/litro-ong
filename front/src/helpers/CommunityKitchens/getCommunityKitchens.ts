@@ -1,5 +1,4 @@
 export async function getCommunityKitchens(limit: number, page: number): Promise<any> {
-
   try {
     const validLimit = limit;
     const validPage = page;

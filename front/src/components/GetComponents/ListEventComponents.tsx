@@ -3,6 +3,9 @@ import NotFound from "../NotFound/NotFound";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import { getEvents } from "../../helpers/Events/getEvents";
 import vectorIcon from "../../assets/vectorIcon.svg";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { getVolunteersByID } from "../../helpers/SocioVoluntario/getUserSocioVoluntarioByID";
 
 interface EventItem {
   primaryImage: string;
@@ -21,22 +24,40 @@ interface Color {
 }
 
 const ListEventComponents = (props: Color) => {
-  const [page, setPage] = useState(1);
+  let idDecodificado: string;
+  const tokenFromCookies: string | undefined = Cookies.get("token");
+
   const [message, setMessage] = useState("");
-  const [totalPages, setTotalPages] = useState(3);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [idUser, setIdUser] = useState("");
+
   useEffect(() => {
-    const fetchEvents = async () => {
-      const newsData = await getEvents(3, page);
-      setEvents(newsData.data);
-      setMessage(newsData.message);
-      setTotalPages(Math.ceil(newsData.total / 3));
+    if (tokenFromCookies) {
+      const decodedToken: any = jwtDecode(tokenFromCookies);
+      const idDecodificado = decodedToken.userPayload.sub;
+      setIdUser(idDecodificado);
+    } else {
       setIsLoading(false);
-    };
-    fetchEvents();
-  }, []);
-  console.log(events);
+      setMessage("Token no disponible");
+    }
+  }, [tokenFromCookies]);
+
+  
+  useEffect(() => {
+    if (idUser) {
+      getVolunteersByID(idUser)
+        .then((data) => {
+          console.log(data.volunteerData.events);
+          setEvents(data.volunteerData.events);
+          setIsLoading(false);
+          setMessage(data.volunteerData);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [idUser]);
 
   return (
     <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
@@ -48,6 +69,7 @@ const ListEventComponents = (props: Color) => {
         <NotFound />
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
+          <h6 className="text-xl font-medium w-full text-center">A estos eventos te invitaron a participar!</h6>
           {events.map(({ primaryImage, title, address, date, id }) => (
             <>
               <li
@@ -85,27 +107,6 @@ const ListEventComponents = (props: Color) => {
               <hr />
             </>
           ))}
-          <div className="flex items-center justify-center flex-row w-full  ">
-            <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-              <button
-                onClick={() => page > 1 && setPage(page - 1)}
-                className="w-full h-full font-medium text-xl"
-              >
-                {"<"}
-              </button>
-            </div>
-            <p className=" font-base text-lg mx-4">
-              {page}/{totalPages}
-            </p>
-            <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-              <button
-                onClick={() => page <= totalPages && setPage(page + 1)}
-                className="w-full h-full font-medium text-xl"
-              >
-                {">"}
-              </button>
-            </div>
-          </div>
         </ul>
       )}
     </div>

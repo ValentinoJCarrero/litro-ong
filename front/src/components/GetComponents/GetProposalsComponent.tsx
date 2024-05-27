@@ -13,42 +13,34 @@ interface ProposalsItem {
 
 const GetProposalsComponent = () => {
   let idDecodificado: string;
-  const tokenFromCookies = Cookies.get("token");
+  const tokenFromCookies: string | undefined = Cookies.get("token");
 
   const [proposals, setProposals] = useState<ProposalsItem[]>([]);
-  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  if (!tokenFromCookies) {
-    console.error("No hay token en cookies");
-    return (
-      <div>
-        <p className="bg-red-500">No hay token</p>
-      </div>
-    );
-  }
-
-  try {
-    const decodedToken: any = jwtDecode(tokenFromCookies);
-    idDecodificado = decodedToken.userPayload.sub;
-  } catch (error) {
-    console.error("Error al decodificar token", error);
-    return;
-  }
+  const [idUser, setIdUser] = useState("");
 
   useEffect(() => {
-    if (idDecodificado) {
-      getVolunteersByID(idDecodificado)
+    if (tokenFromCookies) {
+      const decodedToken: any = jwtDecode(tokenFromCookies);
+      const idDecodificado = decodedToken.userPayload.sub;
+      setIdUser(idDecodificado);
+    } else {
+      setIsLoading(false);
+    }
+  }, [tokenFromCookies]);
+
+  useEffect(() => {
+    if (idUser) {
+      getVolunteersByID(idUser)
         .then((data) => {
-          console.log(data.proposals);
           setProposals(data.proposals);
-          setMessage(data.message);
           setIsLoading(false);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [idDecodificado]);
+  }, [idUser]);
 
   return (
     <div className="flex items-center justify-center h-full flex-col">
@@ -56,7 +48,7 @@ const GetProposalsComponent = () => {
         <div className="flex items-center justify-center">
           <SpinnersPrimary />
         </div>
-      ) : message === "No se encontro al usuario por el id ingresado" ? (
+      ) : proposals?.length === 0 ? (
         <NotFound />
       ) : (
         <ul className=" w-full flex flex-col gap-4">

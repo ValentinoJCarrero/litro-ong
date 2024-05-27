@@ -17,8 +17,6 @@ export async function getProposals(limit: number, page: number, status: string):
     });
 
     const data = await response.json();
-
-    console.log("esto es data", data);
     return data;
   } catch (error) {
     console.error("Error al traer las propuestas", error);
