@@ -39,7 +39,7 @@ export class Event {
   @Column({ type: 'varchar', nullable: false })
   primaryImage: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   secondaryImage: string;
 
   @ManyToMany(() => Volunteer, (volunteer) => volunteer.events, {

@@ -4,9 +4,9 @@ export class ProposalsDto {
   /**
    * @example 'Colecta en Cordoba Capital'
    */
-  @IsNotEmpty({ message: 'El nombre es requerido' })
-  @IsString({ message: 'El nombre debe ser una cadena de caracteres' })
-  @MaxLength(70, { message: 'El nombre debe tener menos de 70 caracteres' })
+  @IsNotEmpty({ message: 'El titulo es requerido' })
+  @IsString({ message: 'El titulo debe ser una cadena de caracteres' })
+  @MaxLength(70, { message: 'El titulo debe tener menos de 70 caracteres' })
   title: string;
 
   /**

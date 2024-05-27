@@ -44,14 +44,17 @@ export class AppService {
       timeEnd: '11:00',
       description:
         'Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar.',
-      primaryImage: 'https://imgur.com/JGZlS8b',
-      secondaryImage: 'https://imgur.com/JGZlS8b',
+      primaryImage:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716702280/preload%20litro/ni%C3%B1oFeliz_e4usfj.jpg ',
+      secondaryImage:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716702273/preload%20litro/serVoluntariaPage_pruyjm.jpg ',
     });
 
     await this.newsRepository.save({
       title: 'Noticia - 1 Litro de Leche',
       subtitle: 'Recaudar fondos y leche.',
-      primaryImage: 'https://imgur.com/JGZlS8b',
+      primaryImage:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716702245/preload%20litro/noticia_ycmctu.jpg ',
       description:
         'Esta es una noticia para precargar. Esta es una noticia para precargar. Esta es una noticia para precargar.',
       date: '2022-02-17',
@@ -64,27 +67,27 @@ export class AppService {
     await this.sponsorRepository.save({
       name: 'Evi Desarrollos',
       email: 'evi@evi.com',
-      logo: 'https://imgur.com/mjxdHSb',
+      logo: 'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716701938/preload%20litro/evi_twk6uk.png ',
     });
     await this.sponsorRepository.save({
       name: 'COSAG',
       email: 'cosag@cosag.com',
-      logo: 'https://imgur.com/f1pZvo5',
+      logo: 'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716701938/preload%20litro/COSAG_cvlfgc.png ',
     });
     await this.sponsorRepository.save({
       name: 'Supermercados Becerra',
       email: 'becerra@becerra.com',
-      logo: 'https://imgur.com/I98eGGV',
+      logo: 'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716701926/preload%20litro/becerra_zzkhoh.png ',
     });
     await this.sponsorRepository.save({
       name: 'Jalisco Heladería',
       email: 'jalisco@jalisco.com',
-      logo: 'https://imgur.com/SmOJSAs',
+      logo: 'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716701937/preload%20litro/JALISCO_jbmx3x.png ',
     });
     await this.sponsorRepository.save({
       name: 'Alsina Farmacia',
       email: 'alsina@alsina.com',
-      logo: 'https://imgur.com/x8RBvh3',
+      logo: 'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716701938/preload%20litro/farmacia_rdvpq1.png ',
     });
 
     return 'Precarga completada.';

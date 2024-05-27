@@ -14,10 +14,19 @@ export class Card {
   id: string = uuid();
 
   @Column({ type: 'varchar', nullable: false })
+  holder: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  dni: string;
+
+  @Column({ type: 'varchar', nullable: false })
   expiration: string;
 
   @Column({ type: 'varchar', nullable: false })
-  PaymentMethod: string;
+  paymentMethod: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  paymentStatus: string;
 
   @OneToOne(() => Partner, (partner) => partner.cardData, {
     onDelete: 'CASCADE',

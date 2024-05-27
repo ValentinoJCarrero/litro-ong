@@ -25,6 +25,8 @@ import { Role } from './entities/Role.entity';
 import { Sponsor } from './entities/Sponsor';
 import { CommunityKitchensModule } from './modules/communityKitchens/communityKitchens.module';
 import { ProposalsModule } from './modules/proposals/proposals.module';
+import { PartnerModule } from './modules/partner/partner.module';
+import { CardModule } from './modules/card/card.module';
 
 @Module({
   imports: [
@@ -58,6 +60,8 @@ import { ProposalsModule } from './modules/proposals/proposals.module';
     WorkshopModule,
     CommunityKitchensModule,
     ProposalsModule,
+    PartnerModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
