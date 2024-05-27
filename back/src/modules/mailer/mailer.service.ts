@@ -47,8 +47,8 @@ export class MailerService {
   async sendNewsletterMail(title, subtitle, description, primaryImage?): Promise<void> {
     try {
          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.)
-         const mailList = users.data.map(user => user.isSubscribed===true && user.email);
-         
+         const mailList = users.data.filter(user => user.isSubscribed===true && user.email);
+         console.log(mailList);
         const msg = {
           to: mailList,
           from:  'nicolasaddamo1@gmail.com',
