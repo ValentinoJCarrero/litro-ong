@@ -67,28 +67,29 @@ const SponsorsComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-between p-4 h-full ">
       {isLoading ? (
         <SpinnersPrimary />
       ) : message ==="No se encontraron patrocinadores" ? (
         <NotFound />
       ) : (
-        <ul className=" w-full flex flex-col gap-4">
+        <ul className=" w-full flex flex-col gap-2  ">
           {sponsors.map(({ logo, name, email, id }) => (
-            <li
-              key={id}
-              className="flex flex-row flex-nowrap justify-between px-10 items-center"
+           <div>
+           <li
+            key={id}
+            className="flex flex-row flex-nowrap justify-between px-10 items-center"
             >
               <div
                 className="flex flex-row justify-between  items-center text-sm w-full"
                 id={`card${id}`}
-              >
+                >
                 <div className="flex">
                   <img
                     src={logo}
                     alt={name}
                     className="w-20 h-20 rounded-full object-cover mr-4"
-                  />
+                    />
                   <div className="flex flex-col justify-center">
                     <h6 className="text-tertiary text-base font-semibold">
                       {name}
@@ -102,14 +103,18 @@ const SponsorsComponent = () => {
                   <SpinnersDelete />
                 ) : (
                   <ButtonWarningSmall
-                    title="Eliminar"
-                    idEvent={`delete-${id}`}
-                    onClick={() => onClic(id)}
+                  title="Eliminar"
+                  idEvent={`delete-${id}`}
+                  onClick={() => onClic(id)}
                   />
                 )}
               </div>
             </li>
+          <hr/>
+          </div>
           ))}
+        </ul>
+      )}
           <div className="flex items-center justify-center flex-row w-full">
               <div  className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
                 <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
@@ -119,8 +124,6 @@ const SponsorsComponent = () => {
                 <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
-        </ul>
-      )}
     </div>
   );
 };
