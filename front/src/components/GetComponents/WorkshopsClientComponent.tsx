@@ -6,6 +6,7 @@ import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
 import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
+import Swal from 'sweetalert2'
 interface WorkshopItem {
   name: string;
   teacher: string;
@@ -41,17 +42,35 @@ const WorkshopsComponent = () => {
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este taller?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteWorkshops(id);
+        await deleteWorkshops(id);
 
     setTimeout(() => {
       setWorkshop(workshop.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El taller ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando taller con ID:", id);
   };
 
   return (
@@ -60,7 +79,7 @@ const WorkshopsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron en talleres esta pagina" ? (
+      ) : message ==="No se encontraron talleres esta pagina" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
@@ -116,7 +135,7 @@ const WorkshopsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
               </div>
         </ul>

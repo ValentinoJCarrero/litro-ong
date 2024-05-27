@@ -1,7 +1,6 @@
 export async function postEvents(newsResponse:any): Promise<any> {
   try {
-    console.log(newsResponse);
-    // Crear un objeto FormData
+
     const formData = new FormData();
     formData.append('title', newsResponse.title);
     formData.append('subtitle', newsResponse.subtitle);
@@ -14,17 +13,21 @@ export async function postEvents(newsResponse:any): Promise<any> {
     if (newsResponse.primaryImage) formData.append('files', newsResponse.primaryImage);
     if (newsResponse.secondaryImage) formData.append('files', newsResponse.secondaryImage);
 
-console.log(formData);
-    const response = await fetch(`https://litro-ong.onrender.com/event`, {
+    const response = await fetch(`https://litro-ong.onrender.com/event/create`, {
       method: 'POST',
       body: formData
     });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData;
+    }
 
     const data = await response.json();
     console.log(data);
     return data;
   } catch (error) {
-    console.error("Error al crear la noticia", error);
+    console.error("Error al crear el evento", error);
     throw error; 
   }
 } 

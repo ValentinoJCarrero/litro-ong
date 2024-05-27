@@ -8,6 +8,7 @@ interface UserInfo {
   birthDate: string;
   phone: string;
   fullAddress: string;
+  isSubscribed: boolean;
 }
 interface User {
   email: string;
@@ -19,7 +20,6 @@ const RegisterResumeComponent = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
-    // Simular la obtención de datos del localStorage
     const registerUserProfile = localStorage.getItem("registerUserProfile");
     const userInfo = registerUserProfile
       ? JSON.parse(registerUserProfile)
@@ -39,6 +39,7 @@ const RegisterResumeComponent = () => {
         birthDate: userInfo.birthDate,
         phone: userInfo.phone,
         fullAddress: userInfo.fullAddress,
+        isSubscribed: userInfo.isSubscribed,
       };
 
       postRegister(data)
@@ -126,7 +127,14 @@ const RegisterResumeComponent = () => {
                 {userInfo.fullAddress}
               </p>
             </div>
+            
           </div>
+          <div className="w-1/2">
+              <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
+              <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
+                {userInfo.isSubscribed.toString()}
+              </p>
+            </div>
         </div>
       )}
       <div className=" w-full flex justify-end absolute bottom-14 right-20">

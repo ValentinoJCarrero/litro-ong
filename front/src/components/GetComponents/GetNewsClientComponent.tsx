@@ -3,6 +3,10 @@ import { getNews } from "../../helpers/getNews";
 import rectangle from "../../assets/rectangleCard.svg";
 import calendarIcon from "../../assets/calendarIcon.svg";
 import cursorIcon from "../../assets/cursorIcon.svg";
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+
 interface MainNews {
   id: string;
   title: string;
@@ -17,14 +21,38 @@ interface MainNews {
 
 const GetNewsClientComponent: React.FC = () => {
   const [news, setNews] = useState<MainNews[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await getNews(2, 1);
-      setNews(newsData.data);
+      try {
+        const newsData = await getNews(2, 1);
+        setNews(newsData.data);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchNews();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <SpinnersPrimary />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-12 items-center justify-center mb-20   ">
@@ -39,7 +67,7 @@ const GetNewsClientComponent: React.FC = () => {
               key={id}
               className="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10"
             >
-              <a className="" href={`/news/DinamicNew/${title}`}>
+              <a className="" href={`/news/DinamicNew/${id}`}>
                 <img
                   src={primaryImage}
                   alt="imagen"

@@ -10,7 +10,6 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { VolunteerService } from './volunteer.service';
@@ -21,9 +20,6 @@ import { Volunteer } from 'src/entities/Volunteer.entity';
 import { User } from 'src/entities/User.entity';
 import { UpdateResult } from 'typeorm';
 import { EventDto } from 'src/dtos/Event.dto';
-import { Roles } from 'src/decorators/roles.decorator';
-import { AuthGuard } from 'src/guards/Auth.guard';
-import { RolesGuard } from 'src/guards/Roles.guard';
 
 @ApiTags('Voluntarios')
 @Controller('volunteer')
@@ -102,8 +98,8 @@ export class VolunteerController {
     description:
       'Esta ruta elimina los datos de un voluntario por su id enviado por parametro y el rol de voluntario, sin afectar al usuario al que pertenece. devolvera el usuario actualizado',
   })
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles('Volunteer')
+  //@UseGuards(AuthGuard, RolesGuard)
+  //@Roles('Volunteer')
   @UseInterceptors(RemoveDataSensitive)
   deleteVolunteer(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.volunteerService.deleteVolunteer(id);

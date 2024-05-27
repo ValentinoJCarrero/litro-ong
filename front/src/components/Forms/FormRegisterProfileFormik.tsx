@@ -12,7 +12,7 @@ interface IFormValues {
   address: string;
   country: string;
   province: string;
-  //city:string;
+  isSubscribed:boolean;
 }
 
 const initialValues = {
@@ -24,7 +24,8 @@ const initialValues = {
   address: "",
   country: "",
   province: "",
-  //city: "",
+  isSubscribed: false,
+  checked: [],
 };
 
 const validate = (values: IFormValues) => {
@@ -80,9 +81,6 @@ const validate = (values: IFormValues) => {
     errors.province = "La provincia es requerida";
   }
 
-  /*if (values.province === "Cordoba" && !values.city) {
-    errors.city = "La ciudad es requerida";
-  } */
   return errors;
 };
 
@@ -107,7 +105,7 @@ const FormRegisterProfileFormik = () => {
         window.location.href = "/auth/register/resume";
       }}
     >
-      {({ errors, touched, setFieldValue }) => (
+      {({ errors, touched, setFieldValue, values}) => (
         <Form className="text-sm text-textParagraph flex flex-col justify-center h-5/6">
           <div className="flex flex-row justify-between w-full ">
             <div className="flex flex-col w-full pr-4">
@@ -450,30 +448,23 @@ const FormRegisterProfileFormik = () => {
                 className="text-warning"
               />
             </div>
-            {/*<div className="flex flex-col w-full pl-4">
-            <label htmlFor="title" className="font-medium my-2 ">Ciudad</label>
+            <div className="flex flex-col w-full pl-4">
+            <label htmlFor="isSubscribed" className="font-medium my-2 ">Registrarse al newslatter
             <div className="flex w-full">
             <Field
-            as="select"
-            name="city"
-            placeholder="Selecciona país"
-            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-              errors.city && touched.city ? 'border-warningBorder text-warningText font-medium' : ''
+            type="checkbox"
+            name="isSubscribed"
+            className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+              errors.isSubscribed && touched.isSubscribed ? 'border-warningBorder text-warningText font-medium' : ''
             }`}
-            disabled={province !== "Cordoba"}
-          >
-            <option value="">Selecciona país</option>
-            <option value="NY">New York</option>
-            <option value="SF">San Francisco</option>
-            <option value="CH">Chicago</option>
-            <option value="OTHER">Otro</option>
-          </Field>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.city && touched.city ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.city && touched.city ? 'block' : 'hidden'}`}/>
+          />
+            <div className="ml-10 mt-4">
+              {`${values.isSubscribed}`}
             </div>
             </div>
-            <ErrorMessage name="city" component="span" className="text-warning" />
-        </div>*/}
+            </label>
+            <ErrorMessage name="isSubscribed" component="span" className="text-warning" />
+        </div>
           </div>
 
           <div className="  absolute bottom-14 right-20 w-full flex justify-end ">

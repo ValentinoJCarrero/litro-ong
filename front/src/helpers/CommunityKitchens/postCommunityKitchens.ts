@@ -1,11 +1,10 @@
 export async function postCommunityKitchens(newsResponse: any): Promise<any> {
   try {
-    console.log(newsResponse);
-
     const formData = new FormData();
     formData.append('name', newsResponse.name);
+    formData.append('holder', newsResponse.holder);
     formData.append('address', newsResponse.address);
-    formData.append('kidsNumber', newsResponse.kidsNumber);
+    formData.append('kidsNumber', newsResponse.kidsNumber.toString());
     formData.append('description', newsResponse.description);
     formData.append('time', newsResponse.time);
     newsResponse.days.forEach((day: string) => formData.append('days', day));
@@ -17,9 +16,11 @@ console.log(formData);
       method: 'POST',
       body: formData 
     });
-
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData;
+    } 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al crear la merenderos", error);

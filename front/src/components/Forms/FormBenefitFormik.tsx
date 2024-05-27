@@ -38,6 +38,10 @@ const validate = (values: IFormValues) => {
 
   if (!values.benefits) {
     errors.benefits = "Los beneficios son requeridos";
+  }else if (values.benefits.length < 10) {
+    errors.benefits = "El nombre de la empresa debe tener minimo 10 caracteres";
+  } else if (values.benefits.length > 50) {
+    errors.name = "El nombre de la empresa debe tener maximo 50 caracteres";
   }
 
   if (!values.benefitEndDate) {
@@ -57,10 +61,10 @@ const validate = (values: IFormValues) => {
 
   if (!trimmedDescription) {
     errors.description = "La descripción es requerida";
-  } else if (trimmedDescription.length < 100) {
-    errors.description = "La descripción debe tener mínimo 100 caracteres";
-  } else if (trimmedDescription.length > 1500) {
-    errors.description = "La descripción debe tener máximo 1500 caracteres";
+  } else if (trimmedDescription.length < 10) {
+    errors.description = "La descripción debe tener mínimo 10 caracteres";
+  } else if (trimmedDescription.length > 60) {
+    errors.description = "La descripción debe tener máximo 60 caracteres";
   }
   return errors;
 };
@@ -71,7 +75,8 @@ const FormBenefitsFormik = () => (
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       postBenefits(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -79,12 +84,23 @@ const FormBenefitsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          //window.location.href = '/dashboardAdmin/benefits'
+          setTimeout(() => {
+            window.location.href = '/dashboardAdmin/benefits';
+          }, 1500);
           setSubmitting(false);
-          console.log(values);
+          }else {
+          throw new Error("Failed to add benefit");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar el beneficio",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}
@@ -296,7 +312,7 @@ const FormBenefitsFormik = () => (
         </div>
         <div className=" w-1/3 flex flex-row justify-end items-end  py-4 ">
           <a
-            href="/dashboardAdmin/sponsors"
+            href="/dashboardAdmin/benefits"
             className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
           >
             Volver

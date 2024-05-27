@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -21,8 +20,7 @@ export class BenefitDto {
   /**
    * @example 'https://www.granjita/logo.com'
    */
-  @IsNotEmpty()
-  @IsUrl()
+
   logo: string;
 
   /**

@@ -44,7 +44,7 @@ const images = [
     imageSrc: CheckStart.src,
   },
   {
-    href: "/auth/register/resume/personalInformationGoogle",
+    href: "/auth/register/resume",
     hrefActive: "/auth/register/resumeGoogle",
     imageSrc: CheckComplete.src,
   },
@@ -57,7 +57,7 @@ const images = [
 ---
 
 <div
-  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col"
+  class="bg-textPrimary rounded-2xl shadow-3xl h-full flex justify-between flex-col w-96"
 >
   <div>
     <div class="bg-primary py-5 px-10 rounded-t-2xl">
@@ -80,7 +80,7 @@ const images = [
       }
       <div class="flex flex-col h-48 justify-between">
         {
-          pages.map(({ name, href, active, imageSrc }, key) => (
+          pages.map(({ name, active }, key) => (
             <p
               class:list={[
                 "text-sm font-normal my-4 mx-4",
@@ -99,14 +99,3 @@ const images = [
     </div>
   </div>
 </div>
-
-<script>
-  function handleClick() {
-    console.log("hola");
-    return Astro.redirect("/302");
-  }
-
-  const button = document.getElementById("Logout");
-
-  button?.addEventListener("click", handleClick);
-</script>

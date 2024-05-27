@@ -1,0 +1,115 @@
+---
+import { Image } from "astro:assets";
+import logoIcon from "../../assets/Logo.svg";
+import ButtonCTA from "../Buttons/ButtonCTA.astro";
+import ButtonPrimary from "../Buttons/ButtonPrimary.astro";
+
+const { pathname } = Astro.url;
+console.log(pathname);
+const normalizedPathName =
+  pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
+
+const pages = [
+  {
+    name: "TU PERFIL",
+    href: "/dashboardUserVolunteer/profile",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  // {
+  //   name: "AJUSTES DE PERFIL",
+  //   href: "/dashboardUserVolunteer/profileSettings",
+  //   hrefActive: "/dashboardAdmin/news/newsCreate",
+  //   active: false,
+  // },
+  {
+    name: "SECCIÓN EVENTOS",
+    href: "/dashboardUserVolunteer/events",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  {
+    name: "SECCIÓN MERENDEROS",
+    href: "/dashboardUserVolunteer/communityKitchens",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  {
+    name: "REDACTAR PROPUESTA",
+    href: "/dashboardUserVolunteer/createProposal",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  {
+    name: "ESTADO DE PROPUESTAS",
+    href: "/dashboardUserVolunteer/statusProposals",
+    hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+  {
+    name: "TU TARJETA",
+    href: "/dashboardUserVolunteer/yourCard",
+    // hrefActive: "/dashboardAdmin/news/newsCreate",
+    active: false,
+  },
+].map((page) => ({
+  ...page,
+  active:
+    normalizedPathName === page.href || normalizedPathName === page.hrefActive,
+}));
+---
+
+<div class="bg-textPrimary rounded-2xl shadow-3xl h-full flex flex-col w-96">
+  <div class="bg-colorSocioVoluntario py-5 px-10 rounded-t-2xl">
+    <a href="/"
+      ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
+    >
+  </div>
+  <div class="pt-10 w-full text-center">
+    <h3 class="text-3xl font-medium text-colorSocioVoluntario">Menu de control</h3>
+  </div>
+  <div class="flex flex-col items-start justify-between px-10 gap-4 my-10">
+    {
+      pages.map(({ name, href, active, hrefActive }, key) => (
+        <>
+          <a
+            href={href}
+            class:list={[
+              "text-sm font-medium ",
+              {
+                "h-full text-lg text-colorSocioVoluntario flex items-center font-semibold ":
+                  active,
+              },
+              { "text-textTertiary ": !active },
+            ]}
+            id={`nav-link-${key}`}
+          >
+            <span class="z-10">{name}</span>
+          </a>
+        </>
+      ))
+    }
+  </div>
+  <div class="flex justify-center pb-6 h-full items-end">
+    <a href="/"
+      ><ButtonPrimary
+        title="Volver al inicio"
+        idEvent="Logout"
+        color="colorSocioVoluntario"
+      /></a
+    >
+  </div>
+</div>
+
+<script>
+  function handleClick() {
+    console.log("hola");
+    return Astro.redirect("/302");
+  }
+
+  const button = document.getElementById("Logout");
+
+  button?.addEventListener("click", handleClick);
+</script>

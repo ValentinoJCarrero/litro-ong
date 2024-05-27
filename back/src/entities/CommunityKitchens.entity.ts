@@ -16,7 +16,7 @@ export class CommunityKitchens {
   @Column({ type: 'varchar', nullable: false })
   holder: string;
 
-  @Column({ type: 'time', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   kidsNumber: string;
 
   @Column({ type: 'simple-array', nullable: false })

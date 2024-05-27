@@ -17,11 +17,9 @@ const RegisterResumeGoogleComponent = () => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        // Simular la obtención de datos del localStorage
         const registerUserProfile = localStorage.getItem('registerUserProfile');
         const userInfo = registerUserProfile ? JSON.parse(registerUserProfile) : null;
         setUserInfo(userInfo);
-
         const registerUser = Cookies.get('emailUser');
     if (registerUser) {
       setUser({ email: registerUser });
@@ -38,9 +36,6 @@ const RegisterResumeGoogleComponent = () => {
                 fullAddress: userInfo.fullAddress
 
             };
-
-            
-            console.log(data);
             postGoogleRegister(data)
             .then((data) => {
                 Swal.fire({

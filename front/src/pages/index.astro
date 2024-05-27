@@ -1,29 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ButtonPrimary from "../components/Buttons/ButtonPrimary.astro";
-import ButtonSecondary from "../components/Buttons/ButtonSecondary.astro";
-import ButtonCTA from "../components/Buttons/ButtonCTA.astro";
-import Card from "../components/Cards/Card.astro";
-import imageCard from "../assets/image55.jpeg";
-import { Image } from "astro:assets";
-//import Carousel from "../components/CarruselFromHome/CarruselFromHome";
-
 import CarruselFromHome from "../components/fromHome/CarruselFromHome/CarruselFromHome.astro";
 import SectionInformation from "../components/fromHome/SectionInformation/SectionInformation.astro";
-import SectionUltimasNoticias from "../components/fromHome/SectionUltimasNoticias/SectionUltimasNoticias.astro";
 import SectionSponsors from "../components/fromHome/SectionSponsors/SectionSponsors.tsx";
 import SectionTalleresDisponibles from "../components/fromHome/SectionTalleresDisponibles/SectionTalleresDisponibles.astro";
-
-
-
+import SetionLatestNews from "../components/fromHome/SectionUltimasNoticias/SectionLatestNews.astro";
 ---
-
 <Layout title="Inicio - Un Litro Alta Gracia.">
   <main>
 	<CarruselFromHome />
 	<SectionInformation />
 	<SectionTalleresDisponibles />
-	<SectionUltimasNoticias />
+	<SetionLatestNews/>
 	<SectionSponsors client:load/>
   </main>
 </Layout>

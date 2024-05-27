@@ -57,10 +57,11 @@ export class UserDto {
    */
   @IsNotEmpty({ message: 'El número de documento es requerido' })
   dni: string;
-  
+
+  @IsNotEmpty({ message: 'Debe indicar si es suscrito' })
   @IsBoolean()
   isSubscribed: boolean;
-  
+
   /**
    * @example '1999-01-01'
    */
@@ -79,7 +80,6 @@ export class UserDto {
 
   @IsOptional()
   role: Role[];
-
 }
 
 export class LoginUserDto extends PickType(UserDto, ['email', 'password']) {}

@@ -6,6 +6,7 @@ import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
 import { getBenefits } from "../../helpers/Benefits/getBenefits";
 import { deleteBenefits } from "../../helpers/Benefits/deleteBenefits";
+import Swal from 'sweetalert2'
 interface BenefitsItem {
   address: string;
   name: string;
@@ -37,17 +38,35 @@ const BenefitsComponent = () => {
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este beneficio?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteBenefits(id);
+        await deleteBenefits(id);
 
     setTimeout(() => {
       setBenefits(benefits.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El beneficio ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando beneficio con ID:", id);
   };
 
   return (
@@ -56,7 +75,7 @@ const BenefitsComponent = () => {
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron noticias en esta pagina" ? (
+      ) : message ==="No se encontraron beneficios" ? (
         <NotFound />
       ) : (
         <ul className=" w-full">
@@ -112,7 +131,7 @@ const BenefitsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>
