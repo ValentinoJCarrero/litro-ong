@@ -141,8 +141,8 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fullName,
-        email,
+        fullName: fullName ? fullName : undefined,
+        email: email ? email : undefined,
         amount
       }),
     }).then(async (res) => {

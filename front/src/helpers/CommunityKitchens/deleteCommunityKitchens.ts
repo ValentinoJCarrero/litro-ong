@@ -9,7 +9,6 @@ export async function deleteCommunityKitchens(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar la merenderos');
           }
-          console.log('Merenderos eliminada con éxito');
 
         })
         .catch(error => {

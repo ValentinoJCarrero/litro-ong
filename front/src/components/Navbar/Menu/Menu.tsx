@@ -23,7 +23,7 @@ const Menu: React.FC<MenuProps> = ({ children}) => {
       >
         <li className="  ">
           <a href="/dashboardAdmin/news" className="flex flex-col px-4 p-2 bg-secondary rounded-t-lg hover:bg-gray-100 hover:rounded-lg">
-            <h4 className="text-sm font-medium text-textSecondary ">Menú de Control y Perfil</h4>
+            <h4 className="text-sm font-medium text-textSecondary ">MENÚ DE CONTROL Y PERFIL</h4>
             <p  className="text-sm font-base text-textSecondary ">Aquí encontrarás diversas opciones que podrás investigar</p>
           </a>
         </li>

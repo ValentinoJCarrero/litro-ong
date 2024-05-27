@@ -87,7 +87,8 @@ const FormCommunityKitchensFormik = () => (
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       console.log(values);
       postCommunityKitchens(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -96,12 +97,22 @@ const FormCommunityKitchensFormik = () => (
             timer: 1500,
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/workshops';
+            window.location.href = '/dashboardAdmin/communityKitchens';
           }, 1500);
           setSubmitting(false);
+          }else {
+          throw new Error("Failed to add community kitchens");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar el merendero",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}
@@ -303,69 +314,25 @@ const FormCommunityKitchensFormik = () => (
               role="group"
               aria-labelledby="checkbox-group"
             >
-              <label className="flex flex-col gap-1 justify-center items-center">
+              {[
+              "Lunes",
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado",
+              "Domingo",
+            ].map((days) => (
+              <label key={days} className="flex items-center gap-2">
                 <Field
                   type="checkbox"
                   name="days"
-                  value="Lunes"
-                  className="mx-2"
+                  value={days}
                 />
-                Lunes
+                {days}
               </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Martes"
-                  className="mx-2"
-                />
-                Martes
-              </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Miercoles"
-                  className="mx-2"
-                />
-                Miercoles
-              </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Jueves"
-                  className="mx-2"
-                />
-                Jueves
-              </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Viernes"
-                  className="mx-2"
-                />
-                Viernes
-              </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Sabado"
-                  className="mx-2"
-                />
-                Sabado
-              </label>
-              <label className="flex flex-col gap-1 justify-center items-center">
-                <Field
-                  type="checkbox"
-                  name="days"
-                  value="Domingo"
-                  className="mx-2"
-                />
-                Domingo
-              </label>
+            ))}
+              
             </div>
           </div>
           <div className="flex flex-col w-1/2  ">

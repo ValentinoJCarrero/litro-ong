@@ -15,7 +15,7 @@ const BannerIndividualEvent: React.FC<BannerIndividualEventProps> = ({ titulo, f
         <div>
           <h1 className="text-5xl font-bold mb-3 leading-tight">{titulo}</h1>
           <h2 className="text-textTertiary text-xl font-normal tracking-widest">{fecha}</h2>
-          <h2 className="text-textTertiary text-xl font-normal tracking-widest">{direccion}</h2>
+          {direccion && <h2 className="text-textTertiary text-xl font-normal tracking-widest">{direccion}</h2>}
         </div>
       </div>
       <img src={banner} alt="La imagen" className="object-none bg-cover bg-center h-96 w-1/2 grayscale" loading="lazy" decoding="async" />

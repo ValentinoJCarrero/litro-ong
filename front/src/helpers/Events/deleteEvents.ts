@@ -9,7 +9,6 @@ export async function deleteEvents(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar el evento');
           }
-          console.log('Noticia eliminada con éxito');
         })
         .catch(error => {
           console.error('Error el evento:', error);

@@ -16,7 +16,7 @@ const config = {
   autoLoadEntities: true,
   synchronize: true,
   logging: true,
-  dropSchema: false,
+  dropSchema: true,
   // ssl: process.env.SSL,
   timezone: 'America/Argentina/Cordoba',
 };

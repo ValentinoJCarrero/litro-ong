@@ -4,10 +4,9 @@ import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
-import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
 import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
 import { getCommunityKitchens } from "../../helpers/CommunityKitchens/getCommunityKitchens";
+import Swal from "sweetalert2";
 interface CommunityKitchensItem {
   name: string;
   address: string;
@@ -16,14 +15,14 @@ interface CommunityKitchensItem {
   kidsNumber: string;
   description: string;
   time: string;
-  days: string[];	
+  days: string[];
   id: number;
 }
 
 const CommunityKitchensComponent = () => {
-  const [page, setPage] = useState (1)
-  const [message, setMessage] = useState ("")
-  const [totalPages, setTotalPages] = useState (3)
+  const [page, setPage] = useState(1);
+  const [message, setMessage] = useState("");
+  const [totalPages, setTotalPages] = useState(3);
   const [kitchen, setKitchen] = useState<CommunityKitchensItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -31,97 +30,145 @@ const CommunityKitchensComponent = () => {
 
   useEffect(() => {
     const fetchCommunityKitchens = async (page: number) => {
-      const newsData = await getCommunityKitchens(2,page);
+      const newsData = await getCommunityKitchens(2, page);
       setKitchen(newsData.data);
       setMessage(newsData.message);
-      setTotalPages(Math.ceil(newsData.total/3));
+      setTotalPages(Math.ceil(newsData.total / 3));
       setIsLoading(false);
     };
     fetchCommunityKitchens(page);
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este merendero?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteCommunityKitchens(id);
+        await deleteCommunityKitchens(id);
 
-    setTimeout(() => {
-      setKitchen(kitchen.filter((item) => item.id !== id));
-      setIsDeleting(false);
-      setDeletingId(null);
-    }, 1000);
+        setTimeout(() => {
+          setKitchen(kitchen.filter((item) => item.id !== id));
+          setIsDeleting(false);
+          setDeletingId(null);
+        }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El merendero ha sido eliminado.",
+          icon: "success",
+        });
+      }
+    });
+    console.log("Eliminando el merendero con ID:", id);
   };
 
   return (
-    <div className="flex items-center justify-center h-full flex-col">
+    <div className="flex flex-col flex-nowrap justify-between items-stretch p-4 h-full ">
       {isLoading ? (
         <div className="flex items-center justify-center">
-        <SpinnersPrimary />
+          <SpinnersPrimary />
         </div>
-      ) : message ==="No se encontraron merenderos en esta pagina" ? (
+      ) : message === "No se encontraron merenderos en esta pagina" ? (
         <NotFound />
       ) : (
-        <ul className=" w-full">
-          {kitchen.map(({ name, photo, address, holder, kidsNumber, description, time, days, id }) => (
-            <>
-              <li
-                key={id}
-                className="flex flex-row flex-nowrap justify-between pr-10 items-center"
-              >
-                <a
-                  className="flex flex-row justify-between p-10 items-center text-sm w-full"
-                  id={`card${id}`}
-                  href={`/news/DinamicNew/${name}`}
+        <ul className=" w-full flex flex-col   ">
+          {kitchen.map(
+            ({
+              name,
+              photo,
+              address,
+              holder,
+              // kidsNumber,
+              // description,
+              // time,
+              days,
+              id,
+            }) => (
+                   <div className="flex flex-col">
+              <div className=" flex flex-col justify-betweend items-center w-full">
+                    <li
+                  key={id}
+                  className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
                 >
-                  <div className="flex">
-                    <img
-                      src={photo}
-                      alt={name}
-                      className="w-20 h-20 rounded-full object-cover mr-4"
-                    />
-                    <div>
-                      <h6 className="text-tertiary text-base font-semibold">
-                        {name}
-                      </h6>
-                      <p>{holder}</p>
-                      <p>{address}</p>
+                  <a
+                    className="flex flex-row  items-center  text-sm w-full"
+                    id={`card${id}`}
+                    href={`/news/DinamicNew/${name}`}
+                  >
+                    <div className="flex w-1/3">
+                      <img
+                        src={photo}
+                        alt={name}
+                        className="w-20 h-20 rounded-full object-cover mr-4"
+                      />
+                      <div className="text-sm  text-textParagraph">
+                        <h6 className="text-tertiary text-base font-semibold">
+                          {name}
+                        </h6>
+                        <div className="text-sm text-textParagraph">
+                          <p>{holder}</p>
+                          <p>{address}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center flex flex-col h-full justify-center items-center text-xs w-96  ">
+                      <p>{days.join(" - ")}</p>
+                    </div>
+                  </a>
+                  <div className="flex flex-row justify-center gap-10">
+                    <div className="w-40 flex justify-center  ">
+                      {isDeleting && deletingId === id ? (
+                        <SpinnersDelete />
+                      ) : (
+                        <ButtonWarningSmall
+                          title="Eliminar"
+                          idEvent={`delete-${id}`}
+                          onClick={() => onClic(id)}
+                        />
+                      )}
+                      {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
                     </div>
                   </div>
-                  <div>
-                    <p>{days.join(' - ')}</p>
-                  </div>
-                  <img src={vectorIcon.src} alt="icono de vector" />
-                </a>
-                <div className="w-40 flex justify-center">
-                  {isDeleting && deletingId === id ? (
-                    <SpinnersDelete />
-                  ) : (
-                    <ButtonWarningSmall
-                      title="Eliminar"
-                      idEvent={`delete-${id}`}
-                      onClick={() => onClic(id)}
-                    />
-                  )}
+                </li>
+              </div>
+                <hr />
+             
+
                 </div>
-              </li>
-              <hr />
-              
-            </>
-          ))}
-          <div className="flex items-center justify-center flex-row w-full mt-8">
-              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page > 1) && setPage(page - 1)} className="w-full h-full font-medium text-xl">{"<"}</button>
-              </div>
-                <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
-              <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
-              </div> 
-              </div>
+            )
+          )}
         </ul>
       )}
-      
+      <div className="flex items-center justify-center flex-row w-full ">
+        <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+          <button
+            onClick={() => page > 1 && setPage(page - 1)}
+            className="w-full h-full font-medium text-xl"
+          >
+            {"<"}
+          </button>
+        </div>
+        <p className=" font-base text-lg mx-4">
+          {page}/{totalPages}
+        </p>
+        <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+          <button
+            onClick={() => page < totalPages && setPage(page + 1)}
+            className="w-full h-full font-medium text-xl"
+          >
+            {">"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

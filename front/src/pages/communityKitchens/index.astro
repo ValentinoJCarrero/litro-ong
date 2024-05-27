@@ -1,16 +1,12 @@
 ---
-import ButtonPrimary from '../../components/Buttons/ButtonPrimary.astro';
-import EnConstruccion from '../../components/EnConstruccion/EnConstruccion';
 import Layout from '../../layouts/Layout.astro';
----
-<Layout title="Donde Ayudamos - Un Litro Alta Gracia.">
+import DescriptionKitchens from '../../components/fromCommunityKitchens/DescriptionKitchens.astro';
+import GetAllCommunityKitchensComponent from '../../components/GetComponents/GetAllCommunityKitchensComponent';
+---   
+<Layout title="Donde ayudamos - Un Litro Alta Gracia.">
 <main>
-    <div class="flex flex-col justify-center items-center gap-5 m-20">
-
-        <EnConstruccion />
-        <a href="/">
-            <ButtonPrimary  title="Volver al inicio" />
-        </a>
-    </div>
+<h1 class="text-center mt-20  text-5xl font-bold mb-6">¿Dónde ayudamos?</h1>
+<DescriptionKitchens/>
+<GetAllCommunityKitchensComponent client:load />
 </main>
 </Layout>

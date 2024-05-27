@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { MercadoPagoService } from './mp.service';
 import { DonationDto } from 'src/dtos/Donation.dto';
 
@@ -12,8 +12,7 @@ export class MercadoPagoController {
   }
 
   @Post('webhook')
-  webhook(@Req() req, @Res() res) {
-    const paid = req.body;
+  webhook(@Body() paid) {
     return this.mpService.webhook(paid);  
   }
 }

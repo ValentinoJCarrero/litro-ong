@@ -1,5 +1,4 @@
 export async function getDonations(limit: number, page: number): Promise<any> {
-
   try {
     const validLimit = limit;
     const validPage = page;
@@ -16,8 +15,6 @@ export async function getDonations(limit: number, page: number): Promise<any> {
     });
 
     const data = await response.json();
-
-    console.log("esto es data", data);
     return data;
   } catch (error) {
     console.error("Error al traer las donaciones", error);
