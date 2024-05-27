@@ -23,8 +23,8 @@ export class MercadoPagoService {
                 ],
                 notification_url: 'https://litro-ong.onrender.com/mercadopago/webhook',
                 payer: {
-                    name: donation.fullName,
-                    surname: donation.email
+                    name: donation.fullName ? donation.fullName : "Anonimo",
+                    surname: donation.email ? donation.email : "Anonimo"
                 }
             },
         })
