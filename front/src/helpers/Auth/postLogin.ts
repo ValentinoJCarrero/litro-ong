@@ -13,8 +13,8 @@ export async function postLogin(newsResponse: any): Promise<any> {
       }
   
       const token = await response.text();
-      const tokenJson = { tokenUser: token };
-      return tokenJson;
+      
+      return token;
     } catch (error) {
       console.error("Error en postGoogleLogin:", error);;
     }

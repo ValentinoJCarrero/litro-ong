@@ -8,11 +8,25 @@ import imagenPerfilDefault from "../../assets/imagenPerfilDefault.svg";
 import { getSession } from "auth-astro/server";
 import Menu from "./Menu/Menu";
 import MenuUser from "./MenuUser/MenuUser";
+import { jwtDecode } from "jwt-decode";
 
 const session = await getSession(Astro.request);
-const email = session?.user?.email;
+const email = session?.user?.email || '';
+let idDecodificado = "";
+const tokenUser = Astro.cookies.get("token")?.value || '';
+console.log(tokenUser);
 
-const tokenUser = Astro.cookies.get("token")
+
+if (tokenUser) {
+  try {
+    const decodedToken: any = jwtDecode(tokenUser);
+    idDecodificado = decodedToken.userPayload.sub;
+
+    console.log("el token magico decodificado es:",idDecodificado);
+  } catch (error) {
+    console.error("Error decoding token:", error);
+  }
+}
 ---
 
 <div

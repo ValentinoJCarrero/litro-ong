@@ -51,7 +51,8 @@ const FormSponsorsFormik = () => (
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
       postSponsors(values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -59,12 +60,23 @@ const FormSponsorsFormik = () => (
             showConfirmButton: false,
             timer: 1500
           });
-          window.location.href = '/dashboardAdmin/sponsors'
+          setTimeout(() => {
+            window.location.href = "/dashboardAdmin/sponsors";
+          }, 1500);
           setSubmitting(false);
-          console.log(values);
+        }else {
+          throw new Error("Failed to add sponsor");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar el sponsor",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}

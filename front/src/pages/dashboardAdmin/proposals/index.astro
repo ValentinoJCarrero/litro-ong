@@ -6,6 +6,7 @@ import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.a
 import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
 import NotFound from "../../../components/NotFound/NotFound";
 import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
+import ProposalsComponent from "../../../components/GetComponents/ProposalsClientComponent";
 // import NewsClientComponent from "../../../components/GetComponents/NewsClientComponent.tsx";
 ---
 
@@ -19,24 +20,19 @@ import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
       >
     </div>
     <div class="2-m h-full w-full px-14 py-10 flex flex-col justify-between">
-      <div
-        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-between h-full"
-      >
+      <div class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-between h-full">
         <h4 class="text-2xl font-medium text-tertiary mb-10 w-full text-end">
           PROPUESTAS RECIBIDAS
         </h4>
-
-
-        <EnConstruccion />
-        
-      <div class="flex flex-row items-center justify-center flex-nowrap gap-8">
-          <div class="mt-6">
-            <a href="/dashboardAdmin/events">
-              <ButtonSecondarySmall title="Anterior" />
-            </a>
-          </div>
-        
-      </div>
+        <div class="h-full">
+          <ProposalsComponent client:load/>
+        </div>    
+    </div>
+    <div class="w-full flex justify-center mt-6">
+      <a href="/dashboardAdmin/donations">
+        <ButtonSecondarySmall title="Anterior" />
+      </a>
+    </div>
     </div>
   </div></DasboardLayouts
 >

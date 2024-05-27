@@ -1,7 +1,5 @@
 export async function postWorkshops(newsResponse: any): Promise<any> {
   try {
-    console.log(newsResponse.days);
-
     const formData = new FormData();
     formData.append('name', newsResponse.name);
     formData.append('teacher', newsResponse.teacher);
@@ -15,14 +13,17 @@ export async function postWorkshops(newsResponse: any): Promise<any> {
     formData.append('description', newsResponse.description);
 
     if (newsResponse.photo) formData.append('files', newsResponse.photo);
-console.log(formData);
+
     const response = await fetch(`https://litro-ong.onrender.com/workshop`, {
       method: 'POST',
       body: formData 
     });
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData;
+    }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al crear el taller", error);

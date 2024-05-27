@@ -44,6 +44,4 @@ export class DonationRepository {
       
     return await this.donationRepository.save(donationCreated);
   }
-
-  async registerSubscription(subscription) {}
 }

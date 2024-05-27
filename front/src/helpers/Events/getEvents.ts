@@ -1,6 +1,5 @@
 
 export async function getEvents(limit: number, page: number): Promise<any> {
-
     try{
       const validLimit = limit;
       const validPage = page;
@@ -15,10 +14,7 @@ export async function getEvents(limit: number, page: number): Promise<any> {
         'Content-Type': 'application/json'
       }
     });
-  
     const data = await response.json();
-
-    console.log(data);
     return data;}
     catch{
       console.log("Error al traer el evento");

@@ -1,7 +1,9 @@
 ---
 import Rrss from "../Rrss/Rrss.astro";
 import InputNewslatter from "./InputNewslatter/InputNewslatter.tsx";
-
+import { getSession } from "auth-astro/server";
+const session = await getSession(Astro.request);
+const tokenUser = Astro.cookies.get("token")?.value || '';
 const pagesHomeFooter = [
   { name: "Quiénes somos", href: "/aboutMe" },
   { name: "Talleres", href: "/workshops" },
@@ -10,13 +12,16 @@ const pagesHomeFooter = [
   { name: "Noticias", href: "/news" },
 ];
 const pagesLinksFooter = [
-  { name: "Quiero ser socio/a", href: "/" },
-  { name: "Quiero ser voluntario/a", href: "/" },
-  { name: "Quiero ser sponsor/a", href: "/" },
+  { name: "Quiero ser socio/a", href: "/socios" },
+  { name: "Quiero ser voluntario/a", href: "/voluntarios" },
+  { name: "Quiero ser sponsor/a", href: "/sponsors" },
 ];
+if(tokenUser && session?.user?.email){
+  
+}
 const pagesLoginFooter = [
-  { name: "Ingresar", href: "/" },
-  { name: "Registrarse", href: "/" },
+  { name: "Ingresar", href: "/auth/login2" },
+  { name: "Registrarse", href: "/auth/register" },
 ];
 ---
 
@@ -55,6 +60,7 @@ const pagesLoginFooter = [
           </ul>
         </div>
         <div class=" h-full">
+          {!tokenUser && !session?.user?.email ? (
           <h5 class="text-xl font-semibold">¿No Ingresaste?</h5>
           <ul class="flex flex-col justify-between">
             {
@@ -66,7 +72,8 @@ const pagesLoginFooter = [
                 </li>
               ))
             }
-          </ul>
+          </ul>) : null
+          }
         </div>
       </div>
       <div class="h-1/5 flex items-end">

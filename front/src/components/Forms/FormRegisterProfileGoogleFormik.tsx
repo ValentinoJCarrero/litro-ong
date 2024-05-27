@@ -10,9 +10,7 @@ interface IFormValues {
   address: string;
   country:string;
   province:string;
-  //city:string;
 }
-
 
 const initialValues = {
   name:"",
@@ -23,7 +21,6 @@ const initialValues = {
   address: "",
   country:"",
   province:  "",
-  //city: "",
 };
 
 const validate = (values:IFormValues) => {
@@ -36,7 +33,6 @@ const validate = (values:IFormValues) => {
   } else if (values.name.length > 50) {
     errors.name = "El nombre debe tener como máximo 50 caracteres";
   }
-
 
   if (!values.lastname) {
     errors.lastname = "El apellido es requerido";
@@ -80,18 +76,13 @@ const validate = (values:IFormValues) => {
     errors.province = "La provincia es requerida";
   }
 
-  /*if (values.province === "Cordoba" && !values.city) {
-    errors.city = "La ciudad es requerida";
-  } */
   return errors;
 };
-
 
   const FormRegisterProfileGoogleFormik = () => {
     const [country, setCountry] = useState(initialValues.country);
     const [province, setProvince] = useState(initialValues.province);
     return(
-
     <Formik
       initialValues={initialValues}
       validate={validate}

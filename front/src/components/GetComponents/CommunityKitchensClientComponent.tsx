@@ -4,10 +4,9 @@ import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
-import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
 import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
 import { getCommunityKitchens } from "../../helpers/CommunityKitchens/getCommunityKitchens";
+import Swal from 'sweetalert2'
 interface CommunityKitchensItem {
   name: string;
   address: string;
@@ -41,17 +40,35 @@ const CommunityKitchensComponent = () => {
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
-    setIsDeleting(true);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar este merendero?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
+        setIsDeleting(true);
 
-    await deleteCommunityKitchens(id);
+        await deleteCommunityKitchens(id);
 
     setTimeout(() => {
       setKitchen(kitchen.filter((item) => item.id !== id));
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "El merendero ha sido eliminado.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando el merendero con ID:", id);
   };
 
   return (
@@ -116,7 +133,7 @@ const CommunityKitchensComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page <= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
               </div>
         </ul>

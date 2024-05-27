@@ -16,8 +16,6 @@ export async function getBenefits(limit: number, page: number): Promise<any> {
     });
 
     const data = await response.json();
-
-    console.log("esto es data", data);
     return data;
   } catch (error) {
     console.error("Error al traer los beneficios", error);
