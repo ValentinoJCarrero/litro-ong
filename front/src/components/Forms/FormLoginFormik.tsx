@@ -58,14 +58,11 @@ const FormLoginFormik = () => {
                 showConfirmButton: false,
                 timer: 1500,
               })
-              console.log(data);
               Cookies.set("token", data);
               setTimeout(() => {
                 window.location.href = "/";
               }, 1500);
               setSubmitting(false);
-
-            
             } else if (!data) {
               Swal.fire({
                 position: "top-end",

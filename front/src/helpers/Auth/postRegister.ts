@@ -13,7 +13,6 @@ export async function postRegister(newsResponse: any): Promise<any> {
       }
 
       const data = await response.json();
-      console.log(data);
       return data;
   } catch (error) {
       console.error("Error al registrar el usuario", error);

@@ -9,7 +9,6 @@ export async function deleteProposals(id:any): Promise<any> {
           if (!response.ok) {
             throw new Error('Error al eliminar la propuesta');
           }
-          console.log('Propuesta eliminada con éxito');
 
         })
         .catch(error => {

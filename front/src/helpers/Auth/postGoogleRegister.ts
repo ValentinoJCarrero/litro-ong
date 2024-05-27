@@ -1,5 +1,4 @@
 export async function postGoogleRegister(newsResponse: any): Promise<any> {
-    console.log(newsResponse);
     try {
         const response = await fetch(`https://litro-ong.onrender.com/auth/googlesignup`, {
             method: 'POST',
@@ -14,7 +13,6 @@ export async function postGoogleRegister(newsResponse: any): Promise<any> {
         }
   
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.error("Error al logear el usuario", error);

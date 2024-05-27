@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import warningIcon from "../../assets/IconWarrning.svg";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { postProposals } from "../../helpers/Proposals/postProposals";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -18,7 +18,7 @@ const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
 
   const trimmedTitle = values.title.trim();
-  const trimmedDescription = values.description.trim()
+  const trimmedDescription = values.description.trim();
 
   if (!trimmedTitle) {
     errors.title = "El Título es requerido";
@@ -69,21 +69,32 @@ const FormProposalsFormik = () => (
         return;
       }
       postProposals(idDecodificado, values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
             title: `Se agrego correctamente`,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/news'
-        }, 1500);
+            window.location.href = '/dashboardUserVolunteer/statusProposals'
+          }, 1500);}
+          else {
+            throw new Error("Failed to add proposal");
+          }
           setSubmitting(false);
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar la propuesta",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}
@@ -95,7 +106,7 @@ const FormProposalsFormik = () => (
             Título
           </label>
           <div className="flex w-full">
-            <Field 
+            <Field
               type="text"
               name="title"
               placeholder="Título de la propuesta"
@@ -127,59 +138,64 @@ const FormProposalsFormik = () => (
             className="text-warning"
           />
         </div>
-        <div className=" flex flex-row gap-10">
-        <div className="flex flex-col h-32  w-2/3">
-          <label htmlFor="description" className="font-medium my-2">
-            Descripción
-          </label>
-          <div className="flex w-full">
-            <Field
-              as="textarea"
-              name="description"
-              placeholder="Describe de la propuesta"
-              className={`w-full resize-none h-20 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
-                errors.description && touched.description
-                  ? "border-warningBorder text-warningText font-medium"
-                  : ""
-              }`}
-            />
-            <div
-              className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                errors.description && touched.description
-                  ? "border-warningBorder text-warningText font-medium "
-                  : ""
-              }`}
-            >
-              <img
-                src={warningIcon.src}
-                alt="warningIcon"
-                className={`${
-                  errors.description && touched.description ? "block" : "hidden"
+        <div className=" flex flex-col gap-10">
+          <div className="flex flex-col  h-80 ">
+            <label htmlFor="description" className="font-medium my-2">
+              Descripción
+            </label>
+            <div className="flex w-full">
+              <Field
+                as="textarea"
+                name="description"
+                placeholder="Describe de la propuesta"
+                className={`w-full resize-none h-72 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                  errors.description && touched.description
+                    ? "border-warningBorder text-warningText font-medium"
+                    : ""
                 }`}
               />
+              <div
+                className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                  errors.description && touched.description
+                    ? "border-warningBorder text-warningText font-medium "
+                    : ""
+                }`}
+              >
+                <img
+                  src={warningIcon.src}
+                  alt="warningIcon"
+                  className={`${
+                    errors.description && touched.description
+                      ? "block"
+                      : "hidden"
+                  }`}
+                />
+              </div>
             </div>
+            <ErrorMessage
+              name="description"
+              component="span"
+              className="text-warning"
+            />
           </div>
-          <ErrorMessage
-            name="description"
-            component="span"
-            className="text-warning"
-          />
-        </div>
-        <div className=" w-1/3 flex flex-row items-center  justify-end">
-          <a
-            href="/dashboardAdmin/news"
-            className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
-          >
-            Volver
-          </a>
-          <button
-            type="submit"
-            className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
-            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
-          >
-            Agregar
-          </button>
-        </div>
+          <div className=" flex flex-row items-center  justify-end">
+            <a
+              href="/dashboardAdmin/news"
+              className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
+            >
+              Volver
+            </a>
+            <button
+              type="submit"
+              className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+              disabled={
+                Object.keys(errors).length !== 0 ||
+                Object.keys(touched).length === 0
+              }
+            >
+              Agregar
+            </button>
+          </div>
         </div>
       </Form>
     )}

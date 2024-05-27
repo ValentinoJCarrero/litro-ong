@@ -1,10 +1,8 @@
-
 import CardSponsor from "../../Cards/CardSponsor";
-import { getCollection } from "astro:content";
 import { getSponsors } from '../../../helpers/Sponsors/getSponsors';
 import { useEffect, useState } from "react";
 import SpinnersPrimary from "../../Spinners/SpinnersPrimary";
-const sponsorsList = await getCollection("sponsors");
+import NotFound from "../../NotFound/NotFound";
 
 interface SponsorsItem {
   logo: string;
@@ -19,7 +17,7 @@ const SectionSponsors: React.FC = ():React.ReactElement =>{
   useEffect(() => {
       const fetchNews = async () => {
           const newsData = await getSponsors(5, 1);
-          setSponsors(newsData);
+          setSponsors(newsData.data);
           setIsLoading(false);
       };
       fetchNews();
@@ -32,9 +30,9 @@ return(
     {isLoading ? (
         <SpinnersPrimary />
       ) :!sponsors.length ? (
-                <p className="text-textTertiary w-full text-center text-3xl">No hay esponsors disponibles por ahora.</p>
+                <NotFound/>
             ) : (
-      sponsors.map(({ logo, name, email, id }) => (
+      sponsors.map(({ logo, name }) => (
         <CardSponsor>
           <img
             src={logo}

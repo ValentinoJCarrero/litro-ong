@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import vectorIcon from "../../assets/vectorIcon.svg";
-import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
-import SpinnersDelete from "../Spinners/SpinnersDelete";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
-import { getWorkshops } from "../../helpers/Workshops/getWorkshops";
-import { deleteWorkshops } from "../../helpers/Workshops/deleteWorkshops";
-import { deleteCommunityKitchens } from "../../helpers/CommunityKitchens/deleteCommunityKitchens";
 import { getCommunityKitchens } from "../../helpers/CommunityKitchens/getCommunityKitchens";
 interface CommunityKitchensItem {
   name: string;
@@ -30,8 +25,6 @@ const ListCommunityKitchensComponent = (props: Color) => {
   const [totalPages, setTotalPages] = useState(3);
   const [kitchen, setKitchen] = useState<CommunityKitchensItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchCommunityKitchens = async (page: number) => {
@@ -47,65 +40,57 @@ const ListCommunityKitchensComponent = (props: Color) => {
   return (
     <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
       ) : message === "No se encontraron merenderos en esta pagina" ? (
-        <NotFound />
+        <div className="flex items-center justify-center h-full">
+          <NotFound />
+        </div>
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
-          {kitchen.map(
-            ({
-              name,
-              photo,
-              address,
-              holder,
-              kidsNumber,
-              description,
-              time,
-              days,
-              id,
-            }) => (
-              <>
-                <li
-                  key={id}
-                  className="flex flex-row flex-nowrap justify-between items-center"
+          {kitchen.map(({ name, photo, address, holder, days, id }) => (
+            <>
+              <li
+                key={id}
+                className="flex flex-row flex-nowrap justify-between items-center"
+              >
+                <a
+                  className="flex flex-row justify-between items-center text-sm w-full"
+                  id={`card${id}`}
+                  href={`/news/DinamicNew/${name}`}
                 >
-                  <a
-                    className="flex flex-row justify-between items-center text-sm w-full"
-                    id={`card${id}`}
-                    href={`/news/DinamicNew/${name}`}
-                  >
-                    <div className="flex">
-                      <img
-                        src={photo}
-                        alt={name}
-                        className="w-20 h-20 rounded-full object-cover mr-4"
-                      />
-                      <div className=" flex flex-col justify-center">
-                        <h6
-                          className={`text-${props.color} text-base font-semibold`}
-                        >
-                          {name}
-                        </h6>
-                        <p>{holder}</p>
-                        <p>{address}</p>
+                  <div className="flex">
+                    <img
+                      src={photo}
+                      alt={name}
+                      className="w-20 h-20 rounded-full object-cover mr-4"
+                    />
+                    <div className=" flex flex-col justify-center">
+                      <h6
+                        className={`text-${props.color} text-base font-semibold`}
+                      >
+                        {name}
+                      </h6>
+                      <div className="text-sm  text-textParagraph">
+
+                      <p className=" ">{holder}</p>
+                      <p className="text-xs">{address}</p>
                       </div>
                     </div>
-                    <div className=" flex flex-row gap-2">
-                      {days.map((day) => (
-                        <p>{day}</p>
-                      ))}
-                    </div>
-                    <img src={vectorIcon.src} alt="icono de vector" />
-                  </a>
-                </li>
-                <hr />
-              </>
-            )
-          )}
-        </ul>
-      )}
+                  </div>
+                  <div className=" flex flex-row gap-2">
+                    {days.map((day) => (
+                      <p>{day}</p>
+                    ))}
+                  </div>
+                  <img src={vectorIcon.src} alt="icono de vector" />
+                </a>
+              </li>
+              <hr />
+            </>
+          ))}
+        
       <div className="flex items-center justify-center flex-row w-full  ">
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
@@ -120,13 +105,15 @@ const ListCommunityKitchensComponent = (props: Color) => {
         </p>
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
-            onClick={() => page <= totalPages && setPage(page + 1)}
+            onClick={() => page < totalPages && setPage(page + 1)}
             className="w-full h-full font-medium text-xl"
           >
             {">"}
           </button>
         </div>
       </div>
+      </ul>
+      )}
     </div>
   );
 };

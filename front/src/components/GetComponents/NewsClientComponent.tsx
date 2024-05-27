@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getNews } from "../../helpers/getNews";
-import iconNews from "../../assets/logoOG.png";
 import vectorIcon from "../../assets/vectorIcon.svg";
 import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 import SpinnersDelete from "../Spinners/SpinnersDelete";
 import { deleteNews } from "../../helpers/deleteNews";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 import NotFound from "../NotFound/NotFound";
+import Swal from 'sweetalert2'
 interface NewsItem {
   primaryImage: string;
   title: string;
@@ -38,8 +38,18 @@ const NewsComponent = () => {
   }, [page]);
 
   const onClic = async (id: any): Promise<void> => {
-    console.log("Eliminando noticia con ID:", id);
-    setDeletingId(id);
+    Swal.fire({
+      title: "Estas seguro/a de eliminar esta noticia?",
+      text: "No podras revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#009BDB",
+      cancelButtonColor: "#EF4444",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setDeletingId(id);
     setIsDeleting(true);
 
     await deleteNews(id);
@@ -49,6 +59,14 @@ const NewsComponent = () => {
       setIsDeleting(false);
       setDeletingId(null);
     }, 1000);
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La noticia ha sido eliminada.",
+          icon: "success"
+        });
+      }
+    });
+    console.log("Eliminando noticia con ID:", id);
   };
 
   return (
@@ -113,7 +131,7 @@ const NewsComponent = () => {
               </div>
                 <p className=" font-base text-lg mx-4">{page}/{totalPages}</p>
               <div  className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
-                <button onClick={()=>(page >= totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
+                <button onClick={()=>(page < totalPages) && setPage(page + 1)} className="w-full h-full font-medium text-xl">{">"}</button>
               </div> 
           </div>
         </ul>

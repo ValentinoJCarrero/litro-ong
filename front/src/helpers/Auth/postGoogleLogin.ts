@@ -1,5 +1,3 @@
-
-
 export async function postGoogleLogin(data: any) {
 ;
     try {
