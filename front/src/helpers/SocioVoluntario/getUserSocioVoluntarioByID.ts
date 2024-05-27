@@ -11,7 +11,6 @@ export async function getVolunteersByID(idDecodificado: string): Promise<any> {
     );
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error al traer voluntario", error);

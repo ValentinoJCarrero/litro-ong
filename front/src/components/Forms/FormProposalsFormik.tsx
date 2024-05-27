@@ -69,7 +69,8 @@ const FormProposalsFormik = () => (
         return;
       }
       postProposals(idDecodificado, values)
-        .then((data) => {
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -78,12 +79,22 @@ const FormProposalsFormik = () => (
             timer: 1500,
           });
           setTimeout(() => {
-            //window.location.href = '/dashboardAdmin/news'
-          }, 1500);
+            window.location.href = '/dashboardUserVolunteer/statusProposals'
+          }, 1500);}
+          else {
+            throw new Error("Failed to add proposal");
+          }
           setSubmitting(false);
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ocurrió un error al agregar la propuesta",
+            showConfirmButton: false,
+            timer: 1500
+          });
           setSubmitting(false);
         });
     }}
