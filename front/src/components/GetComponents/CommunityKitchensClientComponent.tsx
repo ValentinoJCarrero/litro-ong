@@ -102,7 +102,7 @@ const CommunityKitchensComponent = () => {
                     <a
                       className="flex flex-row  items-center  text-sm w-full"
                       id={`card${id}`}
-                      href={`/news/DinamicNew/${name}`}
+                      href={`/communityKitchens/DinamicCommunityKitchen/${id}`}
                     >
                       <div className="flex w-2/5 shad">
                         <img
