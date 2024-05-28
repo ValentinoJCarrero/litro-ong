@@ -83,9 +83,10 @@ const GetVolunteersWithEvents = ({ children }: any) => {
                 <div className="w-40 flex justify-center">
                 <div className='mx-8'>
                       <ButtonCTASmallReact
-                            title="Asignar al evento"
+                            title="Asignar"
                             idEvent={`assign-${id}`}
                             onClick={() => handleVolunteer(id, children)}
+                            color="white"
                           />
                       </div>
                 </div>
