@@ -30,10 +30,10 @@ const CommunityKitchensComponent = () => {
 
   useEffect(() => {
     const fetchCommunityKitchens = async (page: number) => {
-      const newsData = await getCommunityKitchens(2, page);
+      const newsData = await getCommunityKitchens(4, page);
       setKitchen(newsData.data);
       setMessage(newsData.message);
-      setTotalPages(Math.ceil(newsData.total / 3));
+      setTotalPages(Math.ceil(newsData.total / 4));
       setIsLoading(false);
     };
     fetchCommunityKitchens(page);
@@ -108,7 +108,7 @@ const CommunityKitchensComponent = () => {
                         <img
                           src={photo}
                           alt={name}
-                          className="w-20 h-20 rounded-full object-cover mr-4"
+                          className="w-16 h-16 rounded-full object-cover mr-4"
                         />
                         <div className="text-sm  text-textParagraph">
                           <h6 className="text-tertiary text-base font-semibold">
