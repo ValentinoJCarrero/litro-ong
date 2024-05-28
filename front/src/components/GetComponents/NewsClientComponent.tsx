@@ -87,7 +87,7 @@ const NewsComponent = () => {
                 <div className="">
                   <li
                     key={id}
-                    className="flex flex-row my-1 flex-nowrap justify-between items-center"
+                    className="flex flex-row my-3 flex-nowrap justify-between items-center"
                   >
                     <a
                       className="flex flex-row justify-between items-center  text-sm w-full"
