@@ -100,7 +100,8 @@ const FormProposalsFormik = () => (
     }}
   >
     {({ errors, touched }) => (
-      <Form className="text-sm text-textParagraph ">
+      <Form className="text-sm text-textParagraph my-5 ">
+        <h6 className="text-lg font-medium w-full text-center">Detalla tu idea que te responderemos en brevedad!</h6>
         <div className="flex flex-col h-20">
           <label htmlFor="title" className="font-medium ">
             Título
@@ -179,12 +180,7 @@ const FormProposalsFormik = () => (
             />
           </div>
           <div className=" flex flex-row items-center  justify-end">
-            <a
-              href="/dashboardAdmin/news"
-              className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
-            >
-              Volver
-            </a>
+         
             <button
               type="submit"
               className="bg-tertiary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"

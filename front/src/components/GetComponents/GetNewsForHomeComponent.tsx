@@ -62,7 +62,7 @@ const NewsForHome: React.FC = () => {
                   key={id}
                   className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
                 >
-                  <a href={`/news/DinamicNew/${title}`} className="block h-full w-full">
+                  <a href={`/news/DinamicNew/${id}`} className="block h-full w-full">
                     <div className="relative h-full w-full">
                       <img src={primaryImage} alt="imagen" className="h-80 w-full object-cover" />
                       <img

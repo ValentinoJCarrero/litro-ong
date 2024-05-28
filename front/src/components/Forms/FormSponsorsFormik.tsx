@@ -114,7 +114,9 @@ const FormSponsorsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage name="name" component="span" className="text-warning" />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage name="name" component="span" />
+          </div>
         </div>
         <div className="flex flex-col">
           <label htmlFor="email" className="font-medium my-2 ">
@@ -147,11 +149,12 @@ const FormSponsorsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="email"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="email"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-col">
           <label htmlFor="logo" className="font-medium my-2">
