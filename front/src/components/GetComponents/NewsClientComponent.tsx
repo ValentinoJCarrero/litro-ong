@@ -87,7 +87,7 @@ const NewsComponent = () => {
                 <div className="">
                   <li
                     key={id}
-                    className="flex flex-row my-1 flex-nowrap justify-between items-center"
+                    className="flex flex-row my-3 flex-nowrap justify-between items-center"
                   >
                     <a
                       className="flex flex-row justify-between items-center  text-sm w-full"
@@ -98,7 +98,7 @@ const NewsComponent = () => {
                         <img
                           src={primaryImage}
                           alt={title}
-                          className="w-20 h-20 rounded-full object-cover mr-4"
+                          className="w-16 h-16 rounded-full object-cover mr-4"
                         />
                         <div className="text-sm  text-textParagraph">
                           <h6 className="text-tertiary text-base font-semibold">

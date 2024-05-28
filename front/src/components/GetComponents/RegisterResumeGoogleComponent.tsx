@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { postGoogleRegister } from '../../helpers/Auth/postGoogleRegister';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2'
+import SpinnersPrimary from '../Spinners/SpinnersPrimary';
 interface UserInfo {
     fullName: string;
     dni: string;
     birthDate: string;
     phone: string;
     fullAddress: string;
+    isSubscribed: boolean;
 }
 interface User {
     email: string;
@@ -15,7 +17,7 @@ interface User {
 const RegisterResumeGoogleComponent = () => {
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
     const [user, setUser] = useState<User | null>(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         const registerUserProfile = localStorage.getItem('registerUserProfile');
         const userInfo = registerUserProfile ? JSON.parse(registerUserProfile) : null;
@@ -33,9 +35,10 @@ const RegisterResumeGoogleComponent = () => {
                 dni: userInfo.dni,
                 birthDate: userInfo.birthDate,
                 phone: userInfo.phone,
-                fullAddress: userInfo.fullAddress
-
+                fullAddress: userInfo.fullAddress,
+                isSubscribed: userInfo.isSubscribed,
             };
+            setIsLoading(true);
             postGoogleRegister(data)
             .then((data) => {
                 Swal.fire({
@@ -48,7 +51,7 @@ const RegisterResumeGoogleComponent = () => {
                 Cookies.remove("emailUser");
                 Cookies.remove("tokenUser");
                 setTimeout(() => {
-                    window.location.href = '/'
+                    window.location.href = '/dashboardUser/profile';
                     localStorage.clear();
                 }, 1500);
             })
@@ -61,7 +64,13 @@ const RegisterResumeGoogleComponent = () => {
 
     return (
         <div className="2-m h-full w-full px-14 flex flex-col">
-            {user && (
+            {isLoading ? (
+        <div className="flex items-center justify-center h-full">
+          <SpinnersPrimary />
+        </div>
+      ) : ( 
+        <>
+        {user && (
                 <div className="flex flex-col justify-between">
                     <div>
                         <h1 className='font-medium my-2'>Email</h1>
@@ -91,11 +100,17 @@ const RegisterResumeGoogleComponent = () => {
                         <h1  className='font-medium my-2'>Domicilio</h1>
                         <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.fullAddress}</p>
                     </div>
+                    <div>
+                        <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
+                        <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
+                            {userInfo.isSubscribed.toString()}
+                        </p>
+                    </div>
                 </div>
                 
             )}
             <div className="my-3 w-full flex justify-end">
-            <a href="/auth/register/personalInformation" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
+            <a href="/auth/register/personalInformationGoogle" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
                 Anterior
             </a>
             <button 
@@ -105,6 +120,8 @@ const RegisterResumeGoogleComponent = () => {
             >Siguiente
             </button>
             </div>
+            </> 
+      )}
         </div>
 
     );

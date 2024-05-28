@@ -24,10 +24,10 @@ const SponsorsComponent = () => {
 
   useEffect(() => {
     const fetchSponsors = async () => {
-      const newsData = await getSponsors(3, page);
+      const newsData = await getSponsors(5, page);
       setSponsors(newsData.data);
       setMessage(newsData.message);
-      setTotalPages(Math.ceil(newsData.total / 3));
+      setTotalPages(Math.ceil(newsData.total / 5));
       setIsLoading(false);
     };
     fetchSponsors();
@@ -66,7 +66,7 @@ const SponsorsComponent = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between p-4 h-full ">
+    <div className="flex flex-col items-center justify-between p-5 h-full ">
       {isLoading ? (
         <SpinnersPrimary />
       ) : message === "No se encontraron patrocinadores" ? (
@@ -87,7 +87,7 @@ const SponsorsComponent = () => {
                     <img
                       src={logo}
                       alt={name}
-                      className="w-20 h-20 rounded-full object-cover mr-4"
+                      className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                     <div className="flex flex-col justify-center">
                       <h6 className="text-tertiary text-base font-semibold">
