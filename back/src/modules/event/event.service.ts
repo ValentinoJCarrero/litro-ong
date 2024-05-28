@@ -58,9 +58,8 @@ export class EventService {
     return futureEvents;
   }
 
-  async getOneEvent(title: string): Promise<Event> {
-    const eventById: Event | null =
-      await this.eventRepository.getOneEvent(title);
+  async getOneEvent(id: string): Promise<Event> {
+    const eventById: Event | null = await this.eventRepository.getOneEvent(id);
     if (!eventById) {
       throw new NotFoundException('Evento no encontrado');
     }
@@ -110,7 +109,7 @@ export class EventService {
   }
 
   async addVolunteer(id: string, event: Partial<Event>) {
-    const eventFound = await this.eventRepository.getOneEvent(event.title);
+    const eventFound = await this.eventRepository.getEventByTitle(event.title);
 
     if (!eventFound) {
       throw new NotFoundException('El hay un evento registrado con ese titulo');

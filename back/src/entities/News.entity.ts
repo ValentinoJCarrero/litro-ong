@@ -7,10 +7,10 @@ export class News {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Column({ type: 'varchar', length: 40, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', length: 30, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   subtitle: string;
 
   @Column({ type: 'varchar', nullable: false })

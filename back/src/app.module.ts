@@ -27,10 +27,23 @@ import { CommunityKitchensModule } from './modules/communityKitchens/communityKi
 import { ProposalsModule } from './modules/proposals/proposals.module';
 import { PartnerModule } from './modules/partner/partner.module';
 import { CardModule } from './modules/card/card.module';
+import { Workshop } from './entities/Workshop.entity';
+import { Volunteer } from './entities/Volunteer.entity';
+import { Benefit } from './entities/Benefit.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Donation, Event, News, Role, Sponsor]),
+    TypeOrmModule.forFeature([
+      User,
+      Donation,
+      Event,
+      News,
+      Role,
+      Sponsor,
+      Workshop,
+      Volunteer,
+      Benefit,
+    ]),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [dbConfig],

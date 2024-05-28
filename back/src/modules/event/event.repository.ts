@@ -41,7 +41,13 @@ export class EventRepository {
     return { data, total };
   }
 
-  getOneEvent(title: string): Promise<Event> {
+  getOneEvent(id: string): Promise<Event> {
+    return this.EventRepository.findOne({
+      where: { id: id },
+      relations: { volunteer: { user: { volunteerData: false } } },
+    });
+  }
+  getEventByTitle(title: string): Promise<Event> {
     return this.EventRepository.findOne({
       where: { title: title },
       relations: { volunteer: { user: { volunteerData: false } } },
@@ -83,9 +89,9 @@ export class EventRepository {
     return this.EventRepository.save(eventFound);
   }
 
-  async addVolunteer(id: string, eventFound: Event) {
+  async addVolunteer(volunteerId: string, eventFound: Event) {
     const volunteer = await this.volunteerRepository.findOne({
-      where: { id: id },
+      where: { id: volunteerId },
     });
 
     if (!volunteer) {

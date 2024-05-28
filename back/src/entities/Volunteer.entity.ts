@@ -31,6 +31,9 @@ export class Volunteer {
   @Column({ type: 'varchar', nullable: false })
   endHours: string;
 
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
   @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
   volunteerSince: Date;
 
