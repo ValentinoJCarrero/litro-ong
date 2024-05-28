@@ -25,7 +25,7 @@ const NewsForHome: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const newsData = await getNews(3, 1);
+        const newsData = await getNews(100, 1);
         setNews(newsData.data);
         setIsLoading(false);
       } catch (error: any) {
@@ -46,8 +46,8 @@ const NewsForHome: React.FC = () => {
   }
 
   // Para hacerlo por fecha es el metodo comentado, pero como por ahora todas las que creo tienen la misma fecha, solo estoy dando vuelta el array 
-  //const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  //const latestNews = sortedNews.slice(0, 3);
+  // const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // const latestNews = sortedNews.slice(0, 3);
   const latestNews = news.slice(-3).reverse();
 
   return (
@@ -56,7 +56,7 @@ const NewsForHome: React.FC = () => {
         <li>
           <div className="flex flex-row gap-10 items-center justify-center m-2">
             {latestNews.map(({ id, title, date, primaryImage }) => {
-              const formattedDate = format(new Date(date), "MMMM dd, yyyy, EEEE", { locale: es });
+              const formattedDate = format(new Date(date), 'dd/MM/yyyy', { locale: es });
               return (
                 <div
                   key={id}
