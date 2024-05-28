@@ -2,9 +2,6 @@
 
 import DasboardLayouts from "../../../layouts/DasboardLayouts.astro";
 import AsideMenuSocioVolunteer from "../../../components/AsideMenuDasboard/AsideMenuSocioVolunteer.astro";
-import EnConstruccion from "../../../components/EnConstruccion/EnConstruccion";
-import ButtonSecondarySmall from "../../../components/Buttons/ButtonSecondarySmall.astro";
-import ButtonPrimarySmall from "../../../components/Buttons/ButtonPrimarySmall.astro";
 import CardUser from "../../../components/CardUser/CardUser";
 ---
 
@@ -24,15 +21,8 @@ import CardUser from "../../../components/CardUser/CardUser";
           </h4>
           <hr />
         </div>
-        <CardUser />
-        <div class="flex justify-end gap-5">
-          <a href="/dashboardUserVolunteer/statusProposals">
-            <ButtonSecondarySmall title="Volver" />
-          </a>
-          <!-- <a href="/dashboardUserVolunteer/communityKitchens">
-            <ButtonPrimarySmall title="Siguiente" />
-          </a> -->
-        </div>
+        <!-- <h2 class="text-lg font-medium w-full text-center my-6">Te presentamos tu tarjeta virtual</h2> -->
+        <CardUser client:load />
       </div>
       
     </div>

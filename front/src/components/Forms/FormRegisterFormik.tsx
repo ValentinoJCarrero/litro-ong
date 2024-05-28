@@ -96,11 +96,10 @@ const FormRegisterFormik = () => {
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="email"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-4 text-warning">
+              <ErrorMessage name="email" component="span" />
+            </div>
+            
           </div>
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-full pr-4">
@@ -143,11 +142,9 @@ const FormRegisterFormik = () => {
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="password"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-4 text-warning">
+                <ErrorMessage name="password" component="span" />
+              </div>
             </div>
             <div className="flex flex-col w-full pl-4">
               <label htmlFor="title" className="font-medium my-2 ">
@@ -193,11 +190,9 @@ const FormRegisterFormik = () => {
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="passwordVerify"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-4 text-warning">
+              <ErrorMessage name="passwordVerify" component="span"/>
+              </div>
             </div>
           </div>
           <div className="my-20 w-full flex justify-end">

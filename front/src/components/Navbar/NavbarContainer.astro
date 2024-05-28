@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import logoIcon from "../../assets/Logo.svg";
 import avatarUser from "../../assets/avatarUser.jpg";
+import avatarAdmin from "../../assets/avatarAdmin.jpg";
 import SearchPages from "./SearchPages/SearchPages.astro";
 import ButtonSecondary from "../Buttons/ButtonSecondary.astro";
 import imagenPerfilDefault from "../../assets/imagenPerfilDefault.svg";
@@ -13,20 +14,22 @@ import { jwtDecode } from "jwt-decode";
 const session = await getSession(Astro.request);
 const email = session?.user?.email || '';
 let idDecodificado = "";
+let roleDecodificado = "";
 const tokenUser = Astro.cookies.get("token")?.value || '';
-console.log(tokenUser);
-
 
 if (tokenUser) {
   try {
     const decodedToken: any = jwtDecode(tokenUser);
-    idDecodificado = decodedToken.userPayload.sub;
 
-    console.log("el token magico decodificado es:",idDecodificado);
+    idDecodificado = decodedToken.userPayload.sub;
+    roleDecodificado = decodedToken.userPayload.roles;
   } catch (error) {
     console.error("Error decoding token:", error);
   }
 }
+const userRole = Array.isArray(roleDecodificado) && roleDecodificado.length > 0
+  ? roleDecodificado[0].role
+  : '';
 ---
 
 <div
@@ -41,38 +44,50 @@ if (tokenUser) {
         <ButtonSecondary title="Dona" />
     </a>
 
-    {
-      email
-        ? (email === "julianmagallanes1994@gmail.com" || email === "johndoe@example.com" || email === "simonflores200394@gmail.com" || email === "valenkxdd@gmail.com")
-          ? <Menu client:load>
-              <img
-                src={session?.user?.image}
-                alt="Imagen de perfil"
-                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-              />
-            </Menu>
-          : <MenuUser client:load>
-              <img
-                src={session?.user?.image}
-                alt="Imagen de perfil"
-                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-              />
-            </MenuUser>
-        : tokenUser
-          ? <MenuUser client:load>
-              <img
-                src={avatarUser.src}
-                alt="Imagen de perfil"
-                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-              />
-            </MenuUser>
-          : <a href="/auth/login2">
-              <img
-                src={imagenPerfilDefault.src}
-                alt="Imagen de perfil"
-                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-              />
-            </a>
-    }
+    {email ? (
+      (email.length) ? (
+        <Menu client:load>
+          <img
+            src={session?.user?.image}
+            alt="Imagen de perfil"
+            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+          />
+        </Menu>
+      ) : (
+        <MenuUser client:load>
+          <img
+            src={session?.user?.image}
+            alt="Imagen de perfil"
+            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+          />
+        </MenuUser>
+      )
+    ) : tokenUser ? (
+      userRole === "Admin" ? (
+        <Menu client:load>
+          <img
+            src={avatarAdmin.src}
+            alt="Imagen de perfil"
+            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+          />
+        </Menu>
+      ) : (
+        <MenuUser client:load>
+          <img
+            src={avatarUser.src}
+            alt="Imagen de perfil"
+            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+          />
+        </MenuUser>
+      )
+    ) : (
+      <a href="/auth/login2">
+        <img
+          src={imagenPerfilDefault.src}
+          alt="Imagen de perfil"
+          class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+        />
+      </a>
+    )}
   </div>
 </div>

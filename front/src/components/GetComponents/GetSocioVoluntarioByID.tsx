@@ -38,6 +38,7 @@ function GetVolunteerByID() {
     if (idUser) {
       getVolunteersByID(idUser)
         .then((data) => {
+          Cookies.set("fullName", data.fullName);
           setInfoUser(data);
           setIsLoading(false);
           setMessage(data.volunteerData);

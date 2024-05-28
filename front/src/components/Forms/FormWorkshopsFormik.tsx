@@ -165,7 +165,9 @@ const FormWorkshopsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage name="name" component="span" className="text-warning" />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage name="name" component="span" />
+          </div>
         </div>
         <div className="flex flex-row h-20 ">
           <div className="flex flex-col h-20 w-full pr-4">
@@ -199,11 +201,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="teacher"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="teacher"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col h-20 w-full pl-4">
             <label htmlFor="teacherPhone" className="font-medium ">
@@ -238,11 +241,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="teacherPhone"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="teacherPhone"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row h-20 ">
@@ -277,11 +281,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="timeStart"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="timeStart"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col h-20 w-full pl-4">
             <label htmlFor="duration" className="font-medium ">
@@ -314,11 +319,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="duration"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="duration"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row h-20">
@@ -352,11 +358,13 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="dateStart"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="dateStart"
+                component="span"
+                className="text-warning"
+              />
+            </div>
           </div>
           <div className="flex flex-col h-20 w-full px-4">
             <label htmlFor="dateEnd" className="font-medium ">
@@ -388,11 +396,13 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="dateEnd"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="dateEnd"
+                component="span"
+                className="text-warning"
+              />
+            </div>
           </div>
           <div className="flex flex-col h-20 w-full pl-4">
             <label htmlFor="cost" className="font-medium ">
@@ -425,11 +435,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="cost"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="cost"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row gap-4">
@@ -450,11 +461,13 @@ const FormWorkshopsFormik = () => (
               )
             }
           />
-          <ErrorMessage
-            name="photo"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="photo"
+              component="span"
+              className="text-warning"
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20 gap-3 ">
           <label htmlFor="days" className="font-medium ">
@@ -520,11 +533,12 @@ const FormWorkshopsFormik = () => (
                 />
               </div>
             </div>
+            <div className="h-3 text-warning w-full">
             <ErrorMessage
               name="description"
               component="span"
-              className="text-warning"
             />
+            </div>
           </div>
           <div className=" w-1/3 flex flex-row items-center  justify-end">
             <a

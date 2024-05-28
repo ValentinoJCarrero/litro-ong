@@ -34,11 +34,7 @@ const ProposalsComponent = () => {
 
   return (
     <div className="flex items-center justify-center h-full flex-col">
-      <div className="shadow-xl w-full flex items-end justify-end mb-10 rounded-full px-10">
-        <button onClick={() => setStatus("APPROVED")}>APROBADOS</button>
-        <button onClick={() => setStatus("REJECTED")} className="mx-10">RECHAZADOS</button>
-        <button onClick={() => setStatus("")}>TODOS</button>
-      </div>
+      
       {isLoading ? (
         <div className="flex items-center justify-center">
         <SpinnersPrimary />
@@ -46,6 +42,12 @@ const ProposalsComponent = () => {
       ) : message ==="No se encontraron propuestas en esta pagina" ? (
         <NotFound />
       ) : (
+        <>
+        <div className="shadow-xl w-full flex items-end justify-end mb-10 rounded-full px-10">
+        <button onClick={() => setStatus("APPROVED")}>APROBADOS</button>
+        <button onClick={() => setStatus("REJECTED")} className="mx-10">RECHAZADOS</button>
+        <button onClick={() => setStatus("")}>TODOS</button>
+      </div>
         <ul className=" w-full">
           {proposals.map(({ status, title,  date, id }) => (
             <>
@@ -82,6 +84,7 @@ const ProposalsComponent = () => {
               </div> 
           </div>
         </ul>
+        </>
       )}
       {/*<div className="w-full flex justify-end mt-10">
         <ButtonWarningSmall title="Eliminar propuestas" idEvent="newProposal" onClick={() => {}} />

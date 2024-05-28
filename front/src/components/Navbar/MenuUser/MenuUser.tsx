@@ -70,6 +70,7 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
           <button onClick={() => {
             signOut()
             Cookies.remove("token");
+            Cookies.remove("fullName");
           }} className="text-textTertiary text-sm font-medium">Cerrar sesión</button>
         </li>
       </ul>
