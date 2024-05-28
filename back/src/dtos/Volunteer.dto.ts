@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class VolunteerDto {
   /**
    * @example '["Monday", "Tuesday"]'
@@ -22,4 +22,11 @@ export class VolunteerDto {
   @IsNotEmpty()
   @IsString()
   endHours: string;
+
+  /**
+   * @example 'Una aclaracion sobre mis datos como voluntario ( no tengo movilidad - no soy mayor de 18 - mis dias de disponibilidad pueden cambiar en cualquier momento - los dias feriados mi disponibilidad horaria es mas extensa) '
+   */
+  @IsOptional()
+  @IsString()
+  description: string;
 }

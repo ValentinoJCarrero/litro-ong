@@ -21,9 +21,11 @@ export class Partner {
   @JoinColumn()
   user: User;
 
-  @OneToOne(() => Card, (card) => card.partner, {})
+  @OneToOne(() => Card, (card) => card.partner, {
+    onDelete: 'CASCADE',
+  })
   cardData: Card;
 
-  @Column({ type: 'date', nullable: false })
+  @Column({ type: 'date', nullable: false, default: () => 'CURRENT_DATE' })
   associateSince: Date;
 }

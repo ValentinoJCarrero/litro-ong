@@ -6,7 +6,7 @@ export class NewsDto {
   @IsNotEmpty({ message: 'El titulo es requerido' })
   @IsString({ message: 'El titulo debe ser un texto' })
   @MinLength(10, { message: 'El titulo debe tener al menos 10 caracteres' })
-  @MaxLength(80, { message: 'El titulo debe tener menos de 40 caracteres' })
+  @MaxLength(80, { message: 'El titulo debe tener menos de 80 caracteres' })
   title: string;
 
   /**
@@ -15,7 +15,7 @@ export class NewsDto {
   @IsNotEmpty({ message: 'El subtitulo es requerido' })
   @IsString({ message: 'El subtitulo debe ser un texto' })
   @MinLength(10, { message: 'El subtitulo debe tener al menos 10 caracteres' })
-  @MaxLength(60, { message: 'El subtitulo debe tener menos de 30 caracteres' })
+  @MaxLength(60, { message: 'El subtitulo debe tener menos de 70 caracteres' })
   subtitle: string;
 
   /**
@@ -42,7 +42,7 @@ export class NewsDto {
     message: 'La descripción debe tener al menos 100 caracteres',
   })
   @MaxLength(1500, {
-    message: 'La descripción debe tener menos de 800 caracteres',
+    message: 'La descripción debe tener menos de 1500 caracteres',
   })
   description: string;
 }
