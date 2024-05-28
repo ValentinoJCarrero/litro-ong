@@ -104,7 +104,7 @@ const CommunityKitchensComponent = () => {
                       id={`card${id}`}
                       href={`/news/DinamicNew/${name}`}
                     >
-                      <div className="flex w-2/5">
+                      <div className="flex w-2/5 shad">
                         <img
                           src={photo}
                           alt={name}
