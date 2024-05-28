@@ -121,7 +121,7 @@ const CommunityKitchensComponent = () => {
                         </div>
                       </div>
                       <div className="text-center flex flex-row h-full justify-center items-center text-xs w-96  ">
-                      {days.join(' ')}
+                        {days.join(" ")}
                       </div>
                     </a>
                     <div className="flex flex-row justify-center gap-10">
@@ -135,7 +135,6 @@ const CommunityKitchensComponent = () => {
                             onClick={() => onClic(id)}
                           />
                         )}
-                        {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
                       </div>
                     </div>
                   </li>
