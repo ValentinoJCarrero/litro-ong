@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getCommunityKitchens } from '../../helpers/CommunityKitchens/getCommunityKitchens';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import rectangle from '../../assets/rectangleCard.svg';
 import cursorIcon from '../../assets/cursorIcon.svg';
 import SpinnersPrimary from '../Spinners/SpinnersPrimary';
@@ -28,7 +26,7 @@ const GetAllCommunityKitchensComponent: React.FC = () => {
   useEffect(() => {
     const fetchCommunityKitchens = async () => {
       try {
-        const kitchensData = await getCommunityKitchens(5, 1);
+        const kitchensData = await getCommunityKitchens(3, 1);
         setCommunityKitchens(kitchensData.data);
         setIsLoading(false);
       } catch (error: any) {
@@ -39,9 +37,13 @@ const GetAllCommunityKitchensComponent: React.FC = () => {
 
     fetchCommunityKitchens();
   }, []);
-
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {/* simon este viene bien. el espacio que esta ocupando es mucho pero va por aca */}
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
@@ -57,7 +59,7 @@ const GetAllCommunityKitchensComponent: React.FC = () => {
       <ul>
         <li>
           <div className="flex flex-row gap-10 items-center justify-center m-2">
-            {communityKitchens.map(({ id, name, address, holder, kidsNumber, days, time, photo }) => {
+            {communityKitchens.map(({ id, name, days, photo }) => {
               return (
                 <div
                   key={id}
@@ -73,14 +75,13 @@ const GetAllCommunityKitchensComponent: React.FC = () => {
                       />
                       <div className="absolute bottom-0 w-full z-20 p-4">
                         <h6 className="font-semibold">{name}</h6>
-                        <p className="font-semibold">{address}</p>
                         <div className="flex items-center">
                           <img src={calendarIcon.src} alt="calendar icon" className="mr-2" />
                           <p className="font-semibold">{days.join(' - ')}</p>
                         </div>
                         <div className="flex justify-end items-center mt-4">
                           <img src={cursorIcon.src} alt="cursor icon" className="mr-2" />
-                          <p className="font-semibold">{holder}</p>
+                          <p className="font-semibold">Ver detalles</p>
                         </div>
                       </div>
                     </div>

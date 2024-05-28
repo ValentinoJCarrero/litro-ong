@@ -45,7 +45,6 @@ const DynamicEvent: React.FC = () => {
         try {
           const eventData = await getEventByTitle(url);
           setEvent(eventData);
-          console.log(eventData);
           setIsLoading(false);
         } catch (error: any) {
           setError(error.message);
@@ -57,7 +56,9 @@ const DynamicEvent: React.FC = () => {
   }, [url]);
 
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return <div className="flex items-center justify-center h-full">
+              <SpinnersPrimary />
+            </div>
   }
 
   if (error) {
@@ -74,7 +75,7 @@ const DynamicEvent: React.FC = () => {
         <div className="flex flex-col">
           <BannerIndividualEvent
             titulo={event.title}
-            fecha={format(new Date(event.date), "MMMM dd, yyyy, EEEE", { locale: es })}
+            fecha={format(new Date(event.date), "dd/MM/yyyy", { locale: es })}
             banner={event.primaryImage}
             direccion={event.address}
           />

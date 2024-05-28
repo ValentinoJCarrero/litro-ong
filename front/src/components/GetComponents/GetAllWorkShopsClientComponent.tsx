@@ -44,7 +44,12 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {/* simon este viene bien. el espacio que esta ocupando es mucho pero va por aca */}
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
@@ -60,7 +65,9 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
       <ul>
         <li>
           <div className="flex flex-row gap-10 items-center justify-center m-2">
-            {workshops.map(({ id, name, dateStart, teacherPhone, photo }) => {
+            {workshops.map(({ id, name, dateStart, photo }) => {
+              const formattedDateStart = format(new Date(dateStart), 'dd/MM/yyyy', { locale: es });
+
               return (
                 <div
                   key={id}
@@ -78,11 +85,11 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
                         <h6 className="font-semibold">{name}</h6>
                         <div className="flex items-center">
                           <img src={calendarIcon.src} alt="icono calendario" className="mr-2" />
-                          <p className="font-semibold">{dateStart}</p>
+                          <p className="font-semibold">{formattedDateStart}</p>
                         </div>
                         <div className="flex justify-end items-center mt-4">
                           <img src={cursorIcon.src} alt="icono cursor" className="mr-2" />
-                          <p className="font-semibold">{teacherPhone}</p>
+                          <p className="font-semibold">Ver detalles</p>
                         </div>
                       </div>
                     </div>
