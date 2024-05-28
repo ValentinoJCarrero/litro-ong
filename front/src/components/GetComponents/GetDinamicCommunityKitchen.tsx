@@ -3,8 +3,6 @@ import { getCommunityKitchensTitle } from "../../helpers/CommunityKitchens/getTi
 import NotFound from "../NotFound/NotFound";
 import BannerIndividualCommunityKitchen from "../fromCommunityKitchens/BannerIndividualCommunityKitchen";
 import SpinnersPrimary from '../Spinners/SpinnersPrimary';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 
 interface CommunityKitchen {
   id: string;
@@ -20,7 +18,7 @@ interface CommunityKitchen {
 
 const DynamicCommunityKitchen: React.FC = () => {
   const [communityKitchen, setCommunityKitchen] = useState<CommunityKitchen | null>(null);
-  const [id, setId] = useState("");
+  const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,19 +28,20 @@ const DynamicCommunityKitchen: React.FC = () => {
     const match = fullUrl.match(regex);
 
     if (match && match[1]) {
-      const decodedId = decodeURIComponent(match[1]);
-      setId(decodedId);
+      const decodedUrl = decodeURIComponent(match[1]);
+      setUrl(decodedUrl);
     } else {
-      setId("");
+      setUrl("");
     }
   }, []);
 
   useEffect(() => {
     const fetchCommunityKitchenById = async () => {
-      if (id) {
+      if (url) {
         try {
-          const communityKitchenData = await getCommunityKitchensTitle(id);
+          const communityKitchenData = await getCommunityKitchensTitle(url);
           setCommunityKitchen(communityKitchenData);
+          console.log(communityKitchenData);
           setIsLoading(false);
         } catch (error: any) {
           setError(error.message);
@@ -51,10 +50,12 @@ const DynamicCommunityKitchen: React.FC = () => {
       }
     };
     fetchCommunityKitchenById();
-  }, [id]);
+  }, [url]);
 
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return <div className="flex items-center justify-center h-full">
+              <SpinnersPrimary />
+            </div>;
   }
 
   if (error) {
