@@ -138,7 +138,9 @@ const FormBenefitsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage name="name" component="span" className="text-warning" />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage name="name" component="span" />
+          </div>
         </div>
         <div className="flex flex-col h-20">
           <label htmlFor="address" className="font-medium  ">
@@ -171,11 +173,12 @@ const FormBenefitsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
             name="address"
             component="span"
-            className="text-warning"
-          />
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20">
           <label htmlFor="benefits" className="font-medium  ">
@@ -208,11 +211,12 @@ const FormBenefitsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="benefits"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="benefits"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20">
           <label htmlFor="benefitEndDate" className="font-medium  ">
@@ -245,11 +249,12 @@ const FormBenefitsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="benefitEndDate"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="benefitEndDate"
+              component="span"
+            />
+          </div>
         </div>
         
         <div className="flex flex-col h-20">
@@ -268,7 +273,9 @@ const FormBenefitsFormik = () => (
               )
             }
           />
-          <ErrorMessage name="logo" component="span" className="text-warning" />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage name="logo" component="span"/>
+          </div>
         </div>
         <div className="flex flex-row gap-6">
 
@@ -304,11 +311,12 @@ const FormBenefitsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="description"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="description"
+              component="span"
+            />
+          </div>
         </div>
         <div className=" w-1/3 flex flex-row justify-end items-end  py-4 ">
           <a

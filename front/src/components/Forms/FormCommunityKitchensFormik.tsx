@@ -150,7 +150,9 @@ const FormCommunityKitchensFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage name="name" component="span" className="text-warning" />
+          <div className="h-3 text-warning w-full">
+            <ErrorMessage name="name" component="span"/>
+          </div>
         </div>
         <div className="flex flex-row  h-20">
           <div className="flex flex-col  w-full pr-4">
@@ -184,11 +186,12 @@ const FormCommunityKitchensFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="holder"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="holder"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col  w-full pl-4">
             <label htmlFor="address" className="font-medium ">
@@ -221,11 +224,12 @@ const FormCommunityKitchensFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="address"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="address"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row bg-green- h-20">
@@ -260,11 +264,12 @@ const FormCommunityKitchensFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="time"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="time"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col  w-full pl-4">
             <label htmlFor="kidsNumber" className="font-medium ">
@@ -297,11 +302,12 @@ const FormCommunityKitchensFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="kidsNumber"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="kidsNumber"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-row justify-between items-stretch gap-10">
@@ -334,6 +340,12 @@ const FormCommunityKitchensFormik = () => (
             ))}
               
             </div>
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="days"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col w-1/2  ">
             <label htmlFor="photo" className="font-medium ">
@@ -353,11 +365,13 @@ const FormCommunityKitchensFormik = () => (
                 )
               }
             />
-            <ErrorMessage
-              name="photo"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="photo"
+                component="span"
+                className="text-warning"
+              />
+            </div>
           </div>
         </div>
 
@@ -395,11 +409,12 @@ const FormCommunityKitchensFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="description"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning w-full">
+              <ErrorMessage
+                name="description"
+                component="span"
+              />
+            </div>
           </div>
           <div className=" w-1/3 flex flex-row items-center  justify-end">
             <a

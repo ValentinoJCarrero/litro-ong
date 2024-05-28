@@ -151,11 +151,12 @@ const FormNewsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="title"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning">
+            <ErrorMessage
+              name="title"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20">
           <label htmlFor="subtitle" className="font-medium my-2">
@@ -188,11 +189,12 @@ const FormNewsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="subtitle"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning">
+            <ErrorMessage
+              name="subtitle"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20 my-2">
           <label htmlFor="primaryImage" className="font-medium my-2">
@@ -210,11 +212,13 @@ const FormNewsFormik = () => (
               )
             }
           />
-          <ErrorMessage
-            name="primaryImage"
-            component="span"
-            className="text-warning"
-          />
+          
+        </div>
+        <div className="h-3 text-warning w-full">
+            <ErrorMessage
+              name="primaryImage"
+              component="span"
+            />
         </div>
         <div className="flex flex-row items-center justify-between flex-wrap">
 
@@ -235,12 +239,11 @@ const FormNewsFormik = () => (
               )
             }
           />
-          <ErrorMessage
-            name="secondaryImage"
-            component="span"
-            className="text-warning"
-          />
+          
         </div>
+        <div className="h-4 text-textParagraph">
+          <p>Imagen opcional</p>
+          </div>
         </div>
         <div className="flex flex-col w-1/2">
           <label htmlFor="tertiaryImage" className="font-medium my-2">
@@ -258,14 +261,12 @@ const FormNewsFormik = () => (
               )
             }
           />
-          <ErrorMessage
-            name="tertiaryImage"
-            component="span"
-            className="text-warning"
-          />
+          
         </div>
         </div>
-
+        <div className="h-4 text-textParagraph">
+            <p>Imagen opcional</p>
+          </div>
         <div className=" flex flex-row gap-10">
 
         <div className="flex flex-col h-32  w-2/3">
@@ -299,11 +300,12 @@ const FormNewsFormik = () => (
               />
             </div>
           </div>
+          <div className="h-3 text-warning">
           <ErrorMessage
             name="description"
             component="span"
-            className="text-warning"
           />
+          </div>
         </div>
         <div className=" w-1/3 flex flex-row items-center  justify-end">
           <a

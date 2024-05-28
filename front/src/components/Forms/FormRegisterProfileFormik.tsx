@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import warningIcon from "../../assets/IconWarrning.svg";
 import { useState } from "react";
-import Swal from "sweetalert2";
+
 
 interface IFormValues {
   name: string;
@@ -51,14 +51,10 @@ const validate = (values: IFormValues) => {
     errors.phone = "El número de teléfono es requerido";
   } else if (isNaN(Number(values.phone))) {
     errors.phone = "El número de teléfono debe ser un valor numérico";
-  } else if (values.phone.toString().length !== 10) {
-    errors.phone = "El número de teléfono debe tener 10 dígitos";
   }
 
   if (!values.birthDate) {
     errors.birthDate = "La fecha de nacimiento es requerida";
-  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)) {
-    errors.birthDate = "Ingrese una fecha válida (AAAA-MM-DD)";
   }
 
   if (!values.dni) {
@@ -139,11 +135,12 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="name"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-4 text-warning">
+                <ErrorMessage
+                  name="name"
+                  component="span"
+                />
+              </div>
             </div>
             <div className="flex flex-col w-full pl-4">
               <label htmlFor="title" className="font-medium my-2 ">
@@ -176,11 +173,12 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
+              <div className="h-4 text-warning">
               <ErrorMessage
                 name="lastname"
                 component="span"
-                className="text-warning"
               />
+              </div>
             </div>
           </div>
           <div className="flex flex-row justify-between w-full">
@@ -190,7 +188,7 @@ const FormRegisterProfileFormik = () => {
               </label>
               <div className="flex w-full">
                 <Field
-                  type="number"
+                  type="text"
                   name="phone"
                   placeholder="Ingrese numero telefonico"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
@@ -215,11 +213,12 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
+              <div className="h-4 text-warning">
               <ErrorMessage
                 name="phone"
                 component="span"
-                className="text-warning"
               />
+              </div>
             </div>
             <div className="flex flex-col w-full pl-4">
               <label htmlFor="title" className="font-medium my-2 ">
@@ -227,9 +226,8 @@ const FormRegisterProfileFormik = () => {
               </label>
               <div className="flex w-full">
                 <Field
-                  type="text"
+                  type="date"
                   name="birthDate"
-                  placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                     errors.birthDate && touched.birthDate
                       ? "border-warningBorder text-warningText font-medium"
@@ -252,11 +250,12 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
+              <div className="h-4 text-warning">
               <ErrorMessage
-                name="brithDate"
+                name="birthDate"
                 component="span"
-                className="text-warning"
               />
+              </div>
             </div>
           </div>
           <div className="flex flex-col w-full">
@@ -265,7 +264,7 @@ const FormRegisterProfileFormik = () => {
             </label>
             <div className="flex w-full">
               <Field
-                type="number"
+                type="text"
                 name="dni"
                 placeholder="Ingrese su numero de documento"
                 className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
@@ -290,11 +289,12 @@ const FormRegisterProfileFormik = () => {
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="dni"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-4 text-warning">
+              <ErrorMessage
+                name="dni"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col w-full">
             <label htmlFor="title" className="font-medium my-2 ">
@@ -327,11 +327,12 @@ const FormRegisterProfileFormik = () => {
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="address"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-4 text-warning">
+              <ErrorMessage
+                name="address"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-full pr-4">
@@ -355,7 +356,7 @@ const FormRegisterProfileFormik = () => {
                 >
                   <option value="">Selecciona país</option>
                   <option value="Argentina">Argentina</option>
-                  <option value="España">España</option>
+                  <option value="España">Otros paises</option>
                 </Field>
                 <div
                   className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
@@ -373,13 +374,14 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="country"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-4 text-warning">
+                <ErrorMessage
+                  name="country"
+                  component="span"
+                />
+              </div>
             </div>
-            <div className="flex flex-col w-full px-4">
+            <div className="flex flex-col w-full pl-4">
               <label htmlFor="title" className="font-medium my-2 ">
                 Provincia
               </label>
@@ -442,31 +444,33 @@ const FormRegisterProfileFormik = () => {
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="province"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-4 text-warning">
+                <ErrorMessage
+                  name="province"
+                  component="span"
+                />
+              </div>
             </div>
-            <div className="flex flex-col w-full pl-4">
-            <label htmlFor="isSubscribed" className="font-medium my-2 ">Registrarse al newslatter
-            <div className="flex w-full">
-            <Field
-            type="checkbox"
-            name="isSubscribed"
-            className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-              errors.isSubscribed && touched.isSubscribed ? 'border-warningBorder text-warningText font-medium' : ''
-            }`}
-          />
-            <div className="ml-10 mt-4">
-              {`${values.isSubscribed}`}
-            </div>
-            </div>
-            </label>
-            <ErrorMessage name="isSubscribed" component="span" className="text-warning" />
-        </div>
           </div>
-
+              <div className="flex flex-col w-full">
+                <label htmlFor="isSubscribed" className="font-medium my-2 ">
+                <div className="flex w-full items-center">
+                <Field
+                type="checkbox"
+                name="isSubscribed"
+                className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+                  errors.isSubscribed && touched.isSubscribed ? 'border-warningBorder text-warningText font-medium' : ''
+                }`}
+              />
+                <div className="ml-10 mt-4">
+                  Registrarse al newslatter
+                </div>
+                </div>
+                </label>
+                <div className="h-4 text-warning">
+                <ErrorMessage name="isSubscribed" component="span" />
+                </div>
+            </div>
           <div className="  absolute bottom-14 right-20 w-full flex justify-end ">
             <a
               href="/auth/register"

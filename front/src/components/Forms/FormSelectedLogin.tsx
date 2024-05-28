@@ -97,23 +97,34 @@ const FormWorkshopsFormik = () => (
                 type="time"
                 name="startHours"
                 placeholder="HH:MM"
-                className={`w-full rounded-l-md border px-3 py-2 focus:outline-none ${
-                  errors.startHours && touched.startHours
-                    ? "border-warning text-warning"
-                    : "border-backgroundGrey"
+                className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                  errors.startHours&& touched.startHours
+                    ? "border-warningBorder text-warningText font-medium"
+                    : ""
                 }`}
               />
-              {errors.startHours && touched.startHours && (
-                <div className="flex items-center justify-center rounded-r-md px-4 bg-white border-warning">
-                  <img src={warningIcon.src} alt="warningIcon" />
-                </div>
-              )}
+              <div
+                className={`h-10 flex justify-center items-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                  errors.startHours && touched.startHours
+                    ? "border-warningBorder text-warningText font-medium "
+                    : ""
+                }`}
+              >
+                <img
+                  src={warningIcon.src}
+                  alt="warningIcon"
+                  className={`${
+                    errors.startHours && touched.startHours? "h-4 block " : "hidden"
+                  }`}
+                />
+              </div>
             </div>
-            <ErrorMessage
-              name="startHours"
-              component="span"
-              className="text-warning mt-1"
-            />
+            <div className="h-3 text-warning">
+              <ErrorMessage
+                name="startHours"
+                component="span"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col  w-1/2 ">
@@ -125,23 +136,34 @@ const FormWorkshopsFormik = () => (
                 type="time"
                 name="endHours"
                 placeholder="HH:MM"
-                className={`w-full rounded-l-md border px-3 py-2 focus:outline-none ${
+                className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                   errors.endHours && touched.endHours
-                    ? "border-warning text-warning"
-                    : "border-backgroundGrey"
+                    ? "border-warningBorder text-warningText font-medium"
+                    : ""
                 }`}
               />
-              {errors.endHours && touched.endHours && (
-                <div className="flex items-center justify-center rounded-r-md px-4 bg-white border-warning">
-                  <img src={warningIcon.src} alt="warningIcon" />
-                </div>
-              )}
+              <div
+                className={`h-10 flex justify-center items-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                  errors.endHours && touched.endHours
+                    ? "border-warningBorder text-warningText font-medium "
+                    : ""
+                }`}
+              >
+                <img
+                  src={warningIcon.src}
+                  alt="warningIcon"
+                  className={`${
+                    errors.endHours && touched.endHours? "h-4 block " : "hidden"
+                  }`}
+                />
+              </div>
             </div>
-            <ErrorMessage
-              name="endHours"
-              component="span"
-              className="text-warning mt-1"
-            />
+            <div className="h-3 text-warning">
+              <ErrorMessage
+                name="endHours"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-col">

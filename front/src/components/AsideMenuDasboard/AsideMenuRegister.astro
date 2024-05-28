@@ -5,6 +5,7 @@ import ButtonCTA from "../Buttons/ButtonCTA.astro";
 import CheckStart from "../../assets/checkStart.svg";
 import CheckSecondary from "../../assets/checkSecondary.svg";
 import CheckComplete from "../../assets/checkComplete.svg";
+import ButtonPrimary from "../Buttons/ButtonPrimary.astro";
 const { pathname } = Astro.url;
 console.log(pathname);
 const normalizedPathName =
@@ -97,5 +98,14 @@ const images = [
         }
       </div>
     </div>
+  </div>
+  <div class="flex justify-center pb-6 h-full items-end">
+    <a href="/"
+      ><ButtonPrimary
+        title="Volver al inicio"
+        idEvent="Logout"
+        color="primary"
+      /></a
+    >
   </div>
 </div>

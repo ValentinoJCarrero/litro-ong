@@ -61,15 +61,18 @@ const ListEventComponents = (props: Color) => {
 
   return (
     <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
+      <h6 className="text-lg font-medium w-full text-center">A estos eventos te invitaron a participar!</h6>
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
-      ) : message === "No se encontraron eventos en esta pagina" ? (
-        <NotFound />
+      ) : events.length === 0 ? (
+        <div className="flex items-center justify-center h-full">
+          <NotFound />
+        </div>
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
-          <h6 className="text-xl font-medium w-full text-center">A estos eventos te invitaron a participar!</h6>
+          
           {events.map(({ primaryImage, title, address, date, id }) => (
             <>
               <li
