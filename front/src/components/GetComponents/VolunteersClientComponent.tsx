@@ -103,7 +103,7 @@ const VolunteersClientComponent = () => {
               // volunteerSince,
             }) => (
               <React.Fragment key={id}>
-                <li className="flex flex-row flex-nowrap w-full justify-between items-center">
+                <li className="flex flex-row flex-nowrap my-2 w-full justify-between items-center">
                   <div className=" w-1/4 ">
                     <h6 className="text-tertiary  font-semibold">
                       {user.fullName}
