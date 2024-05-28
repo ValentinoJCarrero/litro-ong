@@ -11,7 +11,9 @@ interface ProposalsItem {
   id: number;
 }
 
+
 const GetProposalsComponent = () => {
+  
   let idDecodificado: string;
   const tokenFromCookies: string | undefined = Cookies.get("token");
 
@@ -41,22 +43,34 @@ const GetProposalsComponent = () => {
         });
     }
   }, [idUser]);
+  const translateStatus = (status:string) => {
+    switch(status) {
+      case 'PENDING':
+        return 'PENDIENTE';
+      case 'APPROVED':
+        return 'APROBADO';
+      default:
+        return 'RECHAZADO';
+    }
+  }
 
   return (
-    <div className="flex items-center justify-center h-full flex-col">
+    <div className="flex flex-col flex-nowrap justify-between items-stretch p-4 h-full ">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full w-full">
           <SpinnersPrimary />
         </div>
       ) : proposals?.length === 0 ? (
         <NotFound />
       ) : (
-        <ul className=" w-full flex flex-col gap-4">
+        <ul className=" w-full flex flex-col  ">
+          <h2 className="text-lg font-medium w-full text-center my-6">Puedes visualizar el estado de tus propuestas aquí:</h2>
           {proposals?.map(({ status, title, date, id }) => (
-            <>
+            
+            <div className="flex flex-col ">
               <li
                 key={id}
-                className="flex flex-row flex-nowrap justify-between pr-10 items-center"
+                className="flex flex-row flex-nowrap justify-between pr-10 items-center my-2"
               >
                 <div className="flex w-full justify-between items-center">
                   <div>
@@ -65,11 +79,10 @@ const GetProposalsComponent = () => {
                     </h6>
                     <p className=" text-textParagraph text-sm">{date}</p>
                   </div>
-                  <p className="text-xs font-semibold">{status}</p>
-                </div>
+                  <p className={`text-xs font-bold ${status==='PENDING'?'text-yellow-500':(status==='APPROVED'?'text-green-400':'text-red-500')}`}>{translateStatus(status)}</p> </div>
               </li>
               <hr />
-            </>
+            </div>
           ))}
         </ul>
       )}

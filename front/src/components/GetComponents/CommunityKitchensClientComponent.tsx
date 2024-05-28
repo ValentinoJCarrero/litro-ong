@@ -93,57 +93,55 @@ const CommunityKitchensComponent = () => {
               days,
               id,
             }) => (
-                   <div className="flex flex-col">
-              <div className=" flex flex-col justify-betweend items-center w-full">
-                    <li
-                  key={id}
-                  className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
-                >
-                  <a
-                    className="flex flex-row  items-center  text-sm w-full"
-                    id={`card${id}`}
-                    href={`/news/DinamicNew/${name}`}
+              <div className="flex flex-col">
+                <div className=" flex flex-col justify-betweend items-center w-full">
+                  <li
+                    key={id}
+                    className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
                   >
-                    <div className="flex w-1/3">
-                      <img
-                        src={photo}
-                        alt={name}
-                        className="w-20 h-20 rounded-full object-cover mr-4"
-                      />
-                      <div className="text-sm  text-textParagraph">
-                        <h6 className="text-tertiary text-base font-semibold">
-                          {name}
-                        </h6>
-                        <div className="text-sm text-textParagraph">
-                          <p>{holder}</p>
-                          <p>{address}</p>
+                    <a
+                      className="flex flex-row  items-center  text-sm w-full"
+                      id={`card${id}`}
+                      href={`/news/DinamicNew/${name}`}
+                    >
+                      <div className="flex w-2/5">
+                        <img
+                          src={photo}
+                          alt={name}
+                          className="w-20 h-20 rounded-full object-cover mr-4"
+                        />
+                        <div className="text-sm  text-textParagraph">
+                          <h6 className="text-tertiary text-base font-semibold">
+                            {name}
+                          </h6>
+                          <div className="text-sm text-textParagraph ">
+                            <p>{holder}</p>
+                            <p className="text-xs">{address}</p>
+                          </div>
                         </div>
                       </div>
+                      <div className="text-center flex flex-row h-full justify-center items-center text-xs w-96  ">
+                      {days.join(' ')}
+                      </div>
+                    </a>
+                    <div className="flex flex-row justify-center gap-10">
+                      <div className="w-40 flex justify-center  ">
+                        {isDeleting && deletingId === id ? (
+                          <SpinnersDelete />
+                        ) : (
+                          <ButtonWarningSmall
+                            title="Eliminar"
+                            idEvent={`delete-${id}`}
+                            onClick={() => onClic(id)}
+                          />
+                        )}
+                        {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
+                      </div>
                     </div>
-                    <div className="text-center flex flex-col h-full justify-center items-center text-xs w-96  ">
-                      <p>{days.join(" - ")}</p>
-                    </div>
-                  </a>
-                  <div className="flex flex-row justify-center gap-10">
-                    <div className="w-40 flex justify-center  ">
-                      {isDeleting && deletingId === id ? (
-                        <SpinnersDelete />
-                      ) : (
-                        <ButtonWarningSmall
-                          title="Eliminar"
-                          idEvent={`delete-${id}`}
-                          onClick={() => onClic(id)}
-                        />
-                      )}
-                      {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
-                    </div>
-                  </div>
-                </li>
-              </div>
-                <hr />
-             
-
+                  </li>
                 </div>
+                <hr />
+              </div>
             )
           )}
         </ul>

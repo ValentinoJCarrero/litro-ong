@@ -38,7 +38,7 @@ const ListCommunityKitchensComponent = (props: Color) => {
   }, [page]);
 
   return (
-    <div className="flex flex-col flex-nowrap justify-between items-stretch my-2 h-full">
+    <div className="flex flex-col flex-nowrap justify-between  items-stretch  h-full">
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
@@ -48,25 +48,27 @@ const ListCommunityKitchensComponent = (props: Color) => {
           <NotFound />
         </div>
       ) : (
-        <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
+        <ul className=" w-full flex flex-col  justify-center items-stretch content-center ">
+          <h2 className="text-lg font-medium w-full text-center my-6">Aquí encontrarás un resumen de los comedores comunitarios</h2>
           {kitchen.map(({ name, photo, address, holder, days, id }) => (
-            <>
+            <div className="flex flex-col">
+              <div className=" flex flex-col justify-betweend items-center w-full">
               <li
                 key={id}
-                className="flex flex-row flex-nowrap justify-between items-center"
+                className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
               >
                 <a
-                  className="flex flex-row justify-between items-center text-sm w-full"
+                      className="flex flex-row  items-center  text-sm w-full"
                   id={`card${id}`}
                   href={`/news/DinamicNew/${name}`}
                 >
-                  <div className="flex">
+                   <div className="flex w-2/5 ">
                     <img
                       src={photo}
                       alt={name}
                       className="w-20 h-20 rounded-full object-cover mr-4"
                     />
-                    <div className=" flex flex-col justify-center">
+                     <div className="text-sm  text-textParagraph">
                       <h6
                         className={`text-${props.color} text-base font-semibold`}
                       >
@@ -79,18 +81,20 @@ const ListCommunityKitchensComponent = (props: Color) => {
                       </div>
                     </div>
                   </div>
-                  <div className=" flex flex-row gap-2">
-                    {days.map((day) => (
-                      <p>{day}</p>
-                    ))}
+                  <div className="text-center flex flex-row h-full justify-center items-center text-xs w-96  ">
+                  {days.join(' ')}
                   </div>
-                  <img src={vectorIcon.src} alt="icono de vector" />
+                  {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
                 </a>
               </li>
+              </div>
               <hr />
-            </>
-          ))}
+            </div>
+          )
+          )}
         
+      </ul>
+      )}
       <div className="flex items-center justify-center flex-row w-full  ">
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
@@ -112,8 +116,6 @@ const ListCommunityKitchensComponent = (props: Color) => {
           </button>
         </div>
       </div>
-      </ul>
-      )}
     </div>
   );
 };

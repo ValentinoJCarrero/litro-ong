@@ -69,7 +69,7 @@ const ListEventComponents = (props: Color) => {
         <NotFound />
       ) : (
         <ul className=" w-full flex flex-col gap-5 justify-center items-stretch content-center my-5">
-          <h6 className="text-xl font-medium w-full text-center">A estos eventos te invitaron a participar!</h6>
+          <h6 className="text-lg font-medium w-full text-center">A estos eventos te invitaron a participar!</h6>
           {events.map(({ primaryImage, title, address, date, id }) => (
             <>
               <li
