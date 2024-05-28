@@ -24,12 +24,15 @@ const GetNewsClientComponent: React.FC = () => {
   const [news, setNews] = useState<MainNews[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const newsData = await getNews(2, 1);
+        const newsData = await getNews(3, page); 
         setNews(newsData.data);
+        setTotalPages(Math.ceil(newsData.total / 3));
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -37,7 +40,15 @@ const GetNewsClientComponent: React.FC = () => {
       }
     };
     fetchNews();
-  }, []);
+  }, [page]);
+
+  const handlePreviousPage = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
 
   if (isLoading) {
     return (
@@ -98,6 +109,23 @@ const GetNewsClientComponent: React.FC = () => {
           </div>
         </li>
       </ul>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Anterior
+        </button>
+        <span>{page} / {totalPages}</span>
+        <button
+          onClick={handleNextPage}
+          disabled={page === totalPages}
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   );
 };
