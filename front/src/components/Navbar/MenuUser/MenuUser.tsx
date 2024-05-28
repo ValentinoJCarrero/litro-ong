@@ -7,7 +7,6 @@ import { getVolunteersByID } from "../../../helpers/SocioVoluntario/getUserSocio
 let idDecodificado = "";
 const tokenUser = Cookies.get("token")? Cookies.get("token") : "";
 
-
 interface MenuProps {
   children: React.ReactNode;
 }
@@ -32,7 +31,6 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
       console.error("Error decoding token:", error);
     }
   }
-
   
   useEffect(() => {
     if (idDecodificado) {
@@ -46,9 +44,6 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
         });
     }
   }, [idDecodificado]);
-
-    // console.log("este es infouser:",infoUser.role[0].role)
-
   
   return (
     <div className="relative">
