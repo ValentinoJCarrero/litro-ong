@@ -28,7 +28,7 @@ const GetAllCommunityKitchensComponent: React.FC = () => {
   useEffect(() => {
     const fetchCommunityKitchens = async () => {
       try {
-        const kitchensData = await getCommunityKitchens(3, 1);
+        const kitchensData = await getCommunityKitchens(5, 1);
         setCommunityKitchens(kitchensData.data);
         setIsLoading(false);
       } catch (error: any) {

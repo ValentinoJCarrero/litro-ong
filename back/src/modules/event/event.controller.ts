@@ -45,15 +45,15 @@ export class EventController {
     return this.eventService.getAllEvent(Number(limit), Number(page));
   }
 
-  @Get('/one/:title')
+  @Get('/one/:id')
   @ApiOperation({
     summary: 'Obtener un evento por titulo',
     description:
       'Esta ruta devuelve un evento registrado por un titulo especifico, enviado por parámetro',
   })
   @UseInterceptors(RemoveDataSensitive)
-  getOneEvent(@Param('title') title: string): Promise<Event> {
-    return this.eventService.getOneEvent(title);
+  getOneEvent(@Param('id', ParseUUIDPipe) id: string): Promise<Event> {
+    return this.eventService.getOneEvent(id);
   }
 
   @Get('/future')

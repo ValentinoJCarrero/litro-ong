@@ -59,14 +59,14 @@ const pages = [
 >
   <div>
     <div
-      class="bg-tertiary py-5 flex flex-row items-center justify-start px-5 rounded-t-2xl"
+      class="bg-tertiary py-5 px-10 rounded-t-2xl"
     >
       <a href="/"
         ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
       >
     </div>
 
-    <div class="my-5 text-center">
+    <div class="pt-10 w-full text-center">
       <slot />
     </div>
   </div>
@@ -74,7 +74,7 @@ const pages = [
     class="flex flex-col content-center flex-nowrap justify-start items-start h-full"
   >
     <div
-      class="flex flex-col items-start mx-5 my-5 justify-center content-center gap-3"
+      class="flex flex-col items-start justify-between px-10 gap-4 my-10"
     >
       {
         pages.map(({ name, href, active, hrefActive }, key) => (

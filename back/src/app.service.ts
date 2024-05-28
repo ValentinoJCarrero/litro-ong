@@ -7,15 +7,25 @@ import { News } from './entities/News.entity';
 import { Role } from './entities/Role.entity';
 import { Sponsor } from './entities/Sponsor';
 import * as bcrypt from 'bcrypt';
+import { preloadData } from './helpers/data.preload';
+import { Workshop } from './entities/Workshop.entity';
+import { Volunteer } from './entities/Volunteer.entity';
+import { Benefit } from './entities/Benefit.entity';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    @InjectRepository(Event) private EventRepository: Repository<Event>,
+    @InjectRepository(Event) private eventRepository: Repository<Event>,
     @InjectRepository(News) private newsRepository: Repository<News>,
     @InjectRepository(Role) private rolesRepository: Repository<Role>,
     @InjectRepository(Sponsor) private sponsorRepository: Repository<Sponsor>,
+    @InjectRepository(Workshop)
+    private workshopRepository: Repository<Workshop>,
+    @InjectRepository(Volunteer)
+    private volunteerRepository: Repository<Volunteer>,
+    @InjectRepository(Benefit)
+    private benefitRepository: Repository<Benefit>,
   ) {
     this.seeder();
   }
@@ -24,68 +34,51 @@ export class AppService {
     const users = await this.usersRepository.find();
     if (!(users.length === 0)) return;
 
-    await this.usersRepository.save({
-      fullName: 'Admin',
-      email: 'admin@admin.com',
-      password: await bcrypt.hash('Administrador1', 10),
-      fullAddress: 'admin',
-      phone: '23123123',
-      dni: '123123123',
-      birthDate: '2005-02-17',
-      isSubscribed: true,
-    });
+    for (const role of preloadData.roles) {
+      await this.rolesRepository.save(role);
+    }
 
-    await this.EventRepository.save({
-      title: 'Evento - 1 Litro de Leche',
-      subtitle: 'Evento para recaudar fondos y leche.',
-      address: 'Calle 123',
-      date: '2022-02-17',
-      timeStart: '10:00',
-      timeEnd: '11:00',
-      description:
-        'Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar. Este es un evento para precargar.',
-      primaryImage: 'https://imgur.com/JGZlS8b',
-      secondaryImage: 'https://imgur.com/JGZlS8b',
-    });
+    for (const user of preloadData.users) {
+      user.password = await bcrypt.hash(user.password, 10);
+      user.role = [
+        await this.rolesRepository.findOne({
+          where: { role: user.fullName },
+        }),
+      ];
+      const newUser = await this.usersRepository.save(user);
 
-    await this.newsRepository.save({
-      title: 'Noticia - 1 Litro de Leche',
-      subtitle: 'Recaudar fondos y leche.',
-      primaryImage: 'https://imgur.com/JGZlS8b',
-      description:
-        'Esta es una noticia para precargar. Esta es una noticia para precargar. Esta es una noticia para precargar.',
-      date: '2022-02-17',
-    });
+      if (user.fullName === 'Volunteer') {
+        const neWvolunteer = this.volunteerRepository.create({
+          ...preloadData.VolunteerData,
+          user: newUser,
+        });
 
-    await this.rolesRepository.save({ role: 'Admin' });
-    await this.rolesRepository.save({ role: 'Volunteer' });
-    await this.rolesRepository.save({ role: 'Partner' });
+        await this.volunteerRepository.save(neWvolunteer);
+        user.volunteerData = neWvolunteer;
 
-    await this.sponsorRepository.save({
-      name: 'Evi Desarrollos',
-      email: 'evi@evi.com',
-      logo: 'https://imgur.com/mjxdHSb',
-    });
-    await this.sponsorRepository.save({
-      name: 'COSAG',
-      email: 'cosag@cosag.com',
-      logo: 'https://imgur.com/f1pZvo5',
-    });
-    await this.sponsorRepository.save({
-      name: 'Supermercados Becerra',
-      email: 'becerra@becerra.com',
-      logo: 'https://imgur.com/I98eGGV',
-    });
-    await this.sponsorRepository.save({
-      name: 'Jalisco Heladería',
-      email: 'jalisco@jalisco.com',
-      logo: 'https://imgur.com/SmOJSAs',
-    });
-    await this.sponsorRepository.save({
-      name: 'Alsina Farmacia',
-      email: 'alsina@alsina.com',
-      logo: 'https://imgur.com/x8RBvh3',
-    });
+        await this.usersRepository.save(user);
+      }
+    }
+
+    for (const workshop of preloadData.Workshops) {
+      await this.workshopRepository.save(workshop);
+    }
+
+    for (const event of preloadData.events) {
+      await this.eventRepository.save(event);
+    }
+
+    for (const news of preloadData.news) {
+      await this.newsRepository.save(news);
+    }
+
+    for (const sponsor of preloadData.sponsors) {
+      await this.sponsorRepository.save(sponsor);
+    }
+
+    for (const benefit of preloadData.benefits) {
+      await this.benefitRepository.save(benefit);
+    }
 
     return 'Precarga completada.';
   }
