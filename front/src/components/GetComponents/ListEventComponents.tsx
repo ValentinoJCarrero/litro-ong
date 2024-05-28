@@ -82,7 +82,7 @@ const ListEventComponents = (props: Color) => {
                 <a
                   className="flex flex-row justify-between items-center text-sm w-full"
                   id={`card${id}`}
-                  href={`/dashboardAdmin/${title}`}
+                  href={`/events/DinamicEvent/${id}`}
                 >
                   <div className="flex">
                     <img

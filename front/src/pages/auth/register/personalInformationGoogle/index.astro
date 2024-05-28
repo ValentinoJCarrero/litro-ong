@@ -2,6 +2,14 @@
 import AsideMenuRegister from "../../../../components/AsideMenuDasboard/AsideMenuRegister.astro";
 import DasboardLayouts from "../../../../layouts/DasboardLayouts.astro";
 import FormRegisterProfileGoogleFormik from "../../../../components/Forms/FormRegisterProfileGoogleFormik"
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request);
+if (session) {
+   Astro.cookies.set("emailUser", session?.user?.email as string);
+}
+
+
 ---
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
     <div class="flex flex-row h-screen bg-secondary">
