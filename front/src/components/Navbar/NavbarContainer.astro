@@ -46,13 +46,13 @@ const userRole = Array.isArray(roleDecodificado) && roleDecodificado.length > 0
 
     {email ? (
       (email.length) ? (
-        <Menu client:load>
+        <MenuUser client:load>
           <img
             src={session?.user?.image}
             alt="Imagen de perfil"
             class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
           />
-        </Menu>
+        </MenuUser>
       ) : (
         <MenuUser client:load>
           <img

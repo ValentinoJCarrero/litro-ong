@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { postRegister } from "../../helpers/Auth/postRegister";
 import showPasswordIcon from "../../assets/showPassword.svg";
 import Swal from "sweetalert2";
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 interface UserInfo {
   fullName: string;
   dni: string;
@@ -18,7 +19,7 @@ const RegisterResumeComponent = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const registerUserProfile = localStorage.getItem("registerUserProfile");
     const userInfo = registerUserProfile
@@ -41,7 +42,7 @@ const RegisterResumeComponent = () => {
         fullAddress: userInfo.fullAddress,
         isSubscribed: userInfo.isSubscribed,
       };
-
+      setIsLoading(true);
       postRegister(data)
         .then((data) => {
           Swal.fire({
@@ -66,7 +67,13 @@ const RegisterResumeComponent = () => {
   };
   return (
     <div className=" h-full w-full px-14 flex flex-col gap-4">
-      {user && (
+      {isLoading ? (
+        <div className="flex items-center justify-center h-full">
+          <SpinnersPrimary />
+        </div>
+      ) : ( 
+        <>
+        {user && (
         <div className="flex flex-col justify-between  gap-4">
           <div>
             <h1 className="font-medium ">Email</h1>
@@ -137,6 +144,7 @@ const RegisterResumeComponent = () => {
             </div>
         </div>
       )}
+     
       <div className=" w-full flex justify-end absolute bottom-14 right-20">
         <a
           href="/auth/register/personalInformation"
@@ -152,6 +160,8 @@ const RegisterResumeComponent = () => {
           Finalizar
         </button>
       </div>
+      </> 
+      )}
     </div>
   );
 };
