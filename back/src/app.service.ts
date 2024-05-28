@@ -11,6 +11,7 @@ import { preloadData } from './helpers/data.preload';
 import { Workshop } from './entities/Workshop.entity';
 import { Volunteer } from './entities/Volunteer.entity';
 import { Benefit } from './entities/Benefit.entity';
+import { CommunityKitchens } from './entities/CommunityKitchens.entity';
 
 @Injectable()
 export class AppService {
@@ -26,6 +27,8 @@ export class AppService {
     private volunteerRepository: Repository<Volunteer>,
     @InjectRepository(Benefit)
     private benefitRepository: Repository<Benefit>,
+    @InjectRepository(CommunityKitchens)
+    private communityKitchensRepository: Repository<CommunityKitchens>,
   ) {
     this.seeder();
   }
@@ -78,6 +81,10 @@ export class AppService {
 
     for (const benefit of preloadData.benefits) {
       await this.benefitRepository.save(benefit);
+    }
+
+    for (const communityKitchen of preloadData.communityKitchens) {
+      await this.communityKitchensRepository.save(communityKitchen);
     }
 
     return 'Precarga completada.';

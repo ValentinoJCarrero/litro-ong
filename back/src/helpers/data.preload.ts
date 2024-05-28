@@ -4,12 +4,12 @@ export const preloadData = {
     startHours: '13:00',
     endHours: '20:00',
     description:
-      'No tengo movilidad propia, y soy alergico a las flores. Ademas tengo miedo a las alturas y soy pansexual. Cuando llueve no me dejan salir. si un lunes o martes es feriado, no puedo. tengo fulbo',
+      'No tengo movilidad propia y soy alergico a las flores. Ademas tengo miedo a las alturas y soy no binario. Cuando llueve no me dejan salir. si un lunes o martes es feriado, no puedo. tengo fulbo',
   },
   users: [
     {
       fullName: 'Admin',
-      email: 'Administrador1@admin.com',
+      email: 'admin@admin.com',
       password: 'Administrador1',
       fullAddress: 'alemania 123',
       phone: '23123123',
@@ -20,7 +20,7 @@ export const preloadData = {
     },
     {
       fullName: 'Volunteer',
-      email: 'Voluntario1@admin.com',
+      email: 'volunteer@volunteer.com',
       password: 'Voluntario1',
       fullAddress: 'adrogue 123',
       phone: '23123123',
@@ -375,6 +375,128 @@ export const preloadData = {
       address: 'Av. Belgrano 233',
       benefits: '20% de descuento en efectivo',
       description: 'Solo dias Miercoles',
+    },
+  ],
+  communityKitchens: [
+    {
+      name: 'Carteluditos',
+      address: 'Los Pelícanos 548',
+      holder: 'Marcela Cuello',
+      kidsNumber: '13',
+      days: ['Martes', 'Jueves'],
+      time: '19:00',
+      description:
+        'Merendero Carteluditos prepara merienda para los niños del barrio, asegurando que cada uno reciba una comida balanceada y nutritiva. Además, dependiendo de las donaciones recibidas, el merendero incluye cenas completas y una variedad de frutas frescas para los pequeños. Marcela y su equipo también organizan actividades recreativas para fomentar la convivencia y el desarrollo social de los niños.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868563/b9470113-0285-4f67-b217-70a04fd4295b.png',
+    },
+    {
+      name: 'los Pekes del Bordo',
+      address: 'Cervantes 789',
+      holder: 'Julian Magallanes',
+      kidsNumber: '35',
+      days: ['Lunes', 'Miércoles', 'Viernes'],
+      time: '10:00 - 18:00',
+      description:
+        'Los Pekes del Bordo es un lugar donde los niños pueden encontrar un ambiente seguro y acogedor. Además de preparar una merienda saludable cada día, Julian y su equipo organizan actividades deportivas en la canchita de fútbol del barrio, donde los chicos pueden jugar y aprender los valores del trabajo en equipo y la disciplina. También se realizan talleres educativos para apoyar el aprendizaje escolar de los niños.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868550/a83351b3-df44-47fe-813d-636f6a6fbc49.png',
+    },
+    {
+      name: 'Corazoncitos Felices',
+      address: 'Zavala Ortiz 890',
+      holder: 'Natalia Asís',
+      kidsNumber: '12',
+      days: ['Lunes', 'Jueves', 'Viernes'],
+      time: '11:00 - 19:00',
+      description:
+        'Merendero Corazones Felices no solo proporciona una merienda nutritiva, sino que también se convierte en un centro de actividades y apoyo para los niños del barrio. Natalia y su equipo coordinan diversas actividades recreativas y deportivas en la canchita de fútbol. Además, el merendero se encarga de organizar fiestas de cumpleaños para los niños, creando un espacio de celebración y alegría que fomenta el sentido de comunidad.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868520/786e8774-1abd-47fc-8e86-121f07aaf8b8.png',
+    },
+    {
+      name: 'Entre risas y Juegos',
+      address: 'San Martín 1234',
+      holder: 'Lucía Fernández',
+      kidsNumber: '20',
+      days: ['Martes', 'Viernes'],
+      time: '16:00 - 19:00',
+      description:
+        'Risas y Juegos es un merendero dedicado a proporcionar meriendas nutritivas y actividades recreativas para los niños del barrio. Lucía y su equipo trabajan incansablemente para crear un ambiente donde los niños puedan disfrutar de juegos, música y actividades creativas que estimulan su desarrollo emocional y social. Las meriendas incluyen una variedad de alimentos saludables que aseguran una dieta balanceada para los pequeños.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868534/9fa40050-5add-4915-bf73-58a169e3e72d.png',
+    },
+    {
+      name: 'La Esperanza',
+      address: 'Mitre 567',
+      holder: 'Carlos Gutierrez',
+      kidsNumber: '18',
+      days: ['Miércoles', 'Sábado'],
+      time: '15:00 - 18:00',
+      description:
+        'La esperanza se dedica a brindar apoyo alimenticio y educativo a los niños del barrio. Carlos y su equipo ofrecen meriendas saludables y talleres de apoyo escolar, ayudando a los niños a mejorar su rendimiento académico. Además, se realizan actividades de orientación vocacional y desarrollo de habilidades blandas, preparando a los niños para un futuro prometedor. El merendero se convierte en un faro de esperanza para muchas familias de la comunidad.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868581/f7d033f0-2615-4302-a8ae-433cc711826a.png',
+    },
+    {
+      name: 'Pequeños sueños',
+      address: 'Belgrano 789',
+      holder: 'Sofía López',
+      kidsNumber: '25',
+      days: ['Lunes', 'Miércoles', 'Viernes'],
+      time: '14:00 - 17:00',
+      description:
+        'Pequeños sueños es un merendero que brinda un ambiente seguro y acogedor para los niños del barrio. Sofía y su equipo preparan meriendas saludables y organizan actividades deportivas y recreativas que fomentan el desarrollo físico y emocional de los niños. Además, se realizan talleres de arte y música, permitiendo a los pequeños explorar sus talentos y expresar su creatividad en un entorno positivo y de apoyo.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716868599/f34bf0bd-c622-4d6a-9639-615682f7ad79.png',
+    },
+    {
+      name: 'Manitos Unidas',
+      address: 'Urquiza 654',
+      holder: 'Esteban Ramos',
+      kidsNumber: '30',
+      days: ['Martes', 'Jueves'],
+      time: '17:00 - 20:00',
+      description:
+        'Manitos Unidas es un merendero comprometido con el bienestar y desarrollo integral de los niños del barrio. Esteban y su equipo proporcionan meriendas nutritivas y organizan talleres de manualidades y habilidades prácticas. Los niños aprenden a trabajar en equipo y desarrollar sus habilidades creativas en un entorno seguro y motivador. Además, se realizan actividades de apoyo escolar para mejorar el rendimiento académico de los pequeños.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716869189/3eb51c1a-4b86-4552-bdcb-a2b0b069eee9.png',
+    },
+    {
+      name: 'Pequeños Corazones',
+      address: 'Rivadavia 345',
+      holder: 'Ana María Pérez',
+      kidsNumber: '22',
+      days: ['Lunes', 'Viernes'],
+      time: '15:00 - 18:00',
+      description:
+        'Pequeños Corazones es un merendero que proporciona meriendas saludables y actividades educativas para los niños del barrio. Ana María y su equipo organizan sesiones de lectura y juegos didácticos que fomentan el amor por el aprendizaje y la creatividad. Las meriendas incluyen una variedad de alimentos frescos y nutritivos, asegurando que cada niño reciba una dieta balanceada. El merendero también se enfoca en el desarrollo emocional de los niños, creando un ambiente de apoyo y cariño.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716869203/1d94d10e-d218-47a6-bf52-ab458ae2cd72.png',
+    },
+    {
+      name: 'Sonrisas Felices',
+      address: 'Alem 678',
+      holder: 'Roberto Sánchez',
+      kidsNumber: '28',
+      days: ['Miércoles', 'Sábado'],
+      time: '16:00 - 19:00',
+      description:
+        'Sonrisas Felices es un merendero que se dedica a proporcionar meriendas nutritivas y actividades artísticas para los niños del barrio. Roberto y su equipo organizan talleres de arte y música, permitiendo a los niños explorar sus talentos y desarrollar nuevas habilidades en un ambiente positivo. Las meriendas incluyen una variedad de alimentos frescos y saludables, garantizando una nutrición adecuada para los pequeños. Además, se realizan actividades recreativas que fomentan la convivencia y el trabajo en equipo.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716869223/7c32d93c-2b35-4d65-8f36-e257f11dcd75.png',
+    },
+    {
+      name: 'Abrazos calidos',
+      address: 'Moreno 123',
+      holder: 'Cecilia Torres',
+      kidsNumber: '26',
+      days: ['Martes', 'Jueves'],
+      time: '14:00 - 17:00',
+      description:
+        'Abrazos calidos es un merendero dedicado a brindar apoyo alimenticio y emocional a los niños del barrio. Cecilia y su equipo proporcionan meriendas nutritivas y organizan talleres de habilidades sociales y apoyo emocional. Los niños aprenden a manejar sus emociones y desarrollar relaciones saludables en un ambiente seguro y de apoyo. Las meriendas incluyen una variedad de alimentos frescos y nutritivos, asegurando una dieta balanceada para cada niño.',
+      photo:
+        'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716869213/2249f3d4-4c6a-4ce3-a49a-34198e5993f2.png',
     },
   ],
 };

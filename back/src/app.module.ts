@@ -30,6 +30,7 @@ import { CardModule } from './modules/card/card.module';
 import { Workshop } from './entities/Workshop.entity';
 import { Volunteer } from './entities/Volunteer.entity';
 import { Benefit } from './entities/Benefit.entity';
+import { CommunityKitchens } from './entities/CommunityKitchens.entity';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { Benefit } from './entities/Benefit.entity';
       Workshop,
       Volunteer,
       Benefit,
+      CommunityKitchens,
     ]),
     ConfigModule.forRoot({
       isGlobal: true,
