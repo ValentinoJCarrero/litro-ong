@@ -1,4 +1,5 @@
 export async function postGoogleRegister(newsResponse: any): Promise<any> {
+    console.log(newsResponse);
     try {
         const response = await fetch(`https://litro-ong.onrender.com/auth/googlesignup`, {
             method: 'POST',

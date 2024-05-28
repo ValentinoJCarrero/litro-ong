@@ -29,35 +29,45 @@ const DynamicWorkshop: React.FC = () => {
 
   useEffect(() => {
     const fullUrl = window.location.href;
-    const urlParts = fullUrl.split('/');
-    const id = urlParts[urlParts.length - 1];
-    setUrl(id);
+    const regex = /DinamicWorkShop\/(.+)/;
+    const match = fullUrl.match(regex);
+
+    if (match && match[1]) {
+      const decodedUrl = decodeURIComponent(match[1]);
+      setUrl(decodedUrl);
+    } else {
+      setUrl("");
+    }
   }, []);
+
 
   useEffect(() => {
     const fetchWorkshopByTitle = async () => {
       if (url) {
         try {
           const workshopData = await getWorkshopsByTitle(url);
-          setWorkshop(workshopData);
+          setWorkshop(workshopData),
+          setIsLoading(false);
         } catch (error: any) {
           setError(error.message);
-        } finally {
           setIsLoading(false);
         }
-      } else {
-        setIsLoading(false);
       }
     };
     fetchWorkshopByTitle();
   }, [url]);
-
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return (
+      <div className="flex items-center justify-center h-full"> 
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-500 w-full text-center text-3xl">Error: {error}</div>;
+    return (
+      <div className="text-red-500 w-full text-center text-3xl">Error: {error}</div>
+    );
   }
 
   return (
@@ -70,7 +80,7 @@ const DynamicWorkshop: React.FC = () => {
         <div className="flex flex-col">
           <BannerIndividualEvent
             titulo={workshop.name}
-            fecha={format(new Date(workshop.dateStart), "MMMM dd, yyyy", { locale: es })}
+            fecha={format(new Date(workshop.dateStart), "dd/MM/yyyy", { locale: es })}
             banner={workshop.photo}
             direccion=""
           />
@@ -78,25 +88,25 @@ const DynamicWorkshop: React.FC = () => {
           <div className="bg-secondary">
             <div className="mx-24 p-16 flex flex-col gap-5">
               <h4 className="text-3xl font-bold text-textTertiary">
-                Teacher: {workshop.teacher}
+                Profesor: {workshop.teacher}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Phone: {workshop.teacherPhone}
+                Telefono: {workshop.teacherPhone}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Start Time: {workshop.timeStart}
+                Horario: {workshop.timeStart}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Duration: {workshop.duration} hours
+                Duracion: {workshop.duration} hs
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Dates: {workshop.dateStart} - {workshop.dateEnd}
+                Desde el {workshop.dateStart} hasta el {workshop.dateEnd}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Cost: ${workshop.cost}
+                precios: ${workshop.cost}
               </h4>
               <h4 className="text-3xl font-bold text-textTertiary">
-                Days: {workshop.days.join(", ")}
+                Días: {workshop.days.join(", ")}
               </h4>
               <p className="text-base font-normal text-textParagraph">
                 {workshop.description}

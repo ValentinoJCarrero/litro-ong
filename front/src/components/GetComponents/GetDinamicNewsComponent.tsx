@@ -39,53 +39,39 @@ const SearchResultsComponent: React.FC = () => {
 
   useEffect(() => {
     const fetchNewsByTitle = async () => {
-      if (url) {
-        try {
-          console.log("Fetching news for URL:", url);
+      setIsLoading(true);
+
+      try {
+        if (url) {
           const newsData = await getNewsByTitle(url);
-          console.log("Fetched news data:", newsData);
           setNews(newsData);
-        } catch (error: any) {
-          console.error("Error fetching news by url:", url, error);
-          setError(error.message);
-        } finally {
-          setIsLoading(false);
+        } else {
+          setNews(null);
         }
-      } else {
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
         setIsLoading(false);
       }
     };
     fetchNewsByTitle();
   }, [url]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <SpinnersPrimary />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-red-500">{error}</p>
-      </div>
-    );
-  }
-
   return (
     <div>
-      {!news ? (
-        <div className="flex flex-col justify-center items-center m-20">
-          <NotFound />
-        {/* arreglar aca que se renderiza el no hay nada previo a renderizar la noticia cuando ya tiene el spiner pre carga */}
+      {isLoading ? (
+        <div className="flex items-center justify-center h-full">
+          <SpinnersPrimary />
         </div>
-      ) : (
+      ) : error ? (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-red-500">{error}</p>
+        </div>
+      ) : !!news && (
         <div className="flex flex-col">
           <BannerIndividualNews
             titulo={news.title}
-            fecha={format(new Date(news.date), "MMMM dd, yyyy, EEEE", { locale: es })}
+            fecha={format(new Date(news.date), "dd/MM/yyyy", { locale: es })}
             banner={news.primaryImage}
           />
 
@@ -99,13 +85,14 @@ const SearchResultsComponent: React.FC = () => {
               </p>
             </div>
           </div>
+
           <div className="flex items-center justify-center">
             {news.secondaryImage && news.tertiaryImage && (
-              <div className=" rounded-3xl w-1/2 h-96 flex flex-row items-center justify-center flex-wrap content-center gap-10">
+              <div className="rounded-3xl w-1/2 h-96 flex flex-row items-center justify-center flex-wrap content-center gap-10">
                 <img
                   src={news.secondaryImage}
                   alt="imagen"
-                  className=" h-80 w-80 object-cover rounded-3xl"
+                  className="h-80 w-80 object-cover rounded-3xl"
                 />
                 <img
                   src={news.tertiaryImage}

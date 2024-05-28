@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
 import  warningIcon from "../../assets/IconWarrning.svg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 interface IFormValues {
   name: string;
   lastname: string;
@@ -10,6 +11,7 @@ interface IFormValues {
   address: string;
   country:string;
   province:string;
+  isSubscribed:boolean;
 }
 
 const initialValues = {
@@ -21,11 +23,14 @@ const initialValues = {
   address: "",
   country:"",
   province:  "",
+  isSubscribed: false,
+  checked: [],
 };
 
 const validate = (values:IFormValues) => {
   const errors: Record<string, string> = {};
 
+  
   if (!values.name) {
     errors.name = "El nombre es requerido";
   } else if (values.name.length < 2) {
@@ -78,6 +83,24 @@ const validate = (values:IFormValues) => {
   const FormRegisterProfileGoogleFormik = () => {
     const [country, setCountry] = useState(initialValues.country);
     const [province, setProvince] = useState(initialValues.province);
+    useEffect(() => {
+      Swal.fire({
+        title: "Hola debes completar el registro antes de continuar!",
+        text: "Muchas gracias por participar de la ONG!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#EF4444",
+        cancelButtonColor: "#009BDB",
+        confirmButtonText: "Cancelar",
+        cancelButtonText: "Continuar",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 200);
+        }
+      });
+    }, []);
     return(
     <Formik
       initialValues={initialValues}
@@ -249,6 +272,25 @@ const validate = (values:IFormValues) => {
             </div>
         </div>
         </div>
+        <div className="flex flex-col w-full">
+                <label htmlFor="isSubscribed" className="font-medium my-2 ">
+                <div className="flex w-full items-center">
+                <Field
+                type="checkbox"
+                name="isSubscribed"
+                className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+                  errors.isSubscribed && touched.isSubscribed ? 'border-warningBorder text-warningText font-medium' : ''
+                }`}
+              />
+                <div className="ml-10 mt-4">
+                  Registrarse al newslatter
+                </div>
+                </div>
+                </label>
+                <div className="h-4 text-warning">
+                <ErrorMessage name="isSubscribed" component="span" />
+                </div>
+            </div>
   
         <div className="my-20 w-full flex justify-end">
             <a href="/" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
