@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post, Put,Get } from '@nestjs/common';
 import { MailerService } from './mailer.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -33,4 +33,24 @@ export class MailerController {
     return "La desuscripción fue exitosa";
   }
 
+    @Get('send-christmas-email')
+    async sendChristmasEmail() {
+        await this.mailerService.cronXMasMail();
+        return { message: 'Christmas email sent' };
+    }
+
+    @Get('send-newyear-email')
+    async sendNewYearEmail() {
+        await this.mailerService.cronNewyearMail();
+        return { message: 'New Year email sent' };
+    }
+
+    @Get('send-birthday-email')
+    async sendBirthdayEmail() {
+        await this.mailerService.birthdayGreetings();
+        return { message: 'Birthday email sent' };
+    }
+
+
 }
+
