@@ -43,7 +43,12 @@ const EventsClientComponent: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <SpinnersPrimary />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {/* simon este viene bien. el espacio que esta ocupando es mucho pero va por aca */}
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
@@ -54,19 +59,20 @@ const EventsClientComponent: React.FC = () => {
     return <NotFound />;
   }
 
+
   return (
     <div className="flex flex-col gap-12 items-center justify-center mb-20">
       <ul>
         <li>
           <div className="flex flex-row gap-10 items-center justify-center m-2">
             {events.map(({ id, title, date, primaryImage }) => {
-              const formattedDate = format(new Date(date), "MMMM dd, yyyy, EEEE", { locale: es });
+              const formattedDate = format(new Date(date), 'dd/MM/yyyy', { locale: es });
               return (
                 <div
                   key={id}
                   className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
                 >
-                  <a href={`/events/DinamicEvent/${title}`} className="block h-full w-full">
+                  <a href={`/events/DinamicEvent/${id}`} className="block h-full w-full">
                     <div className="relative h-full w-full">
                       <img src={primaryImage} alt="imagen" className="h-80 w-full object-cover" />
                       <img

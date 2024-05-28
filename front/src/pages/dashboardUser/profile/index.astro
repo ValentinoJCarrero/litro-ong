@@ -9,12 +9,14 @@ import voluntario from "../../../assets/equipo.jpg";
 import ButtonCTASmall from "../../../components/Buttons/ButtonCTASmall.astro";
 import socio from "../../../assets/sersponsor.jpg";
 
+
 const session = await getSession(Astro.request);
 if (session) {
   const response: any = { email: session?.user?.email };
   const object = await postGoogleLogin(response);
+  console.log(object);
   if (object.tokenUser === "no esta registrado") {
-    Astro.cookies.set("emailUser", session?.user?.email as string);
+    await Astro.cookies.set("emailUser", session?.user?.email as string);
     return Astro.redirect("/auth/register/personalInformationGoogle");
   } else {
     console.log("logueado");

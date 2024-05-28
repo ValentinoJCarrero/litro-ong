@@ -4,6 +4,7 @@ import rectangle from "../../assets/rectangleCard.svg";
 import calendarIcon from "../../assets/calendarIcon.svg";
 import cursorIcon from "../../assets/cursorIcon.svg";
 import SpinnersPrimary from "../Spinners/SpinnersPrimary";
+import NotFound from "../NotFound/NotFound";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -40,7 +41,7 @@ const GetNewsClientComponent: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-screen">
         <SpinnersPrimary />
       </div>
     );
@@ -48,54 +49,55 @@ const GetNewsClientComponent: React.FC = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-screen">
         <p className="text-red-500">{error}</p>
       </div>
     );
   }
 
+  if (!news.length) {
+    return <NotFound />;
+  }
+
   return (
-    <div className="flex flex-col gap-12 items-center justify-center mb-20   ">
-      <div className="flex flex-row gap-10 items-center justify-center m-2 flex-wrap">
-        {!news.length ? (
-          <p className="text-tertiary w-full text-center text-3xl">
-            Cargando...
-          </p>
-        ) : (
-          news.map(({ id, title, href, date, primaryImage }) => (
-            <div
-              key={id}
-              className="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10"
-            >
-              <a className="" href={`/news/DinamicNew/${id}`}>
-                <img
-                  src={primaryImage}
-                  alt="imagen"
-                  className="absolute h-80 w-80 object-cover"
-                />
-                <img
-                  src={rectangle.src}
-                  alt="fondo card"
-                  className="absolute h-96 w-80  rounded-3xl   my-10"
-                />
-                <div className="relative  top-72">
-                  <div className=" mx-5">
-                    <h6 className="font-semibold">{title}</h6>
-                    <div className="flex">
-                      <img src={calendarIcon.src} alt="icono calendario" />
-                      <p className="font-semibold m-1">{date}</p>
+    <div className="flex flex-col gap-12 items-center justify-center mb-20">
+      <ul>
+        <li>
+          <div className="flex flex-row gap-10 items-center justify-center m-2">
+            {news.map(({ id, title, date, primaryImage }) => {
+              const formattedDate = format(new Date(date), 'dd/MM/yyyy', { locale: es });
+              return (
+                <div
+                  key={id}
+                  className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
+                >
+                  <a href={`/news/DinamicNew/${id}`} className="block h-full w-full">
+                    <div className="relative h-full w-full">
+                      <img src={primaryImage} alt="imagen" className="h-80 w-full object-cover" />
+                      <img
+                        src={rectangle.src}
+                        alt="fondo card"
+                        className="absolute bottom-0 w-full z-0"
+                      />
+                      <div className="absolute bottom-0 w-full z-20 p-4">
+                        <h6 className="font-semibold">{title}</h6>
+                        <div className="flex items-center">
+                          <img src={calendarIcon.src} alt="icono calendario" className="mr-2" />
+                          <p className="font-semibold">{formattedDate}</p>
+                        </div>
+                        <div className="flex justify-end items-center mt-4">
+                          <img src={cursorIcon.src} alt="icono cursor" className="mr-2" />
+                          <h6 className="font-semibold">Ver detalles</h6>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-end  ">
-                    <img src={cursorIcon.src} alt="icono cursor" />
-                    <h6 className="font-semibold m-5">Ver detalles</h6>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
-          ))
-        )}
-      </div>
+              );
+            })}
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };
