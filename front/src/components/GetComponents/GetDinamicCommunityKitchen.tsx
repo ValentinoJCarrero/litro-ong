@@ -41,7 +41,6 @@ const DynamicCommunityKitchen: React.FC = () => {
         try {
           const communityKitchenData = await getCommunityKitchensTitle(url);
           setCommunityKitchen(communityKitchenData);
-          console.log(communityKitchenData);
           setIsLoading(false);
         } catch (error: any) {
           setError(error.message);
