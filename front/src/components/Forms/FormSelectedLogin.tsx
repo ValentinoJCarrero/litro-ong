@@ -43,7 +43,7 @@ const FormWorkshopsFormik = () => (
       const tokenFromCookies = Cookies.get("token");
       if (!tokenFromCookies) {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "error",
           title: `ID de voluntario no encontrado`,
           showConfirmButton: false,
@@ -68,7 +68,7 @@ const FormWorkshopsFormik = () => (
         .then((data) => {
           console.log(data);
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: `Se agregó correctamente`,
             showConfirmButton: false,
