@@ -113,11 +113,12 @@ const FormLoginFormik = () => {
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="email"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-4 text-warning">
+              <ErrorMessage
+                name="email"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="password" className="font-medium my-2 ">
@@ -128,7 +129,7 @@ const FormLoginFormik = () => {
                 type={passwordText}
                 name="password"
                 placeholder="Ingrese contraseña"
-                className={` w-96 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                className={`w-96 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                   errors.password && touched.password
                     ? "border-warningBorder text-warningText font-medium"
                     : ""
@@ -159,11 +160,12 @@ const FormLoginFormik = () => {
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="password"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-8 text-warning">
+              <ErrorMessage
+                name="password"
+                component="span"
+              />
+            </div>
             <a
               href="/auth/register"
               className=" text-base font-medium m-2 text-center text-textSecondary"

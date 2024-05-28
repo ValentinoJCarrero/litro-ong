@@ -93,8 +93,7 @@ const ListCommunityKitchensComponent = (props: Color) => {
           )
           )}
         
-      </ul>
-      )}
+      
       <div className="flex items-center justify-center flex-row w-full  ">
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
@@ -116,6 +115,8 @@ const ListCommunityKitchensComponent = (props: Color) => {
           </button>
         </div>
       </div>
+      </ul>
+      )}
     </div>
   );
 };

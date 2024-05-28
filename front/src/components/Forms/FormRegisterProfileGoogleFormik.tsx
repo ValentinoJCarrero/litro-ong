@@ -46,14 +46,10 @@ const validate = (values:IFormValues) => {
     errors.phone = "El número de teléfono es requerido";
   } else if (isNaN(Number(values.phone))) {
     errors.phone = "El número de teléfono debe ser un valor numérico";
-  } else if (values.phone.toString().length !== 10) {
-    errors.phone = "El número de teléfono debe tener 10 dígitos";
   }
 
   if (!values.birthDate) {
     errors.birthDate = "La fecha de nacimiento es requerida";
-  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.birthDate)) {
-    errors.birthDate = "Ingrese una fecha válida (AAAA-MM-DD)";
   }
 
   if (!values.dni) {
@@ -108,7 +104,9 @@ const validate = (values:IFormValues) => {
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.name && touched.name ? 'block' : 'hidden'}`}/>
               </div>
             </div>
-            <ErrorMessage name="name" component="span" className="text-warning" />
+            <div className="h-4 text-warning">
+              <ErrorMessage name="name" component="span" />
+            </div>
         </div>
         <div className="flex flex-col w-full pl-4">
             <label htmlFor="title" className="font-medium my-2 ">Apellido</label>
@@ -118,42 +116,48 @@ const validate = (values:IFormValues) => {
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.lastname && touched.lastname ? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="lastname" component="span" className="text-warning" />
+            <div className="h-4 text-warning">
+              <ErrorMessage name="lastname" component="span" />
+            </div>
           </div>
         </div>
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col w-full pr-4">
             <label htmlFor="title" className="font-medium my-2 ">Número telefónicos</label>
             <div className="flex w-full">
-              <Field type="number" name="phone" placeholder="Ingrese numero telefonico" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.phone && touched.phone ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type="text" name="phone" placeholder="Ingrese numero telefonico" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.phone && touched.phone ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.phone && touched.phone ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.phone && touched.phone? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="phone" component="span" className="text-warning" />
-            
+            <div className="h-4 text-warning">
+              <ErrorMessage name="phone" component="span" />
+            </div>
           </div>
         <div className="flex flex-col w-full pl-4">
-            <label htmlFor="title" className="font-medium my-2 ">Fecha de Nacimiento</label>
+            <label htmlFor="date" className="font-medium my-2 ">Fecha de Nacimiento</label>
             <div className="flex w-full">
-              <Field type="text" name="birthDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type="date" name="birthDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.birthDate && touched.birthDate? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="brithDate" component="span" className="text-warning" />
-            
+            <div className="h-4 text-warning">
+              <ErrorMessage name="birthDate" component="span"/>
+            </div>
         </div>
         </div>
         <div className="flex flex-col w-full">
-            <label htmlFor="title" className="font-medium my-2 ">Numero de documento</label>
+            <label htmlFor="dni" className="font-medium my-2 ">Numero de documento</label>
             <div className="flex w-full">
-              <Field type="number" name="dni" placeholder="Ingrese su numero de documento" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.dni && touched.dni ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
+              <Field type="text" name="dni" placeholder="Ingrese su numero de documento" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.dni && touched.dni ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.dni && touched.dni ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.dni && touched.dni ? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="dni" component="span" className="text-warning" />
+            <div className="h-4 text-warning">
+              <ErrorMessage name="dni" component="span"  />
+            </div>
         </div>
         <div className="flex flex-col w-full">
             <label htmlFor="title" className="font-medium my-2 ">Domicilio</label>
@@ -163,7 +167,9 @@ const validate = (values:IFormValues) => {
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.address && touched.address ? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="address" component="span" className="text-warning" />
+            <div className="h-4 text-warning">
+              <ErrorMessage name="address" component="span" />
+            </div>
         </div>
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col w-full pr-4">
@@ -183,19 +189,19 @@ const validate = (values:IFormValues) => {
           >
             <option value="">Selecciona país</option>
             <option value="Argentina">Argentina</option>
-            <option value="España">España</option>
+            <option value="España">Otros paises</option>
           </Field>
             <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.country  && touched.country  ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.country  && touched.country  ? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="country" component="span" className="text-warning" />
-            
+            <div className="h-4 text-warning">
+              <ErrorMessage name="country" component="span"  />
+            </div>
           </div>
         <div className="flex flex-col w-full px-4">
             <label htmlFor="title" className="font-medium my-2 ">Provincia</label>
             <div className="flex w-full">
-              
             <Field
             as="select"
             name="province"
@@ -238,33 +244,10 @@ const validate = (values:IFormValues) => {
                 <img src={warningIcon.src} alt="warningIcon" className={`${errors.province && touched.province ? 'block' : 'hidden'}`}/>
             </div>
             </div>
-            <ErrorMessage name="province" component="span" className="text-warning" />
-            
+            <div className="h-4 text-warning">
+              <ErrorMessage name="province" component="span"/>
+            </div>
         </div>
-        {/*<div className="flex flex-col w-full pl-4">
-            <label htmlFor="title" className="font-medium my-2 ">Ciudad</label>
-            <div className="flex w-full">
-            <Field
-            as="select"
-            name="city"
-            placeholder="Selecciona país"
-            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-              errors.city && touched.city ? 'border-warningBorder text-warningText font-medium' : ''
-            }`}
-            disabled={province !== "Cordoba"}
-          >
-            <option value="">Selecciona país</option>
-            <option value="NY">New York</option>
-            <option value="SF">San Francisco</option>
-            <option value="CH">Chicago</option>
-            <option value="OTHER">Otro</option>
-          </Field>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.city && touched.city ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.city && touched.city ? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <ErrorMessage name="city" component="span" className="text-warning" />
-        </div>*/}
         </div>
   
         <div className="my-20 w-full flex justify-end">

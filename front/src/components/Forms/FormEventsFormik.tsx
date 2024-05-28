@@ -70,8 +70,6 @@ const validate = (values: IFormValues) => {
 
   if (!values.date) {
     errors.date = "La fecha es requerida";
-  } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.date)) {
-    errors.date = "Ingrese una fecha válida (AAAA-MM-DD)";
   }
 
   if (!values.address) {
@@ -173,11 +171,12 @@ const FormEventsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="title"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning">
+            <ErrorMessage
+              name="title"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-col h-20">
           <label htmlFor="title" className="font-medium  ">
@@ -210,11 +209,12 @@ const FormEventsFormik = () => (
               />
             </div>
           </div>
-          <ErrorMessage
-            name="subtitle"
-            component="span"
-            className="text-warning"
-          />
+          <div className="h-3 text-warning">
+            <ErrorMessage
+              name="subtitle"
+              component="span"
+            />
+          </div>
         </div>
         <div className="flex flex-row w-full justify-between h-20">
           <div className="flex flex-col w-1/2  ">
@@ -248,11 +248,12 @@ const FormEventsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="address"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning">
+              <ErrorMessage
+                name="address"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col w-1/2 items-end">
             <div className=" w-11/12">
@@ -261,8 +262,8 @@ const FormEventsFormik = () => (
               </label>
               <div className="flex w-full">
                 <Field
+                  type="date"
                   name="date"
-                  placeholder="Fecha de evento (AAAA-MM-DD)"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
                     errors.date && touched.date
                       ? "border-warningBorder text-warningText font-medium"
@@ -285,11 +286,12 @@ const FormEventsFormik = () => (
                   />
                 </div>
               </div>
-              <ErrorMessage
-                name="date"
-                component="span"
-                className="text-warning"
-              />
+              <div className="h-3 text-warning">
+                <ErrorMessage
+                  name="date"
+                  component="span"
+                />
+            </div>
             </div>
           </div>
         </div>
@@ -327,11 +329,12 @@ const FormEventsFormik = () => (
               </div>
               </div>
             </div>
-            <ErrorMessage
-              name="timeStart"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning">
+              <ErrorMessage
+                name="timeStart"
+                component="span"
+              />
+            </div>
           </div>
           <div className="flex flex-col w-1/2 items-end">
             <div className=" w-11/12">
@@ -366,11 +369,12 @@ const FormEventsFormik = () => (
                 />
               </div>
             </div>
-            <ErrorMessage
-              name="timeEnd"
-              component="span"
-              className="text-warning"
-            />
+            <div className="h-3 text-warning">
+              <ErrorMessage
+                name="timeEnd"
+                component="span"
+              />
+            </div>
           </div>
         </div>
         </div>
@@ -395,12 +399,13 @@ const FormEventsFormik = () => (
                 )
               }
               />
-            <ErrorMessage
-              name="primaryImage"
-              component="span"
-              className="text-warning"
-              />
+              <div className="h-3 text-warning">
+                <ErrorMessage
+                name="primaryImage"
+                component="span"
+                />
               </div>
+            </div>
           </div>
           <div className="flex flex-col w-1/2 items-end">
             <div className=" w-11/12">
@@ -424,11 +429,9 @@ const FormEventsFormik = () => (
                 )
               }
               />
-            <ErrorMessage
-              name="secondaryImage"
-              component="span"
-              className="text-warning"
-              />
+              <div className="h-3 text-textParagraph">
+                <p>Imagen opcional</p>
+              </div>
           </div>
               
               </div>
@@ -466,11 +469,12 @@ const FormEventsFormik = () => (
                 />
             </div>
           </div>
-          <ErrorMessage
+          <div className="h-3 text-warning">
+            <ErrorMessage
             name="description"
             component="span"
-            className="text-warning"
             />
+          </div>
         </div>
         <div className=" w-1/3 flex flex-row items-center  justify-end">
           <a
