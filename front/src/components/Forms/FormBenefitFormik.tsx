@@ -78,7 +78,7 @@ const FormBenefitsFormik = () => (
         .then((response) => {
           if (!response.statusCode) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: `Se agrego correctamente`,
             showConfirmButton: false,
@@ -95,7 +95,7 @@ const FormBenefitsFormik = () => (
         .catch((error) => {
           console.error("Error:", error);
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "error",
             title: "Ocurrió un error al agregar el beneficio",
             showConfirmButton: false,

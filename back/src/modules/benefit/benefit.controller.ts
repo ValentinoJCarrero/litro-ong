@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { StorageService } from '../storage/storage.service';
@@ -20,6 +21,9 @@ import { Benefit } from 'src/entities/Benefit.entity';
 import { BenefitDto } from 'src/dtos/Benefit.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Beneficios')
 @Controller('benefit')
@@ -58,6 +62,8 @@ export class BenefitController {
     description:
       'Esta ruta crea un nuevo beneficio con los datos enviados por body',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FileInterceptor('files'))
   async createBenefit(
     @Body() benefit: BenefitDto,
@@ -73,6 +79,8 @@ export class BenefitController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @ApiOperation({
     summary: 'Eliminar un beneficio (solo para administradores)',
     description:

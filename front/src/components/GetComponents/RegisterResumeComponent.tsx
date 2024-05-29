@@ -46,7 +46,7 @@ const RegisterResumeComponent = () => {
       postRegister(data)
         .then((data) => {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: `Bienvenido ${data.fullName}`,
             showConfirmButton: false,
