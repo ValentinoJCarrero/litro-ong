@@ -15,5 +15,6 @@ import { Subscription } from 'src/entities/Subscription.entity';
   ],
   controllers: [PartnerController],
   providers: [PartnerService, PartnerRepository],
+  exports: [PartnerService, PartnerRepository]
 })
 export class PartnerModule {}
