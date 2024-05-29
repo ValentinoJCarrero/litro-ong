@@ -10,6 +10,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -17,6 +18,9 @@ import { ProposalsService } from './proposals.service';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Propuestas')
 @Controller('proposals')
@@ -29,6 +33,8 @@ export class ProposalsController {
     description:
       'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de propuestas y total es la cantidad de propuestas registradas en la base de datos. Se puede enviar por query page y limit para la paginación, por defecto page es 1 y limit es 5. y se puede enviar por query un filter para filtrar por el estado de la propuesta en caso de ser necesario(APPROVED, REJECTED o PENDING)',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   getAllProposals(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -48,6 +54,8 @@ export class ProposalsController {
     description:
       'Esta ruta devuelve una propuesta especifica registrada por un id de tipo uuid, enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   getProposals(@Param('id', ParseUUIDPipe) id: string): Promise<Proposals> {
     return this.proposalsService.getProposals(id);
@@ -59,6 +67,9 @@ export class ProposalsController {
     description:
       'Esta ruta actualiza el estado de una propuesta por un id de tipo uuid enviado por parámetro y el nuevo estado por Query',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
+  @UseInterceptors(RemoveDataSensitive)
   updateProposals(
     @Param('id', ParseUUIDPipe) id: string,
     @Query('status') newStatus: string,
@@ -72,6 +83,8 @@ export class ProposalsController {
     description:
       'Esta ruta crea una nueva propuesta con los datos enviados por body, de tipo ProposalsDto',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Volunteer', 'Partner')
   @UseInterceptors(RemoveDataSensitive)
   createProposals(
     @Query('userId', ParseUUIDPipe) id: string,
@@ -86,6 +99,8 @@ export class ProposalsController {
     description:
       'Esta ruta elimina una propuesta registrada por un id, de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin', 'Volunteer')
   deleteProposals(@Param('id', ParseUUIDPipe) id: string) {
     return this.proposalsService.deleteProposals(id);
   }

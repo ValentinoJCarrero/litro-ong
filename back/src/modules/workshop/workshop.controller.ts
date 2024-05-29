@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -21,12 +22,16 @@ import { WorkshopDto } from 'src/dtos/Workshop.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '../storage/storage.service';
 import { validate } from 'class-validator';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Talleres')
 @Controller('workshop')
 export class WorkshopController {
-  constructor(private readonly workshopService: WorkshopService,
-              private readonly storageService: StorageService  
+  constructor(
+    private readonly workshopService: WorkshopService,
+    private readonly storageService: StorageService,
   ) {}
 
   @Get()
@@ -58,6 +63,8 @@ export class WorkshopController {
     description:
       'Esta ruta actualiza un taller registrado por un id de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   updateWorkshop(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() workshopData: Partial<WorkshopDto>,
@@ -71,16 +78,19 @@ export class WorkshopController {
     description:
       'Esta ruta crea un nuevo taller con los datos enviados por body, de tipo WorkshopDto',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FileInterceptor('files'))
-  async createWorkshop(@Body() workshop: WorkshopDto, @UploadedFile() file: Express.Multer.File): Promise<Workshop> {
-
+  async createWorkshop(
+    @Body() workshop: WorkshopDto,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<Workshop> {
     const uploadedImage = await this.storageService.uploadImage(file);
-    workshop.photo= uploadedImage;
+    workshop.photo = uploadedImage;
     const errors = await validate(workshop);
     if (errors.length > 0) {
       throw new BadRequestException('La validación falló');
     }
-
 
     return this.workshopService.createWorkshop(workshop);
   }
@@ -91,6 +101,8 @@ export class WorkshopController {
     description:
       'Esta ruta elimina un taller registrado por un id, de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   deleteWorkshop(@Param('id', ParseUUIDPipe) id: string) {
     return this.workshopService.deleteWorkshop(id);
   }

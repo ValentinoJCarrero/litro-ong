@@ -8,7 +8,7 @@ import { StorageService } from '../storage/storage.service';
 import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([News]), MailerModule], 
+  imports: [TypeOrmModule.forFeature([News]), MailerModule],
   controllers: [NewsController],
   providers: [NewsService, NewsRepository, StorageService],
 })

@@ -34,7 +34,8 @@ export class AuthGuard implements CanActivate {
       payload.iat = new Date(payload.iat * 1000);
       payload.exp = new Date(payload.exp * 1000);
 
-      request.user = payload;
+      request.user = payload.userPayload;
+
       return true;
     } catch (error) {
       throw new UnauthorizedException('No autorizado');

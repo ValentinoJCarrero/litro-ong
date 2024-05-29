@@ -7,7 +7,7 @@ import { Sponsor } from 'src/entities/Sponsor';
 import { StorageService } from '../storage/storage.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sponsor])], 
+  imports: [TypeOrmModule.forFeature([Sponsor])],
   controllers: [SponsorController],
   providers: [SponsorService, SponsorRepository, StorageService],
 })

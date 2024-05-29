@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PartnerDto } from 'src/dtos/Partner.dto';
 import { Card } from 'src/entities/Card.entity';
 import { Partner } from 'src/entities/Partner.entity';
 import { Role } from 'src/entities/Role.entity';
+import { Subscription } from 'src/entities/Subscription.entity';
+
 import { User } from 'src/entities/User.entity';
 import { Repository } from 'typeorm';
 
@@ -16,6 +17,8 @@ export class PartnerRepository {
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(Card) private cardRepository: Repository<Card>,
+    @InjectRepository(Subscription)
+    private subscriptionRepository: Repository<Subscription>,
   ) {}
 
   async getAllPartners(
@@ -31,17 +34,23 @@ export class PartnerRepository {
   }
 
   getOnePartner(id: string): Promise<Partner> {
-    return this.partnerRepository.findOne({ where: { id: id } });
+    return this.partnerRepository.findOne({
+      where: { id: id },
+      relations: { user: true, cardData: true, subscription: true },
+    });
   }
 
-  async createPartner(partner: PartnerDto): Promise<Partner> {
+  async createPartner(
+    userId: string,
+    subscription: Partial<Subscription>,
+  ): Promise<Partner> {
     const queryRunner =
       this.partnerRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
 
     try {
       const userFound = await this.userRepository.findOne({
-        where: { email: partner.email },
+        where: { id: userId },
         relations: { role: true },
       });
 
@@ -57,25 +66,42 @@ export class PartnerRepository {
       }
       userFound.role = [...userFound.role, rolePartner];
 
-      const partnerCreated = await this.partnerRepository.save({
-        user: userFound,
+      const newSubscription = this.subscriptionRepository.create({
+        transaction_id: subscription.transaction_id,
+        status: subscription.status,
+        url: subscription.url,
+        amount: subscription.amount,
+        next_payment_date: subscription.next_payment_date,
+        payment_method: subscription.payment_method,
       });
+      const savedSubscription =
+        await this.subscriptionRepository.save(newSubscription);
+
+      const partnerCreated = this.partnerRepository.create({
+        user: userFound,
+        subscription: savedSubscription,
+      });
+      const savedPartner = await this.partnerRepository.save(partnerCreated);
 
       const newCard = this.cardRepository.create({
         dni: userFound.dni,
         holder: userFound.fullName,
-        expiration: '01/25',
-        paymentMethod: 'credito',
-        paymentStatus: 'APPROVED',
-        partner: partnerCreated,
+        expiration: subscription.next_payment_date,
+        paymentMethod: subscription.payment_method,
+        paymentStatus: subscription.status,
+        partner: savedPartner,
       });
+      const savedCard = await this.cardRepository.save(newCard);
 
-      await this.cardRepository.save(newCard);
+      savedPartner.cardData = savedCard;
+      savedSubscription.partner = savedPartner;
 
+      await this.partnerRepository.save(savedPartner);
+      await this.subscriptionRepository.save(savedSubscription);
       await this.userRepository.save(userFound);
 
       await queryRunner.commitTransaction();
-      return partnerCreated;
+      return savedPartner;
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;

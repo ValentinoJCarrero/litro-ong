@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -21,6 +22,9 @@ import { CommunityKitchensDto } from 'src/dtos/CommunityKitchens.dto';
 import { StorageService } from '../storage/storage.service';
 import { validate } from 'class-validator';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Roles } from 'src/decorators/roles.decorator';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
 
 @ApiTags('Merenderos')
 @Controller('communityKitchens')
@@ -64,6 +68,8 @@ export class CommunityKitchensController {
     description:
       'Esta ruta actualiza un merendero registrado por un id de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   updateCommunityKitchens(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() communityKitchensData: Partial<CommunityKitchensDto>,
@@ -80,6 +86,8 @@ export class CommunityKitchensController {
     description:
       'Esta ruta crea un nuevo merendero con los datos enviados por body, de tipo CommunityKitchensDto',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FileInterceptor('files'))
   async createCommunityKitchens(
     @Body() communityKitchens: CommunityKitchensDto,
@@ -102,6 +110,8 @@ export class CommunityKitchensController {
     description:
       'Esta ruta elimina un merendero registrado por un id, de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   deleteCommunityKitchens(@Param('id', ParseUUIDPipe) id: string) {
     return this.communityKitchensService.deleteCommunityKitchens(id);
   }

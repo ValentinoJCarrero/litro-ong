@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Put,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -17,6 +18,9 @@ import { UserDto } from 'src/dtos/User.dto';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 import { UpdateResult } from 'typeorm';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Usuarios')
 @Controller('users')
@@ -29,6 +33,8 @@ export class UsersController {
     description:
       'Esta ruta devuelve un objeto con data y total. Donde data es un arreglo de usuarios y total es la cantidad de usuarios registrados en la base de datos',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   getAllUsers(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -39,11 +45,11 @@ export class UsersController {
 
   @Get(':id')
   @ApiOperation({
-    summary: ' Obtener un usuario por id',
-
+    summary: 'Obtener un usuario por id',
     description:
       'Esta ruta devuelve un usuario registrado, por un id enviado por parametro',
   })
+  @UseGuards(AuthGuard)
   @UseInterceptors(RemoveDataSensitive)
   async getUser(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.usersService.getUser(id);
@@ -55,6 +61,7 @@ export class UsersController {
     description:
       'Esta ruta actualiza un usuario, por un id enviado por parametro y datos nuevos, de tipo UserDto enviados por body',
   })
+  @UseGuards(AuthGuard)
   updateUser(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() user: Partial<UserDto>,
@@ -68,6 +75,7 @@ export class UsersController {
     description:
       'Esta ruta elimina un usuario, por un id enviado por parametro',
   })
+  @UseGuards(AuthGuard)
   deleteUser(@Param('id', ParseUUIDPipe) id: string): Promise<User> {
     return this.usersService.deleteUser(id);
   }

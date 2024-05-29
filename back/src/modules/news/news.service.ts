@@ -10,8 +10,9 @@ import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class NewsService {
-  constructor(private readonly newsRepository: NewsRepository,
-              private readonly mailerService:MailerService
+  constructor(
+    private readonly newsRepository: NewsRepository,
+    private readonly mailerService: MailerService,
   ) {}
 
   async getAllNews(
@@ -36,7 +37,12 @@ export class NewsService {
 
   async createNews(news: NewsDto): Promise<News> {
     try {
-      this.mailerService.sendNewsletterMail(news.title, news.subtitle, news.description, news.primaryImage);
+      this.mailerService.sendNewsletterMail(
+        news.title,
+        news.subtitle,
+        news.description,
+        news.primaryImage,
+      );
       return await this.newsRepository.createNews(news);
     } catch (error) {
       if ((error as any).message?.includes('unicidad')) {

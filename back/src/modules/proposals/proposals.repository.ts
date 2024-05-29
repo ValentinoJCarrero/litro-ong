@@ -61,7 +61,6 @@ export class ProposalsRepository {
   }
 
   deleteAllProposals(deleteOneMonthAgo: Date) {
-    console.log(deleteOneMonthAgo);
     return this.proposalsRepository.delete({
       date: LessThan(deleteOneMonthAgo),
       status: Not('PENDING'),
