@@ -31,6 +31,7 @@ import { Workshop } from './entities/Workshop.entity';
 import { Volunteer } from './entities/Volunteer.entity';
 import { Benefit } from './entities/Benefit.entity';
 import { CommunityKitchens } from './entities/CommunityKitchens.entity';
+import { SubsModule } from './modules/subs/subs.module';
 
 @Module({
   imports: [
@@ -77,6 +78,7 @@ import { CommunityKitchens } from './entities/CommunityKitchens.entity';
     ProposalsModule,
     PartnerModule,
     CardModule,
+    SubsModule
   ],
   controllers: [AppController],
   providers: [AppService],
