@@ -6,12 +6,16 @@ import {
   ParseIntPipe,
   ParseUUIDPipe,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Donation } from 'src/entities/Donation.entity';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Donaciones')
 @Controller('donation')
@@ -24,6 +28,8 @@ export class DonationController {
     description:
       'Esta ruta devuelve un objeto con data y total. donde data es un arreglo de donaciones y total es la cantidad de donaciones registradas en la base de datos',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   getAllDonations(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -38,6 +44,8 @@ export class DonationController {
     description:
       'Esta ruta devuelve una donacion registrada, por un id enviado por parametro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   async getDonation(@Param('id', ParseUUIDPipe) id: string): Promise<Donation> {
     return this.donationService.getDonation(id);

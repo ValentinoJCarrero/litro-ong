@@ -67,6 +67,10 @@ export class ProposalsService {
         'No se encontró la propuesta que intentabas editar',
       );
     } else {
+      const proposal = await this.getProposals(id);
+
+      //enviar email
+      proposal.user.email;
       //cre que deberias hacer una constante, que la respuesta del repositorio y antes de mandarla al controlador, llama al servicio de email y mandale el propotsal.user.id.
       /**
        * algo asi se me ocurre, para mandar el email. pero nose, vos sabras

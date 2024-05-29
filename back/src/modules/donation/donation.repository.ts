@@ -35,13 +35,18 @@ export class DonationRepository {
   }
 
   async registerDonation(donation: DonationDto): Promise<Donation> {
-    if (!donation.email) return await this.donationRepository.save(donation); 
+    if (!donation.email) return await this.donationRepository.save(donation);
 
-    const userFound = await this.userRepository.findOneBy({ email: donation.email });
-    if(!userFound) return await this.donationRepository.save(donation);
-    
-    const donationCreated = this.donationRepository.create({ ...donation, user: userFound });
-      
+    const userFound = await this.userRepository.findOneBy({
+      email: donation.email,
+    });
+    if (!userFound) return await this.donationRepository.save(donation);
+
+    const donationCreated = this.donationRepository.create({
+      ...donation,
+      user: userFound,
+    });
+
     return await this.donationRepository.save(donationCreated);
   }
 }
