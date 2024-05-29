@@ -1,5 +1,12 @@
+import Cookies from "js-cookie";
 export async function getVolunteer(limit: number, page: number): Promise<any> {
+  const tokenData = Cookies.get('token');
+  let token = '';
 
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
   try {
     const validLimit = limit;
     const validPage = page;
@@ -11,7 +18,8 @@ export async function getVolunteer(limit: number, page: number): Promise<any> {
     const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     });
 

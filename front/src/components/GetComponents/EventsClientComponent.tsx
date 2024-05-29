@@ -74,6 +74,7 @@ const EventsComponent = () => {
   };
   const onClickAssignVolunteer = (title: string) => {
     setSelectedEventTitle(title);
+    console.log(title);
     setVolunteers(true);
   };
   return (

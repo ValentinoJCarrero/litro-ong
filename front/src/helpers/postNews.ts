@@ -1,7 +1,14 @@
 import Cookies from "js-cookie";
 export async function postNews(newsResponse: any): Promise<any> {
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
   try {
-    const token = Cookies.get('token');
+
     const formData = new FormData();
     formData.append('title', newsResponse.title);
     formData.append('subtitle', newsResponse.subtitle);
@@ -15,7 +22,6 @@ export async function postNews(newsResponse: any): Promise<any> {
       method: 'POST',
       body: formData,
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       } 
     });

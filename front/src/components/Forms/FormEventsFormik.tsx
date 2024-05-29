@@ -106,7 +106,6 @@ const FormEventsFormik = () => (
     initialValues={initialValues}
     validate={validate}
     onSubmit={(values, { setSubmitting }: FormikHelpers<IFormValues>) => {
-      console.log(values.timeStart);
       postEvents(values)
         .then((response) => {
           if (!response.statusCode) {

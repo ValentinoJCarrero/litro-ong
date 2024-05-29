@@ -48,6 +48,7 @@ const ListEventComponents = (props: Color) => {
     if (idUser) {
       getVolunteersByID(idUser)
         .then((data) => {
+          console.log(data);
           console.log(data.volunteerData.events);
           setEvents(data.volunteerData.events);
           setIsLoading(false);

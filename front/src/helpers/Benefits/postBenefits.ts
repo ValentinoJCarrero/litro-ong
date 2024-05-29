@@ -1,8 +1,14 @@
 
 import Cookies from "js-cookie";
 export async function postBenefits(newsResponse: any): Promise<any> {
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
   try {
-    const token = Cookies.get('token');
     const formData = new FormData();
     formData.append('name', newsResponse.name);
     formData.append('address', newsResponse.address);
@@ -17,7 +23,6 @@ console.log(formData);
       method: 'POST',
       body: formData,
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       } 
     });

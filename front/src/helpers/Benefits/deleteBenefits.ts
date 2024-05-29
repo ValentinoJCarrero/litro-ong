@@ -1,10 +1,15 @@
 import Cookies from "js-cookie";
 export async function deleteBenefits(id:any): Promise<any> {
-  const token = Cookies.get('token');
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
     fetch(`https://litro-ong.onrender.com/benefit/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       })
