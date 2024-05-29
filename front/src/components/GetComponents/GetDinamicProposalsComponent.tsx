@@ -34,6 +34,18 @@ const DynamicProposals: React.FC = () => {
     }
   }, []);
 
+switch (proposals?.status) {
+  case "PENDING":
+    proposals.status = "Pendiente";
+    break;
+  case "APPROVED":
+    proposals.status = "Aceptado";
+    break;
+  case "REJECTED":
+    proposals.status = "Rechazado";
+    break;
+}
+
   const fetchProposalsById = async (proposalId: string) => {
     if (proposalId) {
       try {
@@ -66,25 +78,41 @@ const DynamicProposals: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full flex-col">
+    <div className="flex items-center justify-between h-full flex-col">
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
       ) : message === "No se encontraron propuestas en esta pagina" ? (
         <NotFound />
       ) : (
         <>
-          <div className="flex flex-col w-5/6 h-1/2 justify-between items-center">
+        <div className="flex flex-col text-center h-full justify-center gap-3 ">
             <div>
               <h6 className="text-tertiary text-2xl font-semibold">
                 {proposals?.title}
               </h6>
-              <p className="text-center">{`Fecha de creacion: ${proposals?.date}`}</p>
+              <div className="flex flex-row items-center text-xs gap-2">
+                
+              <p className="text-center font-semibold">Fecha de creación:</p>
+              <p className="">{proposals?.date}</p>
+              </div>
             </div>
-            <p className="text-center">{proposals?.description}</p>
+            <div className="flex flex-col gap-2" >
+
+            <p className="text-xs  font-semibold text-start">Descripción:</p>
+            <p className="text-start">{proposals?.description}</p>
+            </div>
             <div className="w-full flex-col items-center justify-center ">
-              <p className="m-10 text-center">{proposals?.status}</p>
+              <div className="flex flex-col">
+
+              <p className="text-xs font-semibold">Estado:</p>
+              <p className={`text-center text-white font-bold ${proposals?.status=="Aceptado"?"bg-green-400":proposals?.status=="Rechazado" ?"bg-red-400":"bg-gray-400"} `} >{proposals?.status}</p> </div>
+            </div>
+          </div>
+          <hr />
+        </>
+      )}
               <div className="w-full flex justify-around">
                 <ButtonWarningSmall
                   title="Rechazar"
@@ -94,14 +122,10 @@ const DynamicProposals: React.FC = () => {
                 <ButtonCTASmallReact
                   title="Aceptar"
                   idEvent={`accept-${proposals?.id}`}
+                  color="white"
                   onClick={() => proposals?.id && handleStatusChange(proposals.id, "APPROVED")}
                 />
               </div>
-            </div>
-          </div>
-          <hr />
-        </>
-      )}
     </div>
   );
 };

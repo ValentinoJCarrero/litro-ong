@@ -52,7 +52,7 @@ const FormLoginFormik = () => {
           .then((data) => {
             if (data) {
               Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: `Bienvenido`,
                 showConfirmButton: false,
@@ -65,9 +65,9 @@ const FormLoginFormik = () => {
               setSubmitting(false);
             } else if (!data) {
               Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "error",
-                title: `Usuario no registrado`,
+                title: `Usuario no encontrado`,
                 showConfirmButton: false,
                 timer: 1500,
               });

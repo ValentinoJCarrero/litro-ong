@@ -27,12 +27,15 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchWorkshops = async () => {
       try {
-        const workshopsData = await getWorkshops(2, 1);
+        const workshopsData = await getWorkshops(3, page);
         setWorkshops(workshopsData.data);
+        setTotalPages(Math.ceil(workshopsData.total / 3));
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
@@ -41,12 +44,19 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
     };
 
     fetchWorkshops();
-  }, []);
+  }, [page]);
+
+  const handlePreviousPage = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        {/* simon este viene bien. el espacio que esta ocupando es mucho pero va por aca */}
         <SpinnersPrimary />
       </div>
     );
@@ -100,6 +110,23 @@ const GetAllWorkShopsClientComponent: React.FC = () => {
           </div>
         </li>
       </ul>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Anterior
+        </button>
+        <span>{page} / {totalPages}</span>
+        <button
+          onClick={handleNextPage}
+          disabled={page === totalPages}
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   );
 };

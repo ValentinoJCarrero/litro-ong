@@ -56,7 +56,7 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
         {children}
       </button>
       <ul
-        className={`absolute mt-8 right-[-40px] w-80 z-10  bg-white shadow-lg rounded-lg ${
+        className={`absolute mt-8 right-[-40px] w-80   bg-white shadow-lg z-50 rounded-lg ${
           dropdownVisible ? "block" : "hidden"
         }`}
       >

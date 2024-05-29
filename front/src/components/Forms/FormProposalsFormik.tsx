@@ -48,7 +48,7 @@ const FormProposalsFormik = () => (
       const tokenFromCookies = Cookies.get("token");
       if (!tokenFromCookies) {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "error",
           title: `ID de voluntario no encontrado`,
           showConfirmButton: false,
@@ -72,7 +72,7 @@ const FormProposalsFormik = () => (
         .then((response) => {
           if (!response.statusCode) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: `Se agrego correctamente`,
             showConfirmButton: false,
@@ -89,7 +89,7 @@ const FormProposalsFormik = () => (
         .catch((error) => {
           console.error("Error:", error);
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "error",
             title: "Ocurrió un error al agregar la propuesta",
             showConfirmButton: false,
