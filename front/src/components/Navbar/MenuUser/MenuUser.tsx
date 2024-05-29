@@ -23,10 +23,7 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
     try {
       const decodedToken: any = jwtDecode(tokenUser);
       idDecodificado = decodedToken.userPayload.sub;
-      console.log(tokenUser)
-      console.log("el token magico decodificado es:",decodedToken.userPayload.sub)
 
-  
     } catch (error) {
       console.error("Error decoding token:", error);
     }
@@ -36,7 +33,6 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
     if (idDecodificado) {
       getVolunteersByID(idDecodificado)
         .then((data) => {
-          console.log(data);
           setInfoUser(data);
         })
         .catch((error) => {
