@@ -1,8 +1,11 @@
+import Cookies from "js-cookie";
 export async function deleteNews(id:any): Promise<any> {
+  const token = Cookies.get('token');
     fetch(`https://litro-ong.onrender.com/news/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
       })
         .then(response => {

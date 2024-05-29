@@ -1,4 +1,6 @@
+import Cookies from "js-cookie";
 export async function postWorkshops(newsResponse: any): Promise<any> {
+  const token = Cookies.get('token');
   try {
     const formData = new FormData();
     formData.append('name', newsResponse.name);
@@ -16,7 +18,11 @@ export async function postWorkshops(newsResponse: any): Promise<any> {
 
     const response = await fetch(`https://litro-ong.onrender.com/workshop`, {
       method: 'POST',
-      body: formData 
+      body: formData,
+       headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
     });
     if (!response.ok) {
       const errorData = await response.json();

@@ -1,5 +1,6 @@
+import Cookies from "js-cookie";
 export async function putProposalsById(id: string, newsResponse: any): Promise<any> {
-
+  const token = Cookies.get('token');
     const url= new URL(`https://litro-ong.onrender.com/proposals/${id}`);
     url.searchParams.append('status', newsResponse.toString());
     
@@ -7,7 +8,8 @@ export async function putProposalsById(id: string, newsResponse: any): Promise<a
       const response = await fetch(url.toString(), {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
   

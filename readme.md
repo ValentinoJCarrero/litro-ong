@@ -24,5 +24,8 @@ El objetivo del proyecto es proporcionar una plataforma en línea para la ONG "U
 - **Mercado Pago**: Integración de la pasarela de pagos.
 - **Render**: Plataforma de despliegue para el backend, proporcionando un entorno seguro y escalable.
 - **PostgreSQL**: Base de datos relacional utilizada, también desplegada en Render.
+- **Crons**: Utilizado para el mailing.
 
 ## Link del proyecto deployado: https://litro-ong.vercel.app/
+
+

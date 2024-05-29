@@ -1,5 +1,7 @@
+import Cookies from "js-cookie";
 export async function postAddVolunteer(id:any, newsResponse:any): Promise<any> {
   try {  
+    const token = Cookies.get('token');
     const formData = new FormData();
     formData.append("id", id);
     formData.append("title", newsResponse);
@@ -7,7 +9,8 @@ export async function postAddVolunteer(id:any, newsResponse:any): Promise<any> {
   const response = await fetch(`https://litro-ong.onrender.com/event/addVolunteer/${id}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(formData),
   });

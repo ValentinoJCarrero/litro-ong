@@ -1,5 +1,7 @@
+import Cookies from "js-cookie";
 export async function postCommunityKitchens(newsResponse: any): Promise<any> {
   try {
+    const token = Cookies.get('token');
     const formData = new FormData();
     formData.append('name', newsResponse.name);
     formData.append('holder', newsResponse.holder);
@@ -14,7 +16,11 @@ export async function postCommunityKitchens(newsResponse: any): Promise<any> {
 console.log(formData);
     const response = await fetch(`https://litro-ong.onrender.com/communityKitchens`, {
       method: 'POST',
-      body: formData 
+      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      } 
     });
     if (!response.ok) {
       const errorData = await response.json();
