@@ -1,5 +1,5 @@
-import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
-import  warningIcon from "../../assets/IconWarrning.svg"
+import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
+import warningIcon from "../../assets/IconWarrning.svg";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 interface IFormValues {
@@ -9,28 +9,27 @@ interface IFormValues {
   birthDate: string;
   dni: string;
   address: string;
-  country:string;
-  province:string;
-  isSubscribed:boolean;
+  country: string;
+  province: string;
+  isSubscribed: boolean;
 }
 
 const initialValues = {
-  name:"",
+  name: "",
   lastname: "",
   phone: "",
   birthDate: "",
   dni: "",
   address: "",
-  country:"",
-  province:  "",
+  country: "",
+  province: "",
   isSubscribed: false,
   checked: [],
 };
 
-const validate = (values:IFormValues) => {
+const validate = (values: IFormValues) => {
   const errors: Record<string, string> = {};
 
-  
   if (!values.name) {
     errors.name = "El nombre es requerido";
   } else if (values.name.length < 2) {
@@ -71,7 +70,7 @@ const validate = (values:IFormValues) => {
 
   if (!values.country) {
     errors.country = "El país es requerido";
-  } 
+  }
 
   if (values.country === "Argentina" && !values.province) {
     errors.province = "La provincia es requerida";
@@ -80,28 +79,28 @@ const validate = (values:IFormValues) => {
   return errors;
 };
 
-  const FormRegisterProfileGoogleFormik = () => {
-    const [country, setCountry] = useState(initialValues.country);
-    const [province, setProvince] = useState(initialValues.province);
-    useEffect(() => {
-      Swal.fire({
-        title: "Hola debes completar el registro antes de continuar!",
-        text: "Muchas gracias por participar de la ONG!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#EF4444",
-        cancelButtonColor: "#009BDB",
-        confirmButtonText: "Cancelar",
-        cancelButtonText: "Continuar",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 200);
-        }
-      });
-    }, []);
-    return(
+const FormRegisterProfileGoogleFormik = () => {
+  const [country, setCountry] = useState(initialValues.country);
+  const [province, setProvince] = useState(initialValues.province);
+  useEffect(() => {
+    Swal.fire({
+      title: "Hola debes completar el registro antes de continuar!",
+      text: "Muchas gracias por participar de la ONG!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#EF4444",
+      cancelButtonColor: "#009BDB",
+      confirmButtonText: "Cancelar",
+      cancelButtonText: "Continuar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 200);
+      }
+    });
+  }, []);
+  return (
     <Formik
       initialValues={initialValues}
       validate={validate}
@@ -111,201 +110,386 @@ const validate = (values:IFormValues) => {
           fullName: `${values.name} ${values.lastname}`,
           fullAddress: `${values.address} ${values.country} ${values.province}`,
         };
-        localStorage.setItem("registerUserProfile", JSON.stringify(combinedValues));
+        localStorage.setItem(
+          "registerUserProfile",
+          JSON.stringify(combinedValues)
+        );
         setSubmitting(false);
         window.location.href = "/auth/register/resumeGoogle";
-    }}
-  >
-    {({ errors, touched,setFieldValue }) => (
-    <Form className="text-sm text-textParagraph flex flex-col justify-center h-5/6">
-      <div className="flex flex-row justify-between w-full ">
-       <div className="flex flex-col w-full pr-4">
-            <label htmlFor="title" className="font-medium my-2 ">Nombre</label>
+      }}
+    >
+      {({ errors, touched, setFieldValue }) => (
+        <Form className="text-sm text-textParagraph flex flex-col justify-center">
+          <div className="flex flex-row justify-between w-full ">
+            <div className="flex flex-col w-full pr-4">
+              <label htmlFor="title" className="font-medium my-2 ">
+                Nombre
+              </label>
+              <div className="flex w-full">
+                <Field
+                  type="text"
+                  name="name"
+                  placeholder="Ingrese su nombre"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                    errors.name && touched.name
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                />
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.name && touched.name
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.name && touched.name ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="name" component="span" />
+              </div>
+            </div>
+            <div className="flex flex-col w-full pl-4">
+              <label htmlFor="title" className="font-medium my-2 ">
+                Apellido
+              </label>
+              <div className="flex w-full">
+                <Field
+                  type="text"
+                  name="lastname"
+                  placeholder="Ingrese su apellidos"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                    errors.lastname && touched.lastname
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                />
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.lastname && touched.lastname
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.lastname && touched.lastname ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="lastname" component="span" />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-col w-full pr-4">
+              <label htmlFor="title" className="font-medium my-2 ">
+                Número telefónicos
+              </label>
+              <div className="flex w-full">
+                <Field
+                  type="text"
+                  name="phone"
+                  placeholder="Ingrese numero telefonico"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                    errors.phone && touched.phone
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                />
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.phone && touched.phone
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.phone && touched.phone ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="phone" component="span" />
+              </div>
+            </div>
+            <div className="flex flex-col w-full pl-4">
+              <label htmlFor="date" className="font-medium my-2 ">
+                Fecha de Nacimiento
+              </label>
+              <div className="flex w-full">
+                <Field
+                  type="date"
+                  name="birthDate"
+                  placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                    errors.birthDate && touched.birthDate
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                />
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.birthDate && touched.birthDate
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.birthDate && touched.birthDate ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="birthDate" component="span" />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row flex-nowrap justify-between items-center gap-6">
+
+          <div className="flex flex-col w-full">
+            <label htmlFor="dni" className="font-medium my-2 ">
+              Numero de documento
+            </label>
             <div className="flex w-full">
-              <Field type="text" name="name" placeholder="Ingrese su nombre" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.name && touched.name ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-              <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.name && touched.name ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.name && touched.name ? 'block' : 'hidden'}`}/>
+              <Field
+                type="text"
+                name="dni"
+                placeholder="Ingrese su numero de documento"
+                className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                  errors.dni && touched.dni
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+                }`}
+                />
+              <div
+                className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                  errors.dni && touched.dni
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+                }`}
+                >
+                <img
+                  src={warningIcon.src}
+                  alt="warningIcon"
+                  className={`${
+                    errors.dni && touched.dni ? "block" : "hidden"
+                  }`}
+                  />
               </div>
             </div>
             <div className="h-4 text-warning">
-              <ErrorMessage name="name" component="span" />
-            </div>
-        </div>
-        <div className="flex flex-col w-full pl-4">
-            <label htmlFor="title" className="font-medium my-2 ">Apellido</label>
-            <div className="flex w-full">
-              <Field type="text" name="lastname" placeholder="Ingrese su apellidos" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.lastname && touched.lastname ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.lastname && touched.lastname ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.lastname && touched.lastname ? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="lastname" component="span" />
+              <ErrorMessage name="dni" component="span" />
             </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-between w-full">
-          <div className="flex flex-col w-full pr-4">
-            <label htmlFor="title" className="font-medium my-2 ">Número telefónicos</label>
+          <div className="flex flex-col w-full">
+            <label htmlFor="title" className="font-medium my-2 ">
+              Domicilio
+            </label>
             <div className="flex w-full">
-              <Field type="text" name="phone" placeholder="Ingrese numero telefonico" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.phone && touched.phone ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.phone && touched.phone ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.phone && touched.phone? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="phone" component="span" />
-            </div>
-          </div>
-        <div className="flex flex-col w-full pl-4">
-            <label htmlFor="date" className="font-medium my-2 ">Fecha de Nacimiento</label>
-            <div className="flex w-full">
-              <Field type="date" name="birthDate" placeholder="Ingrese fecha de nacimiento (AAAA-MM-DD)" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.birthDate && touched.birthDate ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.birthDate && touched.birthDate? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="birthDate" component="span"/>
-            </div>
-        </div>
-        </div>
-        <div className="flex flex-col w-full">
-            <label htmlFor="dni" className="font-medium my-2 ">Numero de documento</label>
-            <div className="flex w-full">
-              <Field type="text" name="dni" placeholder="Ingrese su numero de documento" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.dni && touched.dni ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.dni && touched.dni ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.dni && touched.dni ? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="dni" component="span"  />
-            </div>
-        </div>
-        <div className="flex flex-col w-full">
-            <label htmlFor="title" className="font-medium my-2 ">Domicilio</label>
-            <div className="flex w-full">
-              <Field type="text" name="address" placeholder="Ingrese su domicilio" className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${errors.address && touched.address ? 'border-warningBorder text-warningText font-medium' : ''}`}/>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.address && touched.address ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.address && touched.address ? 'block' : 'hidden'}`}/>
-            </div>
+              <Field
+                type="text"
+                name="address"
+                placeholder="Ingrese su domicilio"
+                className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none  ${
+                  errors.address && touched.address
+                  ? "border-warningBorder text-warningText font-medium"
+                  : ""
+                }`}
+                />
+              <div
+                className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                  errors.address && touched.address
+                  ? "border-warningBorder text-warningText font-medium "
+                  : ""
+                }`}
+                >
+                <img
+                  src={warningIcon.src}
+                  alt="warningIcon"
+                  className={`${
+                    errors.address && touched.address ? "block" : "hidden"
+                  }`}
+                  />
+              </div>
             </div>
             <div className="h-4 text-warning">
               <ErrorMessage name="address" component="span" />
             </div>
-        </div>
-        <div className="flex flex-row justify-between w-full">
-          <div className="flex flex-col w-full pr-4">
-            <label htmlFor="title" className="font-medium my-2 ">Pais</label>
-            <div className="flex w-full">
-            <Field
-            as="select"
-            name="country"
-            placeholder="Selecciona país"
-            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-              errors.country && touched.country ? 'border-warningBorder text-warningText font-medium' : ''
-            }`}
-            onChange={(e:any) => {
-              setFieldValue("country", e.target.value);
-              setCountry(e.target.value);
-            }}
-          >
-            <option value="">Selecciona país</option>
-            <option value="Argentina">Argentina</option>
-            <option value="España">Otros paises</option>
-          </Field>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.country  && touched.country  ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.country  && touched.country  ? 'block' : 'hidden'}`}/>
+          </div>
+                  </div>
+          <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-col w-full pr-4">
+              <label htmlFor="title" className="font-medium my-2 ">
+                Pais
+              </label>
+              <div className="flex w-full">
+                <Field
+                  as="select"
+                  name="country"
+                  placeholder="Selecciona país"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+                    errors.country && touched.country
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                  onChange={(e: any) => {
+                    setFieldValue("country", e.target.value);
+                    setCountry(e.target.value);
+                  }}
+                >
+                  <option value="">Selecciona país</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="España">Otros paises</option>
+                </Field>
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.country && touched.country
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.country && touched.country ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="country" component="span" />
+              </div>
             </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="country" component="span"  />
+            <div className="flex flex-col w-full px-4">
+              <label htmlFor="title" className="font-medium my-2 ">
+                Provincia
+              </label>
+              <div className="flex w-full">
+                <Field
+                  as="select"
+                  name="province"
+                  placeholder="Selecciona país"
+                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+                    errors.province && touched.province
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                  disabled={country !== "Argentina"}
+                  onChange={(e: any) => {
+                    setFieldValue("province", e.target.value);
+                    setProvince(e.target.value);
+                  }}
+                >
+                  <option value="">Selecciona tu provincia</option>
+                  <option value="Buenos Aires">Buenos Aires</option>
+                  <option value="Catamarca">Catamarca</option>
+                  <option value="Chaco">Chaco</option>
+                  <option value="Chubut">Chubut</option>
+                  <option value="Córdoba">Córdoba</option>
+                  <option value="Corrientes">Corrientes</option>
+                  <option value="Entre Ríos">Entre Ríos</option>
+                  <option value="Formosa">Formosa</option>
+                  <option value="Jujuy">Jujuy</option>
+                  <option value="La Pampa">La Pampa</option>
+                  <option value="La Rioja">La Rioja</option>
+                  <option value="Mendoza">Mendoza</option>
+                  <option value="Misiones">Misiones</option>
+                  <option value="Neuquén">Neuquén</option>
+                  <option value="Río Negro">Río Negro</option>
+                  <option value="Salta">Salta</option>
+                  <option value="San Juan">San Juan</option>
+                  <option value="San Luis">San Luis</option>
+                  <option value="Santa Cruz">Santa Cruz</option>
+                  <option value="Santa Fe">Santa Fe</option>
+                  <option value="Santiago del Estero">
+                    Santiago del Estero
+                  </option>
+                  <option value="Tierra del Fuego">Tierra del Fuego</option>
+                  <option value="Tucumán">Tucumán</option>
+                </Field>
+                <div
+                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
+                    errors.province && touched.province
+                      ? "border-warningBorder text-warningText font-medium "
+                      : ""
+                  }`}
+                >
+                  <img
+                    src={warningIcon.src}
+                    alt="warningIcon"
+                    className={`${
+                      errors.province && touched.province ? "block" : "hidden"
+                    }`}
+                  />
+                </div>
+              </div>
+              <div className="h-4 text-warning">
+                <ErrorMessage name="province" component="span" />
+              </div>
             </div>
           </div>
-        <div className="flex flex-col w-full px-4">
-            <label htmlFor="title" className="font-medium my-2 ">Provincia</label>
-            <div className="flex w-full">
-            <Field
-            as="select"
-            name="province"
-            placeholder="Selecciona país"
-            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-              errors.province && touched.province ? 'border-warningBorder text-warningText font-medium' : ''
-            }`}
-            disabled={country !== "Argentina"}
-            onChange={(e:any) => {
-              setFieldValue("province", e.target.value);
-              setProvince(e.target.value);
-            }}
-          >
-            <option value="">Selecciona tu provincia</option>
-            <option value="Buenos Aires">Buenos Aires</option>
-            <option value="Catamarca">Catamarca</option>
-            <option value="Chaco">Chaco</option>
-            <option value="Chubut">Chubut</option>
-            <option value="Córdoba">Córdoba</option>
-            <option value="Corrientes">Corrientes</option>
-            <option value="Entre Ríos">Entre Ríos</option>
-            <option value="Formosa">Formosa</option>
-            <option value="Jujuy">Jujuy</option>
-            <option value="La Pampa">La Pampa</option>
-            <option value="La Rioja">La Rioja</option>
-            <option value="Mendoza">Mendoza</option>
-            <option value="Misiones">Misiones</option>
-            <option value="Neuquén">Neuquén</option>
-            <option value="Río Negro">Río Negro</option>
-            <option value="Salta">Salta</option>
-            <option value="San Juan">San Juan</option>
-            <option value="San Luis">San Luis</option>
-            <option value="Santa Cruz">Santa Cruz</option>
-            <option value="Santa Fe">Santa Fe</option>
-            <option value="Santiago del Estero">Santiago del Estero</option>
-            <option value="Tierra del Fuego">Tierra del Fuego</option>
-            <option value="Tucumán">Tucumán</option>
-          </Field>
-            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.province && touched.province ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
-                <img src={warningIcon.src} alt="warningIcon" className={`${errors.province && touched.province ? 'block' : 'hidden'}`}/>
-            </div>
-            </div>
-            <div className="h-4 text-warning">
-              <ErrorMessage name="province" component="span"/>
-            </div>
-        </div>
-        </div>
-        <div className="flex flex-col w-full">
-                <label htmlFor="isSubscribed" className="font-medium my-2 ">
-                <div className="flex w-full items-center">
+          <div className="flex flex-col w-full">
+            <label htmlFor="isSubscribed" className="font-medium my-2 ">
+              <div className="flex w-full items-center">
                 <Field
-                type="checkbox"
-                name="isSubscribed"
-                className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-                  errors.isSubscribed && touched.isSubscribed ? 'border-warningBorder text-warningText font-medium' : ''
-                }`}
-              />
-                <div className="ml-10 mt-4">
-                  Registrarse al newslatter
-                </div>
-                </div>
-                </label>
-                <div className="h-4 text-warning">
-                <ErrorMessage name="isSubscribed" component="span" />
-                </div>
+                  type="checkbox"
+                  name="isSubscribed"
+                  className={`mt-4 rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+                    errors.isSubscribed && touched.isSubscribed
+                      ? "border-warningBorder text-warningText font-medium"
+                      : ""
+                  }`}
+                />
+                <div className="ml-10 mt-4">Registrarse al newslatter</div>
+              </div>
+            </label>
+            <div className="h-4 text-warning">
+              <ErrorMessage name="isSubscribed" component="span" />
             </div>
-  
-        <div className="my-20 w-full flex justify-end">
-            <a href="/" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
-                Volver a inicio
-            </a>
-            <button 
-            type="submit" 
-            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100" 
-            disabled={Object.keys(errors).length !== 0 || Object.keys(touched).length === 0}
+          </div>
+
+          <div className=" w-full flex justify-end">
+            <a
+              href="/"
+              className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
             >
-            Siguiente
+              Volver a inicio
+            </a>
+            <button
+              type="submit"
+              className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
+              disabled={
+                Object.keys(errors).length !== 0 ||
+                Object.keys(touched).length === 0
+              }
+            >
+              Siguiente
             </button>
-        </div>
-    </Form>
-    )}
-  </Formik>
-)};
-export default FormRegisterProfileGoogleFormik
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+export default FormRegisterProfileGoogleFormik;
