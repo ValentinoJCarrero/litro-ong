@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PartnerRepository } from './partner.repository';
 import { Partner } from 'src/entities/Partner.entity';
-import { PartnerDto } from 'src/dtos/Partner.dto';
+import { Subscription } from 'src/entities/Subscription.entity';
 
 @Injectable()
 export class PartnerService {
@@ -30,8 +30,11 @@ export class PartnerService {
     return partnerById;
   }
 
-  async createPartner(partner: PartnerDto): Promise<Partner> {
-    return await this.partnerRepository.createPartner(partner);
+  async createPartner(
+    userId: string,
+    subscription: Partial<Subscription>,
+  ): Promise<Partner> {
+    return await this.partnerRepository.createPartner(userId, subscription);
   }
 
   deletePartner(id: string) {

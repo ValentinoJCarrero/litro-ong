@@ -106,7 +106,7 @@ const EventsComponent = () => {
                   <a
                     className="flex flex-row  items-center  text-sm w-full"
                     id={`card${id}`}
-                    href={`/dashboardAdmin/${title}`}
+                    href={`/events/DinamicEvent/${id}`}
                   >
                     <div className="flex flex-row ">
                       <img

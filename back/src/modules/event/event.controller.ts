@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -22,6 +23,9 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { StorageService } from '../storage/storage.service';
 import { validate } from 'class-validator';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
+import { Roles } from 'src/decorators/roles.decorator';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
 
 @ApiTags('Eventos')
 @Controller('event')
@@ -90,6 +94,8 @@ export class EventController {
     description:
       'Esta ruta, agrega a un usuario de tipo voluntario, a un evento especifico. El id del voluntario es enviado por parámetro y el evento por body',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   addVolunteer(
     @Param('id', ParseUUIDPipe) id: string,
@@ -104,6 +110,8 @@ export class EventController {
     description:
       'Esta ruta crea un nuevo evento con los datos enviados por body, de tipo EventDto',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FilesInterceptor('files', 2))
   async createEvent(
     @Body() event: EventDto,
@@ -137,6 +145,8 @@ export class EventController {
     description:
       'Esta ruta actualiza un evento registrado por un id de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   updateEvent(
     @Param('id', ParseUUIDPipe) id: string,
@@ -151,6 +161,8 @@ export class EventController {
     description:
       'Esta ruta elimina un evento por un id, de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   deleteEvent(@Param('id', ParseUUIDPipe) id: string) {
     return this.eventService.deleteEvent(id);
   }
@@ -161,6 +173,8 @@ export class EventController {
     description:
       'Esta ruta elimina un voluntario asignado a un evento.El id del evento es enviado por parametro y el id del voluntario por query',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   removeVolunteersOfEvent(
     @Param('idEvent', ParseUUIDPipe) idEvent: string,
     @Query('idVolunteer', ParseUUIDPipe) idVolunteer: string,
