@@ -17,7 +17,7 @@ export class Subscription {
   url: string;
 
   @Column({ type: 'varchar', nullable: false })
-  amount: string;
+  amount: number;
 
   @Column({ type: 'varchar', nullable: false })
   next_payment_date: string;

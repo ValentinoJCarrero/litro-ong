@@ -42,7 +42,7 @@ export class PartnerRepository {
 
   async createPartner(
     userId: string,
-    subscription: Subscription,
+    subscription: Partial<Subscription>,
   ): Promise<Partner> {
     const queryRunner =
       this.partnerRepository.manager.connection.createQueryRunner();

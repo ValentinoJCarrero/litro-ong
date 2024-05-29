@@ -32,7 +32,7 @@ export class PartnerService {
 
   async createPartner(
     userId: string,
-    subscription: Subscription,
+    subscription: Partial<Subscription>,
   ): Promise<Partner> {
     return await this.partnerRepository.createPartner(userId, subscription);
   }
