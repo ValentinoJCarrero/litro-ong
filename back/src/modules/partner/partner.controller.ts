@@ -12,7 +12,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PartnerService } from './partner.service';
 import { Partner } from 'src/entities/Partner.entity';
 import { AuthGuard } from 'src/guards/Auth.guard';
@@ -26,6 +26,7 @@ export class PartnerController {
   constructor(private readonly partnerService: PartnerService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener todos socios',
     description:
@@ -42,6 +43,7 @@ export class PartnerController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener un socio por id',
     description:
@@ -55,6 +57,7 @@ export class PartnerController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un socio',
     description:
@@ -67,6 +70,7 @@ export class PartnerController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Registrar un socio',
     description:

@@ -14,7 +14,7 @@ import {
   BadRequestException,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NewsService } from './news.service';
 import { NewsDto } from 'src/dtos/News.dto';
 import { News } from 'src/entities/News.entity';
@@ -57,6 +57,7 @@ export class NewsController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear una nueva noticia (solo para administradores)',
     description:
@@ -91,6 +92,7 @@ export class NewsController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar una noticia (solo para administradores)',
     description:

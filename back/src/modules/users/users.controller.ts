@@ -17,7 +17,7 @@ import { User } from 'src/entities/User.entity';
 import { UserDto } from 'src/dtos/User.dto';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
 import { UpdateResult } from 'typeorm';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/Auth.guard';
 import { RolesGuard } from 'src/guards/Roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -28,6 +28,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: ' Obtener todos los usuarios (Administradores)',
     description:
@@ -44,6 +45,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener un usuario por id',
     description:
@@ -56,6 +58,7 @@ export class UsersController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar un usuario por id',
     description:

@@ -14,7 +14,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SponsorService } from './sponsor.service';
 import { SponsorDto } from 'src/dtos/Sponsor.dto';
 import { Sponsor } from 'src/entities/Sponsor';
@@ -58,6 +58,7 @@ export class SponsorController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear un nuevo patrocinador (solo para administradores)',
     description:
@@ -82,6 +83,7 @@ export class SponsorController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un patrocinador (solo para administradores)',
     description:

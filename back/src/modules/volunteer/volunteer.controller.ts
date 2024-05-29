@@ -16,7 +16,7 @@ import {
 import { VolunteerService } from './volunteer.service';
 import { VolunteerDto } from 'src/dtos/Volunteer.dto';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Volunteer } from 'src/entities/Volunteer.entity';
 import { User } from 'src/entities/User.entity';
 import { UpdateResult } from 'typeorm';
@@ -31,6 +31,7 @@ export class VolunteerController {
   constructor(private readonly volunteerService: VolunteerService) {}
 
   @Get('/all')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener todos los voluntarios',
     description:
@@ -47,6 +48,7 @@ export class VolunteerController {
   }
 
   @Get('/one/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener un voluntario',
     description:
@@ -60,6 +62,7 @@ export class VolunteerController {
   }
 
   @Post('/collaborate/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Agregarme como voluntario a un evento. (solo para voluntarios)',
     description:
@@ -76,6 +79,7 @@ export class VolunteerController {
   }
 
   @Post('/assign/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Asignar nuevo voluntario',
     description:
@@ -91,6 +95,7 @@ export class VolunteerController {
   }
 
   @Put('/update/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar un voluntario',
     description:
@@ -106,6 +111,7 @@ export class VolunteerController {
   }
 
   @Delete('/removeVolunteer/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un voluntario',
     description:
@@ -119,6 +125,7 @@ export class VolunteerController {
   }
 
   @Delete('/removeEvent/:idVolunteer')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminarse como voluntario de un evento',
     description:

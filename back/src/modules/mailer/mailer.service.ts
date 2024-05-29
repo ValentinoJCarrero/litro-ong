@@ -185,6 +185,7 @@ export class MailerService {
                   <h2 class="subtitle">${subtitle}</h2>
                   <p style="font-size: 16px; margin-bottom: 20px;">${description}</p>
                   ${primaryImage ? `<img src="${primaryImage}" width="100" height="100;">`: ''}
+                  <p>Si no quiere recibir mas estos mensajes puede hacer click <a href="https://litro-ong.vercel.app/unsubscribe">aqui</a> para desuscribirse</p>
                 </div>
               </div>
             </body>
