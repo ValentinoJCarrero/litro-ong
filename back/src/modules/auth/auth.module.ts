@@ -8,8 +8,8 @@ import { AuthRepository } from './auth.repository';
 import { MailerService } from '../mailer/mailer.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User])],
-    controllers: [AuthController],
-    providers: [AuthService, AuthRepository, UsersRepository, MailerService]
+  imports: [TypeOrmModule.forFeature([User])],
+  controllers: [AuthController],
+  providers: [AuthService, AuthRepository, UsersRepository, MailerService],
 })
 export class AuthModule {}

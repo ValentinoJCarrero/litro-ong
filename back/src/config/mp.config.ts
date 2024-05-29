@@ -1,4 +1,4 @@
-import { MercadoPagoConfig, Payment, Preference } from 'mercadopago';
+import { MercadoPagoConfig, Payment, PreApproval, Preference } from 'mercadopago';
 import { config as dotenvconfig } from 'dotenv';
 
 dotenvconfig({ path: '.env' });
@@ -11,3 +11,9 @@ const preference = new Preference(client);
 const payment = new Payment(client);
 
 export { preference, payment };
+
+const subsClient = new MercadoPagoConfig({
+    accessToken: process.env.SUBS_ACCESS_TOKEN
+});
+
+export const preappoval = new PreApproval(client);

@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   DefaultValuePipe,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NewsService } from './news.service';
@@ -20,6 +21,9 @@ import { News } from 'src/entities/News.entity';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
 import { StorageService } from '../storage/storage.service';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Noticias')
 @Controller('news')
@@ -58,6 +62,8 @@ export class NewsController {
     description:
       'Esta ruta crea una nueva noticia con los datos enviados por body',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FilesInterceptor('files', 3))
   async createNews(
     @Body() news: NewsDto,
@@ -90,6 +96,8 @@ export class NewsController {
     description:
       'Esta ruta elimina una noticia por un id de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   deleteNews(@Param('id', ParseUUIDPipe) id: string) {
     return this.newsService.deleteNews(id);
   }
