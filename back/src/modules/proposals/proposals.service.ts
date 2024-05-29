@@ -6,10 +6,13 @@ import {
 import { ProposalsRepository } from './proposals.repository';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
+import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class ProposalsService {
-  constructor(private readonly proposalsRepository: ProposalsRepository) {}
+  constructor(private readonly proposalsRepository: ProposalsRepository,
+    private readonly mailerService: MailerService
+  ) {}
 
   async getAllProposals(
     limit: number,
@@ -74,6 +77,9 @@ export class ProposalsService {
        *  await this.emailService.sendEmail(response.user.id);
        * return response;
        */
+      const proposals = await this.getProposals(id)
+      
+      this.mailerService.sendProposalMail(proposals);
       return proposalsUpdated;
     }
   }
