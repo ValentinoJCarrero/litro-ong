@@ -16,4 +16,4 @@ const subsClient = new MercadoPagoConfig({
     accessToken: process.env.SUBS_ACCESS_TOKEN
 });
 
-export const preappoval = new PreApproval(client);
+export const preapproval = new PreApproval(client);
