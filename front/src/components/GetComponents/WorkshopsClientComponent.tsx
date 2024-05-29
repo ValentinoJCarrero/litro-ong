@@ -85,52 +85,52 @@ const WorkshopsComponent = () => {
         <ul className=" w-full flex flex-col   ">
           {workshop.map(({ photo, name, teacher, days, cost, id }) => (
             <div className="flex flex-col">
-            <div className=" flex flex-col justify-betweend items-center w-full">
-              <li
-                key={id}
-                className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
-              >
-                <a
-                  className="flex flex-row  items-center  text-sm w-full"
-                  id={`card${id}`}
-                  href={`/news/DinamicNew/${name}`}
+              <div className=" flex flex-col justify-betweend items-center w-full">
+                <li
+                  key={id}
+                  className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
                 >
-                  <div className="flex w-2/5">
-                    <img
-                      src={photo}
-                      alt={name}
-                      className="w-16 h-16 rounded-full object-cover mr-4"
-                    />
-                    <div className="text-sm  text-textParagraph">
-                      <h6 className="text-tertiary text-base font-semibold">
-                        {name}
-                      </h6>
-                      <div className="text-sm text-textParagraph ">
-                        <p>{teacher}</p>
-                        <p className="text-xs">{cost} Pesos</p>
+                  <a
+                    className="flex flex-row  items-center  text-sm w-full"
+                    id={`card${id}`}
+                    href={`/workshops/DinamicWorkShop/${id}`}
+                  >
+                    <div className="flex w-2/5">
+                      <img
+                        src={photo}
+                        alt={name}
+                        className="w-16 h-16 rounded-full object-cover mr-4"
+                      />
+                      <div className="text-sm  text-textParagraph">
+                        <h6 className="text-tertiary text-base font-semibold">
+                          {name}
+                        </h6>
+                        <div className="text-sm text-textParagraph ">
+                          <p>{teacher}</p>
+                          <p className="text-xs">{cost} Pesos</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="text-center flex flex-row h-full justify-center items-center text-xs w-96  ">
-                    <p>{days.join(" - ")}</p>
-                  </div>
-                  {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
-                </a>
-                <div className="flex flex-row justify-center gap-10">
-                  <div className="w-40 flex justify-center  ">
-                    {isDeleting && deletingId === id ? (
-                      <SpinnersDelete />
-                    ) : (
-                      <ButtonWarningSmall
-                        title="Eliminar"
-                        idEvent={`delete-${id}`}
-                        onClick={() => onClic(id)}
-                      />
-                    )}
-                  </div>
-                </div>
-              </li>
+                    <div className="text-center flex flex-row h-full justify-center items-center text-xs w-96  ">
+                      <p>{days.join(" - ")}</p>
                     </div>
+                    {/* <img src={vectorIcon.src} alt="icono de vector" /> */}
+                  </a>
+                  <div className="flex flex-row justify-center gap-10">
+                    <div className="w-40 flex justify-center  ">
+                      {isDeleting && deletingId === id ? (
+                        <SpinnersDelete />
+                      ) : (
+                        <ButtonWarningSmall
+                          title="Eliminar"
+                          idEvent={`delete-${id}`}
+                          onClick={() => onClic(id)}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </li>
+              </div>
               <hr />
             </div>
           ))}

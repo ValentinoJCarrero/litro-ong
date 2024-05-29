@@ -28,10 +28,10 @@ const ListCommunityKitchensComponent = (props: Color) => {
 
   useEffect(() => {
     const fetchCommunityKitchens = async (page: number) => {
-      const newsData = await getCommunityKitchens(2, page);
+      const newsData = await getCommunityKitchens(4, page);
       setKitchen(newsData.data);
       setMessage(newsData.message);
-      setTotalPages(Math.ceil(newsData.total / 3));
+      setTotalPages(Math.ceil(newsData.total / 4));
       setIsLoading(false);
     };
     fetchCommunityKitchens(page);
@@ -51,14 +51,14 @@ const ListCommunityKitchensComponent = (props: Color) => {
         <ul className=" w-full flex flex-col  justify-center items-stretch content-center ">
           <h2 className="text-lg font-medium w-full text-center my-6">Aquí encontrarás un resumen de los comedores comunitarios</h2>
           {kitchen.map(({ name, photo, address, holder, days, id }) => (
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <div className=" flex flex-col justify-betweend items-center w-full">
               <li
                 key={id}
-                className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full"
+                className="flex flex-row  flex-nowrap my-2 justify-between items-center w-full  "
               >
                 <a
-                      className="flex flex-row  items-center  text-sm w-full"
+                      className="flex flex-row  items-center justify-between  text-sm w-full mx-4"
                   id={`card${id}`}
                   href={`/communityKitchens/DinamicCommunityKitchen/${id}`}
                 >
@@ -66,7 +66,7 @@ const ListCommunityKitchensComponent = (props: Color) => {
                     <img
                       src={photo}
                       alt={name}
-                      className="w-20 h-20 rounded-full object-cover mr-4"
+                      className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                      <div className="text-sm  text-textParagraph">
                       <h6
@@ -94,6 +94,8 @@ const ListCommunityKitchensComponent = (props: Color) => {
           )}
         
       
+      </ul>
+      )}
       <div className="flex items-center justify-center flex-row w-full  ">
         <div className="rounded-lg w-8 h-8  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
           <button
@@ -115,8 +117,6 @@ const ListCommunityKitchensComponent = (props: Color) => {
           </button>
         </div>
       </div>
-      </ul>
-      )}
     </div>
   );
 };
