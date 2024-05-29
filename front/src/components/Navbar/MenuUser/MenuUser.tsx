@@ -7,7 +7,6 @@ import { getVolunteersByID } from "../../../helpers/SocioVoluntario/getUserSocio
 let idDecodificado = "";
 const tokenUser = Cookies.get("token")? Cookies.get("token") : "";
 
-
 interface MenuProps {
   children: React.ReactNode;
 }
@@ -24,21 +23,16 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
     try {
       const decodedToken: any = jwtDecode(tokenUser);
       idDecodificado = decodedToken.userPayload.sub;
-      console.log(tokenUser)
-      console.log("el token magico decodificado es:",decodedToken.userPayload.sub)
 
-  
     } catch (error) {
       console.error("Error decoding token:", error);
     }
   }
-
   
   useEffect(() => {
     if (idDecodificado) {
       getVolunteersByID(idDecodificado)
         .then((data) => {
-          console.log(data);
           setInfoUser(data);
         })
         .catch((error) => {
@@ -46,9 +40,6 @@ const MenuUser: React.FC<MenuProps> = ({ children}) => {
         });
     }
   }, [idDecodificado]);
-
-    // console.log("este es infouser:",infoUser.role[0].role)
-
   
   return (
     <div className="relative">

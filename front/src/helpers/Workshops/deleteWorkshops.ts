@@ -1,8 +1,17 @@
+import Cookies from "js-cookie";
 export async function deleteWorkshops(id:any): Promise<any> {
+
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
     fetch(`https://litro-ong.onrender.com/workshop/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${token}`
         }
       })
         .then(response => {

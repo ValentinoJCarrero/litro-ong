@@ -1,15 +1,26 @@
+import Cookies from "js-cookie";
 export async function postSponsors(newsResponse:any): Promise<any> {
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
   try {
+    
     const formData = new FormData();
     formData.append('name', newsResponse.name);
     formData.append('email', newsResponse.email);
 
     if (newsResponse.logo) formData.append('files', newsResponse.logo);
 
-console.log(formData);
     const response = await fetch(`https://litro-ong.onrender.com/sponsor`, {
       method: 'POST',
-      body: formData 
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      } 
     });
 
     if (!response.ok) {

@@ -65,8 +65,8 @@ const FormWorkshopsFormik = () => (
       }
 
       postVolunteers(idDecodificado, values)
-        .then((data) => {
-          console.log(data);
+        .then((response) => {
+          if (!response.statusCode) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -77,10 +77,21 @@ const FormWorkshopsFormik = () => (
           setTimeout(() => {
             window.location.href = "/";
           }, 1500);
+
           setSubmitting(false);
+        }else {
+          throw new Error("Failed to add sponsor");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Ocurrió un error al agregar el sponsor",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           setSubmitting(false);
         });
     }}

@@ -91,7 +91,7 @@ export class SignUpGoogle extends PickType(UserDto, [
   'phone',
   'dni',
   'birthDate',
-  'isSubscribed'
+  'isSubscribed',
 ]) {}
 
 export class LoginGoogle extends PickType(UserDto, ['email']) {}

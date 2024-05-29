@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -21,6 +22,9 @@ import { Sponsor } from 'src/entities/Sponsor';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { validate } from 'class-validator';
 import { StorageService } from 'src/modules/storage/storage.service';
+import { AuthGuard } from 'src/guards/Auth.guard';
+import { RolesGuard } from 'src/guards/Roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @ApiTags('Patrocinadores')
 @Controller('sponsor')
@@ -59,6 +63,8 @@ export class SponsorController {
     description:
       'Esta ruta crea un nuevo patrocinador con los datos enviados por body',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   @UseInterceptors(FileInterceptor('files'))
   async reateSponsor(
     @Body() sponsor: SponsorDto,
@@ -81,6 +87,8 @@ export class SponsorController {
     description:
       'Esta ruta elimina un patrocinador por un id de tipo uuid enviado por parámetro',
   })
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('Admin')
   deleteSponsor(@Param('id', ParseUUIDPipe) id: string) {
     return this.sponsorService.deleteSponsor(id);
   }
