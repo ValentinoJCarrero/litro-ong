@@ -103,7 +103,7 @@ const RegisterResumeGoogleComponent = () => {
                     <div>
                         <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
                         <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                            {userInfo.isSubscribed.toString()}
+                            {userInfo.isSubscribed ? "Subscripto" : "No subscripto"}
                         </p>
                     </div>
                 </div>

@@ -55,6 +55,23 @@ const validate = (values: IFormValues) => {
 
   if (!values.birthDate) {
     errors.birthDate = "La fecha de nacimiento es requerida";
+  } else {
+    const today = new Date();
+    const birthDate = new Date(values.birthDate);
+    
+    if (birthDate > today) {
+      errors.birthDate = "La fecha de nacimiento no puede ser posterior a la fecha actual";
+    } else {
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+  
+      if (age >= 100) {
+        errors.birthDate = "Debes tener menos de 100 años para registrarte";
+      }
+    }
   }
 
   if (!values.dni) {
@@ -356,7 +373,7 @@ const FormRegisterProfileFormik = () => {
                 >
                   <option value="">Selecciona país</option>
                   <option value="Argentina">Argentina</option>
-                  <option value="España">Otros paises</option>
+                  <option value="Otros paises">Otros paises</option>
                 </Field>
                 <div
                   className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
