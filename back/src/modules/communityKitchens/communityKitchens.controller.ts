@@ -15,7 +15,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommunityKitchensService } from './communityKitchens.service';
 import { CommunityKitchens } from 'src/entities/CommunityKitchens.entity';
 import { CommunityKitchensDto } from 'src/dtos/CommunityKitchens.dto';
@@ -63,6 +63,7 @@ export class CommunityKitchensController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar un merendero (solo para administradores)',
     description:
@@ -81,6 +82,7 @@ export class CommunityKitchensController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear un nuevo merendero (solo para administradores)',
     description:
@@ -105,6 +107,7 @@ export class CommunityKitchensController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un merendero (solo para administradores)',
     description:

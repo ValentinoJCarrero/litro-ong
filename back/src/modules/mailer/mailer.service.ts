@@ -1,15 +1,16 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { WelcomeMailDto } from 'src/dtos/Mail.dto';
 import sgMail from '../../config/mailer.config';
 import { UsersRepository } from '../users/users.repository';
-import { Cron } from '@nestjs/schedule';
+import { Proposals } from 'src/entities/Proposals.entity';
 
 
 
 
 @Injectable()
 export class MailerService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository
+  ) {}
 
   
   async unsubscribe(email: string): Promise<void> {
@@ -32,7 +33,7 @@ export class MailerService {
     console.log(mailList);
   }
 
-  async sendWelcomeMail(mailData: WelcomeMailDto): Promise<any> {
+  async sendWelcomeMail(mailData: WelcomeMailDto): Promise<void> {
     const msg = {
     to: mailData.email, 
     from: 'nicolasaddamo1@gmail.com', 
@@ -67,7 +68,86 @@ export class MailerService {
     </html>`
     }
 
-    sgMail.send(msg)
+    await sgMail.send(msg)
+    .catch((error) => console.log(error))
+    }
+  async sendProposalMail(proposals: Proposals): Promise<any> {
+  const mensaje=proposals.status === 'APPROVED'? "Probablemente uno de nuestros representantes se comunicara contigo. Muchas gracias por la contribucion.": "Tu contribucion ha sido rechazada. Apreciamos igualmente tu esfuerzo."
+
+    const msg = {
+    to: proposals.user.email, 
+    from: 'nicolasaddamo1@gmail.com', 
+    subject: 'Registro completado - Un Litro',
+    html: `<!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>¡Bienvenido a Litro!</title>
+      <style>
+      body{font-family:Arial,sans-serif;margin:0;padding:0}
+      .container{width:80%;margin:0 auto;padding:20px;background-color:#f5f5f5}
+      .header{text-align:center}
+      .title{font-size:24px;font-weight:bold}
+      .subtitle{font-size:18px}.body{margin-top:20px}
+      .footer{text-align:center;margin-top:20px}
+      .footer 
+      a{color:#007bff;text-decoration:none}
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+        <h1 class="title">Cambio en el estado de tu propuesta</h1>
+        <p class="subtitle">${proposals.user.fullName} te queremos contar que tu propuesta ${proposals.title} ha sido <strong> ${proposals.status==="APPROVED"? "Aceptada" : "Rechazada"}. </strong></p>
+        <p class="subtitle">${mensaje}<strong> El Litro</strong></p>
+        </div>
+      </div>
+    </body>
+    </html>`
+    }
+
+    await sgMail.send(msg)
+    .catch((error) => console.log(error))
+    }
+         
+  async sendSubscriptionMail(subscription: any): Promise<any> {
+  const mensaje=subscription.status === 'REJECTED'? "Lamentamos informarte que tu suscripcion ha sido rechazada. Esperamos que pronto vuelvas a ser parte de nuestra comunidad.": "Esta en pending o aprobada."
+
+    const msg = {
+    to: subscription.user.email, 
+    from: 'nicolasaddamo1@gmail.com', 
+    subject: 'Registro completado - Un Litro',
+    html: `<!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>¡Bienvenido a Litro!</title>
+      <style>
+      body{font-family:Arial,sans-serif;margin:0;padding:0}
+      .container{width:80%;margin:0 auto;padding:20px;background-color:#f5f5f5}
+      .header{text-align:center}
+      .title{font-size:24px;font-weight:bold}
+      .subtitle{font-size:18px}.body{margin-top:20px}
+      .footer{text-align:center;margin-top:20px}
+      .footer 
+      a{color:#007bff;text-decoration:none}
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+        <h1 class="title">Pago rechazado</h1>
+        <p class="subtitle">Hola <strong>${subscription.user.fullName}</strong> esperamos que te encuentes bien. 
+        <p class="subtitle">${mensaje}<strong> El Litro</strong></p>
+        </div>
+      </div>
+    </body>
+    </html>`
+    }
+
+    await sgMail.send(msg)
     .catch((error) => console.log(error))
     }
          
@@ -75,8 +155,6 @@ export class MailerService {
     try {
          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.)
          const mailList = users.data.filter(user => user.isSubscribed===true && user.email);
-         const uri="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png"
-         console.log(mailList);
         const msg = {
           to: mailList,
           from:  'nicolasaddamo1@gmail.com',
@@ -103,11 +181,11 @@ export class MailerService {
             <body>
               <div class="container">
                 <div class="header">
-                  <img src="${uri}" alt="Litro de leche" width="50" height="50">
                   <h1 class="title">${title}</h1>
                   <h2 class="subtitle">${subtitle}</h2>
                   <p style="font-size: 16px; margin-bottom: 20px;">${description}</p>
                   ${primaryImage ? `<img src="${primaryImage}" width="100" height="100;">`: ''}
+                  <p>Si no quiere recibir mas estos mensajes puede hacer click <a href="https://litro-ong.vercel.app/unsubscribe">aqui</a> para desuscribirse</p>
                 </div>
               </div>
             </body>

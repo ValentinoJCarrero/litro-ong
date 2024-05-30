@@ -20,6 +20,7 @@ export class EventRepository {
     const [data, total] = await this.EventRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
+      order: { date: 'DESC' },
       relations: { volunteer: { user: { volunteerData: false } } },
     });
 
@@ -35,6 +36,7 @@ export class EventRepository {
       where: filter,
       skip: (page - 1) * limit,
       take: limit,
+      order: { date: 'DESC' },
       relations: { volunteer: { user: { volunteerData: false } } },
     });
 

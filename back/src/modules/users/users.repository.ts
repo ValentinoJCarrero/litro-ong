@@ -32,9 +32,13 @@ export class UsersRepository {
         volunteerData: {
           events: false,
         },
-        partnerData: true,
+        partnerData: {
+          cardData: true,
+          subscription: true,
+        },
         role: true,
         donations: true,
+        proposals: true,
       },
     });
     return { data, total };
@@ -47,7 +51,7 @@ export class UsersRepository {
         volunteerData: {
           events: { volunteer: false },
         },
-        partnerData: { cardData: true },
+        partnerData: { cardData: true, subscription: true },
         role: true,
         donations: true,
         proposals: true,

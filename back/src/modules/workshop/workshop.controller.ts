@@ -15,7 +15,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { WorkshopService } from './workshop.service';
 import { Workshop } from 'src/entities/Workshop.entity';
 import { WorkshopDto } from 'src/dtos/Workshop.dto';
@@ -58,6 +58,7 @@ export class WorkshopController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar un taller (solo para administradores)',
     description:
@@ -73,6 +74,7 @@ export class WorkshopController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear un nuevo taller (solo para administradores)',
     description:
@@ -96,6 +98,7 @@ export class WorkshopController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un taller (solo para administradores)',
     description:
