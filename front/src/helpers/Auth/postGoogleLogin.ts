@@ -1,5 +1,6 @@
+import Cookies from "js-cookie";
 export async function postGoogleLogin(data: any) {
-;
+  
     try {
       const response = await fetch("https://litro-ong.onrender.com/auth/googlesignin", {
         method: "POST",
@@ -14,8 +15,9 @@ export async function postGoogleLogin(data: any) {
       }
   
       const token = await response.text();
-      const tokenJson = { tokenUser: token };
-      return tokenJson;
+      console.log(token);
+      Cookies.set('token',token);
+      return token;
     } catch (error) {
       console.error("Error en postGoogleLogin:", error);
       const tokenJson = { tokenUser: "no esta registrado" };

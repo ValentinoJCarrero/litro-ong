@@ -66,6 +66,7 @@ const FormWorkshopsFormik = () => (
 
       postVolunteers(idDecodificado, values)
         .then((response) => {
+          console.log(response);
           if (!response.statusCode) {
           Swal.fire({
             position: "center",

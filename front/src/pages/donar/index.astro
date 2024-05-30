@@ -1,6 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
+import FormDonation from "../../components/Forms/FormDonation";
+import ButtonPrimary from "../../components/Buttons/ButtonPrimary.astro";
+
+const token = Astro.cookies.get("token");
+if (token) {
+
+}
 ---
 
 <Layout title="Donar - Un Litro Alta Gracia.">
@@ -33,123 +40,33 @@ import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
           <strong> “El Litro ONG - Alta Gracia” </strong>
         </p>
       </div>
-      <div class="w-2/5">
-        <form
-          id="donation-form"
-          class="bg-white m-5 p-5 rounded-lg shadow-lg flex flex-col items-stretch justify-center"
-        >
-          <div class="flex flex-col p-6 gap-2">
-            <label for="donation" class="text-lg leading-6 font-bold"
-              >Quiero donar</label
-            >
-            <label
-              for="donation"
-              class="text-sm leading-6 font-semibold text-textParagraph"
-              >ONG - El Litro Alta Gracia | MercadoPago</label
-            >
-          </div>
-          <hr />
-          <div class="flex flex-col gap-5 my-5">
-            <div class="px-6 flex flex-row flex-nowrap justify-between">
-              <label
-                for="donation"
-                class="text-sm leading-6 font-semibold text-textParagraph"
-                >Cantidad a enviar</label
-              >
-              <div class="px-6 flex flex-row flex-nowrap content-center justify-center items-center gap-1">
-                <label>$</label>
-                <input
-                  type="number"
-                  id="donation"
-                  name="donation"
-                  min="500"
-                  required
-                  class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
-                />
-              </div>
-              </div>
-            <!-- <div class="px-6 flex flex-row flex-nowrap justify-between">
-              <label
-                for="donation"
-                class="text-sm leading-6 font-semibold text-textParagraph"
-                >Mensaje
-              </label>
-              <input
-                type="text"
-                id="message"
-                name="message"
-               class="border-gray-300 border p-2 shadow-sm rounded-md w-1/2 h-6"
+      <div class="w-2/5 flex flex-col justify-center">
+        <h2 class="text-3xl font-bold text-textTertiary w-full text-center mb-6">¡Hacete socio! con tu subscripción podes disfrutar de los beneficios.</h2>
+        {
+          token
+            ? <ButtonPrimary
+                title="Ser socio"
+                url="/dashboardUser/profile"
               />
-            </div> -->
-            <hr />
-          </div>
-
-          <div class="flex flex-row gap-10 px-6">
-            <div class="flex flex-col gap-1 w-1/2">
-              <label for="donation" class="text-lg leading-6 font-bold"
-                >Tu nombre</label
-              >
-              <input
-                type="text"
-                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
-                placeholder="Juan Alberto Pérez"
-                id="fullName"
-              >
-            </div>
-            <div class="flex flex-col gap-1 w-1/2">
-              <label for="donation" class="text-lg leading-6 font-bold"
-                >Tu email</label
-              >
-              <input
-                type="email"
-                placeholder="ejemplo@mail.com"
-                class="text-sm leading-6 font-semibold border-gray-300 border shadow-sm rounded-md px-2 text-textParagraph"
-                id="email"
+            : <ButtonPrimary
+                title="Registrarme y ser socio"
+                url="/auth/login2"
               />
-            </div>
-          </div>
-          <div class="flex flex-col mt-5 items-center">
-            <ButtonCTASmall
-            title="Enviar a MercadoPago"
-            type="submit"
-            id="donate-button"
-            class="p-4 bg-red-200"
-            />
-          </form>
-          <button id="sub" style="margin-top: 10px" >¿O preferís suscribirte?</button>
-        </div>
+              <ButtonPrimary
+                title="Registrarme y ser socio"
+                url="/auth/register"
+              />
+        }
+        <h2 class="text-2xl font-bold text-textTertiary w-full text-center mb-6">Hace tu donación unica</h2>
+        <FormDonation client:load/>
+        <button id="sub" style="margin-top: 10px" >¿O preferís suscribirte?</button>
+      </div>
       </div>
     </div>
   </section>
 </Layout>
 
 <script>
-  const donationForm = document.getElementById("donation-form");
-
-  donationForm?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const fullName = (document.getElementById('fullName') as HTMLInputElement).value;
-    const email = (document.getElementById('email') as HTMLInputElement).value;
-    const amount = parseFloat((document.getElementById("donation") as HTMLInputElement).value);
-    
-    if(!amount || amount < 500) return 'El monto debe ser mayor a $500.'
-
-    await fetch("https://litro-ong.onrender.com/mercadopago", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName: fullName ? fullName : undefined,
-        email: email ? email : undefined,
-        amount
-      }),
-    }).then(async (res) => {
-      const response = await res.text();
-      window.open(response, "_blank");
-    });
-  });
 
   const subButton = document.getElementById("sub");
 

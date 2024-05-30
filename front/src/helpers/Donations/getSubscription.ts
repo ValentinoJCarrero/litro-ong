@@ -1,4 +1,4 @@
-export async function getSubscription(subId: string, userId: number): Promise<any> {
+export async function getSubscription(subId: string, userId: string): Promise<any> {
     try {
       const validSubId = subId;
       const validUserId = userId;

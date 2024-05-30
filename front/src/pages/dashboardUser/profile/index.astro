@@ -15,11 +15,12 @@ if (session) {
   const response: any = { email: session?.user?.email };
   const object = await postGoogleLogin(response);
   console.log(object);
-  if (object.tokenUser === "no esta registrado") {
+  if (object === "no esta registrado") {
     await Astro.cookies.set("emailUser", session?.user?.email as string);
     return Astro.redirect("/auth/register/personalInformationGoogle");
   } else {
     console.log("logueado");
+    await Astro.cookies.set("token", object);
   }
 }
 ---
