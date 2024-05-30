@@ -97,7 +97,7 @@ const FormSubscription = () => {
   return (
     <div>
       <a href={responseUrl} data-mp="MP-payButton" onClick={handleClick}>
-        <ButtonCTASmallReact title="Suscribirme" idEvent="mp-payButton" onClick={() => {}}/>
+        <ButtonCTASmallReact color="white" title="¡Suscribirme!" idEvent="mp-payButton" onClick={() => {}}/>
       </a>
 
       <Modal
