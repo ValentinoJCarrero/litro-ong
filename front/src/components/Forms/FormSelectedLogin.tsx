@@ -89,7 +89,7 @@ const FormWorkshopsFormik = () => (
           Swal.fire({
             position: "center",
             icon: "error",
-            title: "Ocurrió un error al agregar el sponsor",
+            title: "Ocurrió un error al registrar el voluntario",
             showConfirmButton: false,
             timer: 1500,
           });

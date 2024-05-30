@@ -10,8 +10,9 @@ import { getSession } from "auth-astro/server";
 import Menu from "./Menu/Menu";
 import MenuUser from "./MenuUser/MenuUser";
 import { jwtDecode } from "jwt-decode";
-
+import { postGoogleLogin } from "../../helpers/Auth/postGoogleLogin";
 const session = await getSession(Astro.request);
+
 const email = session?.user?.email || "";
 let idDecodificado = "";
 let roleDecodificado = "";

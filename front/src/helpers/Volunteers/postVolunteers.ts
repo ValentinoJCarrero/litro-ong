@@ -33,6 +33,9 @@ if (tokenData) {
       return errorData;
     } 
     const data = await response.json();
+    if (data.token) {
+      Cookies.set('token', JSON.stringify({ token: data.token }), { expires: 7 });
+    }
 
     return data;
   } catch (error) {

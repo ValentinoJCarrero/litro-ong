@@ -4,9 +4,10 @@ const { signOut } = await import("auth-astro/client");
 import { jwtDecode } from "jwt-decode";
 import { getVolunteersByID } from "../../../helpers/SocioVoluntario/getUserSocioVoluntarioByID";
 
+
 let idDecodificado = "";
 const tokenUser = Cookies.get("token") ? Cookies.get("token") : "";
-
+console.log(tokenUser);
 interface MenuProps {
   children: React.ReactNode;
 }
@@ -15,12 +16,24 @@ const MenuUser: React.FC<MenuProps> = ({ children }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [infoUser, setInfoUser] = useState<any>(null);
 
+const userRoles = infoUser?.role.map((role:any) => role.role) || [];
+const isVolunteer = userRoles.includes('Volunteer');
+const isPartner = userRoles.includes('Partner');
+console.log(userRoles);
+let href = '';
+let buttonText = '';
 
-  const userRole = infoUser?.role[0]?.role;
-  const isVolunteer = userRole === 'Volunteer';
-  const isPartner = userRole === 'Partner';
-  const href = isVolunteer ? '/dashboardUser/profile/optionSelected/socio' : '/dashboardUser/profile/optionSelected/voluntario';
-  const buttonText = isVolunteer ? 'Hacete Socio' : isPartner ? 'Hacete Voluntario' : '';
+if (isVolunteer && isPartner) {
+  href = '';
+  buttonText = '';
+} else if (isVolunteer) {
+  href = '/dashboardUser/profile/optionSelected/socio';
+  buttonText = 'Hacete Socio';
+} else if (isPartner) {
+  href = '/dashboardUser/profile/optionSelected/voluntario';
+  buttonText = 'Hacete Voluntario';
+}
+  
 
 
   const toggleDropdown = () => {
@@ -31,6 +44,7 @@ const MenuUser: React.FC<MenuProps> = ({ children }) => {
     try {
       const decodedToken: any = jwtDecode(tokenUser);
       idDecodificado = decodedToken.userPayload.sub;
+      console.log(decodedToken);
     } catch (error) {
       console.error("Error decoding token:", error);
     }
@@ -41,6 +55,7 @@ const MenuUser: React.FC<MenuProps> = ({ children }) => {
       getVolunteersByID(idDecodificado)
         .then((data) => {
           setInfoUser(data);
+
         })
         .catch((error) => {
           console.error(error);

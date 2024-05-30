@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 export async function postSubscriptionClose(subId: string, userId: string): Promise<any> {
   try {
     const validSubId = subId;
@@ -21,6 +22,9 @@ export async function postSubscriptionClose(subId: string, userId: string): Prom
     }
 
     const data = await response.json();
+    if (data.token) {
+      Cookies.set('token', JSON.stringify({ token: data.token }), { expires: 7 });
+    }
     return data;
   } catch (error) {
     console.error("Error al cerrar la suscripción", error);

@@ -68,7 +68,7 @@ const FormSubscription = () => {
           timer: 1500,
         });
         setTimeout(() => {
-          window.location.href = "/dashboardUserVolunteer/profile";
+          window.location.href = "/";
         }, 1500)
       } else if (response.status === 'rejected') {
         Swal.fire({
@@ -95,7 +95,7 @@ const FormSubscription = () => {
   }
 
   return (
-    <div>
+    <div className="flex">
       <a href={responseUrl} data-mp="MP-payButton" onClick={handleClick}>
         <ButtonCTASmallReact color="white" title="¡Suscribirme!" idEvent="mp-payButton" onClick={() => {}}/>
       </a>
