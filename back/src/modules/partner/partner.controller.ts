@@ -77,12 +77,12 @@ export class PartnerController {
       'Esta ruta registra un socio. Enviando un objeto de tipo Partner',
   })
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles('Partner', 'Admin')
+  @Roles('Admin')
   @UseInterceptors(RemoveDataSensitive)
   createPartner(
     @Body() subscription,
     @Query('userId', ParseUUIDPipe) userId: string,
-  ): Promise<Partner> {
+  ): Promise<{ partner: Partner; token: string }> {
     return this.partnerService.createPartner(userId, subscription);
   }
 }
