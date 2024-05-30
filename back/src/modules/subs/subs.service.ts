@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { preapproval } from 'src/config/mp.config';
 import { PartnerService } from '../partner/partner.service';
 
@@ -63,7 +63,7 @@ export class SubsService {
     return await preapproval
       .get({ id: subId })
       .then(async (data) => {
-      if (!(data.status === 'authorized' || data.status === 'pending')) return 'rejected';
+      if (!(data.status === 'authorized')) return 'rejected';
 
         const nextPaymentDate = new Date(data.summarized.last_charged_date);
         nextPaymentDate.setUTCMonth(nextPaymentDate.getUTCMonth() + 1);
@@ -81,10 +81,6 @@ export class SubsService {
 
         return { status: subscription.status };
       })
-      .catch(() => {
-        throw new InternalServerErrorException(
-          'La API de Mercado Pago no responde.',
-        );
-      });
+      .catch(() => { throw new BadRequestException({ status: 'rejected' })});
   }
 }
