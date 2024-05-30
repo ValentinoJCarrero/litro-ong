@@ -1,7 +1,15 @@
-export async function postEvents(newsResponse:any): Promise<any> {
-  try {
+import Cookies from "js-cookie";
 
-    const formData = new FormData();
+export async function postEvents(newsResponse:any): Promise<any> {
+  
+    const tokenData = Cookies.get('token');
+    let token = '';
+
+  if (tokenData) {
+    const tokenObject = JSON.parse(tokenData); 
+    token = tokenObject.token; 
+  }
+    try { const formData = new FormData();
     formData.append('title', newsResponse.title);
     formData.append('subtitle', newsResponse.subtitle);
     formData.append('description', newsResponse.description);
@@ -15,7 +23,10 @@ export async function postEvents(newsResponse:any): Promise<any> {
 
     const response = await fetch(`https://litro-ong.onrender.com/event/create`, {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     });
     
     if (!response.ok) {

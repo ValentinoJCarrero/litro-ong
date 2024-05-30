@@ -1,70 +1,71 @@
-import { useEffect, useState } from 'react';
-import { postGoogleRegister } from '../../helpers/Auth/postGoogleRegister';
-import Cookies from 'js-cookie';
-import Swal from 'sweetalert2'
-import SpinnersPrimary from '../Spinners/SpinnersPrimary';
+import { useEffect, useState } from "react";
+import { postGoogleRegister } from "../../helpers/Auth/postGoogleRegister";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 interface UserInfo {
-    fullName: string;
-    dni: string;
-    birthDate: string;
-    phone: string;
-    fullAddress: string;
-    isSubscribed: boolean;
+  fullName: string;
+  dni: string;
+  birthDate: string;
+  phone: string;
+  fullAddress: string;
+  isSubscribed: boolean;
 }
 interface User {
-    email: string;
+  email: string;
 }
 const RegisterResumeGoogleComponent = () => {
-    const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    useEffect(() => {
-        const registerUserProfile = localStorage.getItem('registerUserProfile');
-        const userInfo = registerUserProfile ? JSON.parse(registerUserProfile) : null;
-        setUserInfo(userInfo);
-        const registerUser = Cookies.get('emailUser');
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const registerUserProfile = localStorage.getItem("registerUserProfile");
+    const userInfo = registerUserProfile
+      ? JSON.parse(registerUserProfile)
+      : null;
+    setUserInfo(userInfo);
+    const registerUser = Cookies.get("emailUser");
     if (registerUser) {
       setUser({ email: registerUser });
     }
-    }, []);
-    const handleSubmit = () => {
-        if (user && userInfo) {
-            const data = {
-                email: user.email,
-                fullName: userInfo.fullName,
-                dni: userInfo.dni,
-                birthDate: userInfo.birthDate,
-                phone: userInfo.phone,
-                fullAddress: userInfo.fullAddress,
-                isSubscribed: userInfo.isSubscribed,
-            };
-            setIsLoading(true);
-            postGoogleRegister(data)
-            .then((data) => {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: `Bienvenido ${data.fullName}`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                Cookies.remove("emailUser");
-                Cookies.remove("tokenUser");
-                setTimeout(() => {
-                    window.location.href = '/dashboardUser/profile';
-                    localStorage.clear();
-                }, 1500);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-
+  }, []);
+  const handleSubmit = () => {
+    if (user && userInfo) {
+      const data = {
+        email: user.email,
+        fullName: userInfo.fullName,
+        dni: userInfo.dni,
+        birthDate: userInfo.birthDate,
+        phone: userInfo.phone,
+        fullAddress: userInfo.fullAddress,
+        isSubscribed: userInfo.isSubscribed,
+      };
+      setIsLoading(true);
+      postGoogleRegister(data)
+        .then((data) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Gracias por completar tu registro, ${data.fullName}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          Cookies.remove("emailUser");
+          Cookies.remove("tokenUser");
+          setTimeout(() => {
+            window.location.href = "/dashboardUser/profile";
+            localStorage.clear();
+          }, 1500);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
-};
+  };
 
-    return (
-        <div className="2-m h-full w-full px-14 flex flex-col">
-            {isLoading ? (
+  return (
+    <div className=" h-full w-full px-14 flex flex-col  items-center gap-5 ">
+      {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
@@ -103,7 +104,7 @@ const RegisterResumeGoogleComponent = () => {
                     <div>
                         <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
                         <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                            {userInfo.isSubscribed.toString()}
+                            {userInfo.isSubscribed ? "Subscripto" : "No subscripto"}
                         </p>
                     </div>
                 </div>

@@ -10,12 +10,13 @@ import { getSession } from "auth-astro/server";
 import Menu from "./Menu/Menu";
 import MenuUser from "./MenuUser/MenuUser";
 import { jwtDecode } from "jwt-decode";
-
+import { postGoogleLogin } from "../../helpers/Auth/postGoogleLogin";
 const session = await getSession(Astro.request);
-const email = session?.user?.email || '';
+
+const email = session?.user?.email || "";
 let idDecodificado = "";
 let roleDecodificado = "";
-const tokenUser = Astro.cookies.get("token")?.value || '';
+const tokenUser = Astro.cookies.get("token")?.value || "";
 
 if (tokenUser) {
   try {
@@ -27,9 +28,10 @@ if (tokenUser) {
     console.error("Error decoding token:", error);
   }
 }
-const userRole = Array.isArray(roleDecodificado) && roleDecodificado.length > 0
-  ? roleDecodificado[0].role
-  : '';
+const userRole =
+  Array.isArray(roleDecodificado) && roleDecodificado.length > 0
+    ? roleDecodificado[0].role
+    : "";
 ---
 
 <div
@@ -39,55 +41,57 @@ const userRole = Array.isArray(roleDecodificado) && roleDecodificado.length > 0
     ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
   >
   <SearchPages />
-  <div class="flex flex-row items-center gap-10 ">
+  <div class="flex flex-row items-center gap-10">
     <a href="/donar">
-        <ButtonSecondary title="Dona" />
+      <ButtonSecondary title="Dona" />
     </a>
 
-    {email ? (
-      (email.length) ? (
-        <MenuUser client:load>
-          <img
-            src={session?.user?.image}
-            alt="Imagen de perfil"
-            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-          />
-        </MenuUser>
+    {
+      email ? (
+        email.length ? (
+          <MenuUser client:load>
+            <img
+              src={session?.user?.image}
+              alt="Imagen de perfil"
+              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+            />
+          </MenuUser>
+        ) : (
+          <MenuUser client:load>
+            <img
+              src={session?.user?.image}
+              alt="Imagen de perfil"
+              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+            />
+          </MenuUser>
+        )
+      ) : tokenUser ? (
+        userRole === "Admin" ? (
+          <Menu client:load>
+            <img
+              src={avatarAdmin.src}
+              alt="Imagen de perfil"
+              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+            />
+          </Menu>
+        ) : (
+          <MenuUser client:load>
+            <img
+              src={avatarUser.src}
+              alt="Imagen de perfil"
+              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+            />
+          </MenuUser>
+        )
       ) : (
-        <MenuUser client:load>
+        <a href="/auth/login2">
           <img
-            src={session?.user?.image}
+            src={imagenPerfilDefault.src}
             alt="Imagen de perfil"
             class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
           />
-        </MenuUser>
+        </a>
       )
-    ) : tokenUser ? (
-      userRole === "Admin" ? (
-        <Menu client:load>
-          <img
-            src={avatarAdmin.src}
-            alt="Imagen de perfil"
-            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-          />
-        </Menu>
-      ) : (
-        <MenuUser client:load>
-          <img
-            src={avatarUser.src}
-            alt="Imagen de perfil"
-            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-          />
-        </MenuUser>
-      )
-    ) : (
-      <a href="/auth/login2">
-        <img
-          src={imagenPerfilDefault.src}
-          alt="Imagen de perfil"
-          class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-        />
-      </a>
-    )}
+    }
   </div>
 </div>

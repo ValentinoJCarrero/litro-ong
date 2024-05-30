@@ -6,6 +6,7 @@ import voluntario from "../../../../../assets/equipo.jpg";
 import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.astro";
 import ButtonPrimarySmall from "../../../../../components/Buttons/ButtonPrimarySmall.astro";
 import ButtonSecondarySmall from "../../../../../components/Buttons/ButtonSecondarySmall.astro";
+import FormSelectedLogin from "../../../../../components/Forms/FormSelectedLogin.tsx";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -19,81 +20,49 @@ import ButtonSecondarySmall from "../../../../../components/Buttons/ButtonSecond
     </div>
     <div class="h-full w-full px-14 py-10 flex flex-col justify-between">
       <div
-        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-around h-full gap-4"
+        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-row justify-around h-full gap-4 "
       >
-        <h4 class="text-2xl font-medium text-primary w-full text-end">
-          SUMATE A NOSOTROS
-        </h4>
-        <!-- <h5>Participa, diviértete, construye y mostremos que se puede vivir en un mundo mucho mejor y más colaborativo. Aquí encontrarás un grupo extraordinario que te ayudaremos en todo lo que necesites. <strong>¡Te esperamos!</strong></h5> -->
-        <div class="flex flex-row gap-5 justify-center items-center m-10">
+       
+        <div class="">
           <div
-            class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer"
+            class="h-full w-80 rounded-3xl shadow-3xl  "
           >
-            <a href="/dashboardUser/profile/optionSelected/voluntario/formVoluntario">
+           
               <img
                 src={voluntario.src}
                 alt="imagen"
-                class="absolute h-80 w-80 object-cover rounded-3xl"
+                class="absolute h-4/5 w-80 object-cover rounded-3xl"
               />
-              <img
-                src={rectangle.src}
-                alt="fondo card"
-                class="absolute h-96 w-80 rounded-3xl my-10"
-              />
-              <div class="relative top-64">
-                <div class="flex flex-col items-center gap-5">
-                  <h6 class="font-semibold text-lg">Ser voluntario/a</h6>
-                  <div class="bg-green-200 p-2 rounded-full flex items-center justify-center hover:scale-105 transition-all hover:shadow-lg">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <!-- <ButtonCTASmall title="¡Participar!" /> -->
-                </div>
-                
-              </div>
-            </a>
+           
+           
           </div>
-          <div class="w-1/2 flex flex-col gap-5">
-            <h5 class="text-xl font-semibold">¡Sé parte de nuestro equipo de voluntarios/as!</h5>
+        </div>
+        <div class=" flex flex-col p-2 gap-5 justify-center">
+          <div class="">
+          <h4 class="text-2xl font-medium text-primary w-full text-end">
+            SER VOLUNTARIO/A
+          </h4>
+        </div>
+        <div
+          class="flex flex-col gap-5 justify-center items-center  bg-yellow-200"
+        >
+          <div class="flex flex-col">
+            <h5 class="text-xl font-semibold">
+              ¡Sé parte de nuestro equipo de voluntarios/as!
+            </h5>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia
               expedita itaque placeat, saepe sit velit deserunt nemo iure. Quasi
               facere maxime corrupti obcaecati harum molestiae libero possimus
               tempora atque laborum?
             </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-              iusto id, dolores deleniti vitae, minima neque velit nihil nam
-              reiciendis magnam aliquam rem libero expedita delectus itaque
-              cumque. Corrupti, delectus!
-            </p>
+            
           </div>
         </div>
-        <div class="w-full flex justify-end absolute bottom-14 right-20 gap-5">
-          <a
-            href="/dashboardUser/profile"
-            
-          >
-          <ButtonSecondarySmall title="Anterior" />
+        <div class="">
+          <FormSelectedLogin client:load />
+        </div>
           
-          </a>
-          <a href="/dashboardUser/profile/optionSelected/voluntario/formVoluntario"
-            
-          >
-            <ButtonPrimarySmall title="Siguiente" />
-          </a>
         </div>
       </div>
     </div>

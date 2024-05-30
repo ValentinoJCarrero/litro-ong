@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCommunityKitchensTitle } from "../../helpers/CommunityKitchens/getTitleCommunityKitchens";
 import NotFound from "../NotFound/NotFound";
 import BannerIndividualCommunityKitchen from "../fromCommunityKitchens/BannerIndividualCommunityKitchen";
-import SpinnersPrimary from '../Spinners/SpinnersPrimary';
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
 
 interface CommunityKitchen {
   id: string;
@@ -17,7 +17,8 @@ interface CommunityKitchen {
 }
 
 const DynamicCommunityKitchen: React.FC = () => {
-  const [communityKitchen, setCommunityKitchen] = useState<CommunityKitchen | null>(null);
+  const [communityKitchen, setCommunityKitchen] =
+    useState<CommunityKitchen | null>(null);
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,13 +53,19 @@ const DynamicCommunityKitchen: React.FC = () => {
   }, [url]);
 
   if (isLoading) {
-    return <div className="flex items-center justify-center h-full">
-              <SpinnersPrimary />
-            </div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-500 w-full text-center text-3xl">Error: {error}</div>;
+    return (
+      <div className="text-red-500 w-full text-center text-3xl">
+        Error: {error}
+      </div>
+    );
   }
 
   return (
@@ -68,7 +75,7 @@ const DynamicCommunityKitchen: React.FC = () => {
           <NotFound />
         </div>
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center">
           <BannerIndividualCommunityKitchen
             titulo={communityKitchen.name}
             direccion={communityKitchen.address}
@@ -76,21 +83,21 @@ const DynamicCommunityKitchen: React.FC = () => {
           />
 
           <div className="bg-secondary">
-            <div className="mx-24 p-16 flex flex-col gap-5">
-              <h4 className="text-3xl font-bold text-textTertiary">
+            <div className="mx-24 p-16 flex flex-col">
+              <h4 className="text-3xl font-bold text-textTertiary mb-5">
                 Encargado: {communityKitchen.holder}
               </h4>
-              <p className="text-base font-normal text-textParagraph">
+              <p className="text-base font-normal text-textParagraph mb-5">
                 {communityKitchen.description}
               </p>
               <p className="text-base font-normal text-textParagraph">
-                Número de niños: {communityKitchen.kidsNumber}
+                <strong> Número de niños:</strong> {communityKitchen.kidsNumber}
               </p>
               <p className="text-base font-normal text-textParagraph">
-                Días: {communityKitchen.days.join(', ')}
+                <strong> Días:</strong> {communityKitchen.days.join(", ")}
               </p>
               <p className="text-base font-normal text-textParagraph">
-                Hora: {communityKitchen.time}
+                <strong>Hora:</strong> {communityKitchen.time}
               </p>
             </div>
           </div>
