@@ -86,7 +86,7 @@ export class VolunteerController {
   convertToVolunteer(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() volunteerData: VolunteerDto,
-  ): Promise<Volunteer> {
+  ): Promise<{ volunteer: Volunteer; token: string }> {
     return this.volunteerService.convertToVolunteer(id, volunteerData);
   }
 

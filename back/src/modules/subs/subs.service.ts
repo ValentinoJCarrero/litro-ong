@@ -89,9 +89,12 @@ export class SubsService {
           payment_method: data.payment_method_id,
         };
 
-        await this.partnerService.createPartner(userId, subscription);
+        const partner = await this.partnerService.createPartner(
+          userId,
+          subscription,
+        );
 
-        return { status: subscription.status };
+        return { status: subscription.status, token: partner.token };
       })
       .catch(() => {
         throw new BadRequestException({ status: 'rejected' });
