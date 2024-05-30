@@ -82,7 +82,7 @@ export class VolunteerService {
   convertToVolunteer(
     id: string,
     volunteerData: VolunteerDto,
-  ): Promise<Volunteer> {
+  ): Promise<{ volunteer: Volunteer; token: string }> {
     return this.volunteerRepository.convertToVolunteer(id, volunteerData);
   }
 }

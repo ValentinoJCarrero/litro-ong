@@ -11,7 +11,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CardService } from './card.service';
 import { Card } from 'src/entities/Card.entity';
 import { AuthGuard } from 'src/guards/Auth.guard';
@@ -23,6 +23,7 @@ export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener todas las tarjetas',
     description:
@@ -38,6 +39,7 @@ export class CardController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener un tarjeta por ID',
     description:
@@ -50,6 +52,7 @@ export class CardController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear una nueva tarjeta (solo para administradores)',
     description:
@@ -62,6 +65,7 @@ export class CardController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar una tarjeta (solo para administradores)',
     description:

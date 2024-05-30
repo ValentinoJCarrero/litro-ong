@@ -1,8 +1,9 @@
-import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { StorageService } from './storage.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/Auth.guard';
 
 @ApiTags('Storage')
 @Controller('Storage')
@@ -10,6 +11,13 @@ export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
   @Post('upload')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Añadir imagenes a la base de datos',
+    description:
+      'Esta ruta permite subir imagenes con los datos enviados por body',
+  })
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(@UploadedFile(
     new ParseFilePipe({

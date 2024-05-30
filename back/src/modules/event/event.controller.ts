@@ -15,7 +15,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EventService } from './event.service';
 import { EventDto } from 'src/dtos/Event.dto';
 import { Event } from 'src/entities/Event.entity';
@@ -89,6 +89,7 @@ export class EventController {
   }
 
   @Post('/addVolunteer/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Agregar un voluntario a un evento (solo para administradores)',
     description:
@@ -105,6 +106,7 @@ export class EventController {
   }
 
   @Post('/create')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear un nuevo evento (solo para administradores)',
     description:
@@ -125,12 +127,10 @@ export class EventController {
       files.map((file) => this.storageService.uploadImage(file)), // Usa ImagesService para subir imágenes
     );
 
-    // Extrae las URLs de las imágenes subidas
     [event.primaryImage, event.secondaryImage] = uploadedImages.map(
       (image) => image,
     );
 
-    // Validación manual del DTO
     const errors = await validate(event);
     if (errors.length > 0) {
       throw new BadRequestException('La validación falló');
@@ -140,6 +140,7 @@ export class EventController {
   }
 
   @Put('/update/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar un evento (solo para administradores)',
     description:
@@ -156,6 +157,7 @@ export class EventController {
   }
 
   @Delete('/delete/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un evento (solo para administradores)',
     description:
@@ -168,6 +170,7 @@ export class EventController {
   }
 
   @Delete('/removeVolunteer/:idEvent')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar un voluntario de un evento(solo para administradores)',
     description:

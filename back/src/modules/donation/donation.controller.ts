@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { RemoveDataSensitive } from 'src/interceptors/RemoveDataRes.interceptor';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Donation } from 'src/entities/Donation.entity';
 import { AuthGuard } from 'src/guards/Auth.guard';
 import { RolesGuard } from 'src/guards/Roles.guard';
@@ -23,6 +23,7 @@ export class DonationController {
   constructor(private readonly donationService: DonationService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: ' Obtener todas las donaciones',
     description:
@@ -39,6 +40,7 @@ export class DonationController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener una donacion por id',
     description:

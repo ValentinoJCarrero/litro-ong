@@ -6,10 +6,13 @@ import {
 import { ProposalsRepository } from './proposals.repository';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
+import { MailerService } from '../mailer/mailer.service';
 
 @Injectable()
 export class ProposalsService {
-  constructor(private readonly proposalsRepository: ProposalsRepository) {}
+  constructor(private readonly proposalsRepository: ProposalsRepository,
+    private readonly mailerService: MailerService
+  ) {}
 
   async getAllProposals(
     limit: number,
@@ -69,15 +72,10 @@ export class ProposalsService {
     } else {
       const proposal = await this.getProposals(id);
 
-      //enviar email
       proposal.user.email;
-      //cre que deberias hacer una constante, que la respuesta del repositorio y antes de mandarla al controlador, llama al servicio de email y mandale el propotsal.user.id.
-      /**
-       * algo asi se me ocurre, para mandar el email. pero nose, vos sabras
-       * const response = await this.proposalsRepository.createProposals(id, proposals);
-       *  await this.emailService.sendEmail(response.user.id);
-       * return response;
-       */
+      const proposals = await this.getProposals(id)
+      
+      this.mailerService.sendProposalMail(proposals);
       return proposalsUpdated;
     }
   }
