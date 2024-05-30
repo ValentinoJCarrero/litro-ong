@@ -30,6 +30,17 @@ export const preloadData = {
       role: [],
       volunteerData: undefined,
     },
+    {
+      fullName: "Partner",
+      email: 'partner@partner.com',
+      password: 'Partner1',
+      fullAddress: 'rosario 123',
+      phone: '23123123',
+      dni: '123123123',
+      birthDate: '2005-02-17',
+      isSubscribed: true,
+      role: []
+    }
   ],
   Workshops: [
     {
