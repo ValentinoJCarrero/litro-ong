@@ -19,14 +19,14 @@ const pages = [
 
 }))
 ---
-<div class="bg-textPrimary rounded-2xl shadow-3xl h-full  flex  flex-col w-96">
-    <div class=" bg-primary py-5 px-10 rounded-t-2xl">
+<div class="bg-textPrimary rounded-2xl shadow-3xl h-full flex flex-col w-96">
+    <div class="bg-primary py-5 px-10 rounded-t-2xl">
         <a href="/"><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia"/></a>
     </div>
     <div class="pt-10 w-full text-center">
         <slot />
     </div>
-    <div class="flex flex-col  items-start justify-between px-10">
+    <div class="flex flex-col items-start justify-between px-10 gap-4 my-10">
             {
                 pages.map(({ name, href, active, hrefActive}, key) => ( 
 
@@ -34,10 +34,13 @@ const pages = [
                         <a
                             href={href}
                             class:list={[
-                                "text-sm my-3 font-normal    my-4",
-                                { "h-full text-lg text-primary flex items-center font-semibold ": active },
-                            { "text-textTertiary ": !active },
-                            ]}
+                                "text-sm font-medium ",
+                                {
+                "h-full text-lg text-colorSocioVoluntario flex items-center font-semibold ":
+                  active,
+              },
+              { "text-textTertiary ": !active },
+            ]}
                             id={`nav-link-${key}`}
                         >
                             <span class="z-10">{name}</span>
