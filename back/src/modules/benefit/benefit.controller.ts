@@ -15,7 +15,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { StorageService } from '../storage/storage.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { BenefitService } from './benefit.service';
 import { Benefit } from 'src/entities/Benefit.entity';
 import { BenefitDto } from 'src/dtos/Benefit.dto';
@@ -57,6 +57,7 @@ export class BenefitController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear un nuevo beneficio (solo para administradores)',
     description:
@@ -79,6 +80,7 @@ export class BenefitController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles('Admin')
   @ApiOperation({

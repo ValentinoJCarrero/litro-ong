@@ -17,6 +17,8 @@ export class NewsRepository {
     const [data, total] = await this.newsRepository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
+
+      order: { date: 'DESC' },
     });
 
     return { data, total };

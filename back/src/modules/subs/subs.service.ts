@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { preapproval } from 'src/config/mp.config';
 import { PartnerService } from '../partner/partner.service';
 
@@ -8,15 +12,20 @@ export class SubsService {
 
   async getAllSubscriptions(offset: number, limit: number) {
     try {
-      const res = await preapproval.search({ options: {
-        offset,
-        limit
-      }});
+      const res = await preapproval.search({
+        options: {
+          offset,
+          limit,
+        },
+      });
 
       const subscriptions = res.results;
 
-      if(res.paging.total > offset + limit) {
-        const nextSubscriptions = await this.getAllSubscriptions(offset+limit, limit);
+      if (res.paging.total > offset + limit) {
+        const nextSubscriptions = await this.getAllSubscriptions(
+          offset + limit,
+          limit,
+        );
         subscriptions.push(...nextSubscriptions);
       }
 
@@ -28,7 +37,10 @@ export class SubsService {
   }
 
   async getSubscriptionById(id: string) {
-    await preapproval.get({ id }).then(data => console.log(data)).catch(error => console.log(error));
+    await preapproval
+      .get({ id })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   }
 
   async createSubscription(email: string) {
@@ -63,7 +75,8 @@ export class SubsService {
     return await preapproval
       .get({ id: subId })
       .then(async (data) => {
-      if (!(data.status === 'authorized')) return 'rejected';
+        if (!(data.status === 'authorized'))
+          throw new BadRequestException({ status: 'rejected' });
 
         const nextPaymentDate = new Date(data.summarized.last_charged_date);
         nextPaymentDate.setUTCMonth(nextPaymentDate.getUTCMonth() + 1);
@@ -77,10 +90,15 @@ export class SubsService {
           payment_method: data.payment_method_id,
         };
 
-        await this.partnerService.createPartner(userId, subscription);
+        const partner = await this.partnerService.createPartner(
+          userId,
+          subscription,
+        );
 
-        return { status: subscription.status };
+        return { status: subscription.status, token: partner.token };
       })
-      .catch(() => { throw new BadRequestException({ status: 'rejected' })});
+      .catch(() => {
+        throw new BadRequestException({ status: 'rejected' });
+      });
   }
 }

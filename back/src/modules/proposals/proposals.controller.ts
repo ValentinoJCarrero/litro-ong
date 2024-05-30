@@ -13,7 +13,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ProposalsService } from './proposals.service';
 import { Proposals } from 'src/entities/Proposals.entity';
 import { ProposalsDto } from 'src/dtos/Proposals.dto';
@@ -28,6 +28,7 @@ export class ProposalsController {
   constructor(private readonly proposalsService: ProposalsService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener todas las propuestas',
     description:
@@ -49,6 +50,7 @@ export class ProposalsController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Obtener una propuesta por id',
     description:
@@ -62,6 +64,7 @@ export class ProposalsController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Actualizar el estado de una propuesta',
     description:
@@ -78,6 +81,7 @@ export class ProposalsController {
   }
 
   @Post()
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Crear una propuesta',
     description:
@@ -94,6 +98,7 @@ export class ProposalsController {
   }
 
   @Delete('/one/:id')
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Eliminar una propuesta (solo para administradores)',
     description:

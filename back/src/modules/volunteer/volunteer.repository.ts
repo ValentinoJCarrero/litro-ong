@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventDto } from 'src/dtos/Event.dto';
 import { VolunteerDto } from 'src/dtos/Volunteer.dto';
@@ -24,6 +25,7 @@ export class VolunteerRepository {
     private readonly roleRepository: Repository<Role>,
     @InjectRepository(Event)
     private eventRepository: Repository<Event>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async getAllVolunteers(
@@ -131,7 +133,7 @@ export class VolunteerRepository {
   async convertToVolunteer(
     id: string,
     volunteerData: VolunteerDto,
-  ): Promise<Volunteer> {
+  ): Promise<{ volunteer: Volunteer; token: string }> {
     const queryRunner =
       this.volunteerRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
@@ -165,9 +167,17 @@ export class VolunteerRepository {
       user.volunteerData = volunterData;
       user.role = [...user.role, role];
 
-      await this.userRepository.save(user);
+      const userUpdated = await this.userRepository.save(user);
+
+      const userPayload = {
+        sub: userUpdated.id,
+        email: userUpdated.email,
+        roles: userUpdated.role,
+      };
+      const tokenUpdated = await this.jwtService.signAsync({ userPayload });
+
       await queryRunner.commitTransaction();
-      return newVolunteer;
+      return { volunteer: newVolunteer, token: tokenUpdated };
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;

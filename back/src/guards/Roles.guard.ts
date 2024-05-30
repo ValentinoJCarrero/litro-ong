@@ -27,9 +27,7 @@ export class RolesGuard implements CanActivate {
     const user = request.user;
 
     if (!user || !user.roles) {
-      throw new UnauthorizedException(
-        'No estás autorizado. Acceso denegado aqui no user',
-      );
+      throw new UnauthorizedException('No estás autorizado. Acceso denegado');
     }
 
     const verifyRole = () =>

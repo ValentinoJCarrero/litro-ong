@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Card } from 'src/entities/Card.entity';
 import { Partner } from 'src/entities/Partner.entity';
@@ -19,6 +20,7 @@ export class PartnerRepository {
     @InjectRepository(Card) private cardRepository: Repository<Card>,
     @InjectRepository(Subscription)
     private subscriptionRepository: Repository<Subscription>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async getAllPartners(
@@ -43,7 +45,7 @@ export class PartnerRepository {
   async createPartner(
     userId: string,
     subscription: Partial<Subscription>,
-  ): Promise<Partner> {
+  ): Promise<{ partner: Partner; token: string }> {
     const queryRunner =
       this.partnerRepository.manager.connection.createQueryRunner();
     await queryRunner.startTransaction();
@@ -100,8 +102,14 @@ export class PartnerRepository {
       await this.subscriptionRepository.save(savedSubscription);
       await this.userRepository.save(userFound);
 
+      const userPayload = {
+        sub: userFound.id,
+        email: userFound.email,
+        roles: userFound.role,
+      };
+      const tokenUpdated = await this.jwtService.signAsync({ userPayload });
       await queryRunner.commitTransaction();
-      return savedPartner;
+      return { partner: savedPartner, token: tokenUpdated };
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw error;
