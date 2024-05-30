@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class DonationDto {
   /**
@@ -6,8 +6,6 @@ export class DonationDto {
    */
   @IsOptional()
   @IsString()
-  @MinLength(5, { message: 'El nombre debe tener al menos 5 caracteres' })
-  @MaxLength(35, { message: 'el nombre debe tener menos de 50 caracteres' })
   fullName: string;
 
   /**

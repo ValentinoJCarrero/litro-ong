@@ -1,13 +1,38 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { preappoval } from 'src/config/mp.config';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { preapproval } from 'src/config/mp.config';
 import { PartnerService } from '../partner/partner.service';
 
 @Injectable()
 export class SubsService {
   constructor(private readonly partnerService: PartnerService) {}
 
+  async getAllSubscriptions(offset: number, limit: number) {
+    try {
+      const res = await preapproval.search({ options: {
+        offset,
+        limit
+      }});
+
+      const subscriptions = res.results;
+
+      if(res.paging.total > offset + limit) {
+        const nextSubscriptions = await this.getAllSubscriptions(offset+limit, limit);
+        subscriptions.push(...nextSubscriptions);
+      }
+
+      return subscriptions;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async getSubscriptionById(id: string) {
+    await preapproval.get({ id }).then(data => console.log(data)).catch(error => console.log(error));
+  }
+
   async createSubscription(email: string) {
-    const subscription = await preappoval.create({
+    const subscription = await preapproval.create({
       body: {
         reason: 'Un Litro',
         payer_email: email,
@@ -34,30 +59,28 @@ export class SubsService {
     }
   }
 
-  async addSubscription(userId, subId: string) {
-    await preappoval
+  async uploadSubscription(subId: string, userId: string) {
+    return await preapproval
       .get({ id: subId })
-      .then((data) => {
-        if (data.status === 'authorized' || data.status === 'pending')
-          return 'rejected';
+      .then(async (data) => {
+      if (!(data.status === 'authorized')) return 'rejected';
+
+        const nextPaymentDate = new Date(data.summarized.last_charged_date);
+        nextPaymentDate.setUTCMonth(nextPaymentDate.getUTCMonth() + 1);
 
         const subscription = {
-          id: data.id,
+          transaction_id: data.id,
           status: data.status,
           url: data.init_point,
           amount: data.auto_recurring.transaction_amount,
-          next_payment_date: data.next_payment_date,
+          next_payment_date: nextPaymentDate.toISOString(),
           payment_method: data.payment_method_id,
         };
 
-        this.partnerService.createPartner(userId, subscription);
+        await this.partnerService.createPartner(userId, subscription);
 
-        return subscription.status;
+        return { status: subscription.status };
       })
-      .catch(() => {
-        throw new InternalServerErrorException(
-          'La API de Mercado Pago no responde.',
-        );
-      });
+      .catch(() => { throw new BadRequestException({ status: 'rejected' })});
   }
 }
