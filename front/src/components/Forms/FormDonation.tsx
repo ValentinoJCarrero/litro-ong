@@ -5,17 +5,18 @@ import Modal from 'react-modal';
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import warningIcon from "../../assets/IconWarrning.svg";
 import { postDonations } from "../../helpers/Donations/postDonation";
+import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 
 interface IFormValues {
-  fullName: string;
-  email: string;
-  amount: number;
+  fullName: string | undefined;
+  email: string | undefined;
+  amount: null | number;
 }
 
 const initialValues: IFormValues = {
-  fullName: "",
-  email: "",
-  amount: 0,
+  fullName: undefined,
+  email: undefined,
+  amount: null,
 };
 
 interface ExtendedWindow extends Window {
@@ -34,15 +35,7 @@ const validate = (values: IFormValues) => {
     errors.amount = "El monto debe ser mayor a $500";
   }
 
-  if (values.fullName.length < 5) {
-    errors.fullName = "El nombre debe tener al menos 5 caracteres";
-  }
 
-  if (values.email.length < 5) {
-    errors.email = "El email debe tener al menos 5 caracteres";
-  } else if (!emailRegex.test(values.email)) {
-    errors.email = "El correo electrónico no es válido";
-  }
   return errors;
 };
 
@@ -126,8 +119,8 @@ const FormDonation = () => {
                   />
                 </div>
               </div>
-              <div className="h-4 text-warning">
-                <ErrorMessage name="fullName" component="span" />
+              <div className="h-4 text-textParagraph">
+                <p>Nombre opcional</p>
               </div>
             </div>
             <div className="flex flex-col">
@@ -161,8 +154,8 @@ const FormDonation = () => {
                   />
                 </div>
               </div>
-              <div className="h-4 text-warning">
-                <ErrorMessage name="email" component="span" />
+              <div className="h-4 text-textParagraph">
+                <p>Nombre opcional</p>
               </div>
             </div>
             <div className="flex flex-col">
@@ -173,7 +166,7 @@ const FormDonation = () => {
                 <Field
                   type="number"
                   name="amount"
-                  placeholder="500"
+                  placeholder="Ingresa un monto"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
                     errors.amount && touched.amount
                       ? "border-warningBorder text-warningText font-medium"
@@ -203,11 +196,7 @@ const FormDonation = () => {
             <div className="my-10 w-full flex justify-center">
               <button
                 type="submit"
-                className="bg-primary transition-all text-textPrimar px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap disabled:bg-backgroundGrey disabled:shadow-none disabled:scale-100"
-                disabled={
-                  Object.keys(errors).length !== 0 ||
-                  Object.keys(touched).length === 0
-                }
+                className="bg-tertiary transition-all text-textPrimar px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap "
               >
                 Enviar a Mercado Pago
               </button>
@@ -223,9 +212,8 @@ const FormDonation = () => {
           onRequestClose={handleClose}
           contentLabel="Donacion MercadoPago"
         >
-          <div className="flex justify-between">
-            <h2>Donacion MercadoPago</h2>
-            <button onClick={handleClose}>Cerrar</button>
+          <div className="flex justify-end py-2">
+            <ButtonWarningSmall title="Cerrar" onClick={handleClose} idEvent="mp-payButton"/>
           </div>
           <iframe src={responseUrl} className="w-full h-[90%]" />
         </Modal>

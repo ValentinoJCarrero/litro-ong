@@ -7,6 +7,7 @@ import { postSubscription } from "../../helpers/Donations/postSubscription";
 import Modal from 'react-modal';
 import { getSubscription } from "../../helpers/Donations/getSubscription";
 import { postSubscriptionClose } from "../../helpers/Donations/postSubscriptionClose";
+import ButtonWarningSmall from "../Buttons/ButtonWarningSmall";
 interface ExtendedWindow extends Window {
   $MPC_loaded?: boolean;
 }
@@ -54,9 +55,43 @@ const FormSubscription = () => {
   }
 
   const handleClose = async() => {
-    const response = await postSubscriptionClose(subId, userId);
-    console.log(response);
-    setModalIsOpen(false)
+    try {
+      const response = await postSubscriptionClose(subId, userId);
+      console.log(response);
+  
+      if (response.status === 'authorized') {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Felicitaciones! Ahora eres socio",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.href = "/dashboardUserVolunteer/profile";
+        }, 1500)
+      } else if (response.status === 'rejected') {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "No se pudo completar la suscripción",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+  
+      setModalIsOpen(false);
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Ocurrió un error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setModalIsOpen(false);
+    }
   }
 
   return (
@@ -70,12 +105,10 @@ const FormSubscription = () => {
         onRequestClose={handleClose}
         contentLabel="Suscripción MercadoPago"
       >
-        <div className="flex justify-between">
-        <h2>Suscripción MercadoPago</h2>
-        <button onClick={handleClose}>Cerrar</button>
-        </div>
+        <div className="flex justify-end py-2">
+            <ButtonWarningSmall title="Cerrar" onClick={handleClose} idEvent="mp-payButton"/>
+          </div>
         <iframe src={responseUrl} className="w-full h-[90%]" />
-        
       </Modal>
     </div>
   );

@@ -1,7 +1,7 @@
 interface IFormValues {
-  fullName: string;
-  email: string;
-  amount: number;
+  fullName: string | undefined;
+  email: string | undefined;
+  amount: number | null;
 }
 export async function postDonations(newsResponse: IFormValues): Promise<any> {
 console.log(newsResponse);

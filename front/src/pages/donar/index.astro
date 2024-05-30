@@ -1,8 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ButtonCTASmall from "../../components/Buttons/ButtonCTASmall.astro";
 import FormDonation from "../../components/Forms/FormDonation";
-import ButtonPrimary from "../../components/Buttons/ButtonPrimary.astro";
+import ButtonPrimarySmall from "../../components/Buttons/ButtonPrimarySmall.astro";
 
 const token = Astro.cookies.get("token");
 if (token) {
@@ -41,25 +40,45 @@ if (token) {
         </p>
       </div>
       <div class="w-2/5 flex flex-col justify-center">
-        <h2 class="text-3xl font-bold text-textTertiary w-full text-center mb-6">¡Hacete socio! con tu subscripción podes disfrutar de los beneficios.</h2>
+        
+        <div class="my-10 w-full text-center bg-textPrimary p-5 rounded-2xl shadow-2xl">
+          <h2 class="text-3xl font-bold text-textTertiary w-full text-center mb-10">¡Hacete socio! con tu subscripción podes disfrutar de los beneficios.</h2>
         {
           token
-            ? <ButtonPrimary
+            ? 
+            <a href="/dashboardUser/profile/optionSelected/socio">
+                <ButtonPrimarySmall
                 title="Ser socio"
-                url="/dashboardUser/profile"
               />
-            : <ButtonPrimary
-                title="Registrarme y ser socio"
-                url="/auth/login2"
-              />
-              <ButtonPrimary
-                title="Registrarme y ser socio"
-                url="/auth/register"
-              />
+              </a>
+            : 
+            <div class="flex flex-row justify-between">
+              <div >
+                
+              <h6 class="mb-4">¿Ya estas registrado?</h6>
+              <a href="/auth/login2">
+                <ButtonPrimarySmall
+                  title="Iniciar sesión"
+                  url="/auth/login2"
+                  />
+                </a>
+              </div>
+              <div>
+                <h6 class="mb-4">¿No tienes cuenta?</h6>
+                <a href="/auth/register">
+                <ButtonPrimarySmall
+                  title="Registrarme"
+                />
+              </a>
+              </div>
+            </div>
         }
-        <h2 class="text-2xl font-bold text-textTertiary w-full text-center mb-6">Hace tu donación unica</h2>
-        <FormDonation client:load/>
-        <button id="sub" style="margin-top: 10px" >¿O preferís suscribirte?</button>
+        </div>
+        <div class="bg-textPrimary p-5 rounded-2xl shadow-2xl">
+          <h2 class="text-2xl font-bold text-textTertiary w-full text-center mb-6">Hace tu donación unica</h2>
+          <FormDonation client:load/>
+          <button id="sub" style="margin-top: 10px" >¿O preferís suscribirte anonimamente?</button>
+        </div>
       </div>
       </div>
     </div>

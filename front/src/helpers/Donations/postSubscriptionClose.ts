@@ -3,7 +3,7 @@ export async function postSubscriptionClose(subId: string, userId: string): Prom
     const validSubId = subId;
     const validUserId = userId;
 
-    console.log(validSubId)
+    console.log(validSubId);
     console.log(validUserId);
     const url = new URL('https://litro-ong.onrender.com/subs');
     url.searchParams.append('subId', validSubId.toString());
@@ -16,10 +16,14 @@ export async function postSubscriptionClose(subId: string, userId: string): Prom
       }
     });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error al traer las donaciones", error);
+    console.error("Error al cerrar la suscripción", error);
     throw error; 
   }
 }
