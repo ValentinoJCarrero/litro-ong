@@ -75,7 +75,8 @@ export class SubsService {
     return await preapproval
       .get({ id: subId })
       .then(async (data) => {
-        if (!(data.status === 'authorized')) return 'rejected';
+        if (!(data.status === 'authorized'))
+          throw new BadRequestException({ status: 'rejected' });
 
         const nextPaymentDate = new Date(data.summarized.last_charged_date);
         nextPaymentDate.setUTCMonth(nextPaymentDate.getUTCMonth() + 1);
