@@ -36,6 +36,7 @@ const ListEventComponents = (props: Color) => {
     if (tokenFromCookies) {
       const decodedToken: any = jwtDecode(tokenFromCookies);
       const idDecodificado = decodedToken.userPayload.sub;
+      console.log(decodedToken);
       setIdUser(idDecodificado);
     } else {
       setIsLoading(false);
@@ -49,6 +50,7 @@ const ListEventComponents = (props: Color) => {
       getVolunteersByID(idUser)
         .then((data) => {
           setEvents(data.volunteerData.events);
+          console.log(data);
           setIsLoading(false);
           setMessage(data.volunteerData);
         })

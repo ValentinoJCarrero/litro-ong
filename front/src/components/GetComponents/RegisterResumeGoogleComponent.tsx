@@ -69,79 +69,63 @@ const RegisterResumeGoogleComponent = () => {
         <div className="flex items-center justify-center h-full">
           <SpinnersPrimary />
         </div>
-      ) : (
-        <div className=" h-full justify-center w-full flex flex-col">
-          {user && (
-            <div className="flex flex-col justify-between">
-              <div>
-                <h1 className="font-medium ">Email</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {user.email}
-                </p>
-              </div>
+      ) : ( 
+        <>
+        {user && (
+                <div className="flex flex-col justify-between">
+                    <div>
+                        <h1 className='font-medium my-2'>Email</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'> {user.email}</p>
+                    </div>
+                </div>
+            )}
+            {userInfo  && (
+                <div>
+                    <div>
+                        <h1 className='font-medium my-2'>Nombre</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.fullName}</p>
+                    </div >
+                    <div>
+                        <h1 className='font-medium my-2'>Numero de documento</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.dni}</p>
+                    </div>
+                    <div>
+                        <h1 className='font-medium my-2'>Fecha de nacimiento</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.birthDate}</p>
+                    </div>
+                    <div>
+                        <h1 className='font-medium my-2'>Numero de telefono</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.phone}</p>
+                    </div>
+                    <div >
+                        <h1  className='font-medium my-2'>Domicilio</h1>
+                        <p className='w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2'>{userInfo.fullAddress}</p>
+                    </div>
+                    <div>
+                        <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
+                        <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
+                            {userInfo.isSubscribed ? "Subscripto" : "No subscripto"}
+                        </p>
+                    </div>
+                </div>
+                
+            )}
+            <div className="my-3 w-full flex justify-end">
+            <a href="/auth/register/personalInformationGoogle" className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
+                Anterior
+            </a>
+            <button 
+            type="submit" 
+            className="bg-primary text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
+            onClick={handleSubmit}
+            >Siguiente
+            </button>
             </div>
-          )}
-          {userInfo && (
-            <div className="flex flex-col w-full ">
-              <div className="">
-                <h1 className="font-medium ">Nombre</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.fullName}
-                </p>
-              </div>
-              <div className="">
-                <h1 className="font-medium ">Numero de documento</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.dni}
-                </p>
-              </div>
-              <div className="">
-                <h1 className="font-medium ">Fecha de nacimiento</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.birthDate}
-                </p>
-              </div>
-              <div className="">
-                <h1 className="font-medium ">Numero de telefono</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.phone}
-                </p>
-              </div>
-              <div className="">
-                <h1 className="font-medium ">Domicilio</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.fullAddress}
-                </p>
-              </div>
-              <div className="">
-                <h1 className="font-medium ">Suscripcion a NewsLatter</h1>
-                <p className="w-full rounded-md border-backgroundGrey border text-textParagraph px-3 py-2">
-                  {userInfo.isSubscribed.toString()}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
+            </> 
       )}
-      <div className=" relative left-72 bottom-4">
-        <a
-          href="/auth/register/personalInformationGoogle"
-          //   className="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
-        >
-          <button className="bg-secondary  text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl  focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6">
-            Anterior
-          </button>
-        </a>
-        <button
-          type="submit"
-          className="bg-tertiary transition-all text-textPrimary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
-          onClick={handleSubmit}
-        >
-          Finalizar
-        </button>
-      </div>
-    </div>
-  );
+        </div>
+
+    );
 };
 
 export default RegisterResumeGoogleComponent;

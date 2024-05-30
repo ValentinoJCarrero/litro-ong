@@ -66,6 +66,7 @@ const FormWorkshopsFormik = () => (
 
       postVolunteers(idDecodificado, values)
         .then((response) => {
+          console.log(response);
           if (!response.statusCode) {
           Swal.fire({
             position: "center",
@@ -210,9 +211,9 @@ const FormWorkshopsFormik = () => (
           )}
         </div>
 
-        <div className="flex justify-end gap-5 mt-4">
+        <div className="w-full flex justify-end absolute bottom-14 right-20 gap-5">
           <a
-            href="/dashboardUser/profile/optionSelected/voluntario/"
+            href="/dashboardUser/profile"
             className=" bg-secondary transition-all text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap"
           >
             Volver
@@ -225,7 +226,7 @@ const FormWorkshopsFormik = () => (
               Object.keys(touched).length === 0
             }
           >
-            Agregar
+            ¡Postularme!
           </button>
         </div>
       </Form>

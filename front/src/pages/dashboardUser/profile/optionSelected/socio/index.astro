@@ -2,27 +2,8 @@
 import DasboardLayouts from "../../../../../layouts/DasboardLayouts.astro";
 import AsideMenuUser from "../../../../../components/AsideMenuDasboard/AsideMenuUser.astro";
 import rectangle from "../../../../../assets/rectangleCard.svg";
-import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.astro";
 import socio from "../../../../../assets/sersponsor.jpg";
-import { jwtDecode } from "jwt-decode";
-import { postSubscription } from "../../../../../helpers/Donations/postSubscription";
-
-let responseUrl = "";
-const tokenUser = Astro.cookies.get("token")?.value || '';
-let emailDecodificado = "";
-
-if (tokenUser) {
-  try {
-    const decodedToken: any = jwtDecode(tokenUser);
-    emailDecodificado = decodedToken.userPayload.email;
-    responseUrl = await postSubscription(emailDecodificado);
-    console.log(decodedToken.userPayload.email);
-  } catch (error) {
-    console.error("Error decoding token:", error);
-  }
-}
-
-
+import FormSubscription from "../../../../../components/Forms/FormSubscription.tsx";
 ---
 
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
@@ -61,9 +42,7 @@ if (tokenUser) {
                 <div class="relative top-64">
                   <div class="flex flex-col items-center gap-5">
                     <h6 class="font-semibold text-lg">Ser socio/a</h6>
-                    <a href={responseUrl} data-mp="MP-payButton">
-                      <ButtonCTASmall title="¡Participar!" />
-                    </a>
+                    <FormSubscription client:load />
                   </div>
                   
                 </div>
@@ -89,27 +68,4 @@ if (tokenUser) {
     </div>
   </DasboardLayouts>
   
-  <script type="text/javascript">
-    (function() {
-       function $MPC_load() {
-          window.$MPC_loaded !== true && (function() {
-          var s = document.createElement("script");
-          s.type = "text/javascript";
-          s.async = true;
-          s.src = document.location.protocol + "//secure.mlstatic.com/mptools/render.js";
-          var x = document.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-          window.$MPC_loaded = true;
-       })();
-    }
-    window.$MPC_loaded !== true ? (window.attachEvent ? window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;
-    })();
-   /*
-         // to receive event with message when closing modal from congrants back to site
-         function $MPC_message(event) {
-           // onclose modal ->CALLBACK FUNCTION
-          // !!!!!!!!FUNCTION_CALLBACK HERE Received message: {event.data} preapproval_id !!!!!!!!
-         }
-         window.$MPC_loaded !== true ? (window.addEventListener("message", $MPC_message)) : null; 
-         */
- </script>
+ 

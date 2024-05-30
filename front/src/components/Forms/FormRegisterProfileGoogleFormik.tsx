@@ -54,7 +54,25 @@ const validate = (values: IFormValues) => {
 
   if (!values.birthDate) {
     errors.birthDate = "La fecha de nacimiento es requerida";
+  } else {
+    const today = new Date();
+    const birthDate = new Date(values.birthDate);
+    
+    if (birthDate > today) {
+      errors.birthDate = "La fecha de nacimiento no puede ser posterior a la fecha actual";
+    } else {
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+  
+      if (age >= 100) {
+        errors.birthDate = "Debes tener menos de 100 años para registrarte";
+      }
+    }
   }
+
 
   if (!values.dni) {
     errors.dni = "El número de documento es requerido";
@@ -301,6 +319,7 @@ const FormRegisterProfileGoogleFormik = () => {
               <ErrorMessage name="dni" component="span" />
             </div>
           </div>
+          </div>
           <div className="flex flex-col w-full">
             <label htmlFor="title" className="font-medium my-2 ">
               Domicilio
@@ -335,123 +354,88 @@ const FormRegisterProfileGoogleFormik = () => {
             <div className="h-4 text-warning">
               <ErrorMessage name="address" component="span" />
             </div>
-          </div>
-                  </div>
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-col w-full pr-4">
-              <label htmlFor="title" className="font-medium my-2 ">
-                Pais
-              </label>
-              <div className="flex w-full">
-                <Field
-                  as="select"
-                  name="country"
-                  placeholder="Selecciona país"
-                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-                    errors.country && touched.country
-                      ? "border-warningBorder text-warningText font-medium"
-                      : ""
-                  }`}
-                  onChange={(e: any) => {
-                    setFieldValue("country", e.target.value);
-                    setCountry(e.target.value);
-                  }}
-                >
-                  <option value="">Selecciona país</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="España">Otros paises</option>
-                </Field>
-                <div
-                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                    errors.country && touched.country
-                      ? "border-warningBorder text-warningText font-medium "
-                      : ""
-                  }`}
-                >
-                  <img
-                    src={warningIcon.src}
-                    alt="warningIcon"
-                    className={`${
-                      errors.country && touched.country ? "block" : "hidden"
-                    }`}
-                  />
-                </div>
-              </div>
-              <div className="h-4 text-warning">
-                <ErrorMessage name="country" component="span" />
-              </div>
+        </div>
+        <div className="flex flex-row justify-between w-full">
+          <div className="flex flex-col w-full pr-4">
+            <label htmlFor="title" className="font-medium my-2 ">Pais</label>
+            <div className="flex w-full">
+            <Field
+            as="select"
+            name="country"
+            placeholder="Selecciona país"
+            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+              errors.country && touched.country ? 'border-warningBorder text-warningText font-medium' : ''
+            }`}
+            onChange={(e:any) => {
+              setFieldValue("country", e.target.value);
+              setCountry(e.target.value);
+            }}
+          >
+            <option value="">Selecciona país</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Otros paises">Otros paises</option>
+          </Field>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.country  && touched.country  ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.country  && touched.country  ? 'block' : 'hidden'}`}/>
             </div>
-            <div className="flex flex-col w-full px-4">
-              <label htmlFor="title" className="font-medium my-2 ">
-                Provincia
-              </label>
-              <div className="flex w-full">
-                <Field
-                  as="select"
-                  name="province"
-                  placeholder="Selecciona país"
-                  className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
-                    errors.province && touched.province
-                      ? "border-warningBorder text-warningText font-medium"
-                      : ""
-                  }`}
-                  disabled={country !== "Argentina"}
-                  onChange={(e: any) => {
-                    setFieldValue("province", e.target.value);
-                    setProvince(e.target.value);
-                  }}
-                >
-                  <option value="">Selecciona tu provincia</option>
-                  <option value="Buenos Aires">Buenos Aires</option>
-                  <option value="Catamarca">Catamarca</option>
-                  <option value="Chaco">Chaco</option>
-                  <option value="Chubut">Chubut</option>
-                  <option value="Córdoba">Córdoba</option>
-                  <option value="Corrientes">Corrientes</option>
-                  <option value="Entre Ríos">Entre Ríos</option>
-                  <option value="Formosa">Formosa</option>
-                  <option value="Jujuy">Jujuy</option>
-                  <option value="La Pampa">La Pampa</option>
-                  <option value="La Rioja">La Rioja</option>
-                  <option value="Mendoza">Mendoza</option>
-                  <option value="Misiones">Misiones</option>
-                  <option value="Neuquén">Neuquén</option>
-                  <option value="Río Negro">Río Negro</option>
-                  <option value="Salta">Salta</option>
-                  <option value="San Juan">San Juan</option>
-                  <option value="San Luis">San Luis</option>
-                  <option value="Santa Cruz">Santa Cruz</option>
-                  <option value="Santa Fe">Santa Fe</option>
-                  <option value="Santiago del Estero">
-                    Santiago del Estero
-                  </option>
-                  <option value="Tierra del Fuego">Tierra del Fuego</option>
-                  <option value="Tucumán">Tucumán</option>
-                </Field>
-                <div
-                  className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${
-                    errors.province && touched.province
-                      ? "border-warningBorder text-warningText font-medium "
-                      : ""
-                  }`}
-                >
-                  <img
-                    src={warningIcon.src}
-                    alt="warningIcon"
-                    className={`${
-                      errors.province && touched.province ? "block" : "hidden"
-                    }`}
-                  />
-                </div>
-              </div>
-              <div className="h-4 text-warning">
-                <ErrorMessage name="province" component="span" />
-              </div>
+            </div>
+            <div className="h-4 text-warning">
+              <ErrorMessage name="country" component="span"  />
             </div>
           </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="isSubscribed" className="font-medium my-2 ">
-              <div className="flex w-full items-center">
+        <div className="flex flex-col w-full px-4">
+            <label htmlFor="title" className="font-medium my-2 ">Provincia</label>
+            <div className="flex w-full">
+            <Field
+            as="select"
+            name="province"
+            placeholder="Selecciona país"
+            className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
+              errors.province && touched.province ? 'border-warningBorder text-warningText font-medium' : ''
+            }`}
+            disabled={country !== "Argentina"}
+            onChange={(e:any) => {
+              setFieldValue("province", e.target.value);
+              setProvince(e.target.value);
+            }}
+          >
+            <option value="">Selecciona tu provincia</option>
+            <option value="Buenos Aires">Buenos Aires</option>
+            <option value="Catamarca">Catamarca</option>
+            <option value="Chaco">Chaco</option>
+            <option value="Chubut">Chubut</option>
+            <option value="Córdoba">Córdoba</option>
+            <option value="Corrientes">Corrientes</option>
+            <option value="Entre Ríos">Entre Ríos</option>
+            <option value="Formosa">Formosa</option>
+            <option value="Jujuy">Jujuy</option>
+            <option value="La Pampa">La Pampa</option>
+            <option value="La Rioja">La Rioja</option>
+            <option value="Mendoza">Mendoza</option>
+            <option value="Misiones">Misiones</option>
+            <option value="Neuquén">Neuquén</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="Salta">Salta</option>
+            <option value="San Juan">San Juan</option>
+            <option value="San Luis">San Luis</option>
+            <option value="Santa Cruz">Santa Cruz</option>
+            <option value="Santa Fe">Santa Fe</option>
+            <option value="Santiago del Estero">Santiago del Estero</option>
+            <option value="Tierra del Fuego">Tierra del Fuego</option>
+            <option value="Tucumán">Tucumán</option>
+          </Field>
+            <div className={`flex justify-center rounded-r-md px-4 bg-white  border-backgroundGrey border border-l-transparent focus-visible:outline  ${errors.province && touched.province ? 'border-warningBorder text-warningText font-medium ' : ''}`}>
+                <img src={warningIcon.src} alt="warningIcon" className={`${errors.province && touched.province ? 'block' : 'hidden'}`}/>
+            </div>
+            </div>
+            <div className="h-4 text-warning">
+              <ErrorMessage name="province" component="span"/>
+            </div>
+        </div>
+        </div>
+        <div className="flex flex-col w-full">
+                <label htmlFor="isSubscribed" className="font-medium my-2 ">
+                <div className="flex w-full items-center">
                 <Field
                   type="checkbox"
                   name="isSubscribed"
