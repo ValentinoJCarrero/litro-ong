@@ -13,20 +13,30 @@ interface SponsorsItem {
 const SectionSponsors: React.FC = ():React.ReactElement =>{
   const [sponsors, setSponsors] = useState<SponsorsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(3);
   useEffect(() => {
       const fetchNews = async () => {
-          const newsData = await getSponsors(5, 1);
+          const newsData = await getSponsors(5, page);
           setSponsors(newsData.data);
           setIsLoading(false);
+          setTotalPages(Math.ceil(newsData.total / 5));
       };
       fetchNews();
-  }, []);
+  }, [page]);
 
 return(
 <div>
   <h3 className=" m-10  text-textTertiary text-2xl font-semibold tracking-widest">NUESTROS SPONSORS</h3>
   <div className="gap-5 h-48 flex flex-row items-center justify-center my-20">
+    <div className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+        <button
+          onClick={() => page > 1 && setPage(page - 1)}
+          className="w-full h-full font-medium text-3xl"
+        >
+          {"<"}
+        </button>
+        </div>
     {isLoading ? (
         <SpinnersPrimary />
       ) :!sponsors.length ? (
@@ -42,6 +52,14 @@ return(
         </CardSponsor>
       ))
     )}
+    <div className="rounded-lg w-12 h-12  flex items-center justify-center border border-backgroundGrey hover:bg-gray-300">
+      <button
+        onClick={() => page < totalPages && setPage(page + 1)}
+        className="w-full h-full font-medium text-3xl"
+      >
+      {">"}
+      </button>
+    </div>
   </div>
 </div>
 )

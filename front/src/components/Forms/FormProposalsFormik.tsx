@@ -63,6 +63,7 @@ const FormProposalsFormik = () => (
         const decodedToken: any = jwtDecode(tokenFromCookies);
 
         idDecodificado = decodedToken.userPayload.sub;
+        console.log(decodedToken);
       } catch (error) {
         console.error("Error al decodificar token", error);
         setSubmitting(false);

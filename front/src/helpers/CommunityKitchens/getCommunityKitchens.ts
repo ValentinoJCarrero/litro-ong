@@ -10,7 +10,8 @@ export async function getCommunityKitchens(limit: number, page: number): Promise
     const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        
       }
     });
 

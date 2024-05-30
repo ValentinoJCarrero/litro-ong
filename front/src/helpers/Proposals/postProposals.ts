@@ -1,4 +1,12 @@
+import Cookies from "js-cookie";
 export async function postProposals(id:any, newsResponse: any): Promise<any> {
+  const tokenData = Cookies.get('token');
+  let token = '';
+
+if (tokenData) {
+  const tokenObject = JSON.parse(tokenData); 
+  token = tokenObject.token; 
+}
   try {
     const url= new URL(`https://litro-ong.onrender.com/proposals`);
     url.searchParams.append('userId', id.toString());
@@ -7,6 +15,7 @@ export async function postProposals(id:any, newsResponse: any): Promise<any> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(newsResponse)
     });

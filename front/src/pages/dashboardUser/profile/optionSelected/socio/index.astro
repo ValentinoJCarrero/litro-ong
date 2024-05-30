@@ -1,72 +1,79 @@
 ---
 import DasboardLayouts from "../../../../../layouts/DasboardLayouts.astro";
 import AsideMenuUser from "../../../../../components/AsideMenuDasboard/AsideMenuUser.astro";
-import rectangle from "../../../../../assets/rectangleCard.svg";
-import ButtonCTASmall from "../../../../../components/Buttons/ButtonCTASmall.astro";
-import socio from "../../../../../assets/sersponsor.jpg";
+// import rectangle from "../../../../../assets/rectangleCard.svg";
+// import socio from "../../../../../assets/sersponsor.jpg";
+import sociotarj from "../../../../../assets/sociotarj.jpg";
+import FormSubscription from "../../../../../components/Forms/FormSubscription.tsx";
 ---
 
-
 <DasboardLayouts title="DashboardAdmin - Un Litro Alta Gracia.">
-    <div class="flex flex-row h-screen bg-secondary">
-      <div class="w-1/3 h-full pl-14 py-10">
-        <AsideMenuUser
-          ><h3 class="text-3xl font-medium text-primary">
-            Menu de control
-          </h3></AsideMenuUser
-        >
+  <div class="flex flex-row h-screen bg-secondary">
+    <div class="w-1/3 h-full pl-14 py-10">
+      <AsideMenuUser
+        ><h3 class="text-3xl font-medium text-primary">
+          Menu de control
+        </h3></AsideMenuUser
+      >
+    </div>
+    <div class="h-full w-full px-14 py-10 flex flex-col justify-between">
+      <div
+        class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-row justify-around h-full gap-4"
+      >
+        <div class="">
+          <div class="h-full w-80 rounded-3xl shadow-3xl">
+            <img
+              src={sociotarj.src}
+              alt="imagen"
+              class="absolute h-4/5 w-80 object-cover rounded-3xl"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col p-2 gap-2 justify-center ">
+          <div class="">
+            <h4 class="text-2xl font-medium text-primary w-full text-end">
+              SER SOCIO/A
+            </h4>
+          </div>
+          <div
+            class="flex flex-col gap-5 justify-center h-2/3 items-center "
+          >
+            <div class="flex flex-col bg-yellow-200">
+              <h5 class="text-xl font-semibold">
+                ¡Sé parte de nuestro equipo de socios/as!
+              </h5>
+              <div class="flex flex-col gap-2">
+                
+                <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Officia expedita itaque placeat, saepe sit velit deserunt nemo
+                  iure. Quasi facere maxime corrupti obcaecati harum molestiae
+                  libero possimus tempora atque laborum?
+                </p>
+                <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Officia expedita itaque placeat, saepe sit velit deserunt nemo
+                  iure. Quasi facere maxime corrupti obcaecati harum molestiae
+                  libero possimus tempora atque laborum?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center h-24 justify-center">
+            <!-- <h6 class="font-semibold text-lg">Ser socio/a</h6> -->
+            <FormSubscription client:load />
+          </div>
+        </div>
       </div>
-      <div class="h-full w-full px-14 py-10 flex flex-col justify-between">
-        <div
-          class="shadown-3xl rounded-xl bg-textPrimary shadow-3xl p-10 flex flex-col justify-around h-full gap-4"
+      <div class="w-full flex justify-end absolute bottom-14 right-20">
+        <a
+          href="/dashboardUser/profile"
+          class="bg-secondary transition-all text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
         >
-          <h4 class="text-2xl font-medium text-primary  w-full text-end ">
-            SUMATE A NOSOTROS
-          </h4>
-          <div class="flex flex-row gap-5 justify-center items-center m-10">
-           
-         
-            <div
-              class="h-96 w-80 rounded-3xl shadow-3xl transition-all hover:shadow-4xl cursor-pointer "
-            >
-              <a href="/dashboardUser/profile/optionSelected/socio">
-                <img
-                  src={socio.src}
-                  alt="imagen"
-                  class="absolute h-80 w-80 object-cover rounded-3xl"
-                />
-                <img
-                  src={rectangle.src}
-                  alt="fondo card"
-                  class="absolute h-96 w-80 rounded-3xl my-10"
-                />
-                <div class="relative top-64">
-                  <div class="flex flex-col items-center gap-5">
-                    <h6 class="font-semibold text-lg">Ser socio/a</h6>
-  
-                    <ButtonCTASmall title="¡Participar!" />
-                  </div>
-                  
-                </div>
-              </a>
-            </div>
-            <div class="w-1/2 flex flex-col gap-5">
-                <h5 class="text-xl font-semibold">¡Sé parte de nuestro equipo de socios/as!</h5>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia expedita itaque placeat, saepe sit velit deserunt nemo iure. Quasi facere maxime corrupti obcaecati harum molestiae libero possimus tempora atque laborum?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor iusto id, dolores deleniti vitae, minima neque velit nihil nam reiciendis magnam aliquam rem libero expedita delectus itaque cumque. Corrupti, delectus!</p>
-            </div>
-          </div>
-          <div class=" w-full flex justify-end absolute bottom-14 right-20">
-            <a
-              href="/dashboardUser/profile"
-              class="bg-secondary text-textSecondary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap mx-6"
-            >
-              Anterior
-            </a>
-          </div>
-        </div>
-        </div>
+          Anterior
+        </a>
       </div>
     </div>
-  </DasboardLayouts>
-  
+  </div>
+</DasboardLayouts>

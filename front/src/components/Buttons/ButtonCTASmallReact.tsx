@@ -10,7 +10,7 @@ interface ButtonWarningSmallProps {
       }
       
 const ButtonCTASmallReact: React.FC<ButtonWarningSmallProps> = ({ title, idEvent, onClick, color }):React.ReactElement => (
-    <button id={idEvent} onClick={onClick} className={`bg-tertiary px-10 py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap ${color ? `text-${color}` : 'textTertiary'}`}>
+    <button id={idEvent} onClick={onClick} className={`bg-tertiary px-10 py-1 rounded-full transition-all text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium h-min w-min whitespace-nowrap ${color ? `text-${color}` : 'textTertiary'}`}>
         {title}
     </button>
 );

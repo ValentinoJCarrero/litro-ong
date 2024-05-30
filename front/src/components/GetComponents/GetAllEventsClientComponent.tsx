@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { getEvents } from '.././../helpers/Events/getEvents'; 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import rectangle from '../../assets/rectangleCard.svg';
-import calendarIcon from '../../assets/calendarIcon.svg';
-import cursorIcon from '../../assets/cursorIcon.svg';
-import SpinnersPrimary from '../Spinners/SpinnersPrimary';
-import NotFound from '../NotFound/NotFound';
+import React, { useEffect, useState } from "react";
+import { getEvents } from ".././../helpers/Events/getEvents";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import rectangle from "../../assets/rectangleCard.svg";
+import calendarIcon from "../../assets/calendarIcon.svg";
+import cursorIcon from "../../assets/cursorIcon.svg";
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
+import NotFound from "../NotFound/NotFound";
 
 interface Event {
   id: string;
@@ -32,9 +32,9 @@ const EventsClientComponent: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventsData = await getEvents(3, page);
+        const eventsData = await getEvents(6, page);
         setEvents(eventsData.data);
-        setTotalPages(Math.ceil(eventsData.total / 3));
+        setTotalPages(Math.ceil(eventsData.total / 6));
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
@@ -62,7 +62,11 @@ const EventsClientComponent: React.FC = () => {
   }
 
   if (error) {
-    return <div className="text-red-500 w-full text-center text-3xl">Error: {error}</div>;
+    return (
+      <div className="text-red-500 w-full text-center text-3xl">
+        Error: {error}
+      </div>
+    );
   }
 
   if (!events.length) {
@@ -73,17 +77,26 @@ const EventsClientComponent: React.FC = () => {
     <div className="flex flex-col gap-12 items-center justify-center mb-20">
       <ul>
         <li>
-          <div className="flex flex-row gap-10 items-center justify-center m-2">
+          <div className="flex flex-row gap-10 items-center justify-center flex-wrap m-2">
             {events.map(({ id, title, date, primaryImage }) => {
-              const formattedDate = format(new Date(date), 'dd/MM/yyyy', { locale: es });
+              const formattedDate = format(new Date(date), "dd/MM/yyyy", {
+                locale: es,
+              });
               return (
                 <div
                   key={id}
                   className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
                 >
-                  <a href={`/events/DinamicEvent/${id}`} className="block h-full w-full">
+                  <a
+                    href={`/events/DinamicEvent/${id}`}
+                    className="block h-full w-full"
+                  >
                     <div className="relative h-full w-full">
-                      <img src={primaryImage} alt="imagen" className="h-80 w-full object-cover" />
+                      <img
+                        src={primaryImage}
+                        alt="imagen"
+                        className="h-80 w-full object-cover"
+                      />
                       <img
                         src={rectangle.src}
                         alt="fondo card"
@@ -92,11 +105,19 @@ const EventsClientComponent: React.FC = () => {
                       <div className="absolute bottom-0 w-full z-20 p-4">
                         <h6 className="font-semibold">{title}</h6>
                         <div className="flex items-center">
-                          <img src={calendarIcon.src} alt="icono calendario" className="mr-2" />
+                          <img
+                            src={calendarIcon.src}
+                            alt="icono calendario"
+                            className="mr-2 w-4 h-4"
+                          />
                           <p className="font-semibold">{formattedDate}</p>
                         </div>
                         <div className="flex justify-end items-center mt-4">
-                          <img src={cursorIcon.src} alt="icono cursor" className="mr-2" />
+                          <img
+                            src={cursorIcon.src}
+                            alt="icono cursor"
+                            className="mr-2 w-4 h-4"
+                          />
                           <h6 className="font-semibold">Ver detalles</h6>
                         </div>
                       </div>
@@ -112,17 +133,19 @@ const EventsClientComponent: React.FC = () => {
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}
-          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold transition-all px-2 rounded"
         >
-          Anterior
+          {"<"}
         </button>
-        <span>{page} / {totalPages}</span>
+        <p className=" font-base text-lg mx-1">
+          {page}/{totalPages}
+        </p>
         <button
           onClick={handleNextPage}
           disabled={page === totalPages}
-          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="mx-2 bg-primary hover:bg-blue-700 text-white font-bold px-2 rounded"
         >
-          Siguiente
+          {">"}
         </button>
       </div>
     </div>

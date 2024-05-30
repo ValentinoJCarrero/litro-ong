@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getEventByTitle } from "../../helpers/Events/GetEventByTitle";
 import NotFound from "../NotFound/NotFound";
 import BannerIndividualEvent from "../fromEvents/BannerIndividualEvent";
-import SpinnersPrimary from '../Spinners/SpinnersPrimary';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import SpinnersPrimary from "../Spinners/SpinnersPrimary";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface Event {
   id: string;
@@ -56,13 +56,19 @@ const DynamicEvent: React.FC = () => {
   }, [url]);
 
   if (isLoading) {
-    return <div className="flex items-center justify-center h-full">
-              <SpinnersPrimary />
-            </div>
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <SpinnersPrimary />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-500 w-full text-center text-3xl">Error: {error}</div>;
+    return (
+      <div className="text-red-500 w-full text-center text-3xl">
+        Error: {error}
+      </div>
+    );
   }
 
   return (
@@ -107,7 +113,7 @@ const DynamicEvent: React.FC = () => {
             )}
 
             {!event.secondaryImage && event.tertiaryImage && (
-              <div className="m-24 w-full h-96 flex flex-row items-center flex-wrap justify-center gap-10">
+              <div className="m-12 w-full h-96 flex flex-row items-center flex-wrap justify-center gap-10">
                 <img
                   src={event.tertiaryImage}
                   alt="imagen"
@@ -117,7 +123,7 @@ const DynamicEvent: React.FC = () => {
             )}
 
             {event.secondaryImage && !event.tertiaryImage && (
-              <div className="m-24 w-full h-96 flex flex-row items-center flex-wrap justify-center gap-10">
+              <div className=" m-12 w-full h-96 flex flex-row items-center flex-wrap justify-center gap-10">
                 <img
                   src={event.secondaryImage}
                   alt="imagen"

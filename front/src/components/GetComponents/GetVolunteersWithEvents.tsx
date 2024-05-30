@@ -4,6 +4,7 @@ import NotFound from "../NotFound/NotFound";
 import { getVolunteer } from "../../helpers/Volunteers/getVolunteers";
 import ButtonCTASmallReact from "../Buttons/ButtonCTASmallReact";
 import { postAddVolunteer } from "../../helpers/Events/postAddVolunteer";
+import Swal from "sweetalert2";
 interface User {
   id: string;
   fullName: string;
@@ -29,6 +30,7 @@ interface ApiResponse {
 }
 
 const GetVolunteersWithEvents = ({ children }: any) => {
+  const titleEvent = children;
   const [page, setPage] = useState(1);
   const [message, setMessage] = useState("");
   const [totalPages, setTotalPages] = useState(3);
@@ -48,10 +50,36 @@ const GetVolunteersWithEvents = ({ children }: any) => {
     fetchNews(page);
   }, [page]);
 
-  const handleVolunteer = async (id:any, children:string): Promise<void> => {
-    
-    await postAddVolunteer(id, children);
-    
+  const handleVolunteer = async (id:any, titleEvent:string): Promise<void> => {
+    try {
+      console.log(id);
+      console.log(titleEvent);
+      const response = await postAddVolunteer(id, titleEvent);
+      console.log(response);
+      if (!response.statusCode) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Se asignó correctamente`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          //window.location.reload()
+        }, 1500);
+      } else {
+        throw new Error("Failed to add volunteer");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Ocurrió un error al asignar voluntario",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
 };
 
   return (
@@ -85,7 +113,7 @@ const GetVolunteersWithEvents = ({ children }: any) => {
                       <ButtonCTASmallReact
                             title="Asignar"
                             idEvent={`assign-${id}`}
-                            onClick={() => handleVolunteer(id, children)}
+                            onClick={() => handleVolunteer(id, titleEvent)}
                             color="white"
                           />
                       </div>

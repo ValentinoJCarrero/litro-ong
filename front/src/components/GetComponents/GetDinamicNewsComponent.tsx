@@ -60,7 +60,7 @@ const SearchResultsComponent: React.FC = () => {
   return (
     <div>
       {isLoading ? (
-        <div className="flex items-center justify-center h-full">
+        <div className="flex items-center justify-center h-screen">
           <SpinnersPrimary />
         </div>
       ) : error ? (
