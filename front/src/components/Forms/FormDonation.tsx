@@ -96,7 +96,6 @@ const FormDonation = () => {
                 <Field
                   type="text"
                   name="fullName"
-                  placeholder="John Doe"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
                     errors.fullName && touched.fullName
                       ? "border-warningBorder text-warningText font-medium"
@@ -131,7 +130,6 @@ const FormDonation = () => {
                 <Field
                   type="email"
                   name="email"
-                  placeholder="you@example.com"
                   className={`w-full rounded-l-md border-backgroundGrey border-r-transparent border placeholder:text-textParagraph px-3 py-2 focus-visible:outline-none ${
                     errors.email && touched.email
                       ? "border-warningBorder text-warningText font-medium"
@@ -155,7 +153,7 @@ const FormDonation = () => {
                 </div>
               </div>
               <div className="h-4 text-textParagraph">
-                <p>Nombre opcional</p>
+                <p>Email opcional</p>
               </div>
             </div>
             <div className="flex flex-col">
