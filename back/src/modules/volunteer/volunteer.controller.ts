@@ -125,7 +125,7 @@ export class VolunteerController {
       'Esta ruta permite a un voluntario eliminarse a sí mismo de un evento. El id del voluntario es enviado por parametro, y el id del evento por Query',
   })
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles('Volunteer')
+  @Roles('Volunteer', 'Admin')
   @UseInterceptors(RemoveDataSensitive)
   removeVolunteersOfEvent(
     @Param('idVolunteer', ParseUUIDPipe) idVolunteer: string,

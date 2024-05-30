@@ -8,15 +8,20 @@ export class SubsService {
 
   async getAllSubscriptions(offset: number, limit: number) {
     try {
-      const res = await preapproval.search({ options: {
-        offset,
-        limit
-      }});
+      const res = await preapproval.search({
+        options: {
+          offset,
+          limit,
+        },
+      });
 
       const subscriptions = res.results;
 
-      if(res.paging.total > offset + limit) {
-        const nextSubscriptions = await this.getAllSubscriptions(offset+limit, limit);
+      if (res.paging.total > offset + limit) {
+        const nextSubscriptions = await this.getAllSubscriptions(
+          offset + limit,
+          limit,
+        );
         subscriptions.push(...nextSubscriptions);
       }
 
@@ -28,7 +33,10 @@ export class SubsService {
   }
 
   async getSubscriptionById(id: string) {
-    await preapproval.get({ id }).then(data => console.log(data)).catch(error => console.log(error));
+    await preapproval
+      .get({ id })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
   }
 
   async createSubscription(email: string) {
@@ -63,7 +71,8 @@ export class SubsService {
     return await preapproval
       .get({ id: subId })
       .then(async (data) => {
-      if (!(data.status === 'authorized' || data.status === 'pending')) return 'rejected';
+        if (!(data.status === 'authorized' || data.status === 'pending'))
+          return 'rejected';
 
         const nextPaymentDate = new Date(data.summarized.last_charged_date);
         nextPaymentDate.setUTCMonth(nextPaymentDate.getUTCMonth() + 1);
