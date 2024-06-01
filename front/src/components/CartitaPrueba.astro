@@ -20,8 +20,8 @@ const { title, description, question, image, link } = Astro.props;
 ---
 
 <article class=" mb-2">
-  <div class="bg-secondary p-6 flex flex-row items-center justify-around">
-    <div class="w-1/2 m-2 flex flex-col gap-5">
+  <div class="bg-secondary p-6 flex flex-row flex-wrap items-center justify-around gap-5">
+    <div class="md:w-1/2 m-2 flex flex-col gap-5">
       <h3 class="  text-textTertiary text-2xl font-semibold tracking-widest">{question}</h3>
       <h3 class="text-4xl font-bold  text-textTertiary">
         {title}
