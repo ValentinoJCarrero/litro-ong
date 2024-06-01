@@ -26,14 +26,14 @@ const pagesLoginFooter = [
 ---
 
 <div
-  class="h-[30rem] bg-backgroundGrey  w-full flex flex-row relative bottom-0 text-textTertiary"
+  class=" bg-backgroundGrey  items-center  flex   bottom-0 text-textTertiary p-5"
 >
-  <div class="flex flex-row w-full h-full justify-between p-12">
+  <div class="flex flex-row  ">
     <div class=" flex flex-col ">
-      <div class="h-4/5  gap-10 flex flex-row">
-        <div class=" h-full ">
+      <div class=" flex flex-row">
+        <div class=" ">
           <h5 class="text-xl font-semibold">Inicio</h5>
-          <ul class="flex flex-col justify-between">
+          <ul class="flex flex-col ">
             {
               pagesHomeFooter.map(({ name, href }, key) => (
                 <li class="my-3">
@@ -45,9 +45,9 @@ const pagesLoginFooter = [
             }
           </ul>
         </div>
-        <div class=" h-full">
+        <div class=" ">
           <h5 class="text-xl font-semibold">Links</h5>
-          <ul class="flex flex-col justify-between">
+          <ul class="flex flex-col">
             {
               pagesLinksFooter.map(({ name, href }, key) => (
                 <li class="my-3">
@@ -59,7 +59,7 @@ const pagesLoginFooter = [
             }
           </ul>
         </div>
-        <div class=" h-full">
+        <div class=" ">
           {!tokenUser && !session?.user?.email ? (
           <h5 class="text-xl font-semibold">¿No Ingresaste?</h5>
           <ul class="flex flex-col justify-between">
@@ -79,21 +79,22 @@ const pagesLoginFooter = [
       <div class="h-1/5 flex items-end">
         <Rrss />
       </div>
-    </div>
-    <div class="flex flex-col w-1/2 justify-between ">
-      <div class="w-15 flex flex-col justify-center content-center ">
-        <h4 class="text-2xl font-semibold mb-10">Subscribite al Newslatter</h4>
-        <InputNewslatter />
-      </div>
-      <div >
-        <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5>
-        <p>
-          Esta Pagina esta Realizado por Simon G. Flores - Miguel Tapia - Lucas
-          Di Fulvio - Valentino Joel Carrero - Nicolas Addamo - Julian
-          Magallanes
-          <br />Version N° 1.01.01
-        </p>
+      <div class="flex flex-col   ">
+        <div class=" bg-red-500 flex flex-col justify-center content-center w-full ">
+          <h4 class="text-2xl font-semibold mb-10">Subscribite al Newslatter</h4>
+          <InputNewslatter />
+        </div>
+        <div >
+          <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5>
+          <p>
+            Esta Pagina esta Realizado por Simon G. Flores - Miguel Tapia - Lucas
+            Di Fulvio - Valentino Joel Carrero - Nicolas Addamo - Julian
+            Magallanes
+            <br />Version N° 1.01.01
+          </p>
+        </div>
       </div>
     </div>
   </div>
+  
 </div>
