@@ -3,7 +3,7 @@ import Rrss from "../Rrss/Rrss.astro";
 import InputNewslatter from "./InputNewslatter/InputNewslatter.tsx";
 import { getSession } from "auth-astro/server";
 const session = await getSession(Astro.request);
-const tokenUser = Astro.cookies.get("token")?.value || '';
+const tokenUser = Astro.cookies.get("token")?.value || "";
 const pagesHomeFooter = [
   { name: "Quiénes somos", href: "/aboutMe" },
   { name: "Talleres", href: "/workshops" },
@@ -16,8 +16,7 @@ const pagesLinksFooter = [
   { name: "Quiero ser voluntario/a", href: "/voluntarios" },
   { name: "Quiero ser sponsor/a", href: "/sponsors" },
 ];
-if(tokenUser && session?.user?.email){
-  
+if (tokenUser && session?.user?.email) {
 }
 const pagesLoginFooter = [
   { name: "Ingresar", href: "/auth/login2" },
@@ -26,74 +25,79 @@ const pagesLoginFooter = [
 ---
 
 <div
-  class="h-[30rem] bg-backgroundGrey  w-full flex flex-row relative bottom-0 text-textTertiary"
+  class="bg-backgroundGrey flex bottom-0 text-textTertiary p-5 flex-row items-center justify-center"
 >
-  <div class="flex flex-row w-full h-full justify-between p-12">
-    <div class=" flex flex-col ">
-      <div class="h-4/5  gap-10 flex flex-row">
-        <div class=" h-full ">
-          <h5 class="text-xl font-semibold">Inicio</h5>
-          <ul class="flex flex-col justify-between">
+  <div
+    class="flex flex-col w-full md:justify-start justify-center items-center"
+  >
+    <div class="flex flex-row w-full justify-between flex-wrap">
+      <div class="flex flex-row justify-between w-full">
+        <div class="flex flex-row flex-wrap gap-5">
+          <div class="">
+            <h5 class="text-lg font-semibold my-2">Inicio</h5>
+            <ul class="flex flex-col gap-1 w-40 text-sm">
+              {
+                pagesHomeFooter.map(({ name, href }, key) => (
+                  <li class="">
+                    <a href={href} id={`footer-link-${key}`}>
+                      {name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="">
+            <h5 class="text-lg font-semibold my-2">Links</h5>
+            <ul class="flex flex-col gap-1 w-48 text-sm">
+              {
+                pagesLinksFooter.map(({ name, href }, key) => (
+                  <li class="">
+                    <a href={href} id={`footer-link-${key}`}>
+                      {name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="">
             {
-              pagesHomeFooter.map(({ name, href }, key) => (
-                <li class="my-3">
-                  <a href={href} id={`footer-link-${key}`}>
-                    {name}
-                  </a>
-                </li>
-              ))
+              !tokenUser && !session?.user?.email ? (
+                <>
+                  <h5 class="text-lg font-semibold my-2">¿No Ingresaste?</h5>
+                  <ul class="flex flex-col gap-1 w-40 text-sm">
+                    {pagesLoginFooter.map(({ name, href }, key) => (
+                      <li class="">
+                        <a href={href} id={`footer-link-${key}`}>
+                          {name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : null
             }
-          </ul>
+          </div>
+          <div class="flex flex-col justify-start mx-4 gap-2">
+            <h4 class="text-lg font-semibold justify-start p-2 mx-2">
+              Subscribite al Newslatter
+            </h4>
+            <InputNewslatter />
+          </div>
         </div>
-        <div class=" h-full">
-          <h5 class="text-xl font-semibold">Links</h5>
-          <ul class="flex flex-col justify-between">
-            {
-              pagesLinksFooter.map(({ name, href }, key) => (
-                <li class="my-3">
-                  <a href={href} id={`footer-link-${key}`}>
-                    {name}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+        <div class="flex items-start w-56 justify-end">
+          <Rrss />
         </div>
-        <div class=" h-full">
-          {!tokenUser && !session?.user?.email ? (
-          <h5 class="text-xl font-semibold">¿No Ingresaste?</h5>
-          <ul class="flex flex-col justify-between">
-            {
-              pagesLoginFooter.map(({ name, href }, key) => (
-                <li class="my-3">
-                  <a href={href} id={`footer-link-${key}`}>
-                    {name}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>) : null
-          }
-        </div>
-      </div>
-      <div class="h-1/5 flex items-end">
-        <Rrss />
       </div>
     </div>
-    <div class="flex flex-col w-1/2 justify-between ">
-      <div class="w-15 flex flex-col justify-center content-center ">
-        <h4 class="text-2xl font-semibold mb-10">Subscribite al Newslatter</h4>
-        <InputNewslatter />
-      </div>
-      <div >
-        <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5>
-        <p>
-          Esta Pagina esta Realizado por Simon G. Flores - Miguel Tapia - Lucas
-          Di Fulvio - Valentino Joel Carrero - Nicolas Addamo - Julian
-          Magallanes
-          <br />Version N° 1.01.01
-        </p>
-      </div>
+
+    <div class=" w-full">
+      <!-- <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5> -->
+      <p class="text-end text-sm ">
+        Esta Pagina fue desarrollada por <strong>TaliextGroup</strong>
+        <!-- <br />Version N° 1.01.01 -->
+      </p>
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ interface Props {
 const { href, title, calendar} = Astro.props as Props;
 ---
 
-<li class="h-[30rem] w-[25rem] list-none rounded-3xl shadow-3xl hover:shadow-4xl">
+<li class="h-96 w-80 list-none rounded-3xl shadow-3xl hover:shadow-4xl">
   <a href={href}>
     <slot />
     <Image src={rectangle} alt="fondo card" class="relative bottom-80 z-0"/>
