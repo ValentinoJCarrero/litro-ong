@@ -1,7 +1,6 @@
 import { Body, Controller, Post, Put,Get, UseGuards } from '@nestjs/common';
 import { MailerService } from './mailer.service';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/guards/Auth.guard';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Mailer')
 @Controller('mailer')
@@ -28,8 +27,6 @@ export class MailerController {
 
 
   @Put('unsubscribe')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard)
   @ApiOperation({ 
     summary: 'Permite desuscribirse de la newsletter',
     description:'Esta ruta permite desuscribirse de la newsletter mediante el envio de email por body'  

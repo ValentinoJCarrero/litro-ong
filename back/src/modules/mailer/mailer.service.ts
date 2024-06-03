@@ -85,7 +85,7 @@ export class MailerService {
          const uri="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png"
          console.log(mailList);
         const msg = {
-          to: mailList, emaillist,
+          to: mailList,
           from:  'ellitroaltagracia@gmail.com',
           subject: 'Noticias del litro',
           text: `este es el texto`,
