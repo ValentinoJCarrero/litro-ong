@@ -19,16 +19,27 @@ import { Image } from "astro:assets";
     loading="lazy"
     decoding="async"
   />
-  <div class="absolute inset-0 bottom-5  justify-center mx-10  hidden  md:flex flex-col gap-10">
-    <div class="hidden md:block">
-      <h1 class="lg:text-6xl text-3xl  font-bold mb-3">NUESTRA MISIÓN</h1>
-      <h2 class="lg:text-2xl text-lg w-3/5 font-medium">
+  <div class="absolute top-5 lg:top-1/4 justify-center h-full lg:h-auto    md:flex flex-col gap-5 w-full">
+    <div class=" bg-blue-400/70 lg:bg-transparent px-2 py-1 flex flex-col">
+      <h1 class="lg:text-6xl text-3xl lg:text-black  text-white text-center lg:text-start font-bold mb-3">NUESTRA MISIÓN</h1>
+      <h2 class="lg:text-2xl  text-xs lg:w-3/5 lg:text-black text-white  font-medium">
         Estamos permanentemente activos para reducir las desigualdades
         socioeconómicas existentes en la sociedad
       </h2>
+      <div class="flex  justify-end">
+
+        <a href="/aboutMe">
+          <button class="lg:hidden text-xs block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded  ">
+            Conocenos
+          </button>
+        </a>
+      </div>
     </div>
-    <a href="/aboutMe">
-      <ButtonCTA title="Más sobre nosotros" />
-    </a>
+    <div class="hidden lg:block" >
+
+      <a href="/aboutMe">
+        <ButtonCTA title="Más sobre nosotros" />
+      </a>
+    </div>
   </div>
 </div>
