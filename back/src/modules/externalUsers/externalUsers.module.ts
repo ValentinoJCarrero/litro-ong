@@ -8,6 +8,6 @@ import { ExternalUsersRepository } from "./externalUsers.repository";
     imports: [TypeOrmModule.forFeature([ExternalUser])],
     controllers: [ExternalUsersController],
     providers: [ExternalUsersRepository],
-    exports: [ExternalUsersRepository]  
+    exports: [ExternalUsersRepository],
 })
 export class ExternalUsersModule {}

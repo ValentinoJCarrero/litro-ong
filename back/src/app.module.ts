@@ -32,11 +32,15 @@ import { Volunteer } from './entities/Volunteer.entity';
 import { Benefit } from './entities/Benefit.entity';
 import { CommunityKitchens } from './entities/CommunityKitchens.entity';
 import { SubsModule } from './modules/subs/subs.module';
+import { ExternalUser } from './entities/ExternalUser.entity';
+import { ExternalUsersModule } from './modules/externalUsers/externalUsers.module';
+import { ExternalUsersRepository } from './modules/externalUsers/externalUsers.repository';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       User,
+      ExternalUser,
       Donation,
       Event,
       News,
@@ -66,6 +70,7 @@ import { SubsModule } from './modules/subs/subs.module';
     SponsorModule,
     BenefitModule,
     EventModule,
+    ExternalUsersModule,
     UsersModule,
     AuthModule,
     MailerModule,

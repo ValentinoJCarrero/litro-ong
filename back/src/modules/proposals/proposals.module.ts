@@ -7,9 +7,10 @@ import { ProposalsRepository } from './proposals.repository';
 import { User } from 'src/entities/User.entity';
 import { MailerService } from '../mailer/mailer.service';
 import { UsersRepository } from '../users/users.repository';
+import { ExternalUsersModule } from '../externalUsers/externalUsers.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Proposals, User])],
+  imports: [TypeOrmModule.forFeature([Proposals, User]), ExternalUsersModule],
   controllers: [ProposalsController],
   providers: [ProposalsService, ProposalsRepository, MailerService, UsersRepository],
 })
