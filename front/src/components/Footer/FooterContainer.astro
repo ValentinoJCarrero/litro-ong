@@ -25,14 +25,14 @@ const pagesLoginFooter = [
 ---
 
 <div
-  class="bg-backgroundGrey flex bottom-0 text-textTertiary p-5 flex-row items-center justify-center"
+  class="bg-backgroundGrey flex bottom-0 text-textTertiary p-2 flex-col items-center justify-center"
 >
   <div
     class="flex flex-col w-full md:justify-start justify-center items-center"
   >
     <div class="flex flex-row w-full justify-between flex-wrap">
       <div class="flex flex-row justify-between w-full">
-        <div class="flex flex-row flex-wrap gap-5">
+        <div class="flex flex-row flex-wrap gap-5 w-2/3 justify-around">
           <div class="">
             <h5 class="text-lg font-semibold my-2">Inicio</h5>
             <ul class="flex flex-col gap-1 w-40 text-sm">
@@ -49,7 +49,7 @@ const pagesLoginFooter = [
           </div>
           <div class="">
             <h5 class="text-lg font-semibold my-2">Links</h5>
-            <ul class="flex flex-col gap-1 w-48 text-sm">
+            <ul class="flex flex-col gap-1 w-40 text-sm">
               {
                 pagesLinksFooter.map(({ name, href }, key) => (
                   <li class="">
@@ -79,25 +79,24 @@ const pagesLoginFooter = [
               ) : null
             }
           </div>
-          <div class="flex flex-col justify-start mx-4 gap-2">
-            <h4 class="text-lg font-semibold justify-start p-2 mx-2">
-              Subscribite al Newslatter
-            </h4>
-            <InputNewslatter />
-          </div>
         </div>
-        <div class="flex items-start w-56 justify-end">
+        <div class="flex items-start w-56 justify-end p-2">
           <Rrss />
         </div>
       </div>
     </div>
-
-    <div class=" w-full">
-      <!-- <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5> -->
-      <p class="text-end text-sm ">
-        Esta Pagina fue desarrollada por <strong>TaliextGroup</strong>
-        <!-- <br />Version N° 1.01.01 -->
-      </p>
-    </div>
+  </div>
+  <div class="flex flex-col justify-start mx-4 py-4 gap-2 w-full">
+    <h4 class="text-lg font-semibold justify-start mx-2">
+      Subscribite al Newslatter
+    </h4>
+    <InputNewslatter />
+  </div>
+  <div class="w-full">
+    <!-- <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5> -->
+    <p class="text-end text-sm">
+      Esta Pagina fue desarrollada por <strong>TaliextGroup</strong>
+      <!-- <br />Version N° 1.01.01 -->
+    </p>
   </div>
 </div>
