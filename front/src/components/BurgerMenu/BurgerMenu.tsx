@@ -53,7 +53,7 @@ const BurgerMenu: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="/Donar" className="block px-4 py-2 text-yellow-500 hover:bg-gray-700 transition-colors">
+              <a href="/donar" className="block px-4 py-2 text-yellow-500 hover:bg-gray-700 transition-colors">
                 Dona
               </a>
             </li>
