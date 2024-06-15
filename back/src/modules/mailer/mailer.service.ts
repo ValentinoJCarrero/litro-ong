@@ -3,23 +3,32 @@ import { WelcomeMailDto } from 'src/dtos/Mail.dto';
 import sgMail from '../../config/mailer.config';
 import { UsersRepository } from '../users/users.repository';
 import { Proposals } from 'src/entities/Proposals.entity';
+import { ExternalUsersRepository } from '../externalUsers/externalUsers.repository';
 
 @Injectable()
 export class MailerService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository,
+              private readonly externalUsersRepository: ExternalUsersRepository
+    ) {}
 
   
   async unsubscribe(email: string): Promise<void> {
     const user = await this.usersRepository.getUserByEmail(email);
+    const euser = await this.externalUsersRepository.getExternalUsers(email);
 
-    if (!user) {
+    if (!user && !euser) {
       console.log(`No user found with email: ${email}`);
       return;
     }
 
     try {
-      await this.usersRepository.updateUser(user.id, { isSubscribed: false });
-      console.log(`User unsubscribed: ${user.email}`);
+      if (user) {
+        await this.usersRepository.updateUser(user.id, { isSubscribed: false });
+        console.log(`User unsubscribed: ${user.email}`);
+      } else {
+        await this.externalUsersRepository.deleteExternalUser(email);
+        console.log(`External user unsubscribed: ${email}`);
+      }
     } catch (error) {
       console.error('Error unsubscribing user:', error);
     }
@@ -72,6 +81,7 @@ export class MailerService {
     try {
          const users = await this.usersRepository.getAllUsers(1, 100);//ademas del paginado, cuando crezca la ong va a ser necesario el envio por lotes.)
          const mailList = users.data.filter(user => user.isSubscribed===true && user.email);
+         const emaillist = await this.externalUsersRepository.getAllExternalUsers();
          const uri="https://res.cloudinary.com/dsiic5ax7/image/upload/v1716153635/logo_s6phc5.png"
          console.log(mailList);
         const msg = {

@@ -35,63 +35,70 @@ const userRole =
 ---
 
 <div
-  class="bg-primary w-full h-28 flex flex-row items-center px-10 justify-between content-center shadow-3xl"
+  class="bg-primary h-28 flex flex-row items-center px-10 justify-center lg:justify-between content-center shadow-3xl"
 >
   <a href="/"
-    ><Image src={logoIcon} alt="Logo de Un Litro de Leche Alta Gracia" /></a
+    ><Image
+      src={logoIcon}
+      alt="Logo de Un Litro de Leche Alta Gracia"
+      class="md:h-28 h-14"
+    /></a
   >
-  <SearchPages />
-  <div class="flex flex-row items-center gap-10">
+  <div class="hidden lg:block">
+    <SearchPages />
+  </div>
+  <div class="md:flex hidden flex-row items-center gap-10">
     <a href="/donar">
       <ButtonSecondary title="Dona" />
     </a>
-
-    {
-      email ? (
-        email.length ? (
-          <MenuUser client:load>
-            <img
-              src={session?.user?.image}
-              alt="Imagen de perfil"
-              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-            />
-          </MenuUser>
+    <div class="">
+      {
+        email ? (
+          email.length ? (
+            <MenuUser client:load>
+              <img
+                src={session?.user?.image}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </MenuUser>
+          ) : (
+            <MenuUser client:load>
+              <img
+                src={session?.user?.image}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </MenuUser>
+          )
+        ) : tokenUser ? (
+          userRole === "Admin" ? (
+            <Menu client:load>
+              <img
+                src={avatarAdmin.src}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </Menu>
+          ) : (
+            <MenuUser client:load>
+              <img
+                src={avatarUser.src}
+                alt="Imagen de perfil"
+                class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
+              />
+            </MenuUser>
+          )
         ) : (
-          <MenuUser client:load>
+          <a href="/auth/login2">
             <img
-              src={session?.user?.image}
+              src={imagenPerfilDefault.src}
               alt="Imagen de perfil"
               class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
             />
-          </MenuUser>
+          </a>
         )
-      ) : tokenUser ? (
-        userRole === "Admin" ? (
-          <Menu client:load>
-            <img
-              src={avatarAdmin.src}
-              alt="Imagen de perfil"
-              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-            />
-          </Menu>
-        ) : (
-          <MenuUser client:load>
-            <img
-              src={avatarUser.src}
-              alt="Imagen de perfil"
-              class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-            />
-          </MenuUser>
-        )
-      ) : (
-        <a href="/auth/login2">
-          <img
-            src={imagenPerfilDefault.src}
-            alt="Imagen de perfil"
-            class="w-16 rounded-full shadow-3xl bg-secondary p-1 hover:scale-105 transition-all"
-          />
-        </a>
-      )
-    }
+      }
+    </div>
   </div>
 </div>
