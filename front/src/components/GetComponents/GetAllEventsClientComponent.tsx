@@ -85,7 +85,7 @@ const EventsClientComponent: React.FC = () => {
               return (
                 <div
                   key={id}
-                  className="h-96 w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl my-10 overflow-hidden"
+                  className="h-96 w-80 h:w-96 list-none rounded-3xl shadow-3xl transition-all hover:shadow-4xl overflow-hidden"
                 >
                   <a
                     href={`/events/DinamicEvent/${id}`}
