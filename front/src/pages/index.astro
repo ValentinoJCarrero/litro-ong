@@ -5,6 +5,7 @@ import SectionInformation from "../components/fromHome/SectionInformation/Sectio
 import SectionSponsors from "../components/fromHome/SectionSponsors/SectionSponsors.tsx";
 import SectionTalleresDisponibles from "../components/fromHome/SectionTalleresDisponibles/SectionTalleresDisponibles.astro";
 import SetionLatestNews from "../components/fromHome/SectionUltimasNoticias/SectionLatestNews.astro";
+import BurgerMenu from "../components/BurgerMenu/BurgerMenu";
 ---
 <Layout title="Inicio - Un Litro Alta Gracia.">
   <main>
@@ -13,5 +14,6 @@ import SetionLatestNews from "../components/fromHome/SectionUltimasNoticias/Sect
 	<SectionTalleresDisponibles />
 	<SetionLatestNews/>
 	<SectionSponsors client:load/>
+	<BurgerMenu client:load/>
   </main>
 </Layout>
