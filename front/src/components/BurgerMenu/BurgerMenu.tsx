@@ -10,7 +10,7 @@ const BurgerMenu: React.FC = () => {
   };
 
   return (
-    <div className="relative l">
+    <div className="relative lg:hidden">
       <button className="p-3  bg-indigo-500 text-white fixed bottom-4 right-4 rounded-full z-20 " onClick={toggleMenu}>
         <IoMenu />
       </button>
@@ -18,18 +18,33 @@ const BurgerMenu: React.FC = () => {
         <div className="fixed bottom-4 right-4   w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-10">
           <ul className="flex flex-col-reverse">
             <li>
-              <a href="/contacto" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
-                Contacto
+              <a href="/auth/login2" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+                Ingresar
               </a>
             </li>
             <li>
-              <a href="/nosotros" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+              <a href="/communityKitchens" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+                Dónde ayudamos
+              </a>
+            </li>
+            <li>
+              <a href="/events" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+                Eventos
+              </a>
+            </li>
+            <li>
+              <a href="/news" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+                Noticias
+              </a>
+            </li>
+            <li>
+              <a href="/aboutMe" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
                 Nosotros
               </a>
             </li>
             <li>
-              <a href="/servicios" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
-                Servicios
+              <a href="/workshops" className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors">
+                Talleres
               </a>
             </li>
             <li>
