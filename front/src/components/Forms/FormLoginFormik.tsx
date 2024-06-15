@@ -81,7 +81,7 @@ const FormLoginFormik = () => {
       }}
     >
       {({ errors, touched }) => (
-        <Form className="text-sm text-textParagraph flex flex-col justify-center w-96  m-5">
+        <Form className="text-sm text-textParagraph flex flex-col justify-center lg:w-96 w-80  m-5">
           <div className="flex flex-col">
             <label htmlFor="email" className="font-medium my-2 ">
               Email

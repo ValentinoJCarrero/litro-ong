@@ -6,8 +6,9 @@ import logoIcon from "../../../assets/Logo.svg";
 import iconGoogle from "../../../assets/Google__G__logo.webp";
 import "@fontsource-variable/montserrat";
 import homeBack from "../../../assets/homeBack.svg";
-
+import BurgerMenu from "../../../components/BurgerMenu/BurgerMenu";
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,60 +19,57 @@ import homeBack from "../../../assets/homeBack.svg";
     <meta name="generator" content={Astro.generator} />
     <title>Login - Un litro Alta Gracia</title>
   </head>
-  <body>
-    <a href="/">
-
+  <body class="bg-primary">
+    <a href="/" class="fixed hidden lg:flex top-5 left-5 z-10  ">
       <img
         src={homeBack.src}
         alt="Fondo de la página de inicio"
-        class=" fixed top-5 left-5 z-10"
+        
       />
     </a>
-    <div class="flex flex-row h-screen">
-      <div class="bg-primary w-1/2 flex flex-col items-center justify-center">
-        <a href="/" class="w-4/6"
-          ><Image
+    <div class="flex flex-col lg:flex-row h-screen w-screen">
+      <div class="bg-primary lg:w-1/2 flex flex-col lg:h-auto h-1/4 items-center justify-center  ">
+        <a href="/" class="lg:w-4/6 lg:h-auto h-24 flex">
+          <Image
             src={logoIcon}
             alt="Logo de Un Litro de Leche Alta Gracia"
             class="w-full"
-          /></a
-        >
+          />
+        </a>
       </div>
       <div
-        class="bg-textPrimary w-1/2 flex flex-col items-center justify-center"
+        class="bg-textPrimary lg:w-1/2 h-screen flex flex-col items-center justify-center lg:rounded-none rounded-t-lg"
       >
         <FormLoginFormik client:load />
         <button
-              id="buttonLogin"
-              class="bg-secondary flex flex-row items-center justify-center transition-all text-textSecondary   py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium  whitespace-nowrap "
-            >
-              <div class="flex flex-row gap-1 items-center justify-center content-center w-64 ">
-                <img
-                  src={iconGoogle.src}
-                  alt="icono de google"
-                  class="w-6 h-6 "
-                />
-                Continuar con Google
-              </div>
-            </button>
+          id="buttonLogin"
+          class="bg-secondary flex flex-row items-center justify-center transition-all text-textSecondary py-1 rounded-full text-lg shadow-3xl hover:scale-105 focus:shadow-none font-medium whitespace-nowrap"
+        >
+          <div
+            class="flex flex-row gap-1 items-center justify-center content-center w-64"
+          >
+            <img src={iconGoogle.src} alt="icono de google" class="w-6 h-6" />
+            Continuar con Google
+          </div>
+        </button>
       </div>
     </div>
+    <BurgerMenu client:load/>
   </body>
 </html>
 
 <script>
-
-
   const { signIn } = await import("auth-astro/client");
   const buttonLogin = document.querySelector<HTMLButtonElement>("#buttonLogin");
   if (buttonLogin) {
-    buttonLogin.onclick = async() => {
+    buttonLogin.onclick = async () => {
       signIn("google", { callbackUrl: "/" });
-    }    
+    };
   } else {
     console.error("No se encontró ningún elemento con el ID 'buttonLogin'");
   }
 </script>
+
 <style is:global>
   :root {
   }
