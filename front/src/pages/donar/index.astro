@@ -14,7 +14,7 @@ if (token) {
     <h1 class="text-4xl font-bold mb-3 text-center">
       ¡Gracias por llegar hasta aquí!
     </h1>
-    <div class="flex flex-row items-start justify-center m-10 gap-12">
+    <div class="flex lg:flex-row flex-col items-start justify-center lg:m-10 gap-12">
       <div class="lg:w-3/5 text-lg font-regular text-textParagraph">
         <p>
           Tu contribución marca la diferencia en la vida de muchos
@@ -53,8 +53,8 @@ if (token) {
               />
               </a>
             : 
-            <div class="flex flex-row justify-between">
-              <div >
+            <div class="flex lg:flex-row flex-col flex-wrap justify-around gap-5">
+              <div class="">
                 
               <h6 class="mb-4">¿Ya estas registrado?</h6>
               <a href="/auth/login2">
