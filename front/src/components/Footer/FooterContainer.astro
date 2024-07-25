@@ -7,7 +7,7 @@ const tokenUser = Astro.cookies.get("token")?.value || "";
 const pagesHomeFooter = [
   { name: "Quiénes somos", href: "/aboutMe" },
   { name: "Talleres", href: "/workshops" },
-  { name: "Donde ayudamos", href: "/communityKitchens" },
+  { name: "Dónde ayudamos", href: "/communityKitchens" },
   { name: "Eventos", href: "/events" },
   { name: "Noticias", href: "/news" },
 ];
@@ -65,7 +65,7 @@ const pagesLoginFooter = [
             {
               !tokenUser && !session?.user?.email ? (
                 <>
-                  <h5 class="text-lg font-semibold my-2">¿No Ingresaste?</h5>
+                  <h5 class="text-lg font-semibold my-2">¿No ingresaste?</h5>
                   <ul class="flex flex-col gap-1 w-40 text-sm">
                     {pagesLoginFooter.map(({ name, href }, key) => (
                       <li class="">
@@ -86,17 +86,15 @@ const pagesLoginFooter = [
       </div>
     </div>
   </div>
-  <div class="flex flex-col justify-start mx-4 py-4 gap-2 w-full">
+<!--   <div class="flex flex-col justify-start mx-4 py-4 gap-2 w-full">
     <h4 class="text-lg font-semibold justify-start mx-2">
       Subscribite al Newslatter
     </h4>
     <InputNewslatter />
-  </div>
+  </div> -->
   <div class="w-full">
-    <!-- <h5 class="text-xl font-semibold">Realizado en Soy Henry</h5> -->
-    <p class="text-end text-sm">
-      Esta Pagina fue desarrollada por <strong>TaliextGroup</strong>
-      <!-- <br />Version N° 1.01.01 -->
+    <p class="text-center text-s">
+      © 2024 El Litro | Desarrollo por <strong>Robol Solutions</strong> | Todos los derechos reservados
     </p>
   </div>
 </div>
