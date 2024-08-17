@@ -4,7 +4,7 @@ export const preloadData = {
     startHours: '13:00',
     endHours: '20:00',
     description:
-      'No tengo movilidad propia y soy alergico a las flores. Ademas tengo miedo a las alturas y soy no binario. Cuando llueve no me dejan salir. si un lunes o martes es feriado, no puedo. tengo fulbo',
+      'No tengo movilidad propia',
   },
   users: [
     {
@@ -45,7 +45,7 @@ export const preloadData = {
   Workshops: [
     {
       name: 'Curso de Scrum Master - Liderazgo Ágil',
-      teacher: 'Santiago Martínez',
+      teacher: 'Lisandro Ortega',
       teacherPhone: '123546789',
       photo:
         'https://miro.medium.com/v2/resize:fit:660/1*75T2N4LpTImYJlBXHcrCfw.png',
@@ -55,12 +55,12 @@ export const preloadData = {
       cost: '1500.00',
       days: ['Lunes', 'Viernes'],
       description:
-        'Sumérgete en el mundo del desarrollo ágil y conviértete en un líder efectivo de equipos de trabajo con nuestro curso de Scrum Master, impartido por el experimentado Santiago Martínez. En este curso, aprenderás los principios fundamentales de Scrum, cómo implementarlos en proyectos reales y cómo liderar equipos de manera efectiva para lograr resultados sobresalientes. Santiago te guiará a través de técnicas probadas y te brindará las herramientas necesarias para enfrentar los desafíos del mundo empresarial actual. ¡Únete a nosotros y conviértete en un Scrum Master altamente capacitado y en demanda!',
+        'Sumérgete en el mundo del desarrollo ágil y conviértete en un líder efectivo de equipos de trabajo con nuestro curso de Scrum Master, impartido por el experimentado Lisandro Ortega. En este curso, aprenderás los principios fundamentales de Scrum, cómo implementarlos en proyectos reales y cómo liderar equipos de manera efectiva para lograr resultados sobresalientes.',
     },
 
     {
       name: 'Jardineria',
-      teacher: 'Julian Magallanes',
+      teacher: 'Julia Hernandez',
       teacherPhone: '12341239',
       photo:
         'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716849867/jardineria_pxjewx.jpg',
@@ -71,11 +71,11 @@ export const preloadData = {
       cost: '500.00',
       days: ['Martes'],
       description:
-        '¡Sumérgete en el mundo de la jardinería con nuestro taller dirigido por el experto Julian Magallanes! Aprende todo sobre el cuidado de plantas, diseño de jardines y técnicas de jardinería sostenible. Este curso es perfecto para principiantes y entusiastas de la jardinería por igual. Las clases se llevarán a cabo los martes de 17:00 a 17:45, y el curso se extenderá desde el 3 de mayo hasta el 12 de agosto. ¡No te pierdas esta oportunidad de cultivar tus habilidades en el hermoso arte de la jardinería!',
+        '¡Sumérgete en el mundo de la jardinería con nuestro taller dirigido por el experto Julia Hernandez! Con este curso de jardinería, aprenderás todo lo necesario para cuidar tus plantas y tus flores. ¡No te pierdas esta oportunidad de cultivar tus habilidades en el hermoso arte de la jardinería!',
     },
     {
       name: 'Taekwon-Do',
-      teacher: 'Miguel Tapia',
+      teacher: 'Ángel Lois',
       teacherPhone: '123456879',
       photo:
         'https://mastkd.com/wp-content/uploads/2022/04/the-studio-shot-of-group-of-kids-training-karate-m-2021-08-26-17-41-52-utc-scaled.jpg',
@@ -85,11 +85,11 @@ export const preloadData = {
       cost: '600.00',
       days: ['Lunes', 'Viernes'],
       description:
-        '¡Embárcate en un emocionante viaje hacia el mundo del Taekwon-Do con nuestro curso dirigido por el experimentado instructor Miguel Tapia! Este curso está diseñado para todas las edades y niveles de experiencia, desde principiantes hasta avanzados. No importa si nunca has practicado Taekwon-Do antes, ¡este curso es perfecto para ti! Las clases se llevarán a cabo los lunes y viernes de 17:00 a 18:30, y puedes incorporarte en cualquier momento, ya que las clases están diseñadas para adaptarse a tu nivel. Aprenderás técnicas de defensa personal, formas tradicionales, y mucho más, todo mientras mejoras tu condición física y tu confianza. ¡No te pierdas esta oportunidad de aprender un arte marcial fascinante en un ambiente divertido y acogedor!',
+        '¡Embárcate en un emocionante viaje hacia el mundo del Taekwon-Do con nuestro curso dirigido por el experimentado instructor Ángel Lois! Este curso te hará la mejor defensa posible para tus proyectos de Taekwon-Do. ¡No te pierdas esta oportunidad de aprender un arte marcial fascinante en un ambiente divertido y acogedor!',
     },
     {
       name: 'Musica',
-      teacher: 'Simon Flores',
+      teacher: 'Gerardo Rios',
       teacherPhone: '123456789',
       photo:
         'https://res.cloudinary.com/dzxrc9b6o/image/upload/v1716849864/MUSICA_fwlfyw.webp',
@@ -99,11 +99,11 @@ export const preloadData = {
       cost: '800.00',
       days: ['Lunes', 'Miercoles', 'Viernes'],
       description:
-        '¡Descubre el maravilloso mundo de la música en nuestro taller con el talentoso profesor Simon Flores! En este curso, aprenderás los fundamentos de la teoría musical, técnicas de interpretación y mucho más. No se requiere experiencia previa, ¡solo las ganas de aprender y disfrutar de la música! Las clases se llevarán a cabo los lunes, miércoles y viernes, de 10:00 a 11:00. ¡No te pierdas esta oportunidad única de sumergirte en el apasionante universo de la música!',
+        '¡Descubre el maravilloso mundo de la música en nuestro taller con el talentoso profesor Gerardo Rios! En este curso, aprenderás los fundamentos de la teoría musical, técnicas de interpretación y mucho más. No se requiere experiencia previa, ¡solo las ganas de aprender y disfrutar de la música! Las clases se llevarán a cabo los lunes, miércoles y viernes, de 10:00 a 11:00. ¡No te pierdas esta oportunidad única de sumergirte en el apasionante universo de la música!',
     },
     {
       name: 'Costura y Confección',
-      teacher: 'Valentino Carrero',
+      teacher: 'Valentina Portillo',
       teacherPhone: '124356789',
       photo:
         'https://audaces.com/wp-content/uploads/2021/04/historia-da-costura-2-1536x1024-1.jpg',
@@ -112,11 +112,11 @@ export const preloadData = {
       cost: '500.00',
       days: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
       description:
-        'Sumérgete en el mundo de la costura y la confección con nuestro curso impartido por el talentoso instructor Valentino Carrero. Este curso es perfecto para aquellos que desean aprender desde los conceptos básicos hasta técnicas avanzadas de costura y diseño de moda. Las clases se llevarán a cabo de lunes a viernes, de 09:00 a 10:00, lo que te brinda la flexibilidad de ajustar tu horario según tus necesidades. No importa si eres un principiante completo o si ya tienes experiencia en costura, este curso está diseñado para adaptarse a todos los niveles. Aprenderás a usar una máquina de coser, a tomar medidas, a cortar patrones y a crear tus propias prendas únicas. ¡Únete a nosotros y desata tu creatividad en el fascinante mundo de la costura y la confección!',
+        'Sumérgete en el mundo de la costura y la confección con nuestro curso impartido por la talentosa instructora Valentina Portillo. Este curso es perfecto para aquellos que desean aprender desde los conceptos básicos hasta técnicas avanzadas de costura y diseño de moda. Las clases se llevarán a cabo de lunes a viernes, de 09:00 a 10:00, lo que te brinda la flexibilidad de ajustar tu horario según tus necesidades. No importa si eres un principiante completo o si ya tienes experiencia en costura, este curso está diseñado para adaptarse a todos los niveles. Aprenderás a usar una máquina de coser, a tomar medidas, a cortar patrones y a crear tus propias prendas únicas. ¡Únete a nosotros y desata tu creatividad en el fascinante mundo de la costura y la confección!',
     },
     {
       name: 'Taller de Danzas Árabes: Descubre la Belleza y Elegancia de la Danza Oriental',
-      teacher: 'Nicolas Addamo',
+      teacher: 'Nicol Addam',
       teacherPhone: '123465789',
       photo: 'https://i.ytimg.com/vi/N7-WNR6N8-4/maxresdefault.jpg',
       timeStart: '10:00',
@@ -125,7 +125,7 @@ export const preloadData = {
       cost: '100.00',
       days: ['Viernes', 'Domingo'],
       description:
-        'Sumérgete en el fascinante mundo de las danzas árabes con nuestro taller dirigido por el talentoso Nicolas Addamo. En este curso, explorarás la rica historia y los movimientos cautivadores de la danza oriental. Aprenderás pasos básicos, técnicas de expresión corporal y coreografías emocionantes que te permitirán conectarte con la música y expresarte a través del arte de la danza. No se requiere experiencia previa, ¡solo ven con tu pasión y disposición para aprender! Únete a nosotros en esta aventura cultural y descubre la belleza y elegancia de las danzas árabes.',
+        'Sumérgete en el fascinante mundo de las danzas árabes con nuestro taller dirigido por la talentosa Nicol Addam. En este curso, explorarás la rica historia y los movimientos cautivadores de la danza oriental. Aprenderás pasos básicos, técnicas de expresión corporal y coreografías emocionantes que te permitirán conectarte con la música y expresarte a través del arte de la danza. No se requiere experiencia previa, ¡solo ven con tu pasión y disposición para aprender! Únete a nosotros en esta aventura cultural y descubre la belleza y elegancia de las danzas árabes.',
     },
     {
       name: 'Creación de Currículums Vitae Efectivos',
