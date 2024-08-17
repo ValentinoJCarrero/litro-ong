@@ -7,6 +7,7 @@ if (tokenData) {
   const tokenObject = JSON.parse(tokenData); 
   token = tokenObject.token; 
 }
+
     fetch(`https://litro-ong.onrender.com/news/${id}`, {
         method: 'DELETE',
         headers: {
